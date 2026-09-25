@@ -151,6 +151,7 @@ pour Google Sheets. Les prompts Claude in Chrome sont dans
 | Anthropic | mensuel | 108,00 € | depuis février 2026 ; tarif antérieur différent |
 | Canva | mensuel | 12,00 € | factures sur la boîte **personnelle** du Dr |
 | Argoat, Made in Labs, Straumann, GACD, Rotec, Bredent, Osseo Shop | variable | — | labos, noms de fichiers illisibles |
+| MACSF | annuel | 229,39 € | **deux contrats distincts** : RCP + protection juridique n° 7904376-52, et prévoyance Madelin **P15 001**. Même espace client macsf.fr, identifiant 7904376. L'attestation fiscale Madelin s'y télécharge en janvier pour l'année écoulée. |
 
 ## Le rythme
 
