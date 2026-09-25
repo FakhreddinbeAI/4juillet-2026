@@ -30,6 +30,30 @@ description: >
 Attention : les mails de TGS partent parfois de l'adresse de Florence Daheron
 mais sont **signés Aurélie Guilloteau**. Lire la signature avant de répondre.
 
+## Les sources — où vivent les pièces
+
+**Boîtes mail.** Quatre adresses alimentent la comptabilité. Toutes ne sont
+pas encore branchées sur l'assistant.
+
+| Adresse | Ce qui y arrive | Branchée ? |
+|---|---|---|
+| `contact@implantologielege.com` | l'essentiel : fournisseurs, TGS, patients | oui |
+| `ftighza@gmail.com` | boîte perso du Dr — **Canva**, et très probablement la **prévoyance Madelin P15 001** | **à brancher** |
+| `secretaire@implantologielege.com` | secrétariat | **à brancher** |
+| `assistante@implantologielege.com` | Lucie — reçoit Septodont, GACD | non |
+
+Tant que `ftighza@gmail.com` n'est pas accessible, deux angles morts
+subsistent : les factures Canva et l'identité de l'assureur prévoyance.
+
+**Drive partagé « Lisa et Lucie - Suivi compta »** (id `0AGRDLERQ9FC3Uk9PVA`) :
+c'est le drive lui-même, partagé avec Lisa et Lucie. Lucie y est
+*organisateur*, le compte `contact@` seulement *organisateur de contenu* —
+d'où l'impossibilité de déplacer les fichiers qu'elle y dépose.
+
+**Automatisation Gmail** : dépose les pièces jointes dans `Mon Drive >
+FACTURATION` (id `1Wl82iXKZmGD4iNzYuVN06gQ6jYKnLxCt`) sous leur nom brut. Elle
+ne renomme pas, ne trie pas, ne dépose rien sur le portail.
+
 ## Les dix règles
 
 **1. « Dépôt OK » ne veut pas dire traité.** Sur le portail, `Dépôt OK` et

@@ -31,10 +31,16 @@ reprendre la main avant que TGS ne réclame — leur demande est tombée le
 
 Les pièces arrivent par quatre canaux, et c'est ce qui rend le suivi difficile.
 
+Quatre boîtes mail alimentent la comptabilité. **Deux ne sont pas encore
+branchées** sur l'assistant : `ftighza@gmail.com` et
+`secretaire@implantologielege.com`. Tant que ce n'est pas fait, les factures
+Canva et l'identité de l'assureur prévoyance restent hors de portée.
+
 | Canal | Ce qui y arrive | Où ça atterrit |
 |---|---|---|
-| Automatisation Gmail | pièces jointes des mails reçus | `Mon Drive > FACTURATION` |
-| Boîte perso `ftighza@gmail.com` | Canva, et probablement la prévoyance Madelin | nulle part — à transférer |
+| Automatisation Gmail (`contact@`) | pièces jointes des mails reçus | `Mon Drive > FACTURATION` |
+| `ftighza@gmail.com` — **à brancher** | Canva, prévoyance Madelin P15 001 | nulle part |
+| `secretaire@implantologielege.com` — **à brancher** | secrétariat | nulle part |
 | Courrier papier | COFICA, CPAM, URSSAF, MACSF | scanner → `Scan Cabinet*.pdf` |
 | Espaces clients | ADF, Mutualease, Hostinger, Recept AI | à télécharger à la main |
 | Lisa et Lucie | factures fournisseurs du cabinet | Drive partagé, étape 1 |
