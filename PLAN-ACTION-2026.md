@@ -88,6 +88,12 @@ Dépôt sur https://monespaceclient.tgs-france.fr, puis le fichier descend dans
 **Avant chaque dépôt, chercher la référence dans l'historique.** Bredent a été
 déposé trois fois en 2025, Anthropic d'août deux fois en 2026.
 
+**Un doublon se prouve, il ne se devine pas.** Ouvrir les deux PDF, constater
+le même **numéro de pièce**, puis vérifier un élément de détail — bon de
+livraison, ligne de produit, période. Le montant, le nom de fichier et la
+taille ne sont pas des preuves. Un laboratoire peut facturer 45,00 € deux
+mois de suite pour deux travaux différents.
+
 > Rappel : « Dépôt OK » et « En cours de traitement » veulent dire *reçu, pas
 > encore traité*. L'absence en comptabilité ne prouve rien.
 

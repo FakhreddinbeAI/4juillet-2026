@@ -99,12 +99,22 @@ Chercher chez le vendeur du matériel, pas chez l'organisme de financement.
 
 **7. Vérifier avant de déposer.** Bredent déposé 3×, Anthropic d'août 2×.
 
+**7 bis. UN DOUBLON SE PROUVE, IL NE SE DEVINE PAS.** Ne jamais déclarer
+deux pièces identiques sur la foi du montant, du nom de fichier ou de la
+taille en octets. Il faut **ouvrir les deux PDF** et constater que le
+**numéro de pièce** est le même, puis qu'au moins un élément de détail
+concorde — bon de livraison, ligne de produit, période. Même fournisseur +
+même montant ne prouve rien : un laboratoire peut facturer 45,00 € deux mois
+de suite pour deux travaux différents. Tant que ce n'est pas vérifié, la
+pièce reste où elle est, et on le signale.
+
 **8. Une facture peut être scindée.** NEOHM : 2 210,40 € en deux moitiés.
 
 **9. Certaines demandes ne sont pas des pièces.** TGS pose aussi des questions ;
 elles se répondent par écrit.
 
-**10. Ne jamais conclure depuis un nom de fichier.** Ouvrir le PDF.
+**10. Ne jamais conclure depuis un nom de fichier, une taille ou un montant.**
+Ouvrir le PDF. C'est la règle dont toutes les autres découlent.
 
 ## La convention de nommage
 

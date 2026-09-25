@@ -46,6 +46,13 @@ Pour chacun :
 6. Si tu n'arrives pas a lire le montant, ne devine pas :
    laisse le fichier et dis-le-moi.
 
+7. Si tu penses qu'un fichier est un doublon d'un autre, NE LE DECIDE PAS
+   SEUL. Un meme montant, un meme nom ou une meme taille ne prouvent rien.
+   Ouvre LES DEUX PDF et verifie que le NUMERO DE PIECE est identique, puis
+   qu'un element de detail concorde (bon de livraison, ligne de produit,
+   periode). Si c'est le cas, dis-le-moi et attends ma reponse. Sinon,
+   traite-les comme deux pieces distinctes.
+
 Ne supprime aucun fichier. Ne deplace rien pour l'instant.
 
 Quand les 5 sont renommes, donne-moi la liste :
