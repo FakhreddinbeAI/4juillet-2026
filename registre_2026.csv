@@ -48,7 +48,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-02-28;GOOGLE-WORKSPACE;FACTURE;;GCFRD0011894244;2026-02-01-au-2026-02-28;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
 2026-03-31;GOOGLE-WORKSPACE;FACTURE;;GCFRD0012241282;2026-03-01-au-2026-03-31;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
 2026-04-30;GOOGLE-WORKSPACE;FACTURE;;GCFRD0012563912;2026-04-01-au-2026-04-30;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-05-31;GOOGLE-WORKSPACE;FACTURE;;GCFRD0013126604;2026-05-01-au-2026-05-31;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
+2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA.
 2026-06-30;GOOGLE-WORKSPACE;FACTURE;;GCFRD0013433498;2026-06-01-au-2026-06-30;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
 ;GOOGLE-WORKSPACE;FACTURE;91.08;;2026-09-01-au-2026-09-30;MANQUANT;;Arrivera par mail vers le 1er/2 octobre.
 #
@@ -113,6 +113,27 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 ;MADE-IN-LABS;FACTURE;3089.02;;2026-06-01-au-2026-06-30;MANQUANT;;
 ;MADE-IN-LABS;FACTURE;1705.24;;2026-07-01-au-2026-07-31;MANQUANT;;
 2026-08-27;SEPTODONT;RELANCE;;;;RECU;Mon Drive > FACTURATION;Rappel de paiement. Facture d origine a retrouver.
+#
+# --- GACD — fournisseur decouvert le 25/09/2026 dans FACTURATION ------------
+# Client 10096661. Factures adressees a assistante@implantologielege.com.
+# Reglement a 10 jours date de facture. Absent du registre jusqu'ici.
+2026-07-28;GACD;FACTURE;548.73;2402391923;;RENOMME;Mon Drive > FACTURATION;Commande 1700235938. 457,29 HT + 91,44 TVA. Montant lu dans le PDF.
+2026-08-29;GACD;FACTURE;716.16;2402408753;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465. 596,82 HT + 119,34 TVA. Montant lu dans le PDF.
+2026-09-01;GACD;FACTURE;61.15;2402410567;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465 (serviettes). 50,96 HT + 10,19 TVA. Montant lu dans le PDF.
+2026-09-04;GACD;FACTURE;645.59;2402412732;;RENOMME;Mon Drive > FACTURATION;Commande 1700275308. 537,99 HT + 107,60 TVA. Montant lu dans le PDF.
+;GACD;FACTURE;;;2026-01-01-au-2026-06-30;A_VERIFIER;;GACD facture regulierement mais rien avant juillet 2026 dans FACTURATION. Les factures du 1er semestre sont probablement sur la boite de Lucie (assistante@). A RECUPERER.
+#
+# --- NEOHM ------------------------------------------------------------------
+2026-06-04;NEOHM;FACTURE;1132.80;FR159171;;RENOMME;Mon Drive > FACTURATION;Kit de chirurgie personnalise, 944,00 HT + 188,80 TVA. Arrivee sous forme de RELANCE le 07/09 mais le document contient la facture complete. Reglement par virement BRED.
+#
+# --- NOTRE ACCORD — mediation ------------------------------------------------
+# ATTENTION : ces factures sont etablies au nom de FAKHREDDINE TIGHZA en
+# personne (SIREN 789220928, ftighza@gmail.com), PAS au nom de la SELARL
+# (SIREN 911470177). Le Dr, gerant de la SELARL, a decide le 25/09/2026 que
+# la charge passe a ce titre. Justification a rappeler a TGS si la question
+# se pose.
+2026-02-04;NOTRE-ACCORD;FACTURE;345.48;F-20260204-4412;;RENOMME;Mon Drive > FACTURATION;Provision reunion de mediation du 11/02/2026. 287,90 HT + 57,58 TVA. Mediatrices Coutansais et Fragne.
+2026-03-04;NOTRE-ACCORD;FACTURE;483.68;F-20260304-4565;;RENOMME;Mon Drive > FACTURATION;Provision reunion du 11/03/2026 + quote-part. 403,06 HT + 80,62 TVA. 3 exemplaires recus, 2 doublons sortis en 4 - A TRIER apres verification du numero de piece.
 #
 # --- SOCIAL ET FISCAL (ne passent pas par le circuit factures) ---------------
 2026-08-06;CPAM-VENDEE;INDU;96.75;2606534061;;RENOMME;Mon Drive > Comptabilite > 05 - Fiscal & Social;Lot 466, pieces justificatives non transmises. DELAI DE 2 MOIS pour payer ou contester a compter du 11/08/2026, soit mi-octobre. Penalite financiere possible.
