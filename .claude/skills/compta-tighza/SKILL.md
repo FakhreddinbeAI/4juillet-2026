@@ -42,8 +42,14 @@ pas encore branchées sur l'assistant.
 | `secretaire@implantologielege.com` | secrétariat | **à brancher** |
 | `assistante@implantologielege.com` | Lucie — reçoit Septodont, GACD | non |
 
-Tant que `ftighza@gmail.com` n'est pas accessible, deux angles morts
-subsistent : les factures Canva et l'identité de l'assureur prévoyance.
+**RÈGLE ABSOLUE — cloisonnement.** Rien de `ftighza@gmail.com` ne doit être
+transféré vers `contact@`, `secretaire@` ou `assistante@`. C'est la boîte
+personnelle du Dr : aucun renvoi automatique, aucune règle de transfert,
+aucune copie de masse. On y accède en lecture par connecteur, et on en extrait
+**pièce par pièce** ce qui relève de la comptabilité — rien d'autre.
+
+Tant que `ftighza@gmail.com` n'est pas accessible en lecture, deux angles
+morts subsistent : les factures Canva et l'identité de l'assureur prévoyance.
 
 **Drive partagé « Lisa et Lucie - Suivi compta »** (id `0AGRDLERQ9FC3Uk9PVA`) :
 c'est le drive lui-même, partagé avec Lisa et Lucie. Lucie y est
