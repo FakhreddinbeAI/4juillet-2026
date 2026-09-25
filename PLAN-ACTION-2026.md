@@ -174,21 +174,17 @@ redépose à la main.*
 
 ---
 
-## Ce qui reste ouvert sur le bilan 2025
+## Le bilan 2025 est CLOS
 
-28 lignes réglées sur 34. Il reste :
+Confirmé par la comptable **par téléphone le 25/09/2026**. Le contrat de
+prévoyance a été fourni, et plus rien n'est attendu sur l'exercice 2025 :
+ni les relevés de compte, ni la 2ᵉ facture NEOHM, ni les 642 € de TGS Avocat,
+ni les comptes SCM Legesmile, ni les tableaux de février à avril.
 
-| Ligne | Montant | Chez qui |
-|---|---|---|
-| NEOHM — 2ᵉ facture réf. FR153116 | 1 105,20 € | le fournisseur |
-| TGS France Avocat — 05/09/2025 | 642,00 € | TGS eux-mêmes |
-| SCM Legesmile | — | comptes en cours |
-| Tableaux de suivi février / mars / avril 2025 | — | Lucie |
+**Ne plus relancer personne sur 2025.** Si TGS y revenait, ce serait une
+nouvelle demande, à traiter comme telle.
 
-Plus, demandés récemment : les **relevés de compte 2025** (13 relevés, du
-06/12/2024 au 05/01/2026, cycle LCL du 6 au 5) et l'**attestation Madelin 2025**.
-
----
+Toute l'attention va désormais à l'exercice 2026.
 
 ## Avertissement sur la sauvegarde
 

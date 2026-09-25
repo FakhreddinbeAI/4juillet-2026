@@ -63,6 +63,16 @@ d'où l'impossibilité de déplacer les fichiers qu'elle y dépose.
 FACTURATION` (id `1Wl82iXKZmGD4iNzYuVN06gQ6jYKnLxCt`) sous leur nom brut. Elle
 ne renomme pas, ne trie pas, ne dépose rien sur le portail.
 
+## État du dossier
+
+**L'exercice 2025 est CLOS** — confirmé par la comptable par téléphone le
+25/09/2026. Le contrat de prévoyance a été fourni. Plus rien n'est attendu
+sur 2025 : ne plus relancer personne dessus. Si TGS y revenait, ce serait une
+nouvelle demande.
+
+**L'exercice en cours est 2026**, clos au 31/12/2026, demande TGS attendue
+vers juillet 2027.
+
 ## Les dix règles
 
 **1. « Dépôt OK » ne veut pas dire traité.** Sur le portail, `Dépôt OK` et
