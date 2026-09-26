@@ -123,3 +123,75 @@ que je te le dise.
 Les espaces à faire : **ADF** (la vraie facture du congrès, pas la
 confirmation), **Mutualease**, **Aries / Entrepreneurs.com**, **Canva**,
 **Hostinger**, **Recept AI**, **La Fraise Pro**.
+
+---
+
+## PROMPT 4 — relevés de banque BNP
+
+Les relevés **ne vont pas sur le Drive** : ils contiennent des noms de
+patients dans les libellés de virements et de chèques. Ils restent sur le
+disque du PC jusqu'au dépôt sur le portail TGS.
+
+Préalable, sinon l'extension n'a pas la main sur le disque :
+- créer `C:\Compta 2026\Releves BNP`
+- `chrome://settings/downloads` → **Toujours demander où enregistrer**
+
+```
+Connecte-toi a mon espace bancaire BNP Paribas
+(mabanque.bnpparibas, ou entreprises.bnpparibas.net selon le compte).
+
+Je cherche les RELEVES DE COMPTE de l'exercice 2026 pour mon
+comptable : janvier a aout 2026. Septembre n'est pas cloture,
+on le prendra plus tard.
+
+ETAPE 1 - LISTER, NE RIEN TELECHARGER.
+
+Va dans les documents / releves de compte.
+Donne-moi la liste de tout ce qui existe sur 2026 :
+- le numero ou l'intitule du compte
+- le mois couvert
+- la date d'arrete
+- s'il y a plusieurs comptes, dis-le et liste-les separement
+
+S'il y a un compte courant ET un compte a terme, un livret,
+ou un compte CB commercant, je les veux tous : le comptable
+a besoin de l'integralite des comptes de la societe.
+
+Arrete-toi la et attends ma reponse.
+
+ETAPE 2 - TELECHARGER (seulement quand je te le dis).
+
+Telecharge les 4 premiers releves de la liste, dans ce dossier :
+C:\Compta 2026\Releves BNP
+
+Nomme chaque fichier ainsi :
+ANNEE-MOIS-JOUR_BNP_RELEVE_COMPTE-XXXX_PAAAA-MM-JJ-au-AAAA-MM-JJ.pdf
+
+La date du debut est la date d'ARRETE du releve.
+COMPTE-XXXX = les 4 derniers chiffres du numero de compte.
+
+Exemple :
+2026-01-31_BNP_RELEVE_COMPTE-4127_P2026-01-01-au-2026-01-31.pdf
+2026-02-28_BNP_RELEVE_COMPTE-4127_P2026-02-01-au-2026-02-28.pdf
+
+Regles :
+- Ouvre chaque PDF et verifie la periode avant de le nommer.
+  Ne te fie pas au nom propose par la banque.
+- Si un mois manque dans la liste, dis-le-moi, ne l'invente pas.
+- Ne telecharge que les releves. Pas les avis d'operation,
+  pas les echelles d'interet, pas les RIB.
+- Ne supprime rien, ne modifie aucun parametre du compte.
+
+Quand les 4 sont la, donne-moi la liste : nom du fichier,
+periode reelle lue dans le PDF, solde de debut et solde de fin.
+```
+
+Relancer l'étape 2 pour les quatre suivants.
+
+**Pourquoi demander les soldes.** Le solde de fin de janvier doit être le
+solde de début de février. Si la chaîne casse, c'est qu'il manque un
+relevé — et on le voit tout de suite, pas en juillet 2027.
+
+**Pourquoi la référence du compte dans le nom.** Sans elle, `compta2026.py`
+lit la période comme une référence et la détection de trous ne fonctionne
+plus. `COMPTE-XXXX` occupe la place et le `_P...` est reconnu.
