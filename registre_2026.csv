@@ -139,3 +139,11 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-08-06;CPAM-VENDEE;INDU;96.75;2606534061;;RENOMME;Mon Drive > Comptabilite > 05 - Fiscal & Social;Lot 466, pieces justificatives non transmises. DELAI DE 2 MOIS pour payer ou contester a compter du 11/08/2026, soit mi-octobre. Penalite financiere possible.
 2026-08-07;URSSAF;AFFILIATION;;527258240324;;RENOMME;Mon Drive > Comptabilite > 07 - RH & Paie;Compte employeur ouvert, embauche au 01/05/2026. DSN mensuelle due le 15. A verifier avec In Extenso.
 ;MACSF;ATTESTATION;;P15-001;2026-01-01-au-2026-12-31;MANQUANT;;ATTESTATION FISCALE MADELIN, contrat de prevoyance P15 001. ASSUREUR = MACSF, meme espace client que la RCP : macsf.fr, identifiant 7904376. L attestation 2025 a ete fournie a TGS (confirme le 25/09/2026). Celle de 2026 se telechargera sur macsf.fr en janvier 2027 : ne pas refaire la recherche.
+2026-01-31;BNP-2112;RELEVE;;26001;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Compte pro BNP Reze Pont Rousseau. Titulaire M TIGHZA FAKHREDDINE personne physique, PAS la SELARL. Solde 972.60 -> 1686.53
+2026-02-28;BNP-2112;RELEVE;;26002;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1686.53 -> 2550.80
+2026-03-31;BNP-2112;RELEVE;;26003;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 2550.80 -> 1693.37
+2026-04-30;BNP-2112;RELEVE;;26004;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1693.37 -> 1019.63
+2026-05-31;BNP-2112;RELEVE;;26005;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1019.63 -> 334.12
+2026-06-30;BNP-2112;RELEVE;;26006;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 334.12 -> 1116.70
+2026-07-31;BNP-2112;RELEVE;;26007;2026-07-01-au-2026-07-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1116.70 -> 9550.55
+2026-08-31;BNP-2112;RELEVE;;26008;2026-08-01-au-2026-08-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 9550.55 -> 6938.07. Virement emis 10 000 EUR vers SELARL TIGHZA le 26/08
