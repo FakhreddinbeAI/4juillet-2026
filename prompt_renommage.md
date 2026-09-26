@@ -97,6 +97,16 @@ En retour, pour chaque fichier : depose ou deja present, date et heure,
 categorie choisie, statut.
 ```
 
+**Pour des relevés bancaires**, deux changements : la catégorie est
+*relevés bancaires* et non *factures fournisseurs*, et le numéro à chercher
+dans l'historique est le **numéro de relevé** — les cinq chiffres à la fin du
+nom de fichier (`25001`). Le dossier des relevés 2025 est
+`https://drive.google.com/drive/folders/1X-qNAgyC_SyPa-hM6m8X-XTTdCsNQ3mZ`.
+
+Et il faut dire explicitement à Chrome de **ne pas déposer le fichier
+`_DUPLICATA`** : il est dans le même dossier, il porte le même numéro que le
+25001, et rien dans son nom ne l'empêche d'être pris pour une pièce de plus.
+
 ---
 
 ## PROMPT 3 — faire le tour des espaces clients
