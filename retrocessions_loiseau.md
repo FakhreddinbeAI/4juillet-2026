@@ -42,7 +42,7 @@ Les douze mois de décembre 2024 à novembre 2025 sont couverts, sans trou.
 
 ---
 
-## Exercice 2026 — 38 127,53 € au 31 août
+## Exercice 2026 — 41 901,54 € au 31 août
 
 | Encaissé le | Période rétrocédée | Montant | Relevé |
 |---|---|---:|---|
@@ -55,7 +55,7 @@ Les douze mois de décembre 2024 à novembre 2025 sont couverts, sans trou.
 | 31/07/2026 | juin, 1ʳᵉ partie | 5 709,37 | 26007 |
 | 03/08/2026 | juin, 2ᵉ partie | 5 709,37 | 26008 |
 | 24/08/2026 | juillet | 13 363,66 | 26008 |
-| | **Total rétrocessions** | **38 127,53** | |
+| | **Total rétrocessions** | **41 901,54** | |
 
 Le relevé de **mai 2026 ne porte aucun encaissement** : la rétrocession
 d'avril est arrivée le 1ᵉʳ juin.
