@@ -44,12 +44,12 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # facture de JUIN. Toujours se fier a la periode.
 2026-07-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013852502;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF : 75,90 HT + 15,18 TVA.
 2026-08-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0014124467;2026-08-01-au-2026-08-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.
-2026-01-31;GOOGLE-WORKSPACE;FACTURE;;GCFRD0011667476;2026-01-01-au-2026-01-31;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;Fichier present sous un ancien nommage. MONTANT NON VERIFIE.
-2026-02-28;GOOGLE-WORKSPACE;FACTURE;;GCFRD0011894244;2026-02-01-au-2026-02-28;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-03-31;GOOGLE-WORKSPACE;FACTURE;;GCFRD0012241282;2026-03-01-au-2026-03-31;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-04-30;GOOGLE-WORKSPACE;FACTURE;;GCFRD0012563912;2026-04-01-au-2026-04-30;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
+2026-01-31;GOOGLE-WORKSPACE;FACTURE;87.41;GCFRD0011667476;2026-01-01-au-2026-01-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;Google Workspace Business Plus, 3 comptes. 72,84 HT + 20%. Montant LU dans le PDF.
+2026-02-28;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0011894244;2026-02-01-au-2026-02-28;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
+2026-03-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012241282;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
+2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
 2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA.
-2026-06-30;GOOGLE-WORKSPACE;FACTURE;;GCFRD0013433498;2026-06-01-au-2026-06-30;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
+2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
 ;GOOGLE-WORKSPACE;FACTURE;91.08;;2026-09-01-au-2026-09-30;MANQUANT;;Arrivera par mail vers le 1er/2 octobre.
 #
 # --- ANTHROPIC — Max plan 5x, 108,00 EUR/mois (90,00 HT + 18,00 TVA) ---------
@@ -63,12 +63,12 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # du 09/07/2026, sous un ancien nommage. Montants NON VERIFIES : le plan a
 # change en avril (deux factures en 04/2026), le tarif n'etait pas 108,00 avant.
 # L'abonnement demarre en FEVRIER 2026 : janvier n'est donc pas un trou.
-2026-02-10;ANTHROPIC;FACTURE;;HKTDOLB4-0001;2026-02-10-au-2026-03-10;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-03-10;ANTHROPIC;FACTURE;;HKTDOLB4-0002;2026-03-10-au-2026-04-10;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-04-10;ANTHROPIC;FACTURE;;HKTDOLB4-0003;2026-04-10-au-2026-05-10;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE. Deux factures en avril : changement de formule probable.
-2026-04-13;ANTHROPIC;FACTURE;;HKTDOLB4-0004;2026-04-13-au-2026-05-13;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-05-13;ANTHROPIC;FACTURE;;HKTDOLB4-0005;2026-05-13-au-2026-06-13;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
-2026-06-13;ANTHROPIC;FACTURE;;HKTDOLB4-0006;2026-06-13-au-2026-07-13;A_VERIFIER;Mon Drive > Comptabilite > factures abonnements;MONTANT NON VERIFIE.
+2026-02-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0001;2026-02-10-au-2026-03-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%. PAS 108 EUR : le plan Max ne commence qu'en avril.
+2026-03-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0002;2026-03-10-au-2026-04-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%.
+2026-04-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0003;2026-04-10-au-2026-05-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%. Derniere facture au tarif Pro.
+2026-04-13;ANTHROPIC;FACTURE;88.69;HKTDOLB4-0004;2026-04-13-au-2026-05-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Passage au plan Max 5x le 13/04 : 90,00 HT moins 16,09 de prorata sur le Pro non consomme, + 20%. Ce n est pas un doublon de la 0003.
+2026-05-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0005;2026-05-13-au-2026-06-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF.
+2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF.
 #
 # --- ARGOAT — laboratoire de prothese, montant variable, TVA 0% (art 264-4-1) -
 2026-04-01;ARGOAT;FACTURE;45.00;ARG12031;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.
@@ -91,6 +91,13 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # 990,00 au fournisseur + 29,70 de COMMISSION DE CHANGE LCL (3,00%).
 # La commission s impute en FRAIS BANCAIRES, pas en formation.
 ;ARIES;FACTURE;990.00;;2026-01-01-au-2026-01-31;MANQUANT;;Exonere de TVA (export de services, societe de Dubai).
+2026-02-01;ARIES;FACTURE;990.00;F-2026-02-000008793;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Incubateur Solo x9. 990,00 HT, TVA aucune (export de services EAU). Echeance 16/02. Ref virement PLD8QCOT1OJZZZ.
+2026-03-01;ARIES;FACTURE;990.00;F-2026-03-000009276;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Echeance 16/03. Ref virement PLADGSRCQATDZZ. NE PAS confondre avec la 009829 : meme montant, numero et reference differents.
+2026-03-30;ARIES;FACTURE;990.00;F-2026-03-000009829;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/03 mais echeance 14/04 : c est le mois d AVRIL. Ref virement PL2ZU6B2C1HEZZ. Verifie contre la 009276, ce n est pas un doublon.
+2026-04-30;ARIES;FACTURE;990.00;F-2026-04-0000010320;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/04, echeance 15/05 : mois de MAI. Ref virement PLDDLZCBBWH1ZZ.
+2026-05-31;ARIES;FACTURE;990.00;INV-2026-01345;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Nouveau format de numerotation. AUTOLIQUIDATION art 44 dir 2006/112/CE : la TVA est due par le preneur, a signaler au comptable. Numero fiscal client 91147017700013.
+;ARIES;FACTURE;990.00;;2026-07-01-au-2026-07-31;MANQUANT;;Rien recu depuis la facture de juin. A telecharger sur l espace entrepreneurs.com.
+;ARIES;FACTURE;990.00;;2026-08-01-au-2026-08-31;MANQUANT;;
 #
 # --- MACSF — RCP + Protection juridique SELARL, contrat 7904376-52 -----------
 2026-06-03;MACSF;ATTESTATION;229.39;7904376-52;2026-07-01-au-2027-06-30;RECU;Mon Drive > Macsf assurance 2026-2027;Avis d echeance + attestation. 229,39 EUR/an preleves 19,11 EUR/mois de 07/2026 a 06/2027.
@@ -101,6 +108,12 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # --- CANVA — 12,00 EUR/mois --------------------------------------------------
 # Les factures arrivent sur la boite PERSONNELLE ftighza@gmail.com et non sur
 # contact@. Rien de posterieur au 06/06/2026 dans la boite du cabinet.
+2026-01-06;CANVA;FACTURE;12.00;04753-52817600-1;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Facture adressee a fakhreddine tighza / ftighza@gmail.com, SANS SIREN : ce n est pas la SELARL qui est cliente. A faire valider par le comptable.
+2026-02-06;CANVA;FACTURE;12.00;04784-61986565-1;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
+2026-03-06;CANVA;FACTURE;12.00;04812-63634805-1;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
+2026-04-06;CANVA;FACTURE;12.00;04843-58576697-1;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
+2026-05-06;CANVA;FACTURE;12.00;04873-50448095-1;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
+2026-06-06;CANVA;FACTURE;12.00;04904-74747500-1;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Derniere facture presente dans le Drive.
 ;CANVA;FACTURE;12.00;;2026-07-01-au-2026-07-31;MANQUANT;;A recuperer sur la boite perso ou sur canva.com.
 ;CANVA;FACTURE;12.00;;2026-08-01-au-2026-08-31;MANQUANT;;
 #
@@ -136,7 +149,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-03-04;NOTRE-ACCORD;FACTURE;483.68;F-20260304-4565;;RENOMME;Mon Drive > FACTURATION;Provision reunion du 11/03/2026 + quote-part. 403,06 HT + 80,62 TVA. 3 exemplaires recus, 2 doublons sortis en 4 - A TRIER apres verification du numero de piece.
 #
 # --- SOCIAL ET FISCAL (ne passent pas par le circuit factures) ---------------
-2026-08-06;CPAM-VENDEE;INDU;96.75;2606534061;;RENOMME;Mon Drive > Comptabilite > 05 - Fiscal & Social;Lot 466, pieces justificatives non transmises. DELAI DE 2 MOIS pour payer ou contester a compter du 11/08/2026, soit mi-octobre. Penalite financiere possible.
+2026-08-06;CPAM-VENDEE;INDU;96.75;2606534061;;RENOMME;Mon Drive > Comptabilite > 05 - Fiscal & Social;Lot 466, pieces justificatives non transmises. Delai de 2 mois a compter du 11/08/2026. CONFIE A LUCIE le 28/09/2026, elle s en occupe. Ne pas relancer le Dr dessus.
 2026-08-07;URSSAF;AFFILIATION;;527258240324;;RENOMME;Mon Drive > Comptabilite > 07 - RH & Paie;Compte employeur ouvert, embauche au 01/05/2026. DSN mensuelle due le 15. A verifier avec In Extenso.
 ;MACSF;ATTESTATION;;P15-001;2026-01-01-au-2026-12-31;MANQUANT;;ATTESTATION FISCALE MADELIN, contrat de prevoyance P15 001. ASSUREUR = MACSF, meme espace client que la RCP : macsf.fr, identifiant 7904376. L attestation 2025 a ete fournie a TGS (confirme le 25/09/2026). Celle de 2026 se telechargera sur macsf.fr en janvier 2027 : ne pas refaire la recherche.
 2026-01-31;BNP-2112;RELEVE;;26001;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Compte pro BNP Reze Pont Rousseau. Titulaire M TIGHZA FAKHREDDINE personne physique, PAS la SELARL. Solde 972.60 -> 1686.53
