@@ -182,3 +182,9 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # Drive ne renvoie rien. Il faut les ouvrir a l oeil ou via Claude in Chrome.
 ;A-IDENTIFIER;FACTURE;;Scan2026-07-30_121631;;A_VERIFIER;Drive partage > Brother (scans du 30/07/2026);2 pages. drive.google.com/file/d/1i3IIKijHBSPUJnvQhOm6o3t_Xyz7oqTh
 ;A-IDENTIFIER;FACTURE;;Scan2026-07-30_121442;;A_VERIFIER;Drive partage > Brother (scans du 30/07/2026);2 pages. drive.google.com/file/d/1iSUB8p9QrlMYfmNFLg5yH3Nf1-2WxEzQ
+#
+# --- DGFIP / SIE DE NANTES LOIRE ---------------------------------------------
+2026-02-16;DGFIP;RELANCE;22.00;AMR-2026-01-05471;;RECU;Drive partage > Scan09032026.pdf;MISE EN DEMEURE DE PAYER, vaut commandement de payer. TVS emissions CO2, periode decembre 2025. 22,00 de droits + 1,00 de penalite, 1,00 deja verse, reste 22,00. Delai de 30 jours ECHU DEPUIS MARS 2026, saisie de meubles possible. Creance 202611360, dossier 1-523997, MDP 20260200415. A VERIFIER SI C EST PAYE. Le courrier designe la societe comme SELARL TIGHZA SANS ACTIVITE : a faire corriger aupres du SIE.
+#
+# --- RECETTES ----------------------------------------------------------------
+2026-05-07;NOTE-HONORAIRES;FACTURE;232.00;2825;;RENOMME;Compta Cabinet Tighza > 02 - Recettes;Acte TO45 du 07/05/2026. 232,00 d honoraires, base de remboursement AMO 96,75, reste a charge patient 135,25. Sortie de FACTURATION, renommee sans le nom du patient. PISTE A VERIFIER : la base de 96,75 est exactement le montant de l indu CPAM Vendee (creance 2606534061, lot 466, pieces justificatives non transmises). Pour un TO45 il faut une entente prealable. A confirmer par Lucie.
