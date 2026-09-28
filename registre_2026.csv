@@ -160,3 +160,25 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-06-30;BNP-2112;RELEVE;;26006;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 334.12 -> 1116.70
 2026-07-31;BNP-2112;RELEVE;;26007;2026-07-01-au-2026-07-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1116.70 -> 9550.55
 2026-08-31;BNP-2112;RELEVE;;26008;2026-08-01-au-2026-08-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 9550.55 -> 6938.07. Virement emis 10 000 EUR vers SELARL TIGHZA le 26/08
+#
+# --- STRAUMANN — implants, client 15133626 -----------------------------------
+# Adresse de facturation : SELARL TIGHZA / LOISEAU JOHANNE. Livraison chez
+# Argoat Dentaire. Tout vient de la 2e relance du 24/07/2026, qui porte le
+# releve de compte complet ET la reimpression de la facture 9060107688.
+2026-05-26;STRAUMANN;FACTURE;100.74;9060107688;;RECU;Drive partage > Brother (scans du 30/07/2026);WN Pilier Variobase avec vis, 100,00 moins remise 26% = 74,00 + 9,95 de port + 16,79 TVA. Echeance 25/06. Facture REIMPRIMEE en entier dans le scan.
+2026-06-16;STRAUMANN;FACTURE;100.74;9060125749;;MANQUANT;;Connue par la SEULE ligne du releve de compte du 24/07 : date, echeance 16/07, montant. La facture elle-meme n a pas ete vue. A tirer de l eShop straumann.fr.
+2026-06-30;STRAUMANN;AVOIR;88.80;9060136144;;RECU;Drive partage > Brother (scans du 30/07/2026);AVOIR, montant negatif au releve. Le coupon de paiement est scanne (page 2 sur 2) ; la page 1 manque.
+2026-07-24;STRAUMANN;RELANCE;112.68;;;RECU;Drive partage > Brother (scans du 30/07/2026);Deuxieme relance. Total echu 100,74, solde du compte 112,68. Verifie : 100,74 + 100,74 - 88,80 = 112,68.
+#
+# --- ORDRE NATIONAL DES CHIRURGIENS-DENTISTES --------------------------------
+2026-07-23;ONCD;RELANCE;462.00;262785280708;2026-01-01-au-2026-12-31;RECU;Drive partage > Brother (scans du 30/07/2026);Cotisation ordinale 2026, EXIGIBLE AU 31 MARS. Rappel du 23/07 avec un mois pour regulariser, donc echu depuis fin aout. Praticien n 66298. L attestation de reglement se telecharge sur cotisation.ordre-chirurgiens-dentistes.fr avec le numero d appel. A VERIFIER SI C EST PAYE.
+#
+# --- DIVERS 2026 -------------------------------------------------------------
+2026-07-22;ANTAI;FACTURE;50.00;21440109300015-26-2-185-023-033;;RECU;Drive partage > Brother (scans du 30/07/2026);Forfait de post-stationnement, Nantes, 7 quai des Antilles le 04/07/2026. Vehicule VOLVO GT-908-PS au nom de la SELARL. Un FPS est une redevance, pas une amende : la deductibilite se demande au comptable. Majoration si impaye 3 mois apres le 22/07.
+2026-07-29;LA-CASCADE;TICKET;69.20;A167;;RECU;Drive partage > Brother (scans du 30/07/2026);Bar, Clisson. Le ticket porte la mention NON PAYE. Frais de reception : il faut le motif professionnel et les convives, sinon ce n est pas deductible.
+#
+# --- SCANS BROTHER NON DECHIFFRES --------------------------------------------
+# Deux PDF du 30/07/2026 sont des images sans couche texte. Le connecteur
+# Drive ne renvoie rien. Il faut les ouvrir a l oeil ou via Claude in Chrome.
+;A-IDENTIFIER;FACTURE;;Scan2026-07-30_121631;;A_VERIFIER;Drive partage > Brother (scans du 30/07/2026);2 pages. drive.google.com/file/d/1i3IIKijHBSPUJnvQhOm6o3t_Xyz7oqTh
+;A-IDENTIFIER;FACTURE;;Scan2026-07-30_121442;;A_VERIFIER;Drive partage > Brother (scans du 30/07/2026);2 pages. drive.google.com/file/d/1iSUB8p9QrlMYfmNFLg5yH3Nf1-2WxEzQ
