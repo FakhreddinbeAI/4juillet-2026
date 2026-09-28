@@ -33,9 +33,9 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-07-29;COFICA;FACTURE;1353.76;750004820768;2026-02-05-au-2026-03-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Duplicata emis le 29/07/2026. Montant lu dans le PDF.
 2026-07-28;COFICA;FACTURE;1353.76;750004815707;2026-08-05-au-2026-09-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF.
 ;COFICA;FACTURE;1353.76;;2026-03-05-au-2026-04-04;MANQUANT;;A reclamer a Cofica Bail, agence 95908.
-;COFICA;FACTURE;1353.76;;2026-04-05-au-2026-05-04;MANQUANT;;
+2026-03-27;COFICA;FACTURE;1353.76;750004747696;2026-04-05-au-2026-05-04;RECU;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF. Fichier nomme 2026-03-27_Cofica-Bail_Facture-Loyer.pdf : la date du nom est celle d EMISSION, la periode couvre AVRIL. A renommer.
 ;COFICA;FACTURE;1353.76;;2026-05-05-au-2026-06-04;MANQUANT;;
-;COFICA;FACTURE;1353.76;;2026-06-05-au-2026-07-04;MANQUANT;;
+2026-05-28;COFICA;FACTURE;1353.76;750004781830;2026-06-05-au-2026-07-04;RECU;Drive partage (racine 0AF4CviDfBKmdUk9PVA);Montant lu dans le PDF. Fichier nomme 'Cofibail 06-07 2026', SANS EXTENSION : invisible a toute recherche par nom de fichier. A renommer.
 ;COFICA;FACTURE;1353.76;;2026-07-05-au-2026-08-04;MANQUANT;;
 #
 # --- GOOGLE WORKSPACE — Business Plus, 3 utilisateurs, 91,08 EUR/mois ---------
@@ -124,7 +124,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-08-17;MADE-IN-LABS;RELANCE;8316.98;;;RENOMME;Mon Drive > Factures_impayees;Solde debiteur. 3 factures impayees : 3 522,72 (31/05), 3 089,02 (30/06), 1 705,24 (31/07). LES 3 FACTURES ELLES-MEMES SONT A RECUPERER.
 ;MADE-IN-LABS;FACTURE;3522.72;;2026-05-01-au-2026-05-31;MANQUANT;;
 ;MADE-IN-LABS;FACTURE;3089.02;;2026-06-01-au-2026-06-30;MANQUANT;;
-;MADE-IN-LABS;FACTURE;1705.24;;2026-07-01-au-2026-07-31;MANQUANT;;
+2026-07-31;MADE-IN-LABS;FACTURE;1705.24;36187;2026-07-01-au-2026-07-31;RECU;Drive partage > Lisa - Lucie : factures a regler;1 694,70 HT + 10,54 TVA (une gouttiere de bruxisme a 20%, le reste exonere art 261-4-1 CGI). Fichier nomme 'MADE IN LABS JUILLET ', sans extension et avec une espace finale. A renommer.
 2026-08-27;SEPTODONT;RELANCE;;;;RECU;Mon Drive > FACTURATION;Rappel de paiement. Facture d origine a retrouver.
 #
 # --- GACD — fournisseur decouvert le 25/09/2026 dans FACTURATION ------------
