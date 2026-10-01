@@ -36,7 +36,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-03-27;COFICA;FACTURE;1353.76;750004747696;2026-04-05-au-2026-05-04;RECU;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF. Fichier nomme 2026-03-27_Cofica-Bail_Facture-Loyer.pdf : la date du nom est celle d EMISSION, la periode couvre AVRIL. A renommer.
 ;COFICA;FACTURE;1353.76;;2026-05-05-au-2026-06-04;MANQUANT;;
 2026-05-28;COFICA;FACTURE;1353.76;750004781830;2026-06-05-au-2026-07-04;RECU;Drive partage (racine 0AF4CviDfBKmdUk9PVA);Montant lu dans le PDF. Fichier nomme 'Cofibail 06-07 2026', SANS EXTENSION : invisible a toute recherche par nom de fichier. A renommer.
-;COFICA;FACTURE;1353.76;;2026-07-05-au-2026-08-04;MANQUANT;;
+2026-06-26;COFICA;FACTURE;1353.76;750004798493;2026-07-05-au-2026-08-04;RENOMME;Drive partage > Brother > Financement et leasing;1 303,76 de loyer + 50,00 d assurance financiere. Lue par Claude in Chrome, scan sans couche texte.
 #
 # --- GOOGLE WORKSPACE — Business Plus, 3 utilisateurs, 91,08 EUR/mois ---------
 # Les factures sont emises le dernier jour du mois et envoyees le 1er ou 2 du
@@ -209,12 +209,33 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # se tire du contenu, jamais de la taille ni de l horodatage (regle 10).
 # Deux voies : attendre que Google Drive termine son OCR et relire, ou les ouvrir
 # avec Claude in Chrome, qui voit les pages telles qu elles s affichent.
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164435;;A_VERIFIER;Drive > Brother;865 ko. Illisible par le connecteur. drive.google.com/file/d/1KIDZ69BBYRUrjiKRRZ1jsq0OKEF5A_tj
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164512;;A_VERIFIER;Drive > Brother;371 ko. Illisible par le connecteur. drive.google.com/file/d/1tXpzFc6UrL35VvjO7ZIjT_Txj7QXUhKY
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164529;;A_VERIFIER;Drive > Brother;596 ko. Illisible par le connecteur. drive.google.com/file/d/1sXbATppfQs7lnWvzPNB3vJW49tu2qESz
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164544;;A_VERIFIER;Drive > Brother;451 ko. Illisible par le connecteur. drive.google.com/file/d/1PsQu6lkw2sco_0fJCXYHNTpgd4K5t4P-
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164602;;A_VERIFIER;Drive > Brother;335 ko. Illisible par le connecteur. drive.google.com/file/d/1lFKmgHbsS0e7-lmQ2RzAiP2MZzTTQYaa
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164650;;A_VERIFIER;Drive > Brother;837 ko. Illisible par le connecteur. drive.google.com/file/d/1Zgl2KNaAmd9mXBQGeOhBHQiTaKw9yQB3
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164720;;A_VERIFIER;Drive > Brother;823 ko. Illisible par le connecteur. drive.google.com/file/d/1RgqTf5ZLGcqMHyutlriHhHBcXUkfumPd
 ;A-IDENTIFIER;FACTURE;;Scan2026-10-01_165100;;A_VERIFIER;Drive > 04 - Contrats;4,3 Mo. Illisible par le connecteur. drive.google.com/file/d/1afPPDjfCnn7zOQ_1cxSKlpgegJlVCyrO
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_165500;;A_VERIFIER;Drive > Brother;682 ko. Illisible par le connecteur. drive.google.com/file/d/1GzbgqdSDwKOYlQSxiDfZ63L9V27p9wwf
+#
+# --- COFICA septembre, retrouve le 01/10 -------------------------------------
+2026-08-28;COFICA;FACTURE;1353.76;750004832398;2026-09-05-au-2026-10-04;RENOMME;Drive partage > Brother > Financement et leasing;Lue par Claude in Chrome, scan sans couche texte. Verifie contre la 750004798493 : numeros, dates d emission et periodes differents, ce ne sont pas des doublons.
+#
+# --- STRAUMANN, suite — DEUX comptes clients distincts ------------------------
+# 9060181129 est sur le compte 15133210, les deux autres sur 15133626. A
+# ventiler separement si le comptable le demande.
+2026-09-16;STRAUMANN;FACTURE;172.74;9060181129;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte client 15133210. RC Variobase + analogue, livres au labo Argoat. Echeance 16/10/2026. La reference de commande contient un nom de patient : ne pas la reporter dans le nom de fichier.
+2026-09-18;STRAUMANN;FACTURE;33.21;9060182966;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. Analogue d implant WN, BL 849155730. Echeance 18/10/2026.
+2026-09-18;STRAUMANN;FACTURE;97.72;9060183030;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. WN Variobase diametre 7 mm, BL 849155553. Echeance 18/10/2026. Meme commande que la 9060182966 mais numero, BL et produit differents : PAS un doublon, verifie.
+#
+# --- SEPTODONT — client 1034064 ----------------------------------------------
+# La relance du 11/09 est INTEGRALEMENT couverte par des pieces deja au Drive.
+# Rien a reclamer au fournisseur : il n y a qu a payer.
+# 763,76 (solde du compte) = 364,73 + 383,63 (echues) + 15,40 (pas encore echue
+# au jour de la relance). L ecart de 15,40 entre les deux montants du courrier
+# est donc explique au centime.
+2026-06-25;SEPTODONT;FACTURE;359.02;90049585;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Image InlayCore. Echeance 10/07/2026. Absente de la relance du 11/09, donc reglee.
+2026-07-28;SEPTODONT;FACTURE;364.73;90056093;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Endomethasone. 303,94 HT + 60,79 TVA. Echeance 12/08/2026, ECHUE. Contrat 000055814.
+2026-07-28;SEPTODONT;FACTURE;383.63;90056020;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septanest, Septoject, Scandonest. DEUX TAUX DE TVA : 21,35 a 20 % et 5,26 a 2,10 % sur les anesthesiques. Echeance 12/08/2026, ECHUE. Contrat 000054880.
+2026-09-03;SEPTODONT;FACTURE;15.40;90060529;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septoject. Echeance 18/09/2026, non echue au jour de la relance : c est elle qui explique l ecart de 15,40.
+2026-09-11;SEPTODONT;RELANCE;763.76;1034064;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Deuxieme relance. Total des factures dues 748,36, solde du compte 763,76. Les trois factures sont identifiees et presentes.
+#
+# --- ZFX LYON ----------------------------------------------------------------
+2026-06-04;ZFX;RELANCE;253.99;D-2606.08953;;RENOMME;Drive partage > Brother > Courriers fournisseurs;MISE EN DEMEURE portant sur la facture R-2602.52453 du 13/02/2026. Solde du 253,99.
+;ZFX;FACTURE;253.99;R-2602.52453;;MANQUANT;;Connue par la SEULE mise en demeure du 04/06/2026. La facture elle-meme n a pas ete vue. A reclamer a Zfx Lyon.
+#
+# --- CPAM VENDEE — l origine de l indu est trouvee ----------------------------
+2026-06-15;CPAM-VENDEE;RELANCE;96.75;LOT466;;RENOMME;Compta Cabinet Tighza > 05 - Fiscal & Social;Centre Prescripteurs, identifiant 444704100. La CPAM reclame les JUSTIFICATIFS PAPIER (bordereau + feuille de soins) du lot 466 : 1 facture telétransmise en mode non securise le 07/05/2026, payee le 12/05/2026, 96,75. Sans reponse au 30/06/2026 elle constate un indu — ce qu elle a fait le 06/08. C EST DONC LA PIECE QUI MANQUAIT POUR COMPRENDRE L INDU. Ce qu il faut produire : le bordereau et la feuille de soins de ce lot. L acte correspondant est le TO45 du 07/05/2026 de la note d honoraires 2825, dont la base AMO est exactement 96,75. A transmettre a Lucie.
