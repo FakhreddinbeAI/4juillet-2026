@@ -118,7 +118,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 ;CANVA;FACTURE;12.00;;2026-08-01-au-2026-08-31;MANQUANT;;
 #
 # --- LA FRAISE PRO — 119,00 EUR/mois ----------------------------------------
-2026-06-30;LA-FRAISE;FACTURE;119.00;F-2026-06300142;;RECU;Mon Drive > Comptabilite > factures abonnements;Derniere facture vue. Aucune depuis : abonnement resilie ou factures envoyees ailleurs. A VERIFIER.
+2026-06-30;LA-FRAISE;FACTURE;119.00;F-2026-06300142;;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;99,17 HT + 19,83 TVA. L abonnement N EST PAS resilie : la facture du 30/09/2026 est arrivee.
 #
 # --- FOURNISSEURS DIVERS -----------------------------------------------------
 2026-08-17;MADE-IN-LABS;RELANCE;8316.98;;;RENOMME;Mon Drive > Factures_impayees;Solde debiteur. 3 factures impayees : 3 522,72 (31/05), 3 089,02 (30/06), 1 705,24 (31/07). LES 3 FACTURES ELLES-MEMES SONT A RECUPERER.
@@ -197,3 +197,24 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # L amende forfaitaire majoree n est PAS deductible (CGI art. 39-2). Le FPS est
 # une redevance d occupation du domaine public : a trancher avec le comptable.
 2025-11-13;DGFIP-AMENDES;FACTURE;75.00;0440-1601-1250-4730-11;;RECU;Drive partage > Scan08062026-3.pdf;AMENDE FORFAITAIRE MAJOREE. Infraction du 02/07/2025 a Reze, zone bleue sans disque. Decision de l officier du ministere public du 22/10/2025. La reduction a 60,00 a expire le 13/12/2025. HORS EXERCICE 2026 : la charge est de 2025, exercice clos, et elle est NON DEDUCTIBLE. Seule question : est-ce paye ? A defaut, poursuites sur comptes et vehicules. Greffe 00014025 6672479126.
+#
+2026-09-30;LA-FRAISE;FACTURE;119.00;F-2026-093001309;2026-09-30-au-2026-10-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Licence La Fraise Cabinet, mensuel sans engagement. 99,17 HT + 19,83 TVA. Facturation Hyperline. La facture du 30 couvre le mois SUIVANT.
+#
+# --- EXECOM — informatique ---------------------------------------------------
+2026-06-30;EXECOM;FACTURE;334.80;FA006127;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Disque dur NVMe 512 Go 99,00 + forfait deplacement, intervention et clonage 180,00 = 279,00 HT + 55,80 TVA. Devis DE002711 du 21/05/2026. ECHEANCE AU 30/06/2026, donc en retard de trois mois, et toujours dans le dossier a regler.
+#
+# --- SCANS DU 01/10/2026 — AUCUNE COUCHE TEXTE -------------------------------
+# Les neuf scans de cet apres-midi ne renvoient RIEN du tout a la lecture, pas
+# meme un marqueur de page. Impossible de les nommer sans les avoir vus : un nom
+# se tire du contenu, jamais de la taille ni de l horodatage (regle 10).
+# Deux voies : attendre que Google Drive termine son OCR et relire, ou les ouvrir
+# avec Claude in Chrome, qui voit les pages telles qu elles s affichent.
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164435;;A_VERIFIER;Drive > Brother;865 ko. Illisible par le connecteur. drive.google.com/file/d/1KIDZ69BBYRUrjiKRRZ1jsq0OKEF5A_tj
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164512;;A_VERIFIER;Drive > Brother;371 ko. Illisible par le connecteur. drive.google.com/file/d/1tXpzFc6UrL35VvjO7ZIjT_Txj7QXUhKY
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164529;;A_VERIFIER;Drive > Brother;596 ko. Illisible par le connecteur. drive.google.com/file/d/1sXbATppfQs7lnWvzPNB3vJW49tu2qESz
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164544;;A_VERIFIER;Drive > Brother;451 ko. Illisible par le connecteur. drive.google.com/file/d/1PsQu6lkw2sco_0fJCXYHNTpgd4K5t4P-
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164602;;A_VERIFIER;Drive > Brother;335 ko. Illisible par le connecteur. drive.google.com/file/d/1lFKmgHbsS0e7-lmQ2RzAiP2MZzTTQYaa
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164650;;A_VERIFIER;Drive > Brother;837 ko. Illisible par le connecteur. drive.google.com/file/d/1Zgl2KNaAmd9mXBQGeOhBHQiTaKw9yQB3
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_164720;;A_VERIFIER;Drive > Brother;823 ko. Illisible par le connecteur. drive.google.com/file/d/1RgqTf5ZLGcqMHyutlriHhHBcXUkfumPd
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_165100;;A_VERIFIER;Drive > 04 - Contrats;4,3 Mo. Illisible par le connecteur. drive.google.com/file/d/1afPPDjfCnn7zOQ_1cxSKlpgegJlVCyrO
+;A-IDENTIFIER;FACTURE;;Scan2026-10-01_165500;;A_VERIFIER;Drive > Brother;682 ko. Illisible par le connecteur. drive.google.com/file/d/1GzbgqdSDwKOYlQSxiDfZ63L9V27p9wwf
