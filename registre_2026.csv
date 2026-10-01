@@ -209,7 +209,6 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # se tire du contenu, jamais de la taille ni de l horodatage (regle 10).
 # Deux voies : attendre que Google Drive termine son OCR et relire, ou les ouvrir
 # avec Claude in Chrome, qui voit les pages telles qu elles s affichent.
-;A-IDENTIFIER;FACTURE;;Scan2026-10-01_165100;;A_VERIFIER;Drive > 04 - Contrats;4,3 Mo. Illisible par le connecteur. drive.google.com/file/d/1afPPDjfCnn7zOQ_1cxSKlpgegJlVCyrO
 #
 # --- COFICA septembre, retrouve le 01/10 -------------------------------------
 2026-08-28;COFICA;FACTURE;1353.76;750004832398;2026-09-05-au-2026-10-04;RENOMME;Drive partage > Brother > Financement et leasing;Lue par Claude in Chrome, scan sans couche texte. Verifie contre la 750004798493 : numeros, dates d emission et periodes differents, ce ne sont pas des doublons.
@@ -239,3 +238,6 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 #
 # --- CPAM VENDEE — l origine de l indu est trouvee ----------------------------
 2026-06-15;CPAM-VENDEE;RELANCE;96.75;LOT466;;RENOMME;Compta Cabinet Tighza > 05 - Fiscal & Social;Centre Prescripteurs, identifiant 444704100. La CPAM reclame les JUSTIFICATIFS PAPIER (bordereau + feuille de soins) du lot 466 : 1 facture telétransmise en mode non securise le 07/05/2026, payee le 12/05/2026, 96,75. Sans reponse au 30/06/2026 elle constate un indu — ce qu elle a fait le 06/08. C EST DONC LA PIECE QUI MANQUAIT POUR COMPRENDRE L INDU. Ce qu il faut produire : le bordereau et la feuille de soins de ce lot. L acte correspondant est le TO45 du 07/05/2026 de la note d honoraires 2825, dont la base AMO est exactement 96,75. A transmettre a Lucie.
+#
+# --- AG2R AGIRC-ARRCO — retraite complementaire ------------------------------
+2026-06-20;AG2R-AGIRC-ARRCO;AFFILIATION;;26232180;;RENOMME;Compta Cabinet Tighza > 07 - RH & Paie SELARL (In Extenso);Confirmation d adhesion, 8 pages : courrier du 19/06/2026, certificat d adhesion du 20/06/2026, conditions generales et particulieres, plaquette. Aucun montant, aucune signature, aucune echeance : ce n est PAS un contrat, d ou le deplacement depuis 04 - Contrats vers 07 - RH & Paie. Taux seuls, dont 7,87 % sur la tranche 1 appele a 127 %. Cotisations dues le 25 du mois d echeance, prelevement via DSN conseille. Reference beneficiaire pour les paiements 77568291700015. NAF 8623Z, convention collective 1619 cabinets dentaires, accord du 17/11/2017, institution F700. ANOMALIE A ECLAIRCIR : la date d effet de l adhesion est le 28/03/2022 alors que la confirmation date de juin 2026. Quatre ans d ecart : soit une formalisation tardive, soit un duplicata demande. Si les cotisations n ont pas suivi depuis 2022, il y a un arriere. A poser a In Extenso. Lu par Claude in Chrome, scan sans couche texte.
