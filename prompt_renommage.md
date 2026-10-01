@@ -205,3 +205,106 @@ relevé — et on le voit tout de suite, pas en juillet 2027.
 **Pourquoi la référence du compte dans le nom.** Sans elle, `compta2026.py`
 lit la période comme une référence et la détection de trous ne fonctionne
 plus. `COMPTE-XXXX` occupe la place et le `_P...` est reconnu.
+
+---
+
+## PROMPT 5 — scans sans couche texte
+
+Le Brother produit parfois des **PDF image pures**, sans aucun texte
+sélectionnable. Le connecteur Drive ne renvoie alors rien du tout et la
+pièce est illisible côté assistant. Claude in Chrome, lui, voit la page
+telle qu'elle s'affiche : c'est la seule voie.
+
+**Chrome ne fait que lire et renommer. Il ne déplace rien** — le classement
+se fait ensuite côté assistant, qui a les dossiers et les droits. Une tâche
+à la fois, c'est la règle qui a toujours tenu.
+
+Dossier des scans : `16oa6oyoNviQ2Ko8veK72Q1sCcbamjRLx`
+
+```
+Ouvre ce dossier Google Drive :
+https://drive.google.com/drive/folders/[ID DU DOSSIER]
+
+Ce sont des scans, et ce sont des IMAGES : il n y a aucun texte
+selectionnable. Il faut vraiment regarder la page.
+
+Traite ces 5 fichiers, UN PAR UN, dans cet ordre :
+
+[COLLER ICI LES 5 NOMS]
+
+Pour chacun :
+
+1. Ouvre le PDF et lis TOUTES les pages. Releve l emetteur, la nature du
+   document (facture, avoir, relance, contrat, releve, courrier), le
+   numero de piece, la date, la periode couverte s il y en a une, et le
+   montant TTC.
+
+2. Renomme ainsi :
+   ANNEE-MOIS-JOUR_FOURNISSEUR_TYPE_MONTANT_NUMERO.pdf
+
+   Exemples reels de ce cabinet :
+   2026-09-30_LA-FRAISE_FACTURE_119.00_F-2026-093001309.pdf
+   2026-06-30_EXECOM_FACTURE_334.80_FA006127.pdf
+   2026-07-23_ONCD_RELANCE_462.00_262785280708.pdf
+
+   Fournisseur en majuscules, sans espace, tirets autorises.
+   Type : FACTURE AVOIR TICKET CONTRAT RELEVE ATTESTATION RELANCE
+   INDU AFFILIATION AR RECU.
+   Montant avec un point decimal, sans le symbole euro.
+   Si la piece ne porte aucun montant, omets-le.
+
+3. Si la piece couvre une periode, ajoute a la fin :
+   _P2026-09-01-au-2026-09-30
+
+NE DEPLACE AUCUN FICHIER. Ne supprime rien. Le classement n est pas ta
+tache, je m en occupe apres.
+
+Cinq regles :
+
+- Si tu n arrives pas a lire le montant ou le numero, NE DEVINE PAS.
+  Laisse le nom actuel et dis-moi ce que tu as pu lire.
+
+- Si un meme PDF contient PLUSIEURS documents differents, par exemple
+  une relance suivie d une facture reimprimee, ne choisis pas. Decris-moi
+  chaque page et laisse le nom tel quel.
+
+- Si c est un document PATIENT (nom, date de naissance, numero de
+  securite sociale, devis, note d honoraires), NE LE RENOMME PAS.
+  Signale-le-moi, il y a un circuit separe pour ca.
+
+- Si tu vois une facture de loyer COFICA BAIL, dis-le-moi en premier,
+  avant tout le reste.
+
+- Si tu penses qu un fichier est le doublon d un autre, NE LE DECIDE PAS
+  SEUL. Un meme montant ne prouve rien. Ouvre LES DEUX et verifie que le
+  NUMERO DE PIECE est identique, puis qu un element de detail concorde
+  (bon de livraison, ligne de produit, periode). Dis-le-moi et attends
+  ma reponse.
+
+En retour, pour chaque fichier : ancien nom, nouveau nom, et ce que tu as
+lu — emetteur, nature, numero, date, periode, montant TTC.
+```
+
+Trois ajouts par rapport au PROMPT 1, tous payés par l'expérience.
+
+**La règle « document patient ».** Un scan du 7 mai 2026 s'est révélé être une
+note d'honoraires avec nom, date de naissance et numéro de sécurité sociale,
+posée dans le sas comptable. Ça se reproduira.
+
+**La règle « plusieurs documents dans un PDF ».** La deuxième relance
+Straumann du 24/07 contenait le relevé de compte *et* la réimpression
+intégrale d'une facture — trois pièces dans un seul scan. Un nom unique
+aurait écrasé deux d'entre elles.
+
+**L'alerte COFICA en tête de réponse.** Les loyers de mars, mai, juillet et
+septembre manquent toujours. Deux des cinq précédents dormaient sous des noms
+sans extension, invisibles à toute recherche.
+
+### Pour un contrat ou un document long
+
+Ne pas renommer d'emblée. Demander d'abord le nombre de pages, la nature
+exacte, l'émetteur, le cocontractant, la date de signature, la durée,
+l'échéance, le montant et la périodicité, puis le numéro de contrat. Le
+crédit-bail « CMV Médiforce » était en réalité un bon de commande Henry
+Schein : sans ces éléments, on nomme la pièce d'après le financeur et on
+perd le vendeur.
