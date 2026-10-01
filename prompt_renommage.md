@@ -308,3 +308,92 @@ l'échéance, le montant et la périodicité, puis le numéro de contrat. Le
 crédit-bail « CMV Médiforce » était en réalité un bon de commande Henry
 Schein : sans ces éléments, on nomme la pièce d'après le financeur et on
 perd le vendeur.
+
+---
+
+## PROMPT 6 — relevés LCL : lire sans rien déposer sur le Drive
+
+**Règle permanente, posée par le Dr le 01/10/2026 : les relevés bancaires ne
+vont jamais sur le Drive.** Ils restent sur l'ordinateur du cabinet, dans
+`C:\Compta 2026\Releves BNP`. L'assistant n'a aucun accès à ce disque — la
+session tourne dans un conteneur en ligne. C'est donc Claude in Chrome qui lit
+et qui **recrache les mouvements en texte**, que l'on recopie ensuite dans
+`controle_bancaire.py`. Le relevé ne bouge pas.
+
+Deux sources possibles, la seconde est la meilleure.
+
+### Variante A — le fichier local
+
+Chrome ouvre un PDF du disque avec une adresse `file:///`. Exemple :
+`file:///C:/Compta%202026/Releves%20BNP/2026-01-31_LCL_RELEVE.pdf`
+Les espaces s'écrivent `%20`. Si Chrome refuse, ouvrir le PDF à la main puis
+demander à l'extension de lire l'onglet actif.
+
+### Variante B — l'espace client LCL, sans fichier du tout
+
+Se connecter à l'espace client et lire l'historique des opérations à l'écran.
+Rien à télécharger, rien à ranger. Et LCL propose un **export CSV** des
+opérations : dans ce cas, coller le CSV directement, c'est le plus rapide et
+le plus fiable.
+
+### Le prompt
+
+```
+Je veux relever les mouvements d UN SEUL releve de compte LCL.
+Un seul a la fois : un releve LCL contient beaucoup de lignes.
+
+Periode a traiter : [MOIS]  (les releves LCL vont du 6 d un mois au 5 du suivant)
+
+Source : soit le PDF sur mon disque, soit l historique des operations dans
+l espace client LCL. Dis-moi laquelle tu utilises.
+
+NE TELECHARGE RIEN. NE DEPOSE RIEN SUR GOOGLE DRIVE.
+Tu lis, tu me rends du texte, c est tout.
+
+D abord, l en-tete :
+- numero du releve
+- periode exacte, du ... au ...
+- solde de debut et solde de fin
+- total des debits et total des credits
+
+Ensuite, UNE LIGNE PAR MOUVEMENT, dans cet ordre exact, separe par des
+barres verticales, sans tableau et sans mise en forme :
+
+date | libelle complet | debit | credit
+
+Exemples du format attendu :
+26.01.2026 | PRLV SEPA COFICA BAIL ECH/260126 | 1353.76 |
+10.02.2026 | VIR SEPA RECU /FRM LOISEAU JOHANNE RETRO JANVIER | | 1549.78
+
+Regles :
+
+- NE SAISIS PAS les virements de la CPAM. Aucun. Ils sont reconcilies par
+  l export LOGOS du bilan. Si tu en vois, compte-les et dis-moi seulement
+  combien il y en a et leur total, sans les detailler.
+
+- Les montants avec un POINT decimal, sans symbole, sans espace de milliers.
+
+- Recopie le libelle ENTIER, y compris les references et numeros de mandat.
+  C est ce qui permet de rattacher le mouvement a une facture.
+
+- Si un libelle contient un nom de patient, remplace-le par PATIENT et
+  dis-le-moi. Ne recopie aucun nom de patient.
+
+- Si un montant est illisible, ecris ILLISIBLE a sa place. Ne devine pas.
+
+A la fin, verifie TOI-MEME : solde de debut + total credits - total debits
+doit donner le solde de fin. Si ca ne tombe pas juste, dis-le, c est qu une
+ligne manque.
+```
+
+**Pourquoi ce format.** Les lignes `date | libellé | débit | crédit` se
+reversent directement dans `controle_bancaire.py`, et le recalcul du solde
+refait le contrôle de son côté. Deux vérifications indépendantes de la même
+chose : celle de Chrome et la mienne. C'est ce double filet qui a prouvé que
+les 43 mouvements BNP étaient complets.
+
+**Pourquoi exclure la CPAM en amont.** Sur le compte de la SELARL, les
+virements CPAM sont le gros du volume. Les saisir à la main serait long et
+produirait des écarts avec LOGOS, qui fait déjà ce travail. On demande juste
+leur nombre et leur total, pour pouvoir vérifier que rien d'autre ne se cache
+dedans.
