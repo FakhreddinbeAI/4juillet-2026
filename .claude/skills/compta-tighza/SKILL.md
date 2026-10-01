@@ -24,7 +24,8 @@ description: >
 | Juridique | TGS France Avocats — M<sup>e</sup> Mélanie ROUGER (dépôts INPI) |
 | RH / paie | In Extenso — Chloé Chambellan |
 | Portail | https://monespaceclient.tgs-france.fr |
-| Banque | **LCL**, relevés du 6 d'un mois au 5 du suivant |
+| Banques | **deux comptes.** `LCL` — compte de la SELARL, relevés du 6 d'un mois au 5 du suivant, c'est lui qui porte les règlements fournisseurs et les virements CPAM. `BNP 2112` — compte pro du Dr personne physique, qui porte les rétrocessions de Johanne, un prêt, une assurance et les frais bancaires. |
+| Où sont les relevés | **sur l'ORDINATEUR du cabinet**, pas sur le Drive. Les deux comptes existent : ne jamais écrire que LCL est absent, il est seulement hors de portée de l'assistant. Pour qu'un relevé entre dans le suivi, il faut le déposer sur le Drive ou le faire lire par Claude in Chrome. |
 | Équipe | Lisa et Lucie, assistantes (assistante@implantologielege.com) |
 
 Attention : les mails de TGS partent parfois de l'adresse de Florence Daheron
@@ -116,6 +117,22 @@ elles se répondent par écrit.
 **10. Ne jamais conclure depuis un nom de fichier, une taille ou un montant.**
 Ouvrir le PDF. C'est la règle dont toutes les autres découlent.
 
+**11. LE CONTRÔLE PART DE LA BANQUE.** Un registre construit depuis les
+fournisseurs ne voit que ce qu'on sait déjà chercher. Un relevé bancaire est
+exhaustif : tout débit sans justificatif est un trou par construction. C'est
+ainsi qu'on a découvert une échéance de prêt de 636,01 €/mois sans tableau
+d'amortissement et une assurance prélevée depuis des mois sans contrat —
+aucune des deux n'était au registre. Outil : `controle_bancaire.py`.
+
+**12. PÉRIMÈTRE DU CONTRÔLE BANCAIRE** — fixé par le Dr le 01/10/2026. On ne
+suit que **facture, avoir, prélèvement, rétrocession de Johanne**. Sont
+exclus : les **virements CPAM**, qui sont réconciliés par l'**export LOGOS**
+du bilan et ne se saisissent jamais à la main ; et les prélèvements du gérant
+comme les mouvements entre entités, qui ne se justifient pas par une pièce
+fournisseur. Les mouvements hors périmètre restent dans les données pour que
+le recalcul des soldes continue de prouver que la saisie est complète, mais
+ils ne partent pas à l'export.
+
 ## La convention de nommage
 
 ```
@@ -148,6 +165,15 @@ reste à faire.
 récurrents, les doublons et les noms non conformes. `--export` produit un CSV
 pour Google Sheets. Les prompts Claude in Chrome sont dans
 `prompt_renommage.md` — **lots de 5 fichiers, une tâche à la fois, texte plat**.
+
+`controle_bancaire.py` fait l'inverse : il part des relevés. Une ligne par
+mouvement, le justificatif attendu en face, et deux colonnes pour le dépôt sur
+le portail. Il recalcule le solde de chaque relevé à partir des mouvements
+saisis et vérifie le chaînage d'un mois au suivant — c'est ce double contrôle
+qui prouve qu'aucun mouvement n'a été oublié. `controle_bancaire.gs` installe
+les cases à cocher et l'horodatage dans la feuille Google ; **il doit être créé
+depuis la feuille, par Extensions → Apps Script, jamais comme projet autonome**,
+sinon `getActiveSpreadsheet()` renvoie null et `onEdit` ne part pas.
 
 ## Les récurrents
 
