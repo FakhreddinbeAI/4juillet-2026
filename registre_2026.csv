@@ -188,3 +188,12 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 #
 # --- RECETTES ----------------------------------------------------------------
 2026-05-07;NOTE-HONORAIRES;FACTURE;232.00;2825;;RENOMME;Compta Cabinet Tighza > 02 - Recettes;Acte TO45 du 07/05/2026. 232,00 d honoraires, base de remboursement AMO 96,75, reste a charge patient 135,25. Sortie de FACTURATION, renommee sans le nom du patient. PISTE A VERIFIER : la base de 96,75 est exactement le montant de l indu CPAM Vendee (creance 2606534061, lot 466, pieces justificatives non transmises). Pour un TO45 il faut une entente prealable. A confirmer par Lucie.
+#
+# --- ROTEC — laboratoire, compte C012667 -------------------------------------
+2026-02-18;ROTEC;RELANCE;1004.50;C012667;;RECU;Drive partage > Scan2026-03-07_163506.pdf;Relance du 18/02/2026, niveau 3 sur les plus anciennes. 14 factures impayees de juin a decembre 2025, moins un virement de 861,00 le 21/01/2026. Total verifie au centime : 1 865,50 - 861,00 = 1 004,50. Les factures sous-jacentes sont de 2025, exercice CLOS : ne pas rouvrir le bilan. Le solde ouvert est un sujet de REGLEMENT, pas de justificatif.
+#
+# --- VEHICULE DE LA SOCIETE — VOLVO GT-908-PS --------------------------------
+# Trois pieces distinctes sur le meme vehicule, de nature fiscale differente.
+# L amende forfaitaire majoree n est PAS deductible (CGI art. 39-2). Le FPS est
+# une redevance d occupation du domaine public : a trancher avec le comptable.
+2025-11-13;DGFIP-AMENDES;FACTURE;75.00;0440-1601-1250-4730-11;;RECU;Drive partage > Scan08062026-3.pdf;AMENDE FORFAITAIRE MAJOREE. Infraction du 02/07/2025 a Reze, zone bleue sans disque. Decision de l officier du ministere public du 22/10/2025. La reduction a 60,00 a expire le 13/12/2025. HORS EXERCICE 2026 : la charge est de 2025, exercice clos, et elle est NON DEDUCTIBLE. Seule question : est-ce paye ? A defaut, poursuites sur comptes et vehicules. Greffe 00014025 6672479126.
