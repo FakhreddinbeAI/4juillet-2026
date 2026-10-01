@@ -311,7 +311,17 @@ perd le vendeur.
 
 ---
 
-## PROMPT 6 — relevés LCL : lire sans rien déposer sur le Drive
+## PROMPT 6 — relevés LCL  *(PERIME, voir l'encadré)*
+
+> **Ne pas utiliser.** Une tâche planifiée liée à l'ordinateur du cabinet
+> lit déjà les relevés LCL avec `pdftotext`, bien mieux que Chrome ne le
+> ferait : *Relevé LCL – virements patients*, le 6 de chaque mois.
+> Le relevé est dans `C:\Users\conta\Downloads` sous le nom
+> `COMPTEPROLCL_07480070666_AAAAMMJJ.pdf`.
+>
+> Ce qui manque n'est pas un moyen de lire, c'est l'extraction des
+> **débits** : cette tâche ne regarde que les crédits. Voir le PROMPT 7.
+> Le prompt ci-dessous ne sert que si la machine est indisponible.
 
 **Règle permanente, posée par le Dr le 01/10/2026 : les relevés bancaires ne
 vont jamais sur le Drive.** Ils restent sur l'ordinateur du cabinet, dans
@@ -397,3 +407,68 @@ virements CPAM sont le gros du volume. Les saisir à la main serait long et
 produirait des écarts avec LOGOS, qui fait déjà ce travail. On demande juste
 leur nombre et leur total, pour pouvoir vérifier que rien d'autre ne se cache
 dedans.
+
+---
+
+## PROMPT 7 — débits du relevé LCL
+
+C'est le seul trou du dispositif. La tâche du 6 extrait les **crédits**
+(patients, mutuelles), LOGOS réconcilie la CPAM, et **personne n'extrait les
+débits** — c'est-à-dire tous les règlements fournisseurs : COFICA, Aries,
+Médiforce, Mutualease, Google, Anthropic, Canva, La Fraise, les labos.
+
+À faire tourner **sur l'ordinateur**, dans une conversation liée à la machine,
+soit en ajoutant ce bloc à la tâche existante, soit dans une seconde tâche le
+même jour. Le relevé ne bouge pas, rien ne part sur le Drive.
+
+```
+Deuxieme partie de la tache : les DEBITS du releve LCL.
+
+Meme releve que la premiere partie :
+C:\Users\conta\Downloads\COMPTEPROLCL_07480070666_AAAAMMJJ.pdf
+Extraction avec pdftotext -layout. Ne deplace pas le fichier, n upload rien.
+
+Je veux TOUTES les ecritures au DEBIT, une par ligne, dans cet ordre exact,
+separees par des barres verticales, sans tableau ni mise en forme :
+
+date | libelle complet | montant
+
+Exemples du format attendu :
+26.01.2026 | PRLV SEPA COFICA BAIL ECH/260126 MDT/980750019180 | 1353.76
+02.02.2026 | PRLV SEPA GOOGLE CLOUD FRANCE GCFRD0011667476 | 87.41
+
+Regles :
+
+- Le libelle ENTIER, avec les references, numeros de mandat et d echeance.
+  C est ce qui rattache le mouvement a une facture : sans la reference, la
+  ligne est inexploitable.
+
+- Montants avec un POINT decimal, sans symbole, sans espace de milliers.
+
+- N EXCLUS AUCUN DEBIT, meme ceux qui te semblent personnels. C est moi qui
+  trie ensuite. Un debit oublie est un trou invisible.
+
+- Si un libelle contient un nom de patient, remplace-le par PATIENT et
+  signale-le. Ne recopie aucun nom de patient.
+
+- Si un montant est illisible, ecris ILLISIBLE. Ne devine pas.
+
+CONTROLE OBLIGATOIRE a la fin : ancien solde + total des credits - somme des
+debits que tu viens de lister = nouveau solde du releve. Donne le calcul.
+S il ne tombe pas juste, dis-le : il manque une ligne.
+
+Donne aussi le nombre de virements CPAM, MSA et ENIM et leur total, sans les
+detailler : c est LOGOS qui les reconcilie, je veux juste pouvoir verifier
+qu aucun autre credit ne se cache dedans.
+```
+
+**Pourquoi ne rien exclure au débit.** Au crédit, le tri en amont fait gagner
+du temps parce que la CPAM est traitée ailleurs. Au débit, c'est l'inverse :
+le contrôle n'a de valeur que s'il est exhaustif. Le recalcul du solde ne
+prouve rien si des lignes ont été écartées avant la saisie — et c'est ce
+recalcul qui garantit qu'aucune charge n'a été oubliée.
+
+**Pourquoi la référence complète.** Sans `MDT/980750019180` ni le numéro
+d'échéance, impossible de dire quel loyer COFICA est payé. On a passé des
+semaines à chercher trois loyers faute de pouvoir rattacher un débit à une
+facture.

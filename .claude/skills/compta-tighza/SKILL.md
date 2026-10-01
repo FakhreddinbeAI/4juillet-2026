@@ -25,7 +25,8 @@ description: >
 | RH / paie | In Extenso — Chloé Chambellan |
 | Portail | https://monespaceclient.tgs-france.fr |
 | Banques | **deux comptes.** `LCL` — compte de la SELARL, relevés du 6 d'un mois au 5 du suivant, c'est lui qui porte les règlements fournisseurs et les virements CPAM. `BNP 2112` — compte pro du Dr personne physique, qui porte les rétrocessions de Johanne, un prêt, une assurance et les frais bancaires. |
-| Où sont les relevés | **sur l'ORDINATEUR du cabinet**, pas sur le Drive. Les deux comptes existent : ne jamais écrire que LCL est absent, il est seulement hors de portée de l'assistant. Pour qu'un relevé entre dans le suivi, il faut le déposer sur le Drive ou le faire lire par Claude in Chrome. |
+| Où sont les relevés | **sur l'ORDINATEUR du cabinet**, jamais sur le Drive, et ça ne changera pas. LCL n'est pas « absent » : il est hors de portée de *cette* session, mais une tâche planifiée liée à la machine le lit déjà. |
+| Relevé LCL | compte **07480070666**. Fichier `COMPTEPROLCL_07480070666_AAAAMMJJ.pdf` déposé dans `C:\Users\conta\Downloads`, puis archivé dans `Documents\Compta SELARL\03 - Releves bancaires\AAAA\`. Lu sur la machine avec `pdftotext -layout`. |
 | Équipe | Lisa et Lucie, assistantes (assistante@implantologielege.com) |
 
 Attention : les mails de TGS partent parfois de l'adresse de Florence Daheron
@@ -132,6 +133,28 @@ comme les mouvements entre entités, qui ne se justifient pas par une pièce
 fournisseur. Les mouvements hors périmètre restent dans les données pour que
 le recalcul des soldes continue de prouver que la saisie est complète, mais
 ils ne partent pas à l'export.
+
+## Qui lit quoi — ne pas refaire le travail d'un autre
+
+Trois mécanismes se partagent les flux bancaires. Avant de saisir quoi que ce
+soit, vérifier lequel couvre déjà la ligne.
+
+| Flux | Qui s'en occupe | Destination |
+|---|---|---|
+| Crédits LCL : virements **patients** et **mutuelles/OCAM** | tâche planifiée *Relevé LCL – virements patients*, le 6 du mois, sur la machine | Sheet *Suivi virements patients — saisie Logos*, puis saisie par Marion |
+| Crédits LCL : **CPAM, MSA, ENIM** | **export LOGOS** du bilan | jamais à la main |
+| **Débits LCL** : factures, avoirs, prélèvements | **personne — c'est le trou** | `controle_bancaire.py` |
+| BNP : rétrocessions Johanne, prêt, assurance, frais | `controle_bancaire.py` | feuille *CONTROLE BANCAIRE 2026* |
+
+La tâche du 6 exclut volontairement CPAM, MSA, ENIM, remises CB et chèques,
+virements internes et Dr Loiseau. Elle ne regarde **que les crédits**. Les
+débits LCL — c'est-à-dire tous les règlements fournisseurs — ne sont extraits
+par rien. C'est la seule pièce manquante du dispositif.
+
+**Attention en modifiant cette tâche :** elle est liée à un ordinateur. Un
+changement de prompt depuis une session cloud renvoie `needs_device_approval`
+et ne s'applique pas. Il faut le faire depuis une conversation liée à cette
+machine. Le nom, l'horaire et l'activation, eux, se changent d'ici.
 
 ## La convention de nommage
 
