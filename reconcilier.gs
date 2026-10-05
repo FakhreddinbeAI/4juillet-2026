@@ -88,9 +88,16 @@ function reconcilier() {
     }
 
     // 3. par la reference, et seulement si elle designe UN SEUL fichier
+    //
+    // DEUX GARDE-FOUS PAYES CASH. La premiere version acceptait une reference
+    // de 4 caracteres et ne filtrait pas le type : « A167 » est tombee dans
+    // « libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll » et le
+    // script a renomme une bibliotheque Python en ticket de restaurant.
+    // Desormais : six caracteres au minimum, et UNIQUEMENT des PDF.
     var ref = String(refs[i][0] || "").trim();
-    if (ref.length >= 4 && ref.indexOf("'") === -1) {
-      var cands = [], it3 = DriveApp.searchFiles("title contains '" + ref + "'");
+    if (ref.length >= 6 && ref.indexOf("'") === -1) {
+      var cands = [], it3 = DriveApp.searchFiles(
+        "title contains '" + ref + "' and mimeType = 'application/pdf'");
       while (it3.hasNext() && cands.length < 5) cands.push(it3.next());
 
       if (cands.length === 1) {
