@@ -189,23 +189,45 @@ function etape3_montants() {
  * fichier. Aucun identifiant a maintenir, et ca continue de marcher si la
  * piece est deplacee d'un dossier a l'autre.
  *
- * Apps Script attend toujours la syntaxe en-US, donc la virgule en
- * separateur d'arguments, meme sur une feuille en francais.
+ * AUCUNE FORMULE. La premiere version posait un HYPERLINK(...) via
+ * setFormulas() et toute la colonne affichait #ERROR!. J'avais ecrit ici que
+ * « Apps Script attend toujours la syntaxe en-US, donc la virgule » : c'est
+ * faux. setFormulas() n'adapte pas le separateur d'arguments, donc une
+ * formule a virgules arrive telle quelle dans un classeur en francais, qui
+ * attend des points-virgules, et ne sait pas l'analyser — #ERROR! est une
+ * erreur de syntaxe, pas de valeur.
+ *
+ * Plutot que de parier sur le bon separateur, on se passe de formule : le
+ * lien est pose directement sur le texte avec setRichTextValues(), et l'URL
+ * est construite en JavaScript. Insensible a la langue du classeur, et
+ * aucune dependance a ENCODEURL ni a HYPERLINK.
+ *
+ * Contrepartie assumee : le lien est fige au moment de l'installation. Si un
+ * nom de fichier change en colonne J, il faut relancer etape4_liens().
  */
 function etape4_liens() {
   var f = feuille_();
   var nb = nbLignes_(f);
-  var formules = [];
-  for (var j = 0; j < nb; j++) {
-    var l = PREMIERE_LIGNE + j;
-    formules.push(['=IF($J' + l + '="","",HYPERLINK(' +
-                   '"https://drive.google.com/drive/search?q="&ENCODEURL($J' + l + '),' +
-                   '"ouvrir"))']);
+  var noms = f.getRange(PREMIERE_LIGNE, COL_FICHIER, nb, 1).getValues();
+
+  var valeurs = [], poses = 0;
+  for (var i = 0; i < nb; i++) {
+    var nom = String(noms[i][0] || "").trim();
+    if (!nom) {
+      valeurs.push([SpreadsheetApp.newRichTextValue().setText("").build()]);
+    } else {
+      var url = "https://drive.google.com/drive/search?q=" + encodeURIComponent(nom);
+      valeurs.push([SpreadsheetApp.newRichTextValue()
+                      .setText("ouvrir").setLinkUrl(url).build()]);
+      poses++;
+    }
   }
-  f.getRange(PREMIERE_LIGNE, COL_LIEN, nb, 1)
-   .setFormulas(formules)
-   .setHorizontalAlignment("center")
-   .setFontSize(9);
+
+  var plage = f.getRange(PREMIERE_LIGNE, COL_LIEN, nb, 1);
+  plage.clearContent();               // enleve les #ERROR! de l'ancienne version
+  plage.setRichTextValues(valeurs);
+  plage.setHorizontalAlignment("center").setFontSize(9);
+  Logger.log("     " + poses + " liens poses sur " + nb + " lignes.");
 }
 
 
@@ -336,6 +358,10 @@ function diagnostic() {
   var g2 = f.getRange(PREMIERE_LIGNE, COL_MONTANT);
   Logger.log("G" + PREMIERE_LIGNE + " type : " + typeof g2.getValue() +
              " (number attendu) / valeur : " + g2.getValue());
+  var l2 = f.getRange(PREMIERE_LIGNE, COL_LIEN);
   Logger.log("L" + PREMIERE_LIGNE + " formule : " +
-             (f.getRange(PREMIERE_LIGNE, COL_LIEN).getFormula() || "aucune"));
+             (l2.getFormula() || "aucune (normal : lien en texte riche)"));
+  Logger.log("L" + PREMIERE_LIGNE + " texte : " + (l2.getValue() || "vide") +
+             " / lien : " +
+             (l2.getRichTextValue().getLinkUrl() || "AUCUN — relancer etape4_liens()"));
 }
