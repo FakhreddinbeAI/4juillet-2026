@@ -41,15 +41,17 @@ function feuille_() {
 }
 
 
-/** Convertit "1 353,76" en nombre. Rend null si la cellule est vide. */
+/**
+ * Convertit "1 353,76" en nombre. Rend null si la cellule est vide.
+ * En JavaScript, \s couvre deja l espace insecable (\u00A0) et l espace fine
+ * insecable (\u202F) : inutile de les lister, et surtout pas de les ecrire en
+ * clair dans le source, ou ils seraient invisibles et abimes par un
+ * copier-coller.
+ */
 function enNombre_(v) {
   if (typeof v === "number") return v;
   if (!v) return null;
-  var s = String(v)
-            .replace(/ /g, "")   // espace insécable
-            .replace(/ /g, "")   // espace fine insécable
-            .replace(/\s/g, "")
-            .replace(",", ".");
+  var s = String(v).replace(/\s/g, "").replace(",", ".");
   var n = parseFloat(s);
   return isNaN(n) ? null : n;
 }
