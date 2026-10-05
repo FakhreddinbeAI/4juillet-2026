@@ -184,64 +184,6 @@ function etape3_montants() {
 }
 
 
-/**
- * Etape 4 : la colonne « ouvrir », une recherche Drive sur le nom exact du
- * fichier. Aucun identifiant a maintenir, et ca continue de marcher si la
- * piece est deplacee d'un dossier a l'autre.
- *
- * AUCUNE FORMULE. La premiere version posait un HYPERLINK(...) via
- * setFormulas() et toute la colonne affichait #ERROR!. J'avais ecrit ici que
- * « Apps Script attend toujours la syntaxe en-US, donc la virgule » : c'est
- * faux. setFormulas() n'adapte pas le separateur d'arguments, donc une
- * formule a virgules arrive telle quelle dans un classeur en francais, qui
- * attend des points-virgules, et ne sait pas l'analyser — #ERROR! est une
- * erreur de syntaxe, pas de valeur.
- *
- * Plutot que de parier sur le bon separateur, on se passe de formule : le
- * lien est pose directement sur le texte avec setRichTextValues(), et l'URL
- * est construite en JavaScript. Insensible a la langue du classeur, et
- * aucune dependance a ENCODEURL ni a HYPERLINK.
- *
- * Contrepartie assumee : le lien est fige au moment de l'installation. Si un
- * nom de fichier change en colonne J, il faut relancer etape4_liens().
- */
-function etape4_liens() {
-  var f = feuille_();
-  var nb = nbLignes_(f);
-  var noms = f.getRange(PREMIERE_LIGNE, COL_FICHIER, nb, 1).getValues();
-
-  // On vide d'abord : ca enleve les #ERROR! laisses par les versions a
-  // formule, et ca laisse une trace visible meme si la suite echoue.
-  var plage = f.getRange(PREMIERE_LIGNE, COL_LIEN, nb, 1);
-  plage.clearContent();
-  SpreadsheetApp.flush();
-
-  // Cellule par cellule, et SURTOUT on saute les lignes sans nom de fichier.
-  // La version precedente construisait pour elles un
-  // newRichTextValue().setText("") : Apps Script refuse un texte riche vide
-  // et levait une exception avant la moindre ecriture, ce qui laissait les
-  // #ERROR! en place et donnait l'impression que rien ne s'etait passe.
-  var poses = 0, sautees = 0, echecs = 0, premiereErreur = "";
-  for (var i = 0; i < nb; i++) {
-    var nom = String(noms[i][0] || "").trim();
-    if (!nom) { sautees++; continue; }
-    try {
-      var url = "https://drive.google.com/drive/search?q=" + encodeURIComponent(nom);
-      f.getRange(PREMIERE_LIGNE + i, COL_LIEN).setRichTextValue(
-        SpreadsheetApp.newRichTextValue().setText("ouvrir").setLinkUrl(url).build());
-      poses++;
-    } catch (err) {
-      echecs++;
-      if (!premiereErreur) premiereErreur = "ligne " + (PREMIERE_LIGNE + i) +
-                                           " : " + err.message;
-    }
-  }
-
-  plage.setHorizontalAlignment("center").setFontSize(9);
-  Logger.log("     " + poses + " liens poses, " + sautees +
-             " lignes sans nom de fichier, " + echecs + " echecs.");
-  if (echecs) Logger.log("     premiere erreur -> " + premiereErreur);
-}
 
 
 /**
@@ -346,6 +288,79 @@ function recapitulatif() {
              totalDepose.toFixed(2) + " EUR");
   Logger.log("Restant a deposer : " + (nb - deposes));
 }
+
+
+/**
+ * liens() — VERSION AUTONOME de l'etape 4, a coller seule si besoin.
+ *
+ * Pourquoi un nom neuf et pas une n-ieme correction d'etape4_liens : apres
+ * deux tentatives, la colonne L affichait toujours #ERROR! et le journal
+ * n'imprimait AUCUNE ligne, alors que mes versions en ecrivent une. C'etait
+ * donc l'ancienne fonction a formule qui tournait — le collage n'avait pas
+ * ete enregistre avant l'execution. Un nom different rend la chose
+ * verifiable : si « liens » n'apparait pas dans la liste deroulante de
+ * l'editeur, c'est que le fichier n'a pas ete enregistre.
+ *
+ * Et autonome : aucune dependance a COL_FICHIER, COL_LIEN, PREMIERE_LIGNE ni
+ * feuille_(). Elle marche meme collee seule dans un Code.gs vide, du moment
+ * qu'elle l'est depuis la feuille.
+ */
+function liens() {
+  var classeur = SpreadsheetApp.getActiveSpreadsheet();
+  if (!classeur) {
+    throw new Error("Aucun classeur actif : ce projet Apps Script n est pas " +
+                    "rattache a la feuille. Le recreer par Extensions puis " +
+                    "Apps Script DEPUIS la feuille.");
+  }
+  var f = classeur.getSheets()[0];
+  var derniere = f.getLastRow();
+  var nb = derniere - 1;                  // ligne 1 = en-tete
+  if (nb < 1) { Logger.log("Feuille vide."); return; }
+
+  Logger.log("Classeur : " + classeur.getName() +
+             " / langue : " + classeur.getSpreadsheetLocale());
+  Logger.log("Lignes de donnees : " + nb);
+
+  var noms = f.getRange(2, 10, nb, 1).getValues();   // J = nom de fichier
+
+  // On vide AVANT : les #ERROR! disparaissent meme si la suite echoue, donc
+  // un coup d oeil a la feuille suffit a savoir si la fonction a tourne.
+  var colonne = f.getRange(2, 12, nb, 1);            // L = ouvrir
+  colonne.clearContent();
+  SpreadsheetApp.flush();
+
+  var poses = 0, sautees = 0, echecs = 0, premiere = "";
+  for (var i = 0; i < nb; i++) {
+    var nom = String(noms[i][0] || "").trim();
+    if (!nom) { sautees++; continue; }                // pas de texte riche vide
+    try {
+      f.getRange(2 + i, 12).setRichTextValue(
+        SpreadsheetApp.newRichTextValue()
+          .setText("ouvrir")
+          .setLinkUrl("https://drive.google.com/drive/search?q=" +
+                      encodeURIComponent(nom))
+          .build());
+      poses++;
+    } catch (err) {
+      echecs++;
+      if (!premiere) premiere = "ligne " + (2 + i) + " : " + err.message;
+    }
+  }
+
+  colonne.setHorizontalAlignment("center").setFontSize(9);
+  f.getRange(1, 12).setValue("Ouvrir");
+  SpreadsheetApp.flush();
+
+  Logger.log("RESULTAT : " + poses + " liens poses, " + sautees +
+             " lignes sans nom de fichier, " + echecs + " echecs.");
+  if (echecs) Logger.log("Premiere erreur -> " + premiere);
+  if (!poses) Logger.log("ATTENTION : aucun lien pose. La colonne J est-elle " +
+                         "bien celle des noms de fichier ?");
+}
+
+
+/** Etape 4 historique : delegue a liens(), pour n avoir qu une seule logique. */
+function etape4_liens() { liens(); }
 
 
 /**
