@@ -23,7 +23,7 @@ var M_NB_COL = 12, M_LIGNE1 = 2;
 function onOpen() {
   SpreadsheetApp.getUi().createMenu("TGS")
     .addItem("Importer les nouvelles pieces du Drive", "importerDepuisDrive")
-    .addItem("Verifier les liens (audit)",             "reparerLiens")
+    .addItem("Verifier les liens (audit)",             "reconcilier"  )
     .addSeparator()
     .addItem("File d attente a deposer",               "fileDAttente")
     .addItem("Rapprocher le portail",                  "cocherDepuisPortail")
@@ -119,9 +119,6 @@ function importerDepuisDrive() {
     Logger.log("Hors convention, NON importees (" + horsConvention.length + ") :");
     for (var h = 0; h < horsConvention.length; h++) Logger.log("   " + horsConvention[h]);
   }
-  SpreadsheetApp.getUi().alert("Import termine.\n\n" + ajoutes + " piece(s) ajoutee(s)\n" +
-    deja + " deja presente(s)\n" + horsConvention.length +
-    " hors convention (voir le journal)");
 }
 
 
@@ -159,7 +156,4 @@ function reparerLiens() {
   Logger.log("Audit : " + ok + " lien(s) direct(s), " + absents.length +
              " absent(s) du Drive, " + vides + " ligne(s) sans nom.");
   for (var a = 0; a < absents.length; a++) Logger.log("   " + absents[a]);
-  SpreadsheetApp.getUi().alert("Audit termine.\n\n" + ok + " fichier(s) trouve(s)\n" +
-    absents.length + " ABSENT(S) du Drive — colonne L en rouge\n" +
-    vides + " ligne(s) sans nom de fichier");
 }
