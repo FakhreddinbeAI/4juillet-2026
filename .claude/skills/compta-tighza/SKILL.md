@@ -56,6 +56,42 @@ le document qui circule, pas le mail.
 Tant que `ftighza@gmail.com` n'est pas accessible en lecture, deux angles
 morts subsistent : les factures Canva et l'identité de l'assureur prévoyance.
 
+### Le dernier import depuis la boîte perso : 9 juillet 2026
+
+Vérifié dans le Drive, pas déduit. Les sept PDF Canva (12/2025 → 06/2026)
+portent tous `createdTime 2026-07-09T10:22Z`, et le dossier `Jan-Mai 2025
+(boite ftighza)` (id `1Rk09zvyXgRvhMXMyczpg1EMP7LFQ8P6e`) porte
+`2026-07-09T14:08Z`. Aucun autre fichier du Drive ne porte le nom de cette
+boîte : il n'y a eu **qu'un seul import**.
+
+Le connecteur Gmail lit `contact@` — les liens de résultat portent
+`authuser=contact@implantologielege.com`. C'est la vérification à refaire pour
+savoir si la boîte perso est branchée : une recherche `from:canva` qui ne
+rend rien signifie qu'elle ne l'est pas.
+
+### Quand elle sera branchée — la procédure d'import
+
+Un connecteur n'est lu qu'**au démarrage d'une session**. Après l'avoir
+ajouté, il faut donc une **nouvelle session** : inutile de chercher à le voir
+apparaître dans celle en cours.
+
+1. Confirmer l'accès : `from:canva` doit rendre des résultats, et les liens
+   porter `authuser=ftighza@gmail.com`.
+2. Balayer à partir du **09/07/2026** — rien avant, c'est déjà importé, et
+   réimporter créerait des doublons que la règle 4 interdit de trancher à
+   l'amiable.
+3. Cibles connues : **Canva** juillet, août, septembre, octobre (12,00 €,
+   émise le 6 de chaque mois) et la **prévoyance Madelin MACSF P15 001**.
+4. Télécharger les pièces jointes dans le Drive de `contact@`, dossier
+   `FACTURATION`. **Le document circule, jamais le mail** — aucun transfert,
+   aucune règle de renvoi.
+5. Inscrire au registre, renommer selon la convention, puis déposer.
+
+Et la question de fond à poser au Dr, parce qu'elle vaut mieux qu'un import
+récurrent : **faire basculer la facturation Canva sur `contact@`** depuis
+canva.com. Ces factures sont établies à son nom sans SIREN — leur place dans
+la SELARL est de toute façon à valider par la comptable.
+
 **Drive partagé « Lisa et Lucie - Suivi compta »** (id `0AGRDLERQ9FC3Uk9PVA`) :
 c'est le drive lui-même, partagé avec Lisa et Lucie. Lucie y est
 *organisateur*, le compte `contact@` seulement *organisateur de contenu* —
