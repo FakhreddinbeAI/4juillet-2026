@@ -127,9 +127,15 @@ function cocherDepuisPortail() {
 }
 
 
-/** File d attente a donner a Chrome, par lots de 5. */
+/**
+ * File d attente, ECRITE DANS UN ONGLET et pas seulement journalisee :
+ * recopier des noms depuis le journal Apps Script est penible, alors qu ici
+ * on selectionne les 5 noms d un lot et on les colle dans le prompt.
+ * L onglet est efface et reecrit a chaque lancement.
+ */
 function fileDAttente() {
-  var f = classeur_().getSheets()[0];
+  var c = classeur_();
+  var f = c.getSheets()[0];
   var nb = f.getLastRow() - T_PREMIERE_LIGNE + 1;
   if (nb < 1) { Logger.log("Tableau vide."); return; }
 
@@ -137,15 +143,44 @@ function fileDAttente() {
   var att = [];
   for (var i = 0; i < nb; i++) {
     var nom = String(d[i][T_COL_FICHIER - 1] || "").trim();
-    if (d[i][T_COL_DEPOSE - 1] === true) continue;
-    if (String(d[i][T_COL_ETAT - 1]) !== "RENOMME") continue;
-    if (!nom) continue;
+    if (d[i][T_COL_DEPOSE - 1] === true) continue;          // deja deposee
+    if (String(d[i][T_COL_ETAT - 1]) !== "RENOMME") continue;  // pas prete
+    if (!nom) continue;                                     // rien a deposer
     att.push(nom);
   }
 
-  Logger.log("--- A DEPOSER : " + att.length + " piece(s) ---");
-  for (var j = 0; j < att.length; j += 5) {
-    Logger.log("Lot " + (j / 5 + 1) + " :");
-    for (var k = j; k < Math.min(j + 5, att.length); k++) Logger.log("   " + att[k]);
+  var o = c.getSheetByName("A DEPOSER") || c.insertSheet("A DEPOSER");
+  o.clear();
+  o.getRange(1, 1, 1, 2).setValues([["Lot", "Nom de fichier"]])
+   .setFontWeight("bold").setBackground("#1f3864").setFontColor("#ffffff");
+  o.setFrozenRows(1);
+  o.setColumnWidth(1, 60);
+  o.setColumnWidth(2, 520);
+
+  if (!att.length) {
+    o.getRange(2, 1).setValue("Rien a deposer.");
+    Logger.log("Rien a deposer : aucune piece RENOMME non cochee.");
+    return;
   }
+
+  var lignes = [];
+  for (var j = 0; j < att.length; j++) lignes.push([Math.floor(j / 5) + 1, att[j]]);
+  o.getRange(2, 1, lignes.length, 2).setValues(lignes);
+  o.getRange(2, 1, lignes.length, 1).setHorizontalAlignment("center");
+  o.getRange(2, 2, lignes.length, 1).setFontFamily("Courier New").setFontSize(9);
+
+  // un lot sur deux grise : on voit d un coup d oeil ou commence et finit
+  // un lot de 5. Par plage entiere, pas ligne a ligne.
+  var nbLots = Math.ceil(att.length / 5);
+  for (var l = 2; l <= nbLots; l += 2) {
+    var debut = 2 + (l - 1) * 5;
+    var hauteur = Math.min(5, att.length - (l - 1) * 5);
+    o.getRange(debut, 1, hauteur, 2).setBackground("#f3f3f3");
+  }
+  SpreadsheetApp.flush();
+
+  Logger.log("Onglet « A DEPOSER » ecrit : " + att.length +
+             " piece(s), " + nbLots + " lot(s) de 5.");
+  Logger.log("Selectionner les 5 noms d un lot en colonne B et les coller " +
+             "dans la tache A du PROMPT 8.");
 }
