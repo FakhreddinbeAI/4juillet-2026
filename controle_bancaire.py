@@ -55,6 +55,8 @@ RELEVES = {
                   periode="30/06/2026 au 31/07/2026", debut=1116.70, fin=9550.55),
     "26008": dict(id="1e7KG3i3dV67F4VGyuGqhSWv5WDWpZUaw",
                   periode="31/07/2026 au 31/08/2026", debut=9550.55, fin=6938.07),
+    "26009": dict(id="12uj9_tBIIA1uqiFqs7TeL7BiICimdYbn",
+                  periode="31/08/2026 au 30/09/2026", debut=6938.07, fin=275.56),
 }
 
 BANQUE = "BNP 2112"   # compte pro, titulaire M. TIGHZA personne physique
@@ -195,6 +197,24 @@ M = [
   PRELEVEMENT,PRET_NOTE,A_OBTENIR,""),
  ("26008","04/08/2026","COMMISSIONS facture 20260701080593796",43.50,0,
   PRELEVEMENT,BANQUE_OK,PRESENT,""),
+
+ # ---- septembre
+ ("26009","18/09/2026","VIR SEPA RECU /FRM PATIENT - DR TIGHZA F NOTE 2929",0,23.00,
+  FACTURE,"Note d honoraires 2929",A_OBTENIR,
+  "Reglement d un patient directement sur le compte BNP. Le nom est retire "
+  "ici. La note 2929 doit etre classee dans 02 - Recettes. Ce cas se repete : "
+  "note 2529 en juin 2025, note 2598 en septembre 2025, toujours 23,00."),
+ ("26009","10/09/2026","VIR SEPA INSTANT EMIS - VIREMENT DE M. TIGHZA /BEN SELARL TIGHZA",6000.00,0,
+  HORS,"",A_OBTENIR,
+  "DEUXIEME virement vers la SELARL en deux mois : 10 000 le 26/08 puis "
+  "6 000 le 10/09, soit 16 000. Ce n est plus un mouvement isole, c est un "
+  "apport regulier. A qualifier avec le comptable."),
+ ("26009","08/09/2026","PRLV SEPA BNP PARIBAS - BNP PROT. DU FOYER",6.00,0,
+  PRELEVEMENT,ASSUR_NOTE,A_OBTENIR,""),
+ ("26009","28/09/2026","ECHEANCE PRET 00271 61671310",636.01,0,
+  PRELEVEMENT,PRET_NOTE,A_OBTENIR,""),
+ ("26009","31/08/2026","COMMISSIONS facture 20260801090150650",43.50,0,
+  PRELEVEMENT,BANQUE_OK,PRESENT,""),
 ]
 
 EN_TETE = ["banque", "releve", "date", "libelle", "debit", "credit",
@@ -327,10 +347,13 @@ def main():
         print(f"    {euro(tot)} EUR  sur {n:>2} mouvement(s)  {just}")
 
     print()
-    print("  LCL : les relevés sont sur l ORDINATEUR, pas sur le Drive.")
-    print("  Il faut les y deposer, ou les faire lire par Claude in Chrome,")
-    print("  pour que les reglements fournisseurs entrent dans ce controle.")
-    print("  Les virements CPAM ne se saisissent PAS : export LOGOS.")
+    print("  LCL — les releves sont sur l ORDINATEUR, jamais sur le Drive.")
+    print("  Compte 07480070666, fichier COMPTEPROLCL_07480070666_AAAAMMJJ.pdf")
+    print("  dans C:\\Users\\conta\\Downloads.")
+    print("  Les CREDITS sont deja traites : la tache planifiee du 6 du mois")
+    print("  sort les virements patients et mutuelles, LOGOS reconcilie la CPAM.")
+    print("  Ce qui manque ici, ce sont les DEBITS : tous les reglements")
+    print("  fournisseurs. Voir PROMPT 7 dans prompt_renommage.md.")
     print()
     print("=" * 74)
     print()

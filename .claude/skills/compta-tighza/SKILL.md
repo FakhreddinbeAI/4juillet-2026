@@ -227,3 +227,21 @@ tour des espaces clients · janvier clôture · printemps-été la demande TGS.
 - Ne pas s'engager sur une date dans un mail à TGS sans l'avoir demandé.
 - **Le Drive fait foi, pas le conteneur** : il a été effacé deux fois, et le
   push GitHub est refusé (app Claude non installée sur le dépôt).
+
+## Le Drive voit l'ordinateur — et agit dessus
+
+Google Drive for Desktop **miroite le PC** : `Downloads`, `Desktop` et
+`Documents` existent sur le Drive, sous l'ID parent
+`1zGylp2Z6rJ0dhE1TrpEE9ixKb6gUdjZv`. Le dossier Téléchargements est
+`1adB-euhu-ZkMQ1E07_J5azVWgWji2Zat`.
+
+**Conséquence utile :** un relevé posé dans les Téléchargements du PC devient
+lisible depuis l'assistant, sans qu'il soit déposé nulle part. C'est comme ça
+que le relevé BNP 26009 a été traité le 05/10/2026.
+
+**Conséquence dangereuse :** ce qu'on fait dans ces dossiers se répercute sur
+le disque. Déplacer un fichier hors de `Downloads` le retire du PC, et le
+mettre à la corbeille le supprime du PC. Donc dans un dossier miroité :
+**copier, jamais déplacer, et ne jamais mettre à la corbeille.** Un doublon
+`Nom (1).pdf` qui réapparaît après un déplacement est la resynchronisation du
+fichier local — le laisser tranquille.
