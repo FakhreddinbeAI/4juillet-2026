@@ -116,6 +116,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-06-06;CANVA;FACTURE;12.00;04904-74747500-1;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Derniere facture presente dans le Drive.
 ;CANVA;FACTURE;12.00;;2026-07-01-au-2026-07-31;MANQUANT;;A recuperer sur la boite perso ou sur canva.com.
 ;CANVA;FACTURE;12.00;;2026-08-01-au-2026-08-31;MANQUANT;;
+;CANVA;FACTURE;12.00;;2026-09-01-au-2026-09-30;MANQUANT;;Emise le 06/09 selon le rythme. La suivante tombe le 06/10.
 #
 # --- LA FRAISE PRO — 119,00 EUR/mois ----------------------------------------
 2026-06-30;LA-FRAISE;FACTURE;119.00;F-2026-06300142;;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;99,17 HT + 19,83 TVA. L abonnement N EST PAS resilie : la facture du 30/09/2026 est arrivee.
