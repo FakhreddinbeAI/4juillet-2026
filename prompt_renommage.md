@@ -538,3 +538,148 @@ lui-même les noms, il rapprochera les ressemblances — et deux COFICA de
 1 353,76 € se ressemblent énormément. Le rapprochement est fait par
 `cle_()`, sur correspondance exacte, et tout écart est signalé au lieu d'être
 deviné.
+
+---
+
+## PROMPT 9 — télécharger les factures depuis les espaces clients
+
+**Pourquoi télécharger plutôt que renommer.** Le lot 1 a échoué sur quatre
+fichiers présents dans le Drive sous leur **ancien nom** : le renommage avait
+été acté au registre mais jamais appliqué au fichier. Télécharger une copie
+fraîche la fait arriver directement au bon nom, sans toucher aux originaux et
+sans renommage à vérifier.
+
+**La règle de nommage, et elle est non négociable.**
+
+```
+AAAA-MM-JJ_FOURNISSEUR_TYPE_MONTANT_REFERENCE[_Pdébut-au-fin].pdf
+```
+
+Montant TTC, point décimal, sans symbole. **Le montant se lit DANS le PDF**,
+jamais sur la page du portail et jamais dans le nom du fichier proposé par le
+site. Les montants Anthropic passent de 21,60 à 88,69 puis 108,00 à cause du
+changement d'offre du 13 avril : une valeur recopiée d'une ligne voisine serait
+fausse.
+
+**Destination unique :** `Mon Drive > FACTURATION`. Le tri vient après.
+
+**Avant d'enregistrer, vérifie qu'un fichier de ce nom exact n'existe pas
+déjà** dans le Drive. S'il existe, n'enregistre pas et signale-le.
+
+### Tâche 1 — Anthropic (console.anthropic.com)
+
+```
+Va sur console.anthropic.com, section facturation / historique des factures.
+
+Télécharge ces quatre factures, une par une :
+  HKTDOLB4-0001  —  période du 10/02/2026 au 10/03/2026
+  HKTDOLB4-0002  —  période du 10/03/2026 au 10/04/2026
+  HKTDOLB4-0003  —  période du 10/04/2026 au 10/05/2026
+  et la facture de SEPTEMBRE 2026, émise vers le 13/09, dont je n'ai ni le
+  numéro ni le montant confirmé
+
+Pour chacune : ouvre le PDF, LIS le total TTC dedans, puis enregistre dans
+Mon Drive > FACTURATION sous le nom
+
+  AAAA-MM-JJ_ANTHROPIC_FACTURE_MONTANT_REFERENCE_PAAAA-MM-JJ-au-AAAA-MM-JJ.pdf
+
+Exemple pour la première, SI le PDF confirme bien 21,60 :
+  2026-02-10_ANTHROPIC_FACTURE_21.60_HKTDOLB4-0001_P2026-02-10-au-2026-03-10.pdf
+
+Si le montant lu dans le PDF diffère de 21,60, utilise CELUI DU PDF et
+signale-le-moi.
+
+Réponds par une ligne par facture :
+  nom du fichier enregistré | montant lu dans le PDF | OK ou ECHEC + motif
+```
+
+### Tâche 2 — Canva (canva.com)
+
+```
+Va sur canva.com, paramètres de facturation, historique des factures.
+
+Télécharge les factures de JUILLET, AOÛT et SEPTEMBRE 2026 — émises le 6 de
+chaque mois, 12,00 EUR attendus. Celle d'octobre tombe le 06/10 : prends-la
+aussi si elle est déjà là.
+
+Même règle : lis le montant et le numéro DANS le PDF. Enregistre dans
+Mon Drive > FACTURATION sous
+
+  AAAA-MM-JJ_CANVA_FACTURE_MONTANT_REFERENCE_PAAAA-MM-JJ-au-AAAA-MM-JJ.pdf
+
+La référence Canva ressemble à 04904-74747500-1.
+
+Réponds par une ligne par facture : nom enregistré | montant | numéro | OK ou ECHEC.
+```
+
+### Tâche 3 — Aries (espace entrepreneurs.com)
+
+```
+Connecte-toi à l'espace client entrepreneurs.com, section factures.
+
+Il me manque JANVIER, JUILLET et AOÛT 2026 — 990,00 EUR par mois attendus.
+Rien n'a été reçu depuis la facture de juin.
+
+Attention : ces factures sont EXONÉRÉES DE TVA (export de services, société de
+Dubaï). Le total TTC égale donc le HT. Lis-le dans le PDF.
+
+Enregistre dans Mon Drive > FACTURATION sous
+  AAAA-MM-JJ_ARIES_FACTURE_MONTANT_REFERENCE_PAAAA-MM-JJ-au-AAAA-MM-JJ.pdf
+
+Les références Aries ont deux formes : F-2026-02-000008793 et INV-2026-01345.
+Recopie celle qui figure sur le PDF, sans la normaliser.
+
+Réponds par une ligne par facture. Si un mois n'existe pas dans l'espace,
+dis-le au lieu de prendre le mois voisin.
+```
+
+### Tâche 4 — MACSF (macsf.fr, identifiant 7904376)
+
+```
+Connecte-toi à macsf.fr avec l'identifiant 7904376 — même espace client que la
+RCP.
+
+Je cherche l'ATTESTATION FISCALE MADELIN du contrat de prévoyance P15 001,
+pour l'année 2026.
+
+Enregistre-la dans Mon Drive > FACTURATION sous
+  2026-12-31_MACSF_ATTESTATION_MONTANT_P15-001_P2026-01-01-au-2026-12-31.pdf
+
+Le montant est le total des cotisations versées sur l'année, tel qu'il figure
+sur l'attestation. S'il n'y figure pas, omets le bloc montant.
+
+Si l'attestation 2026 n'est pas encore émise, dis-moi à partir de quelle date
+elle le sera. Ne prends pas celle de 2025 à la place.
+```
+
+### Tâche 5 — Straumann (eShop)
+
+```
+Connecte-toi à l'eShop Straumann, historique des factures.
+
+Je cherche la facture 9060125749, du 16/06/2026, 100,74 EUR, échéance le
+16/07/2026. Je ne la connais que par une ligne de relevé bancaire — je n'ai
+jamais vu la facture elle-même.
+
+Attention : il y a DEUX comptes clients, 15133210 et 15133626. Cherche dans
+les deux.
+
+Enregistre sous
+  2026-06-16_STRAUMANN_FACTURE_MONTANT_9060125749.pdf
+avec le montant lu dans le PDF. S'il n'est pas de 100,74, signale-le : c'est
+le relevé bancaire qui serait à revoir.
+```
+
+### Ce qui ne se télécharge PAS — à réclamer
+
+Ces pièces n'existent sur aucun espace client. Inutile de les chercher :
+
+| Pièce | Montant | À qui |
+|---|---|---|
+| COFICA loyers mars et mai | 1 353,76 € ×2 | Cofica Bail, agence 95908 |
+| Made in Labs mai et juin | 3 522,72 € et 3 089,02 € | Made in Labs |
+| ZFX R-2602.52453 | 253,99 € | Zfx Lyon |
+| ADF — la vraie facture | 389,00 € | Espace Apprenant adfcongres.com, **attestations à partir du 03/12/2026** |
+
+Ce qu'on a de l'ADF est une **confirmation d'inscription**, pas une facture.
+C'est noté au registre et ça reste vrai : rien à télécharger avant décembre.
