@@ -50,7 +50,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
 2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA.
 2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
-;GOOGLE-WORKSPACE;FACTURE;91.08;;2026-09-01-au-2026-09-30;MANQUANT;;Arrivera par mail vers le 1er/2 octobre.
+2026-09-30;GOOGLE-WORKSPACE;FACTURE;105.48;GCFRD0014580910;2026-09-01-au-2026-09-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;105,48 et NON 91,08 : 75,90 d abonnement 3 comptes PLUS 12,00 de renouvellement du domaine implantologielege.com le 24/09. Le domaine se renouvelle chaque septembre, donc ce mois-la coutera toujours 14,40 de plus. 87,90 HT + 17,58 TVA.
 #
 # --- ANTHROPIC — Max plan 5x, 108,00 EUR/mois (90,00 HT + 18,00 TVA) ---------
 2026-07-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0007;2026-07-13-au-2026-08-13;RENOMME;Mon Drive > FACTURATION;Montant lu dans le mail Stripe. Recu 2842-1119-2935.
