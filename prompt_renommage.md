@@ -472,3 +472,69 @@ recalcul qui garantit qu'aucune charge n'a été oubliée.
 d'échéance, impossible de dire quel loyer COFICA est payé. On a passé des
 semaines à chercher trois loyers faute de pouvoir rattacher un débit à une
 facture.
+
+---
+
+## PROMPT 8 — dépôt en continu, puis relevé du portail
+
+**Où le lancer.** Depuis une session Claude Code **locale** sur le PC, ou
+l'extension Claude in Chrome. Jamais depuis la session distante : elle n'a ni
+le navigateur, ni la session TGS, ni les fichiers.
+
+**Deux tâches séparées, et dans cet ordre.** La deuxième n'est pas une
+formalité : c'est elle qui autorise les coches. Tant qu'elle n'a pas tourné,
+rien n'est coché.
+
+### Tâche A — déposer un lot de 5
+
+```
+Tu es sur le portail TGS, déjà connecté.
+
+Dépose ces 5 pièces, une par une, dans l'espace de dépôt de l'exercice 2026 :
+
+[coller ici les 5 noms de fichier donnés par fileDAttente()]
+
+Les fichiers sont dans le Drive de contact@implantologielege.com. Pour chacun :
+cherche le fichier par son nom exact, dépose-le, attends la confirmation du
+portail avant de passer au suivant.
+
+NE COCHE RIEN dans le Google Sheet. Ce n'est pas ton rôle ici.
+
+À la fin, réponds-moi par une ligne par fichier, dans cet ordre :
+  nom du fichier | DEPOSE ou ECHEC | ce que le portail a affiché
+
+Si un dépôt échoue, dis-le et passe au suivant. Ne réessaie pas en boucle, et
+n'invente jamais une confirmation que le portail n'a pas affichée.
+```
+
+### Tâche B — relever ce que le portail détient
+
+```
+Toujours sur le portail TGS, exercice 2026.
+
+Ouvre la liste des pièces déjà déposées. Relève le NOM DE FICHIER EXACT de
+chacune, telle que le portail l'affiche — sans rien corriger, sans rien
+compléter, sans rien réordonner.
+
+Si la liste est paginée, parcours toutes les pages et dis-moi combien tu en as
+parcouru.
+
+Rends-moi la liste brute, un nom par ligne, rien d'autre : pas de numérotation,
+pas de puces, pas de commentaire.
+```
+
+Cette liste se colle dans l'onglet **PORTAIL** du Sheet, à partir de la ligne 3.
+Puis on lance `cocherDepuisPortail()`.
+
+**Pourquoi Chrome ne coche pas lui-même.** Une case cochée doit signifier « le
+portail détient la pièce », jamais « Chrome pense l'avoir envoyée ». Un dépôt
+qui échoue en silence serait coché, la pièce sortirait du radar, et on la
+découvrirait au bilan. Une case cochée à tort est pire que pas
+d'automatisation : elle éteint l'alerte. C'est la même règle que pour les
+doublons — on ne conclut pas sur une apparence, on va voir la source.
+
+**Pourquoi la liste brute et surtout pas « corrigée ».** Si Chrome rapproche
+lui-même les noms, il rapprochera les ressemblances — et deux COFICA de
+1 353,76 € se ressemblent énormément. Le rapprochement est fait par
+`cle_()`, sur correspondance exacte, et tout écart est signalé au lieu d'être
+deviné.
