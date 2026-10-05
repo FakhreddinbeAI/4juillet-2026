@@ -279,3 +279,26 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # connue qu au printemps 2027.
 2026-08-31;SCM-LEGESMILE;RELEVE;9787.35;45530000;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Grand livre du compte courant 45530000 C/c selarl - dr tighza fakhreddine dans la comptabilite de la SCM, edite le 31/08/2026 par Youssef GUERIBI. Solde debiteur de 9 787,35 au 31/12/2025. Exercice 2025 donc clos, mais le solde reste du.
 2026-03-31;SCM-LEGESMILE;RELEVE;120314.80;QP-2025;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Synthese de repartition des charges, fichier SCM LEGESMILE - SCDF - Repartition charges au 31.03.2026.xlsx. Contient 2025 ET 2024. Quote-part SELARL TIGHZA 2025 : 120 314,80. Pour memoire 2024 : 128 737,37.
+#
+# --- ORMCO FRANCE (groupe ENVISTA) — client 101265183 ------------------------
+# Fournisseur d aligneurs SPARK. ABSENT DU REGISTRE jusqu au 05/10/2026 : ses
+# factures dorment dans des sous-dossiers de "factures a regler" et dans des
+# archives zip des Telechargements, jamais nommees ni classees.
+#
+# PARTICULARITE DE FACTURATION : les kits de "refinement" sont offerts, remise
+# de 100 % ou prix a 0,00. Seuls les 16,65 EUR de port sont factures, soit
+# 19,98 EUR TTC. D ou des factures a montant identique qui ne sont PAS des
+# doublons : trois a 19,98 les 9, 11 et 13 avril, numeros, patients et
+# produits tous differents. Verifie piece par piece.
+#
+# ORMCO N ACCEPTE PLUS LES CHEQUES depuis le 01/04/2025. Un cheque de 19,20 a
+# ete retourne le 01/04/2026, ni date ni signe par ailleurs. Reglement par
+# virement, carte ou prelevement SEPA uniquement. IBAN Deutsche Bank
+# FR76 1778 9000 0110 5105 4300 075. Toujours indiquer le code client ET le
+# numero de facture.
+2026-04-09;ORMCO;FACTURE;19.98;331172674;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 09/05/2026. Docteur Tighza.
+2026-04-11;ORMCO;FACTURE;19.98;331173068;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 20 Refinement, 449,00 remise a 100 %, 16,65 de port + 3,33 de TVA. Echeance 11/05/2026. Docteur Tighza.
+2026-04-13;ORMCO;FACTURE;19.98;331173646;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 13/05/2026. Docteur Tighza.
+2026-06-03;ORMCO;FACTURE;1348.66;331190204;;RECU;Drive partage > Lisa - Lucie : factures a regler;SPARK 35 Dual Arch, 2 018,00 remise 45,1 % = 1 107,88 HT + 16,00 de port + 224,78 de TVA. Echeance 03/07/2026. A VERIFIER : facturee a DR TIGHZA mais expedition et "nom du docteur" au DR ANGIBAUD GEOFFREY, associe de la SCM. Ce n est pas un traitement de la SELARL. Soit le compte client 101265183 sert a tout le cabinet et la charge doit etre refacturee a Angibaud, soit l adresse de facturation est fausse chez Ormco. 1 348,66 EUR en jeu.
+2026-04-01;ORMCO;AR;19.20;retour-cheque;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Retour du cheque n 8430660 de 19,20, tire sur le LCL 07480 070666. Motif : ni date ni signe, ET Ormco n accepte plus les cheques depuis le 01/04/2025. Confirme au passage le numero du compte LCL.
+;ORMCO;FACTURE;;;2026-01-01-au-2026-12-31;A_VERIFIER;;AUTRES PIECES ORMCO NON DEPOUILLEES : deux fichiers nommes seulement "ORMCO .pdf" du 06/02/2026 et du 10/04/2026, un "ORMCO Regle par chq le 13/03/2026", et les factures 331014047 et 331028784 extraites des zip, d une serie anterieure. Plus quatre archives zip dans les Telechargements : releve de compte, factures en attente de paiement, rappel, relance. Les zip ne sont pas lisibles par le connecteur.
