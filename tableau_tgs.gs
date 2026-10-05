@@ -210,24 +210,37 @@ function etape4_liens() {
   var nb = nbLignes_(f);
   var noms = f.getRange(PREMIERE_LIGNE, COL_FICHIER, nb, 1).getValues();
 
-  var valeurs = [], poses = 0;
+  // On vide d'abord : ca enleve les #ERROR! laisses par les versions a
+  // formule, et ca laisse une trace visible meme si la suite echoue.
+  var plage = f.getRange(PREMIERE_LIGNE, COL_LIEN, nb, 1);
+  plage.clearContent();
+  SpreadsheetApp.flush();
+
+  // Cellule par cellule, et SURTOUT on saute les lignes sans nom de fichier.
+  // La version precedente construisait pour elles un
+  // newRichTextValue().setText("") : Apps Script refuse un texte riche vide
+  // et levait une exception avant la moindre ecriture, ce qui laissait les
+  // #ERROR! en place et donnait l'impression que rien ne s'etait passe.
+  var poses = 0, sautees = 0, echecs = 0, premiereErreur = "";
   for (var i = 0; i < nb; i++) {
     var nom = String(noms[i][0] || "").trim();
-    if (!nom) {
-      valeurs.push([SpreadsheetApp.newRichTextValue().setText("").build()]);
-    } else {
+    if (!nom) { sautees++; continue; }
+    try {
       var url = "https://drive.google.com/drive/search?q=" + encodeURIComponent(nom);
-      valeurs.push([SpreadsheetApp.newRichTextValue()
-                      .setText("ouvrir").setLinkUrl(url).build()]);
+      f.getRange(PREMIERE_LIGNE + i, COL_LIEN).setRichTextValue(
+        SpreadsheetApp.newRichTextValue().setText("ouvrir").setLinkUrl(url).build());
       poses++;
+    } catch (err) {
+      echecs++;
+      if (!premiereErreur) premiereErreur = "ligne " + (PREMIERE_LIGNE + i) +
+                                           " : " + err.message;
     }
   }
 
-  var plage = f.getRange(PREMIERE_LIGNE, COL_LIEN, nb, 1);
-  plage.clearContent();               // enleve les #ERROR! de l'ancienne version
-  plage.setRichTextValues(valeurs);
   plage.setHorizontalAlignment("center").setFontSize(9);
-  Logger.log("     " + poses + " liens poses sur " + nb + " lignes.");
+  Logger.log("     " + poses + " liens poses, " + sautees +
+             " lignes sans nom de fichier, " + echecs + " echecs.");
+  if (echecs) Logger.log("     premiere erreur -> " + premiereErreur);
 }
 
 
@@ -342,6 +355,9 @@ function recapitulatif() {
 function diagnostic() {
   var f = feuille_();
   Logger.log("Feuille : " + f.getName());
+  Logger.log("Langue du classeur : " +
+             SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetLocale() +
+             " (fr_FR attend le point-virgule dans les formules)");
   Logger.log("Lignes de donnees : " + nbLignes_(f));
   Logger.log("Colonnes utilisees : " + f.getLastColumn());
   Logger.log("Lignes figees : " + f.getFrozenRows() +
