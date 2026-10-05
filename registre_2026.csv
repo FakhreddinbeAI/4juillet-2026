@@ -57,18 +57,18 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-07-13;ANTHROPIC;RECU;108.00;2842-1119-2935;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement, CB 2097.
 2026-08-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0008;2026-08-13-au-2026-09-13;RENOMME;Mon Drive > FACTURATION;Recu 2240-8167-3237.
 2026-08-13;ANTHROPIC;RECU;108.00;2240-8167-3237;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement.
-;ANTHROPIC;FACTURE;108.00;;2026-09-13-au-2026-10-13;MANQUANT;;Arrive le 13 de chaque mois.
+2026-09-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0009;2026-09-13-au-2026-10-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. Porte la TVA intracom IE4276970QH.
 #
 # Les 6 premieres factures Anthropic sont dans le Drive depuis le rapatriement
 # du 09/07/2026, sous un ancien nommage. Montants NON VERIFIES : le plan a
 # change en avril (deux factures en 04/2026), le tarif n'etait pas 108,00 avant.
 # L'abonnement demarre en FEVRIER 2026 : janvier n'est donc pas un trou.
-2026-02-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0001;2026-02-10-au-2026-03-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%. PAS 108 EUR : le plan Max ne commence qu'en avril.
-2026-03-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0002;2026-03-10-au-2026-04-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%.
-2026-04-10;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0003;2026-04-10-au-2026-05-10;RENOMME;Mon Drive > Comptabilite > factures abonnements;Claude Pro, 18,00 HT + 20%. Derniere facture au tarif Pro.
-2026-04-13;ANTHROPIC;FACTURE;88.69;HKTDOLB4-0004;2026-04-13-au-2026-05-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Passage au plan Max 5x le 13/04 : 90,00 HT moins 16,09 de prorata sur le Pro non consomme, + 20%. Ce n est pas un doublon de la 0003.
-2026-05-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0005;2026-05-13-au-2026-06-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF.
-2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;RENOMME;Mon Drive > Comptabilite > factures abonnements;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF.
+2026-02-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0001;2026-02-09-au-2026-03-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. PAS 108 EUR : le plan Max ne commence qu'en avril. DATE CORRIGEE le 05/10 : le PDF porte le 09/02 et non le 10/02. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-03-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0002;2026-03-09-au-2026-04-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. DATE CORRIGEE le 05/10 : 09/03 et non 10/03. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-04-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0003;2026-04-09-au-2026-05-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. Derniere facture au tarif Pro. DATE CORRIGEE le 05/10 : 09/04 et non 10/04. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-04-13;ANTHROPIC;FACTURE;88.69;HKTDOLB4-0004;2026-04-13-au-2026-05-13;RENOMME;Mon Drive > FACTURATION;Passage au plan Max 5x le 13/04 : 90,00 HT moins 16,09 de prorata sur le Pro non consomme, + 20%. Ce n est pas un doublon de la 0003. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-05-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0005;2026-05-13-au-2026-06-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
 #
 # --- ARGOAT — laboratoire de prothese, montant variable, TVA 0% (art 264-4-1) -
 2026-04-01;ARGOAT;FACTURE;45.00;ARG12031;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.
