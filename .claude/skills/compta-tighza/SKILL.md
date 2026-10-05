@@ -198,6 +198,41 @@ les cases à cocher et l'horodatage dans la feuille Google ; **il doit être cr�
 depuis la feuille, par Extensions → Apps Script, jamais comme projet autonome**,
 sinon `getActiveSpreadsheet()` renvoie null et `onEdit` ne part pas.
 
+`tableau_tgs.gs` met en forme la feuille des pièces : vraies cases à cocher à
+la place des `FALSE`, montants convertis en nombres, horodatage, couleurs par
+état, filtre, et la colonne **Ouvrir** qui pointe sur chaque pièce.
+
+### Apps Script — cinq pièges payés cash
+
+1. **Découper en étapes et appeler `flush()` après chacune.** Un script
+   monolithique a cassé sur « Service Spreadsheets failed » après 69 secondes :
+   Apps Script accumule les écritures et les envoie au dernier moment, donc un
+   échec en fin de parcours laisse un état indéterminé. Découpé, le même
+   travail passe en 4 secondes et le journal dit où ça s'arrête.
+2. **Rendre chaque étape relançable.** `getConditionalFormatRules()` puis
+   `push` empile les mêmes règles en double à chaque relance. Il faut
+   **remplacer**, pas ajouter — sinon la première relance après un échec
+   partiel abîme la feuille.
+3. **Pas de formule écrite par le script.** `setFormulas()` n'adapte pas le
+   séparateur d'arguments : une formule à virgules dans un classeur en
+   français donne `#ERROR!` sur toute la colonne. Poser le lien directement
+   sur le texte avec `setRichTextValue()`, l'URL construite en JavaScript.
+   `#ERROR!` est une erreur de **syntaxe**, pas de valeur.
+4. **Jamais de texte riche vide.** `newRichTextValue().setText("")` lève une
+   exception. Si le tableau est construit en entier avant d'être écrit, cette
+   exception tombe avant la moindre écriture : rien ne bouge et rien ne
+   l'explique. Sauter les lignes vides, et vider la colonne **avant** la
+   boucle pour qu'un passage laisse toujours une trace visible.
+5. **Nommer une fonction corrigée autrement.** Deux versions de suite ont
+   semblé échouer alors qu'elles ne tournaient pas : le collage n'avait pas
+   été enregistré, et c'était l'ancienne fonction qui s'exécutait. Le signe à
+   lire : un journal **sans aucune ligne `Logger.log`** alors que la nouvelle
+   version en écrit une. Un nom neuf rend le problème visible — s'il
+   n'apparaît pas dans la liste déroulante, le fichier n'est pas enregistré.
+
+Et la règle qui couvre les cinq : **vérifier dans la feuille, pas dans le
+journal**. Lire la colonne par le connecteur Drive a tranché chaque fois.
+
 ## Les récurrents
 
 | Fournisseur | Rythme | Montant | Piège |
