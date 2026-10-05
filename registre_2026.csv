@@ -301,4 +301,19 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-04-13;ORMCO;FACTURE;19.98;331173646;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 13/05/2026. Docteur Tighza.
 2026-06-03;ORMCO;FACTURE;1348.66;331190204;;RECU;Drive partage > Lisa - Lucie : factures a regler;SPARK 35 Dual Arch, 2 018,00 remise 45,1 % = 1 107,88 HT + 16,00 de port + 224,78 de TVA. Echeance 03/07/2026. A VERIFIER : facturee a DR TIGHZA mais expedition et "nom du docteur" au DR ANGIBAUD GEOFFREY, associe de la SCM. Ce n est pas un traitement de la SELARL. Soit le compte client 101265183 sert a tout le cabinet et la charge doit etre refacturee a Angibaud, soit l adresse de facturation est fausse chez Ormco. 1 348,66 EUR en jeu.
 2026-04-01;ORMCO;AR;19.20;retour-cheque;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Retour du cheque n 8430660 de 19,20, tire sur le LCL 07480 070666. Motif : ni date ni signe, ET Ormco n accepte plus les cheques depuis le 01/04/2025. Confirme au passage le numero du compte LCL.
-;ORMCO;FACTURE;;;2026-01-01-au-2026-12-31;A_VERIFIER;;AUTRES PIECES ORMCO NON DEPOUILLEES : deux fichiers nommes seulement "ORMCO .pdf" du 06/02/2026 et du 10/04/2026, un "ORMCO Regle par chq le 13/03/2026", et les factures 331014047 et 331028784 extraites des zip, d une serie anterieure. Plus quatre archives zip dans les Telechargements : releve de compte, factures en attente de paiement, rappel, relance. Les zip ne sont pas lisibles par le connecteur.
+;ORMCO;FACTURE;;;2026-01-01-au-2026-12-31;A_VERIFIER;;LES ZIP SONT DEJA DEZIPPES. Leur contenu est dans 01 - Factures fournisseurs > 2025 > Jan-Mai 2025 (boite ftighza), extrait le 09/07/2026 pour le bilan 2025. On y trouve les factures ORMCO 331014047 du 13/01/2025 a 18,00 et 331028784, toutes deux de l exercice CLOS. L archive intitulee releve de compte ne contenait PAS un releve mais des factures unitaires : il n existe donc aucun releve de compte ORMCO, ni pour 2025 ni pour 2026. Pour connaitre le solde reel, il faut le demander a france@finance.envistaco.com ou au 01 49 88 60 60 choix 4. RESTENT NON DEPOUILLES : deux fichiers nommes seulement ORMCO .pdf du 06/02/2026 et du 10/04/2026, et ORMCO Regle par chq le 13/03/2026 — ce dernier est suspect puisque Ormco refuse les cheques depuis le 01/04/2025.
+#
+# --- LE DOSSIER D EXTRACTION DE JUILLET 2026 ---------------------------------
+# 01 - Factures fournisseurs > 2025 > Jan-Mai 2025 (boite ftighza)
+# id 1Rk09zvyXgRvhMXMyczpg1EMP7LFQ8P6e
+# C est la ou ont ete dezippees les archives telechargees le 09/07/2026 depuis
+# la boite personnelle. Tout y est de l exercice 2025, donc clos, MAIS deux
+# pieces y repondent a des questions restees ouvertes :
+#   - xxx_henry schein location contre angle bague rouge 12 2024 bon de
+#     commande.pdf  ->  c est le bon de commande du contre-angle rouge, origine
+#     du pretendu credit-bail CMV Mediforce. La piece que l on a cherchee
+#     pendant des semaines est la.
+#   - xxx_henry schein 12 2024 bon de commande _attente fact.pdf
+#   - 2402106374.pdf et 2402111914.pdf  ->  numerotation GACD, serie 2025.
+# Les fichiers prefixes xxx_ portent des annotations : "manque une page",
+# "attente fact". Quelqu un les a deja tries a la main.
