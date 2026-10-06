@@ -573,3 +573,44 @@ précise. **Durcir une consigne qu'on n'a pas comprise, c'est la casser.**
 **Et on ne redépose pas pour corriger** : c'est l'erreur n° 4 du mode d'emploi
 (Bredent déposé trois fois). Une pièce mal catégorisée est au portail ; elle
 se signale à Aurélie GUILLOTEAU, elle ne se redépose pas.
+
+## Règle 20 — la chaîne ne s'incrémente que sur preuve au relevé LCL
+
+Consigne du Dr, 06/10/2026 : « *c'est une chaîne à suivre donc sauf si toi tu
+vois que c'est payé sur le relevé de compte du LCL, on n'incrémente pas* ».
+
+**Les quatre états sont les quatre dossiers du drive partagé** — c'est toute
+l'astuce du système, et il suffisait de la lire :
+
+| état | dossier |
+|---|---|
+| `A_TRIER` | `4 - A TRIER` |
+| `A_PAYER` | `Lisa - Lucie : factures à régler` |
+| `PAYE` | `Lucie - Lisa : factures réglées` |
+| `ENVOYE_TGS` | `3 - DEPOSEES TGS` |
+
+`cycle_vie.py` calcule cette colonne. **Deux preuves, et deux seulement :**
+l'historique du portail pour `ENVOYE_TGS`, le relevé LCL pour `PAYE`.
+
+**Ce qui ne suffit pas :**
+
+- **le dossier où Lucie l'a rangée.** C'est une affirmation, pas une preuve.
+- **le fait que le fournisseur soit prélevé.** « Cofica est prélevé » ne dit
+  pas *quelle* échéance est payée : dix prélèvements Cofica font tous
+  1 353,76 € au centime.
+
+Un paiement n'est prouvé que de deux façons : la **référence de la pièce lue
+dans le libellé** du débit, ou un **montant unique des deux côtés** — unique
+au relevé *et* unique au registre. Sinon la chaîne ne bouge pas, et `A_TRIER`
+veut dire « je ne peux pas prouver », pas « c'est perdu ».
+
+**Corollaire : on ne prépare que des lots de pièces payées.** Mes lots du
+06/10 puisaient dans « à régler », donc dans l'impayé — le lot Septodont
+contenait quatre factures impayées sur cinq, pour 763,76 € dus.
+
+**Et ce contrôle a démenti ma propre alerte du jour.** J'annonçais la DGFiP de
+22 € comme l'urgence du dossier, « délai expiré depuis mars, saisie
+possible ». Le relevé 49 montre `VIR SEPA DGFP` de 22,00 € le 09/03/2026 :
+payée depuis sept mois. Et l'amende de 75 € a été payée par saisie
+(`BLOCAGE SUR PCE262177909`, 26/02). Je n'avais jamais cherché le paiement
+au relevé avant de crier à l'urgence.
