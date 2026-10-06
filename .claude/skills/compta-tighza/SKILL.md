@@ -316,3 +316,41 @@ mettre à la corbeille le supprime du PC. Donc dans un dossier miroité :
 **copier, jamais déplacer, et ne jamais mettre à la corbeille.** Un doublon
 `Nom (1).pdf` qui réapparaît après un déplacement est la resynchronisation du
 fichier local — le laisser tranquille.
+
+## Règle 13 — où vivent les pièces (posée le 06/10/2026)
+
+**Ce qui est sur le Bureau reste sur le Bureau. Ce qui est sur le Drive va
+dans le drive partagé « Lisa et Lucie - Suivi compta ».**
+
+| Destination | Quoi |
+|---|---|
+| `Lucie - Lisa : factures réglées` | ce qui est payé |
+| `Lisa - Lucie : factures à régler` | ce qui ne l'est pas |
+
+Et surtout : **ne jamais déplacer un fichier du Bureau ni de Documents.**
+`Bureau > Comptabilité Cabinet Tighza` est dans le miroir Drive pour
+ordinateur — l'en sortir le supprimerait du disque. Pour ceux-là, copier.
+
+### Comment trancher payé / non payé sans deviner
+
+Trois critères, par ordre de force. Si aucun ne tranche, la pièce va dans
+**à régler** : c'est le défaut prudent, parce qu'une facture classée à tort
+en « réglées » ne sera jamais réclamée, alors qu'une relance inutile ne coûte
+rien.
+
+1. **Prélèvement automatique** → réglée. Le prélèvement ne se négocie pas.
+   Vaut pour COFICA, Anthropic, Google Workspace, Canva, Aries, La Fraise,
+   Doctolib, Icare, IONOS, Free, Apple, Recept AI, MACSF, URSSAF, CARCDSF.
+2. **Total payé au fournisseur ≥ total facturé** → les pièces au dossier sont
+   réglées. GACD 5 499 € payés contre 2 016 € facturés, Straumann 16 704 €
+   contre 493 €.
+3. **Une relance, une mise en demeure ou un retour de chèque** → à régler,
+   quoi que dise le reste. C'est une preuve directe de l'impayé.
+
+**Ce qui NE tranche pas** : un appariement montant par montant. Dix
+prélèvements COFICA font 1 353,76 € au centime, sept factures Google
+Workspace 91,08 €. Et l'appariement chronologique est trompeur : la fenêtre
+des relevés commence le 06/12/2025, donc le premier paiement de l'année règle
+une facture de décembre — tout est décalé d'un rang. Le **comptage**, lui,
+est solide : dix prélèvements pour sept factures prouve que les sept sont
+payées, et que trois factures manquent.
