@@ -373,3 +373,61 @@ Classée payée et impayée à la fois, et je ne peux pas le corriger.
 
 **Et « à régler » est le domaine de Lucie.** On y ajoute, on n'y retire
 rien, on n'y réarbitre rien.
+
+## Règle 14 — LIRE LE MODE D'EMPLOI AVANT DE RANGER QUOI QUE CE SOIT
+
+À la racine du drive partagé « Lisa et Lucie - Suivi compta » :
+**`0 - MODE D EMPLOI (a lire avant de deposer)`**
+(id `1h9VwrcKLQ_r-um_Jk3ImFdD2Cp3z13gqWxyqGa_KnBQ`)
+
+Mis en place le 30/07/2026, mis à jour le 02/09. Je ne l'avais jamais ouvert
+et j'ai passé une journée à reconstruire un circuit qui existait déjà.
+
+### Le circuit est en QUATRE étapes, pas deux
+
+| Étape | Dossier | Qui, quoi |
+|---|---|---|
+| 1 | `Lisa - Lucie : factures à régler` | Lisa y dépose tout ce qui arrive |
+| 2 | `Lucie - Lisa : factures réglées` | Lucie règle, **renomme**, puis dépose sur le portail |
+| 3 | `3 - DEPOSEES TGS` > année > mois | **uniquement** quand la pièce est réellement sur le portail |
+| 4 | `4 - A TRIER` | montant illisible, pièce douteuse, doublon suspect |
+
+**Toute l'astuce est l'étape 3** : ce qui reste dans « réglées » est exactement
+la liste de ce qu'il reste à déposer. Le Google Sheet refait ce que ce dossier
+fait déjà — préférer le dossier, il ne peut pas se désynchroniser.
+
+**Et l'étape 4 existe pour ne pas deviner.** Une pièce dont on ne peut pas
+prouver le paiement va dans `4 - A TRIER`, jamais dans « à régler ».
+
+### Ce qui ne passe PAS par ce circuit
+
+| Quoi | Où |
+|---|---|
+| Relances de fournisseurs impayés | `Factures_impayees`, racine du Drive du Dr |
+| CPAM, mutuelles, SNIR, SCM | `Comptabilité Cabinet Tighza > 05 - Fiscal & Social` |
+| URSSAF, retraite, paie | `07 - RH & Paie SELARL (In Extenso)` |
+| TGS Avocats | `06 - Juridique` |
+| Pièce réclamée par TGS pour le bilan | `00 - TGS (demandes en cours)` |
+
+### Le portail : le statut ne dit pas ce qu'on croit
+
+Sur **https://monespaceclient.tgs-france.fr**, « Dépôt OK » et « En cours de
+traitement » signifient **reçu, pas encore traité**. Une pièce absente de la
+comptabilité peut donc avoir été fournie. **C'est l'historique des dépôts qui
+fait foi, jamais la comptabilité.**
+
+### Les cinq erreurs que le document chiffre
+
+1. Un nom ressemblant n'est pas la bonne pièce. Même fournisseur + montant
+   différent = ce n'est pas la pièce.
+2. Lire la date d'émission au lieu de la période couverte. Trois factures
+   déposées en 2025 concernaient le mauvais exercice.
+3. Un ticket de caisse se photographie le jour même.
+4. Déposer deux fois : Bredent l'a été trois fois.
+5. **Une facture peut être scindée.** NEOHM : 2 210,40 € en deux moitiés de
+   1 105,20 € — vérifié dans le LCL, le virement du 11/12 règle FR153116 ET
+   FR154597, et le portail n'a que « 1sur 2 ». La seconde moitié manque.
+
+Et le rappel qui revient : **la banque du cabinet est le LCL, pas la BRED.**
+« VIR INST BRED Neohm » est le virement *vers* Neohm, dont la banque est la
+BRED — pas un compte du cabinet.
