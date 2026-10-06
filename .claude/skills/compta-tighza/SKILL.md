@@ -521,3 +521,35 @@ les quatre factures 2025 et fait croire que le lot est déjà déposé.
 j'ai annoncé au Dr que le registre portait des références tronquées : c'était
 mon propre `%-16s` qui les coupait. Une sortie qui ment sur ses données est
 pire qu'une sortie large.
+
+## Règle 18 — lire l'en-tête du Sheet avant d'y écrire, et le vérifier dans le code
+
+Le 06/10/2026 j'ai écrit un script de cochage en **devinant** que la case
+était en colonne K et l'horodatage en L. La vraie structure du Sheet
+« TGS 2026 — pieces a deposer » est :
+
+| col | contenu |
+|---|---|
+| A | **Depose TGS** — la case à cocher |
+| B | **Horodatage** |
+| C | Etat · D Date · E Fournisseur · F Type · G Montant |
+| H | Reference |
+| I | Periode · J Nom de fichier |
+| K | **Point de vigilance** |
+| L | **Ouvrir** — le lien rich-text vers le Drive |
+
+Résultat : `true` écrit dans les points de vigilance, l'horodatage par-dessus
+**cinq liens Drive détruits**, et aucune case cochée. Le journal annonçait
+pourtant « Cochees : 5 nouvelles » — il disait vrai sur la correspondance en
+colonne H et faux sur tout le reste.
+
+**Deux règles qui en sortent :**
+
+1. **Lire l'en-tête avant d'écrire.** `read_file_content` sur l'id du Sheet
+   rend la structure complète en un appel. Dix secondes contre cinq liens
+   perdus.
+2. **Vérifier l'en-tête DANS le script, et s'arrêter si elle ne correspond
+   pas.** Un script qui écrit à l'aveugle sur une position supposée finira
+   par écraser autre chose. Celui qui compte ses lignes sans vérifier où il
+   écrit annonce un succès en détruisant des données — c'est ce qui s'est
+   passé.
