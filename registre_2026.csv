@@ -406,3 +406,17 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # solder un exercice CLOS. Comparer un total paye a un total facture sans lire
 # le LIBELLE du virement produit des manques imaginaires.
 #
+#
+# --- LES PRETS : TGS A DEJA LES TABLEAUX (confirme par le Dr le 06/10) -------
+# NE PLUS LE REDEMANDER. L historique du portail porte « lcl pret 09 2024 1 »,
+# « 2 » et « 3 » — trois fichiers pour les trois prets 22913265, 22813156 et
+# 24921149 — plus « contrat ft0801600 », « engagement de rachat xc90 »,
+# « df 2022020496 267818 », « demande financement 2 » et l echeancier
+# « 2026 02 11 CMV Mediforce Releve Echeances ».
+#
+# Ma conclusion « 44 419 d echeances sans tableau d amortissement » etait donc
+# fausse : elle reposait sur l absence des tableaux AU REGISTRE, pas au
+# portail. Encore le meme biais — prendre le registre pour la realite alors
+# que c est l historique des depots qui fait foi, comme le dit le mode
+# d emploi.
+#
