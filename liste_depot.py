@@ -65,8 +65,8 @@ def main(reg, *hist):
         print("\n%s — %d piece(s), %.2f EUR   [%s]"
               % (fou, len(ps), st, ", ".join(lieux)))
         for p in sorted(ps, key=lambda x: -m(x)):
-            print("    %-16s %9.2f  %-9s %s"
-                  % (p["reference"][:16], m(p), p["etat"][:9], p["date_piece"]))
+            print("    %-22s %9.2f  %-9s %s"
+                  % (p["reference"][:22], m(p), p["etat"][:9], p["date_piece"]))
     print("\n%d fournisseurs, %d pieces, %.2f EUR" % (len(groupes), n, total))
     return 0
 

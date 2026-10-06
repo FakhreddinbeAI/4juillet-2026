@@ -78,30 +78,30 @@ def main(reg, *hist):
     print("--- 0. HORS DU LOT (deposee a l oeil, hors perimetre, ou pas\n       encore emise) : %d pieces, %.2f EUR ---"
           % (len(tranchees), sum(montant(p) for p in tranchees)))
     for p in sorted(tranchees, key=lambda x: -montant(x)):
-        print("  %-16s %-14s %10.2f  %-9s %s"
-              % (p["fournisseur"], (p["reference"] or "")[:14], montant(p),
+        print("  %-16s %-22s %10.2f  %-9s %s"
+              % (p["fournisseur"], (p["reference"] or "")[:22], montant(p),
                  p["etat"][:9], (p.get("note") or "")[:46]))
 
     print("\n--- 1. DEJA AU PORTAIL : %d pieces, %.2f EUR — RIEN A FAIRE ---"
           % (len(deja), sum(montant(p) for p, _ in deja)))
     for p, n in sorted(deja, key=lambda x: -montant(x[0])):
-        print("  %-16s %-12s %10.2f  %s  ->  %s"
-              % (p["fournisseur"], p["reference"][:12], montant(p),
+        print("  %-16s %-22s %10.2f  %s  ->  %s"
+              % (p["fournisseur"], p["reference"][:22], montant(p),
                  p["etat"][:9].ljust(9), n[:52]))
 
     print("\n--- 2. ABSENTES DU PORTAIL : %d pieces, %.2f EUR — A DEPOSER ---"
           % (len(absentes), sum(montant(p) for p in absentes)))
     for p in sorted(absentes, key=lambda x: -montant(x)):
-        print("  %-16s %-14s %10.2f  %-9s %s"
-              % (p["fournisseur"], p["reference"][:14], montant(p),
+        print("  %-16s %-22s %10.2f  %-9s %s"
+              % (p["fournisseur"], p["reference"][:22], montant(p),
                  p["etat"][:9], (p.get("note") or "")[:40]))
 
     print("\n--- 3. SANS REFERENCE EXPLOITABLE : %d pieces, %.2f EUR ---"
           % (len(muettes), sum(montant(p) for p in muettes)))
     print("    On ne peut PAS conclure. A verifier a l oeil sur le portail.")
     for p in sorted(muettes, key=lambda x: -montant(x)):
-        print("  %-16s %-14s %10.2f  %-9s"
-              % (p["fournisseur"], (p["reference"] or "(aucune)")[:14],
+        print("  %-16s %-22s %10.2f  %-9s"
+              % (p["fournisseur"], (p["reference"] or "(aucune)")[:22],
                  montant(p), p["etat"][:9]))
     return 0
 

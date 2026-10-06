@@ -497,3 +497,27 @@ le refait mal.
 Quand le Dr dit « je ne peux pas vérifier maintenant, garde ça pour plus
 tard », c'est là que ça va. Pas dans une note de bas de page du registre, où
 je ne la relirai pas.
+
+## Règle 17 — le portail réécrit les noms, et c'est la cause de mes trous d'index
+
+Chrome l'a établi le 06/10/2026 en déposant le lot Aries : **l'historique du
+portail affiche les noms en minuscules, avec des espaces à la place des
+tirets, des underscores et des points.**
+
+`2026-02-01_ARIES_FACTURE_990.00_F-2026-02-000008793.pdf` devient
+`2026 02 01 aries facture 990 00 f 2026 02 000008793.pdf`
+
+C'est le mécanisme exact qui m'a fait rater sept pièces pourtant déposées :
+`020-FC-01179765` déposé en `020 FC 01179765`, `04753-52817600` en
+`04753 52817600`. **Une référence contenant un séparateur n'existe jamais
+telle quelle dans l'historique.** D'où l'indexation par groupes de chiffres
+de `index_portail.py`, et non par la référence collée.
+
+Corollaire pour les prompts de dépôt : **ordonner de chercher le numéro
+complet, jamais le nom du fournisseur.** Une recherche sur « ARIES » ramène
+les quatre factures 2025 et fait croire que le lot est déjà déposé.
+
+**Et ne jamais tronquer une référence dans une sortie d'outil.** Le 06/10
+j'ai annoncé au Dr que le registre portait des références tronquées : c'était
+mon propre `%-16s` qui les coupait. Une sortie qui ment sur ses données est
+pire qu'une sortie large.
