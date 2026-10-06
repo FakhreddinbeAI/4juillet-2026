@@ -683,3 +683,75 @@ Ces pièces n'existent sur aucun espace client. Inutile de les chercher :
 
 Ce qu'on a de l'ADF est une **confirmation d'inscription**, pas une facture.
 C'est noté au registre et ça reste vrai : rien à télécharger avant décembre.
+
+---
+
+## PROMPT 10 — lot 3, les cinq factures Aries  *(prêt à coller, 06/10/2026)*
+
+Version remplie du PROMPT 2. Les noms et le dossier ont été **vérifiés dans
+le Drive le 06/10** : les cinq fichiers existent sous ces noms exacts.
+
+**Deux pièges, et ils sont dans le prompt :**
+
+1. **Les deux factures de mars se ressemblent à s'y tromper** —
+   `F-2026-03-000009276` et `F-2026-03-000009829`, 990,00 € chacune. Ce ne
+   sont PAS des doublons : la première couvre mars, la seconde avril (émise le
+   30/03, échéance au 14/04). Sans cet avertissement, Chrome en déposera une
+   et sautera l'autre.
+2. **L'historique contient quatre factures Aries de 2025.** Une recherche sur
+   « ARIES » les ramène et donne l'illusion que c'est déjà déposé. D'où
+   l'ordre de chercher le **numéro complet**, jamais le nom du fournisseur.
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+J'ai 5 factures a deposer. Elles sont dans ce dossier Drive :
+https://drive.google.com/drive/folders/1VDRQDpIbCO7R3NRibxAXCWcAgsAbBS1N
+
+Le dossier contient d'autres fichiers. Ne prends QUE ces cinq-la, par leur
+nom exact :
+
+2026-02-01_ARIES_FACTURE_990.00_F-2026-02-000008793_P2026-02-01-au-2026-02-28.pdf
+2026-03-01_ARIES_FACTURE_990.00_F-2026-03-000009276_P2026-03-01-au-2026-03-31.pdf
+2026-03-30_ARIES_FACTURE_990.00_F-2026-03-000009829_P2026-04-01-au-2026-04-30.pdf
+2026-04-30_ARIES_FACTURE_990.00_F-2026-04-0000010320_P2026-05-01-au-2026-05-31.pdf
+2026-05-31_ARIES_FACTURE_990.00_INV-2026-01345_P2026-06-01-au-2026-06-30.pdf
+
+AVERTISSEMENT IMPORTANT. Les cinq font 990,00 EUR chacune et quatre portent
+un numero qui commence par F-2026. Ce ne sont PAS des doublons : ce sont
+cinq mois d'abonnement differents. Les deux de mars en particulier,
+F-2026-03-000009276 et F-2026-03-000009829, sont deux factures distinctes.
+Depose-les toutes les cinq.
+
+Pour chaque fichier, dans cet ordre :
+
+ETAPE 1 - verifier qu'il n'y est pas deja.
+Ouvre Mes depots de documents puis Historique des depots.
+Plage de dates la plus large, toutes categories.
+Cherche le NUMERO COMPLET, par exemple F-2026-02-000008793.
+NE CHERCHE PAS "ARIES" ni "990" : l'historique contient quatre factures
+Aries de 2025 (F-2025-09-000006226, F-2025-10-000006935,
+F-2025-11-000007812, F-2025-12-000008290) qui n'ont rien a voir avec
+celles-ci. Si tu cherches le fournisseur, tu vas croire a tort que c'est
+deja fait.
+Si tu trouves le numero complet, ne depose pas et dis-le-moi.
+
+ETAPE 2 - deposer.
+Categorie : factures fournisseurs.
+Si tu hesites, prends "Je ne sais pas ou deposer ce document".
+
+ETAPE 3 - noter.
+Releve la date, l'heure et le statut affiche apres l'envoi.
+
+Ne depose rien d'autre. Ne renomme rien. Ne supprime rien. Ne deplace rien.
+
+En retour, pour chaque fichier : depose ou deja present, date et heure,
+categorie choisie, statut affiche. Et dis-moi clairement si l'un des cinq
+n'a PAS pu etre depose, avec la raison.
+```
+
+**Après le retour de Chrome**, cocher les cinq lignes dans le Google Sheet et
+passer l'état à `DEPOSEE` au registre. À signaler à Mme Daheron au passage :
+Aries Consulting FZCO est à Dubaï, donc **autoliquidation de la TVA**
+(art. 44 dir. 2006/112/CE) — 4 950 € de prestations sans TVA déductible, à
+déclarer en TVA due et déductible simultanément.
