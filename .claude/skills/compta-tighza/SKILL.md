@@ -401,9 +401,17 @@ prouver le paiement va dans `4 - A TRIER`, jamais dans « à régler ».
 
 ### Ce qui ne passe PAS par ce circuit
 
+> **ATTENTION — ce tableau est PÉRIMÉ sur la première ligne.** Le Dr a posé
+> le 06/10/2026 une règle qui prime : **tout ce qui est sur le Drive se
+> consolide dans le drive partagé**, y compris les relances. `Factures_impayees`
+> n'est plus la destination. Sa règle passe avant le mode d'emploi du 30/07.
+>
+> Le reste du tableau tient : les courriers d'organismes vont bien dans le
+> Drive du Dr.
+
 | Quoi | Où |
 |---|---|
-| Relances de fournisseurs impayés | `Factures_impayees`, racine du Drive du Dr |
+| ~~Relances de fournisseurs impayés~~ | ~~`Factures_impayees`~~ → **drive partagé** |
 | CPAM, mutuelles, SNIR, SCM | `Comptabilité Cabinet Tighza > 05 - Fiscal & Social` |
 | URSSAF, retraite, paie | `07 - RH & Paie SELARL (In Extenso)` |
 | TGS Avocats | `06 - Juridique` |
