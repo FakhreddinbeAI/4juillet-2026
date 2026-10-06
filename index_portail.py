@@ -93,13 +93,25 @@ def cherche(ref, tous, par_chiffres):
     # forment une annee plausible sont donc refuses.
     if len(c) == 4 and re.match(r"(19|20)\d\d$", c):
         return []
-    if c in par_chiffres:
-        return par_chiffres[c]
+    # Plusieurs cles a essayer. La premiere est la reference chiffres colles ;
+    # les suivantes sont ses GROUPES de chiffres pris isolement, car une lettre
+    # au milieu d une reference casse la suite dans le nom du fichier :
+    # « 020-FC-01179765 » se colle en 02001179765 ici, mais le depot s appelle
+    # « ... 020 FC 01179765.pdf », ou les chiffres ne forment jamais cette
+    # suite. On exige alors un groupe d au moins 6 chiffres — « 020 » seul ne
+    # prouverait rien.
+    cles = [c] + [g for g in re.findall(r"\d{6,}", ref)]
+    for k in cles:
+        if k in par_chiffres:
+            return par_chiffres[k]
     # reference tronquee a la saisie : on accepte qu elle soit un prefixe ou
     # un suffixe d une suite plus longue, a partir de 6 chiffres.
-    if len(c) >= 6:
-        return [n for k, noms in par_chiffres.items()
-                for n in noms if k.startswith(c) or k.endswith(c)]
+    for k in cles:
+        if len(k) >= 6:
+            t = [n for kk, noms in par_chiffres.items()
+                 for n in noms if kk.startswith(k) or kk.endswith(k)]
+            if t:
+                return t
     return []
 
 

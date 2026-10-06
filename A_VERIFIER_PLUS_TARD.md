@@ -29,17 +29,31 @@ bénéficiaire est sur l'image ; le relevé ne le donne pas.
   un vieux chèque encaissé tardivement. Les deux ont été écrits après la
   relance.
 
+**CE QUI AFFAIBLIT SÉRIEUSEMENT LA THÈSE DU DOUBLE PAIEMENT** *(trouvé le
+06/10 en relisant l'historique du portail, après avoir dit au Dr que c'était
+un double paiement — c'était trop vite)* **: l'ONCD appelle DEUX cotisations,
+une pour le praticien et une pour la société.** Le portail porte, pour 2025,
+`cotisation ordinale 2025 selarl 001.pdf` **et**
+`cotisation ordinale2025 dr tighza 001.pdf` — deux documents distincts. Il
+porte aussi `ONCD chq 8430738 462 00euros.pdf` (Dépôt OK 06/02/2026), ce qui
+établit que **462,00 € est le montant annuel d'une cotisation**.
+
+Le rappel que j'ai lu est titré « RAPPEL COTISATION ORDINALE **PRATICIEN** ».
+Il existe donc très probablement un appel SELARL du même montant, qui n'est
+pas au registre. Deux chèques de 462 € seraient alors parfaitement normaux.
+
 **Conclure :**
 
-| Si les deux chèques sont… | Alors |
+| Si… | Alors |
 |---|---|
-| tous deux à l'ordre de l'ONCD | **double paiement, 462 € à réclamer.** L'ONCD écrit lui-même « prenez contact si vous pensez avoir déjà réglé ». Demande de remboursement à préparer. |
-| un seul à l'ordre de l'ONCD | pas de double paiement — identifier l'autre bénéficiaire et rattacher la pièce. |
+| les deux chèques sont à l'ordre de l'ONCD **et** il n'existe qu'un seul appel 2026 | double paiement, 462 € à réclamer |
+| il existe un appel SELARL 2026 **en plus** du praticien | **rien à réclamer** — et il manque alors la pièce de l'appel SELARL, à récupérer |
+| un seul chèque va à l'ONCD | identifier l'autre bénéficiaire |
 
-**Au passage, à récupérer dans le même mouvement :** l'attestation de
-règlement et le caducée se téléchargent sur
-`cotisation.ordre-chirurgiens-dentistes.fr` avec le numéro d'appel
-262785280708. C'est la pièce que TGS attend, et elle manque.
+**Le contrôle décisif n'est donc pas l'image des chèques mais le compte
+ONCD** : sur `cotisation.ordre-chirurgiens-dentistes.fr`, voir combien
+d'appels 2026 existent (praticien seul, ou praticien + SELARL). L'image des
+chèques sur LCL ne vient qu'après, et seulement si un seul appel existe.
 
 ---
 
