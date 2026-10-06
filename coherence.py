@@ -76,6 +76,14 @@ def main(reg, lcl, *hist):
         if cycle == "ENVOYE_TGS" and etat not in ("DEPOSEE", "HORS PERIMETRE",
                                                   "A_VENIR") and not au_portail:
             pb("CYCLE ET ETAT EN DESACCORD", p, "cycle=ENVOYE_TGS, etat=%s" % etat)
+        # Une piece sortie du perimetre ou pas encore emise ne doit pas
+        # reapparaitre dans le circuit : sans ce test, les trois pieces de
+        # decembre 2025 restaient marquees PAYE parce que leur debit figure
+        # au releve.
+        if etat in ("HORS PERIMETRE", "A_VENIR", "SANS OBJET") and cycle in (
+                "PAYE", "A_PAYER", "A_TRIER"):
+            pb("HORS CIRCUIT MAIS ENCORE DANS LE CIRCUIT", p,
+               "etat=%s mais cycle=%s" % (etat, cycle))
 
     # 2. un montant du registre doit exister au releve, sinon il est suspect
     for p in P:

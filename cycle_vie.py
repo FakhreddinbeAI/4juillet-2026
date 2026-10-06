@@ -121,6 +121,12 @@ def cycle_de(p, tous, par_chiffres, par_montant, textes, mreg):
     # Mutualease 020-FL-32158803 portait cette mention alors que son numero
     # est absent de l historique. Seuls l etat DEPOSEE — qui exige une preuve,
     # cf. coherence.py — et le dossier « 3 - DEPOSEES TGS » comptent.
+    # Une piece HORS PERIMETRE n est pas dans le circuit : ni a trier, ni
+    # payee, ni envoyee. Sans ce test elle retombait en PAYE des que son
+    # debit se retrouvait au releve — c est ce qui arrivait aux trois pieces
+    # de decembre 2025, qui relevent du bilan 2025.
+    if etat.startswith("HORS"):
+        return "HORS_PERIMETRE", "ne releve pas de l exercice 2026"
     if etat.startswith("DEPOSEE") or "DEPOSEES TGS" in e:
         return "ENVOYE_TGS", "etat DEPOSEE ou dossier 3 - DEPOSEES TGS"
     ref = (p.get("reference") or "").strip()
@@ -184,7 +190,8 @@ def main(reg, lcl, *hist):
     io.open(reg, "w", encoding="utf-8").write("\n".join(sortie))
 
     print("=== LE CIRCUIT, PIECE PAR PIECE ===\n")
-    for cy in ("ENVOYE_TGS", "PAYE", "A_PAYER", "A_TRIER"):
+    for cy in ("ENVOYE_TGS", "PAYE", "A_PAYER", "A_TRIER",
+               "HORS_PERIMETRE"):
         print("  %-12s %3d pieces" % (cy, compte[cy]))
     print("\n--- sur quelle preuve ---")
     for k in sorted(preuves, key=lambda k: -len(preuves[k])):
