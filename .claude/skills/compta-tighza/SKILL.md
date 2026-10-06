@@ -482,3 +482,18 @@ charges SCM au 31/03/2026 contient à la fois la quote-part 2025 (ligne
 du compte courant 45530000 (ligne `APPORTS ASSOCIES 2025`, intitulée
 `solde CC`). Je cherchais le second comme une pièce séparée. Avant de réclamer
 une pièce, ouvrir celles qu'on a déjà.
+
+## Règle 16 — les vérifications en suspens vivent dans un fichier, pas dans la conversation
+
+`A_VERIFIER_PLUS_TARD.md` tient les contrôles qui demandent un accès que je
+n'ai pas : banque en ligne, portail fournisseur, réponse de la comptable.
+**À relire au début de chaque séance.**
+
+Chaque entrée dit **où regarder**, **ce qui est déjà établi**, et **quoi
+conclure selon le résultat** — y compris le résultat qui me donne tort. Sans
+la dernière colonne, la reprise coûte de refaire tout le raisonnement, et on
+le refait mal.
+
+Quand le Dr dit « je ne peux pas vérifier maintenant, garde ça pour plus
+tard », c'est là que ça va. Pas dans une note de bas de page du registre, où
+je ne la relirai pas.
