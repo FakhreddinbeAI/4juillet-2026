@@ -168,15 +168,15 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # releve de compte complet ET la reimpression de la facture 9060107688.
 2026-05-26;STRAUMANN;FACTURE;100.74;9060107688;;RECU;Drive partage > Brother (scans du 30/07/2026);WN Pilier Variobase avec vis, 100,00 moins remise 26% = 74,00 + 9,95 de port + 16,79 TVA. Echeance 25/06. Facture REIMPRIMEE en entier dans le scan. LIBELLE LCL : VIR INST STraumann SAS.;ENVOYE_TGS
 2026-06-16;STRAUMANN;FACTURE;100.74;9060125749;;MANQUANT;;Connue par la SEULE ligne du releve de compte du 24/07 : date, echeance 16/07, montant. La facture elle-meme n a pas ete vue. A tirer de l eShop straumann.fr. LIBELLE LCL : VIR INST STraumann SAS.;A_TRIER
-2026-06-30;STRAUMANN;AVOIR;88.80;9060136144;;RECU;Drive partage > Brother (scans du 30/07/2026);AVOIR, montant negatif au releve. Le coupon de paiement est scanne (page 2 sur 2) ;A_TRIER
+2026-06-30;STRAUMANN;AVOIR;88.80;9060136144;;RECU;Drive partage > Brother (scans du 30/07/2026);AVOIR, montant negatif au releve. Le coupon de paiement est scanne (page 2 sur 2) LOCALISEE LE 06/10 dans les scans Brother : Scan2026-07-30_121534.pdf, Drive id 19wA_fq5Tk8mbsIOpbS0t4p2SgiPF2oyS.;A_TRIER
 2026-07-24;STRAUMANN;RELANCE;112.68;;;RECU;Drive partage > Brother (scans du 30/07/2026);Deuxieme relance. Total echu 100,74, solde du compte 112,68. Verifie : 100,74 + 100,74 - 88,80 = 112,68. LIBELLE LCL : VIR INST STraumann SAS.;A_TRIER
 #
 # --- ORDRE NATIONAL DES CHIRURGIENS-DENTISTES --------------------------------
-2026-07-23;ONCD;RELANCE;462.00;262785280708;2026-01-01-au-2026-12-31;RECU;Drive partage > Brother (scans du 30/07/2026);Cotisation ordinale 2026, EXIGIBLE AU 31 MARS. Rappel du 23/07 avec un mois pour regulariser, donc echu depuis fin aout. Praticien n 66298. L attestation de reglement se telecharge sur cotisation.ordre-chirurgiens-dentistes.fr avec le numero d appel. A VERIFIER SI C EST PAYE. DOUBLE PAIEMENT PROBABLE, 462 A RECUPERER. Le rappel ne porte QU UN coupon et QU UN total de 462,00, pour le seul praticien 66298 ;A_TRIER
+2026-07-23;ONCD;RELANCE;462.00;262785280708;2026-01-01-au-2026-12-31;RECU;Drive partage > Brother (scans du 30/07/2026);Cotisation ordinale 2026, EXIGIBLE AU 31 MARS. Rappel du 23/07 avec un mois pour regulariser, donc echu depuis fin aout. Praticien n 66298. L attestation de reglement se telecharge sur cotisation.ordre-chirurgiens-dentistes.fr avec le numero d appel. A VERIFIER SI C EST PAYE. DOUBLE PAIEMENT PROBABLE, 462 A RECUPERER. Le rappel ne porte QU UN coupon et QU UN total de 462,00, pour le seul praticien 66298 LOCALISEE LE 06/10 dans les scans Brother : Scan2026-07-30_121645.pdf, Drive id 18Q6uXsKcL7d7mRZotIcMaZ7s8AE4OqI-.;A_TRIER
 #
 # --- DIVERS 2026 -------------------------------------------------------------
-2026-07-22;ANTAI;FACTURE;50.00;21440109300015-26-2-185-023-033;;RECU;Drive partage > Brother (scans du 30/07/2026);Forfait de post-stationnement, Nantes, 7 quai des Antilles le 04/07/2026. Vehicule VOLVO GT-908-PS au nom de la SELARL. Un FPS est une redevance, pas une amende : la deductibilite se demande au comptable. Majoration si impaye 3 mois apres le 22/07. PAYEE, prouve par le releve 53 : 'CB97FORF P.STAT 30/07/26' de 50,00. Carte bancaire.;PAYE
-2026-07-29;LA-CASCADE;TICKET;69.20;A167;;RECU;Drive partage > Brother (scans du 30/07/2026);Bar, Clisson. Le ticket porte la mention NON PAYE. Frais de reception : il faut le motif professionnel et les convives, sinon ce n est pas deductible. LIBELLE LCL : CB97LA CASCADE. PAYEE, prouve par le releve 53 : 'CB97LA CASCADE 29/07/26' de 69,20 le 30/07. Le ticket porte la mention NON PAYE, mais il a ete regle par carte le lendemain.;PAYE
+2026-07-22;ANTAI;FACTURE;50.00;21440109300015-26-2-185-023-033;;RECU;Drive partage > Brother (scans du 30/07/2026);Forfait de post-stationnement, Nantes, 7 quai des Antilles le 04/07/2026. Vehicule VOLVO GT-908-PS au nom de la SELARL. Un FPS est une redevance, pas une amende : la deductibilite se demande au comptable. Majoration si impaye 3 mois apres le 22/07. PAYEE, prouve par le releve 53 : 'CB97FORF P.STAT 30/07/26' de 50,00. Carte bancaire. LOCALISEE LE 06/10 dans les scans Brother : Scan2026-07-30_121703.pdf, Drive id 16a_S8kgvwwVtERCah4thNQZLWPWzfkcl.;PAYE
+2026-07-29;LA-CASCADE;TICKET;69.20;A167;;RECU;Drive partage > Brother (scans du 30/07/2026);Bar, Clisson. Le ticket porte la mention NON PAYE. Frais de reception : il faut le motif professionnel et les convives, sinon ce n est pas deductible. LIBELLE LCL : CB97LA CASCADE. PAYEE, prouve par le releve 53 : 'CB97LA CASCADE 29/07/26' de 69,20 le 30/07. Le ticket porte la mention NON PAYE, mais il a ete regle par carte le lendemain. LOCALISEE LE 06/10 dans les scans Brother : Scan2026-07-30_120253.pdf, Drive id 1X0mNiDQQsLi0V50uCbiGbMIe0geeaT44.;PAYE
 #
 # --- SCANS BROTHER NON DECHIFFRES --------------------------------------------
 # Deux PDF du 30/07/2026 sont des images sans couche texte. Le connecteur
@@ -419,4 +419,32 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # portail. Encore le meme biais — prendre le registre pour la realite alors
 # que c est l historique des depots qui fait foi, comme le dit le mode
 # d emploi.
+#
+2026-05-16;PETRO-OUEST;TICKET;109.15;;;RENOMME;Drive partage > Brother (scans du 06/10/2026);AJOUTE AU REGISTRE LE 06/10/2026, decouvert en identifiant les scans Brother. Station E.Leclerc, Petro-Ouest. E10, 54,09 L a 2,018. TVA 20 % : 18,19. PAYE : releve 51, 'CB97PETRO-OUEST 16/05/26' de 109,15 le 18/05. Drive id 1o6a40IQd6EIiwmh1biEYDjKi_bX95eR7.;PAYE
+2026-06-07;SUPER-U-LEGE;TICKET;126.27;;;RENOMME;Drive partage > Brother (scans du 06/10/2026);AJOUTE AU REGISTRE LE 06/10/2026, decouvert en identifiant les scans Brother. Scan en partie illisible : seules les mentions '07 06 26' et '126.27' ressortent. Identifie par le debit, meme code commercant que le ticket du 14/09. PAYE : releve 52, 'CB97UEP*DAC SUPE 07/06/26' de 126,27 le 08/06. Drive id 1kDXjg8vjxQrnIFBCRYJto4A6QvDQe-R3.;PAYE
+2026-06-18;PETRO-OUEST;TICKET;123.01;;;RENOMME;Drive partage > Brother (scans du 06/10/2026);AJOUTE AU REGISTRE LE 06/10/2026, decouvert en identifiant les scans Brother. Station E.Leclerc Reze. E10, 65,12 L a 1,889. TVA 20 % : 20,50. PAYE : releve 52, 'CB97PETRO-OUEST 18/06/26' de 123,01 le 19/06. Drive id 1N3E9iuZA50RaTEH4jXYyvjfcTTIREOn7.;PAYE
+2026-07-20;PETRO-OUEST;TICKET;122.59;;;RENOMME;Drive partage > Brother (scans du 06/10/2026);AJOUTE AU REGISTRE LE 06/10/2026, decouvert en identifiant les scans Brother. Station E.Leclerc Reze. E10, 62,74 L a 1,954. TVA 20 % : 20,43. PAYE : releve 53, 'CB97PETRO-OUEST 20/07/26' de 122,59 le 21/07. Drive id 14IHNQQ9MrZoOElkWOG7krqozMxdopRcY.;PAYE
+2026-09-14;SUPER-U-LEGE;TICKET;145.59;;;RENOMME;Drive partage > Brother (scans du 06/10/2026);AJOUTE AU REGISTRE LE 06/10/2026, decouvert en identifiant les scans Brother. Station U, 44650 Lege. E10, 67,75 L a 2,149. TVA 20 % : 24,27. PAYE : releve 55, 'CB97UEP*DAC SUPE 14/09/26' de 145,59 le 15/09. Drive id 1_EgJbP9vkdwVZjrP7kzwbRGCtkuE3Q7v.;PAYE
+#
+# --- CARBURANT : SIX PLEINS AU RELEVE, CINQ TICKETS -------------------------
+# Les cinq tickets ci-dessus couvrent cinq des six debits carburant de
+# l annee. Le sixieme n a PAS de ticket :
+#   releve 50, 07.04, 'CB97PETRO-OUEST 05/04/26', 116,33
+# A rechercher : le ticket du 05/04/2026. Erreur n 3 du mode d emploi — un
+# ticket se photographie le jour meme, passe une semaine il est perdu.
+#
+# --- SCANS BROTHER IDENTIFIES LE 06/10/2026 ---------------------------------
+# Un appel search_files avec snippetVerbosity BRIEF sur le dossier a suffi :
+# Drive garde le texte OCR de chaque PDF. Treize scans lus en une fois, sans
+# ouvrir un seul fichier.
+#   Scan2026-07-30_120253  LA CASCADE #A167, 69,20, 29/07, mention 'Non paye'
+#   Scan2026-07-30_120331  STRAUMANN 2e RELANCE du 24.07.2026
+#   Scan2026-07-30_121442  ILLISIBLE (Untitled, 2 pages)
+#   Scan2026-07-30_121534  STRAUMANN AVOIR 9060136144, -88,80, 30/06/26
+#   Scan2026-07-30_121631  ILLISIBLE (Untitled, 2 pages)
+#   Scan2026-07-30_121645  ONCD cotisation 462,00
+#   Scan2026-07-30_121703  ANTAI FPS 21440109300015-26-2-185-023-033, 22/07
+#   Scan2026-10-06_1253xx et 1256xx  les cinq tickets de carburant
+# L avoir Straumann 9060136144 et la 2e relance Straumann etaient tous deux
+# classes 'introuvables dans le Drive' : ils y etaient, dans un scan.
 #

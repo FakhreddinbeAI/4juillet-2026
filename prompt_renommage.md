@@ -937,3 +937,74 @@ depose, avec la raison.
 et 2,10 % sur les anesthésiques. Et la relance 1034064 est intégralement
 couverte par des pièces déjà au portail — il n'y a rien à réclamer à
 Septodont, juste à payer.
+
+---
+
+## PROMPT 13 — carburant, cinq tickets prouvés payés  *(prêt à coller, 06/10/2026)*
+
+**Le premier lot conforme à la règle du Dr** : chaque pièce est appariée à un
+débit carte du relevé LCL, au centime et à la date. C'est l'appariement le
+plus solide possible — pas une déduction, une correspondance.
+
+| Ticket | Débit LCL | Montant |
+|---|---|---|
+| 16/05 Petro-Ouest | relevé 51, `CB97PETRO-OUEST 16/05/26` | 109,15 € |
+| 07/06 Super U | relevé 52, `CB97UEP*DAC SUPE 07/06/26` | 126,27 € |
+| 18/06 Petro-Ouest | relevé 52, `CB97PETRO-OUEST 18/06/26` | 123,01 € |
+| 20/07 Petro-Ouest | relevé 53, `CB97PETRO-OUEST 20/07/26` | 122,59 € |
+| 14/09 Super U | relevé 55, `CB97UEP*DAC SUPE 14/09/26` | 145,59 € |
+
+**626,61 €.** Les cinq étaient absents du registre : ils dormaient dans les
+scans Brother du 06/10, sous des noms de scanner. Je les ai renommés.
+
+**Particularité de ce lot : les tickets n'ont pas de numéro de pièce.** La
+vérification se fait donc par **date et montant**, pas par référence. J'ai
+contrôlé moi-même : **aucun ticket de carburant n'a jamais été déposé** — zéro
+sur les 1 325 lignes de l'historique depuis 2023. Le risque de doublon est
+donc nul, et le prompt le dit pour que Chrome ne cherche pas en vain.
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+J'ai 5 tickets de carburant a deposer. Un lien par fichier.
+
+1. 2026-05-16_PETRO-OUEST_TICKET_109.15.pdf
+   https://drive.google.com/file/d/1o6a40IQd6EIiwmh1biEYDjKi_bX95eR7/view
+
+2. 2026-06-07_SUPER-U-LEGE_TICKET_126.27.pdf
+   https://drive.google.com/file/d/1kDXjg8vjxQrnIFBCRYJto4A6QvDQe-R3/view
+
+3. 2026-06-18_PETRO-OUEST_TICKET_123.01.pdf
+   https://drive.google.com/file/d/1N3E9iuZA50RaTEH4jXYyvjfcTTIREOn7/view
+
+4. 2026-07-20_PETRO-OUEST_TICKET_122.59.pdf
+   https://drive.google.com/file/d/14IHNQQ9MrZoOElkWOG7krqozMxdopRcY/view
+
+5. 2026-09-14_SUPER-U-LEGE_TICKET_145.59.pdf
+   https://drive.google.com/file/d/1_EgJbP9vkdwVZjrP7kzwbRGCtkuE3Q7v/view
+
+PAS D'ETAPE DE VERIFICATION POUR CE LOT. Un ticket de caisse n'a pas de
+numero de piece, donc rien a chercher dans l'historique. J'ai verifie
+moi-meme : aucun ticket de carburant n'a jamais ete depose, sur les 1 325
+lignes de l'historique depuis 2023. Ne perds pas de temps a chercher.
+
+Pour chaque fichier :
+
+ETAPE 1 - deposer.
+Categorie pour les cinq : "Je ne sais pas ou deposer ce document".
+C'est TGS qui impute, pas nous. Ne choisis JAMAIS une categorie plus
+precise de toi-meme.
+
+ETAPE 2 - noter.
+Releve la date, l'heure et le statut affiche apres l'envoi.
+
+Ne depose rien d'autre. Ne renomme rien. Ne supprime rien. Ne deplace rien.
+
+En retour, pour chaque fichier : date et heure, statut affiche. Et dis-moi
+clairement si l'un des cinq n'a PAS pu etre depose, avec la raison.
+```
+
+**Un sixième plein manque.** Le relevé 50 porte
+`CB97PETRO-OUEST 05/04/26` de **116,33 €** sans ticket scanné. C'est
+l'erreur n° 3 du mode d'emploi : un ticket se photographie le jour même.
+Celui-là est probablement perdu — à chercher dans la voiture ou le bureau.
