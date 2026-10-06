@@ -439,3 +439,46 @@ fait foi, jamais la comptabilité.**
 Et le rappel qui revient : **la banque du cabinet est le LCL, pas la BRED.**
 « VIR INST BRED Neohm » est le virement *vers* Neohm, dont la banque est la
 BRED — pas un compte du cabinet.
+
+## Règle 15 — chercher au portail AVANT de dire qu'une pièce manque
+
+Le 6 octobre 2026, quatre fois dans la même journée, j'ai annoncé des pièces
+manquantes qui étaient déjà déposées : Ormco, Straumann, Rotec et NTJ ; les
+trois tableaux d'amortissement des prêts ; la quote-part SCM de 120 314,80 €
+et le compte courant de 9 787,35 €. Total des fausses alertes : plus de
+174 000 €, dont une que j'avais classée « de loin le premier enjeu du
+dossier ».
+
+**La faute, toujours la même : lire le registre et prendre son silence pour
+une absence.** Le registre est une vue partielle, construite ici. L'historique
+des dépôts du portail fait foi — le mode d'emploi du drive le dit, et je l'ai
+oublié quatre fois.
+
+**La procédure, maintenant outillée :**
+
+```
+python3 -I audit_portail.py registre_2026.csv \
+        historique_portail.txt historique_portail_statuts.txt
+```
+
+Quatre colonnes, et la dernière compte autant que les autres :
+
+- **tranchées à la main** — `etat` à `DEPOSEE` ou `HORS PERIMETRE`. Une
+  décision humaine ; l'index ne la contredit pas.
+- **déjà au portail** — la référence se retrouve dans un nom déposé.
+- **absentes** — référence exploitable, introuvable. À déposer.
+- **sans référence exploitable** — on ne peut PAS conclure, et on le dit.
+  Deviner ici, c'est fabriquer un faux.
+
+**Deux garde-fous, chacun payé d'un faux résultat.** On indexe les suites de
+chiffres et non les mots, parce que les noms sont saisis à la main avec des
+espaces dans les numéros (« 1144 05 » pour la facture 114405). Et une
+référence réduite à une année est refusée : « QP-2025 » tombait sur
+« 2025 12 31 BNP 2112 RELEVE 25012.pdf ».
+
+**Un fichier peut porter plusieurs pièces du registre.** La répartition de
+charges SCM au 31/03/2026 contient à la fois la quote-part 2025 (ligne
+`755000 QP FRAIS GENERAUX A REINTEGRER`, colonne DR TIGHZA-SELARL) et le solde
+du compte courant 45530000 (ligne `APPORTS ASSOCIES 2025`, intitulée
+`solde CC`). Je cherchais le second comme une pièce séparée. Avant de réclamer
+une pièce, ouvrir celles qu'on a déjà.
