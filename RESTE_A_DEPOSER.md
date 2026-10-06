@@ -67,9 +67,16 @@ Les sept plus gros, qui font à eux seuls 8 530 € des 18 011 € :
 
 1. **DGFiP 22 €** — mise en demeure valant commandement, délai de 30 jours
    expiré depuis mars. Saisie possible pour 22 €.
-2. **ONCD 462 €** — deux chèques 8430662 et 8430663 du même montant, plus un
-   `BLOCAGE SUR PCE262923966` de 462 € passé **deux fois** au LCL. Risque de
-   triple paiement d'une cotisation unique.
+2. **ONCD — 462 € à récupérer.** Le rappel du 23/07 ne porte qu'un coupon et
+   qu'un total de 462,00 €, pour le seul praticien 66298. Or deux chèques de
+   462,00 €, numéros consécutifs 8430662 et 8430663, ont été débités le même
+   jour, le 07/08 ; c'est l'unique paire de chèques de même montant de toute
+   l'année, et le rappel atteste qu'au 23/07 rien n'était payé. Réserve : un
+   débit de chèque ne nomme pas le bénéficiaire — l'image des deux chèques sur
+   LCL en ligne tranche en deux minutes.
+   *(Je disais aussi qu'un `BLOCAGE` de 462 € était passé deux fois : c'était
+   faux. Les deux blocages font 75,00 € et 387,00 € — ils totalisent 462 par
+   coïncidence, et le 75,00 € est l'amende forfaitaire majorée DGFiP.)*
 3. **CHQ IRREGUL 2 491 605 — 2 440,25 €** — contrepartie introuvable.
 4. **28 822 € de virements `VIR SEPA Tighza perso`** — compte courant
    d'associé ou rémunération ? Le traitement fiscal n'est pas le même.

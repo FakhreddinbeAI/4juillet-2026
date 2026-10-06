@@ -224,7 +224,7 @@ Les constats qui ne dépendent pas de cette comparaison tiennent :
 - **les trois prêts, 44 419 € sur dix mois, sans tableau d'amortissement** —
   le libellé `PRET 22913265` ne laisse aucune ambiguïté ;
 - **28 822 € vers « Tighza perso »** à qualifier ;
-- **le CHQ IRREGUL de 2 440,25 €** et le **BLOCAGE de 462 € passé deux fois** ;
+- **le CHQ IRREGUL de 2 440,25 €** et les **deux chèques de 462 € du 07/08**, numéros consécutifs 8430662 et 8430663, alors que l'ONCD n'a appelé 462 € qu'une fois ;
 - **les sept abonnements sans aucune facture** — Doctolib, Recept AI, Icare,
   Free, IONOS, Apple, BNP Paribas Lease — tous prélevés mensuellement, donc
   sans ambiguïté d'exercice.
