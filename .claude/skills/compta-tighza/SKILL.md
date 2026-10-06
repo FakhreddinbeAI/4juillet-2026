@@ -614,3 +614,28 @@ possible ». Le relevé 49 montre `VIR SEPA DGFP` de 22,00 € le 09/03/2026 :
 payée depuis sept mois. Et l'amende de 75 € a été payée par saisie
 (`BLOCAGE SUR PCE262177909`, 26/02). Je n'avais jamais cherché le paiement
 au relevé avant de crier à l'urgence.
+
+## Règle 21 — une absence de mention n'est pas une preuve d'absence
+
+Le 06/10/2026 j'avais inscrit au registre que le ticket La Cascade de 69,20 €
+était « non déductible » au motif qu'**aucun convive n'y était mentionné**.
+Le Dr a corrigé : c'était un repas professionnel.
+
+C'est la même faute que les six fausses alertes du jour, appliquée à la
+déductibilité au lieu des pièces manquantes : **prendre un silence pour une
+preuve.** Un ticket ne dit pas qui était à table ; il ne dit pas non plus que
+personne n'y était.
+
+**La bonne formulation** n'est pas « non déductible » mais « déductibilité à
+établir : il manque le motif et les convives ». Et la bonne action est de
+**demander**, pas de conclure.
+
+**Ce qu'il faut sur une note de restaurant**, et que le ticket ne porte
+jamais : le motif professionnel, le nom et la qualité des convives. À écrire
+sur la pièce ou dans une note déposée avec elle. Sans ça, la charge est
+fragile même quand elle est légitime — et le dire au Dr est utile, alors que
+la déclarer non déductible était faux.
+
+À noter aussi : un ticket de **boissons sans nourriture** relève des frais de
+réception plutôt que du repas d'affaires. La distinction change le compte
+d'imputation, et c'est TGS qui tranche.
