@@ -147,3 +147,84 @@ ZFX 253,99, note d'honoraires 232,00, MACSF 229,39, ARGOAT 160,00, CPAM
 96,75, CMV Mediforce 80,00, amende 75,00, ANTAI 50,00. Soit payées par le
 BNP, soit impayées — l'EXECOM et l'amende sont justement portées en retard
 au registre.
+
+---
+
+# CORRECTION DU 6 OCTOBRE — les libellés changent le chiffre
+
+**Mes 67 073 € de « factures à réclamer » étaient largement surévalués.** La
+cause est une faute de méthode : j'ai comparé un total payé à un total facturé
+**sans lire le libellé du virement**. Or un virement groupé peut solder un
+exercice clos.
+
+## Le déclencheur : ORMCO
+
+Le seul virement ORMCO des dix relevés, 2 805,11 € le 21/01/2026, porte le
+libellé **« Annee 2025 »**. Il solde l'arriéré de l'exercice clos. Je l'avais
+opposé aux factures 2026 et j'en concluais qu'il manquait 1 357,33 € de
+factures. En réalité, ORMCO 2026 c'est **99,12 € facturés et 0 € payé** : pas
+une facture manquante, un impayé.
+
+## Les quatre plus gros postes, relus
+
+| Fournisseur | Payé | 2025 clos | 2026 | À cheval |
+|---|---|---|---|---|
+| MADE IN LABS | 26 387,09 | 4 918,60 | 15 506,45 | 5 962,04 |
+| **STRAUMANN** | 16 704,39 | **16 704,39** | **0,00** | 0,00 |
+| ROTEC | 6 762,51 | 1 089,00 | 4 715,51 | 958,00 |
+| NTJ | 4 281,00 | 1 215,00 | 1 766,00 | 1 300,00 |
+| **Total** | **54 134,99** | **23 926,99** | **21 987,96** | **8 220,04** |
+
+J'annonçais 45 402 € de factures manquantes pour ces quatre. **23 927 €
+relèvent de 2025**, exercice clos — rien à réclamer pour 2026.
+
+### STRAUMANN : le trou était entièrement imaginaire
+
+Les cinq virements portent `Ligne tableau novembre`, `Echeance 3`,
+`24 11 2025`, `Straumann echeance 4`, `Echeance 5/5`. Les trois « échéances »
+à 3 781,3x € sont les traites 3, 4 et 5 d'un **échelonnement sur une facture
+de 2025** — le portail porte d'ailleurs
+`straumann 9050178334 5 echances sur cette facture.pdf`.
+
+**Aucun euro de ces 16 704 € ne concerne 2026.** Les factures Straumann 2026
+du registre font environ 400 € et sont impayées. Mes 16 288 € de manque :
+zéro.
+
+### MADE IN LABS : le relance est soldée
+
+Le virement du 18/09, **8 316,00 €**, porte `SELARL TIGHZA mai-juillet`. La
+relance du 17/08 réclamait **8 316,98 €** — soit 3 522,72 (31/05) + 3 089,02
+(30/06) + 1 705,24 (31/07). Les trois factures sont donc **payées** (à 98
+centimes près, probablement une saisie). Il reste à obtenir les documents de
+mai et juin, mais ce ne sont plus des impayés.
+
+### ROTEC et NTJ : les factures sont au portail, pas au registre
+
+Le portail porte des factures ROTEC 2026 que mon registre n'a jamais
+enregistrées — 5113053 (14/02), 5116617 (10/04), 5117001 (18/04), 5118293
+(12/05), 5118531 (14/05), 5119917 (05/06), 5120388 (13/06) — déposées le
+24/06. Idem pour NTJ (`NTJ Avril 2026`, `NTJ 20240268 04 2026`).
+
+## La vraie leçon
+
+**Le registre est incomplet par rapport au portail.** Il ignore des pans
+entiers de ROTEC, NTJ, GACD, BONGERT, Septodont déjà déposés. Un
+rapprochement bâti sur le registre seul surestime donc le manque, deux fois :
+en comptant comme non justifiés des paiements de 2025, et en ignorant des
+factures déjà fournies.
+
+**Le chiffre fiable ne peut venir que du portail**, pas du registre. Il faut
+reconstruire le registre à partir de l'historique des dépôts — 470 lignes —
+et non l'inverse.
+
+## Ce qui reste solide dans l'analyse
+
+Les constats qui ne dépendent pas de cette comparaison tiennent :
+
+- **les trois prêts, 44 419 € sur dix mois, sans tableau d'amortissement** —
+  le libellé `PRET 22913265` ne laisse aucune ambiguïté ;
+- **28 822 € vers « Tighza perso »** à qualifier ;
+- **le CHQ IRREGUL de 2 440,25 €** et le **BLOCAGE de 462 € passé deux fois** ;
+- **les sept abonnements sans aucune facture** — Doctolib, Recept AI, Icare,
+  Free, IONOS, Apple, BNP Paribas Lease — tous prélevés mensuellement, donc
+  sans ambiguïté d'exercice.
