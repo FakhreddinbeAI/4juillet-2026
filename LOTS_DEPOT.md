@@ -1,14 +1,25 @@
 # Lots de dépôt TGS — 6 octobre 2026
 
-*Dix lots de 5, plus un reliquat. Chaque ligne porte un **lien direct vérifié
-dans le Drive aujourd'hui** : j'ai ouvert les dossiers et relevé les
-identifiants réels, parce que la dernière tentative a échoué sur 4 fichiers
-sur 5 introuvables sous le nom attendu.*
+> **ÉTAT AU 06/10 À 15H.** Deux lots déposés : les cinq Aries (14h15) et le
+> lot 7 recomposé — Neohm, Execom, ZFX, deux La Fraise (14h48). **Reste 42
+> pièces, 9 657 €.**
+>
+> **CATÉGORIE DE DÉPÔT : toujours « Je ne sais pas où déposer ce document ».**
+> C'est TGS qui impute. Les dix premières sont parties sous « Mes factures
+> d'achat » par ma faute ; le Dr les a fait remettre au bon endroit.
+>
+> La composition ci-dessous a bougé depuis : le lot 7 a été refait pour ne
+> contenir qu'une seule catégorie de pièces. Les prompts à jour sont dans
+> `prompt_renommage.md`, PROMPT 10 et suivants.
+
+*Chaque ligne porte un **lien direct vérifié dans le Drive** : j'ai ouvert les
+dossiers et relevé les identifiants réels, parce que la tentative précédente
+avait échoué sur 4 fichiers sur 5 introuvables sous le nom attendu.*
 
 **Avant de commencer :** le dépôt se fait sur
 `https://monespaceclient.tgs-france.fr`. Après chaque lot, le fichier descend
 dans `3 - DEPOSEES TGS > 2026 > mois`. Les références ont déjà été cherchées
-dans l'historique des 1 251 dépôts — aucune de ces pièces n'y est.
+dans l'historique des 1 325 dépôts — aucune des pièces restantes n'y est.
 
 ---
 

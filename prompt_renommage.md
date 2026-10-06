@@ -857,3 +857,83 @@ d'origine n'est ni au Drive ni au portail. Elle est à réclamer à ZFX.
 | GACD 2402391923 · 548,73 € | encore nommée `2402391923.pdf` | fournisseurs, après renommage |
 | Note d'honoraires 2825 · 232 € | c'est une **recette**, pas un achat | recettes |
 | Relevé BNP 26009 | relevé bancaire | relevés bancaires |
+
+---
+
+## PROMPT 12 — lot Septodont, cinq pièces  *(prêt à coller, 06/10/2026)*
+
+Un seul dossier, une seule catégorie, cinq pièces, **1 886,54 €**.
+
+**Deux pièges :**
+
+1. **Le rappel Septodont du 27/08 est DÉJÀ déposé** (`SEPTODONT Rappel de
+   paiement 27 08 2026.pdf`, Dépôt OK le 06/10). La relance 1034064 de ce lot
+   est celle du **11/09**, une autre pièce. Chrome qui cherche « rappel » ou
+   « relance » trouvera le 27/08 et conclura à tort.
+2. **L'historique contient une dizaine de dépôts Septodont** — `90005673`,
+   `90021319`, `septodont 143 32`, `septodont chq 8430648`… Chercher
+   « SEPTODONT » les ramène tous.
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+J'ai 5 pieces Septodont a deposer. Un lien par fichier, ouvre, telecharge,
+depose.
+
+1. Facture 90049585 du 25/06/2026 - 359,02 EUR
+   https://drive.google.com/file/d/1D0E67i9YqXCRRvEBr313egHO177aF6bg/view
+
+2. Facture 90056020 du 28/07/2026 - 383,63 EUR
+   https://drive.google.com/file/d/1vNFG6JGBKi8Q4CwR6di1TK4401TGonA2/view
+
+3. Facture 90056093 du 28/07/2026 - 364,73 EUR
+   https://drive.google.com/file/d/1NLaiQRz-CuZf5PO7lGmr3XvM_HHt7C9Z/view
+
+4. Facture 90060529 du 03/09/2026 - 15,40 EUR
+   https://drive.google.com/file/d/1kCxiHsNbB0em3idn3wgxvKjBiSyqroIC/view
+
+5. Relance 1034064 du 11/09/2026 - 763,76 EUR
+   https://drive.google.com/file/d/1PsQu6lkw2sco_0fJCXYHNTpgd4K5t4P-/view
+
+AVERTISSEMENT 1. Les pieces 2 et 3 portent la MEME DATE, le 28/07/2026, et
+viennent du meme fournisseur. Ce ne sont pas des doublons : deux factures
+distinctes, 383,63 et 364,73. Depose les deux.
+
+AVERTISSEMENT 2. Un rappel de paiement Septodont du 27/08/2026 est DEJA
+depose au portail. La piece 5 de ma liste est la relance du 11/09/2026,
+numero 1034064 : ce n'est PAS la meme. Ne conclus pas qu'elle est deja la
+parce que tu vois un rappel Septodont dans l'historique.
+
+AVERTISSEMENT 3. Pour verifier, cherche TOUJOURS le numero complet, jamais
+« SEPTODONT » : l'historique contient une dizaine de depots Septodont
+(90005673, 90021319, septodont 143 32, septodont chq 8430648...) qui n'ont
+rien a voir avec ces cinq-la.
+
+Pour chaque fichier, dans cet ordre :
+
+ETAPE 1 - verifier qu'il n'y est pas deja.
+Ouvre Mes depots de documents puis Historique des depots.
+Plage de dates la plus large, toutes categories.
+Cherche le numero complet : 90049585, puis 90056020, puis 90056093, puis
+90060529, puis 1034064.
+Si tu trouves le numero complet, ne depose pas et dis-le-moi.
+
+ETAPE 2 - deposer.
+Categorie pour les cinq : "Je ne sais pas ou deposer ce document".
+C'est TGS qui impute, pas nous. Ne choisis JAMAIS une categorie plus
+precise de toi-meme.
+
+ETAPE 3 - noter.
+Releve la date, l'heure et le statut affiche apres l'envoi.
+
+Ne depose rien d'autre. Ne renomme rien. Ne supprime rien. Ne deplace rien.
+
+En retour, pour chaque fichier : depose ou deja present, date et heure,
+statut affiche. Et dis-moi clairement si l'un des cinq n'a PAS pu etre
+depose, avec la raison.
+```
+
+**Pour Mme Daheron :** la facture 90056020 porte **deux taux de TVA**, 20 %
+et 2,10 % sur les anesthésiques. Et la relance 1034064 est intégralement
+couverte par des pièces déjà au portail — il n'y a rien à réclamer à
+Septodont, juste à payer.
