@@ -1,5 +1,11 @@
 # PROMPTS CLAUDE IN CHROME — compta 2026
 
+> **LA CATEGORIE DE DEPOT EST TOUJOURS « Je ne sais pas où déposer ce
+> document ».** Ce n'est pas un recours en cas d'hésitation, c'est la règle.
+> C'est TGS qui impute les pièces, pas nous. Le 06/10/2026 j'ai écrit
+> « Mes factures d'achat » dans deux prompts : dix pièces sont parties dans
+> la mauvaise catégorie avant que le Dr ne le voie.
+
 Deux règles apprises à la dure, valables pour les deux prompts :
 **cinq fichiers par lot** (au-delà, Chrome tourne sans rien écrire) et
 **une seule tâche à la fois** (renommer, puis déposer — jamais les deux).
@@ -80,8 +86,11 @@ Plage large, toutes categories. Cherche le NUMERO DE PIECE du fichier.
 Si tu le trouves deja, ne depose pas et dis-le-moi.
 
 ETAPE 2 - deposer.
-Depose le fichier dans la categorie des factures fournisseurs.
-Si tu hesites, prends "Je ne sais pas ou deposer ce document".
+Categorie : "Je ne sais pas ou deposer ce document".
+C'est la categorie a utiliser par DEFAUT pour tout ce que je te donne.
+Ne choisis JAMAIS une categorie plus precise de toi-meme : c'est TGS qui
+impute, pas nous, et une piece rangee dans la mauvaise categorie leur coute
+plus de temps qu'une piece non rangee.
 
 ETAPE 3 - noter.
 Releve la date, l'heure et le statut affiche apres l'envoi.
@@ -737,8 +746,7 @@ deja fait.
 Si tu trouves le numero complet, ne depose pas et dis-le-moi.
 
 ETAPE 2 - deposer.
-Categorie : factures fournisseurs.
-Si tu hesites, prends "Je ne sais pas ou deposer ce document".
+Categorie : "Je ne sais pas ou deposer ce document".
 
 ETAPE 3 - noter.
 Releve la date, l'heure et le statut affiche apres l'envoi.
@@ -823,8 +831,7 @@ Cherche le numero complet : FR159171, puis FA006127, puis D-2606.08953 ou
 Si tu trouves le numero complet, ne depose pas et dis-le-moi.
 
 ETAPE 2 - deposer.
-Categorie pour les cinq : Mes fournisseurs (Achats) / Mes factures d'achat.
-C'est la meme categorie que les factures Aries deposees a 14h15.
+Categorie pour les cinq : "Je ne sais pas ou deposer ce document".
 
 ETAPE 3 - noter.
 Releve la date, l'heure et le statut affiche apres l'envoi.

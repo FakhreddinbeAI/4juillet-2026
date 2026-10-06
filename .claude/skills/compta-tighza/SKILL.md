@@ -553,3 +553,23 @@ colonne H et faux sur tout le reste.
    par écraser autre chose. Celui qui compte ses lignes sans vérifier où il
    écrit annonce un succès en détruisant des données — c'est ce qui s'est
    passé.
+
+## Règle 19 — la catégorie de dépôt est toujours « Je ne sais pas où déposer ce document »
+
+Ce n'est **pas** un recours en cas d'hésitation : c'est la règle. **C'est TGS
+qui impute les pièces, pas nous.** Une pièce rangée dans la mauvaise catégorie
+leur coûte plus de temps qu'une pièce non rangée.
+
+Le 06/10/2026 j'ai écrit « Mes fournisseurs (Achats) / Mes factures d'achat »
+dans deux prompts Claude in Chrome. **Dix pièces sont parties dans la mauvaise
+catégorie** — les cinq Aries et les cinq du lot 7 — avant que le Dr ne le
+voie.
+
+L'origine de l'erreur est instructive : le gabarit PROMPT 2 disait « *Si tu
+hésites, prends « Je ne sais pas où déposer ce document »* ». J'ai lu ça comme
+une porte de sortie et j'ai « amélioré » le prompt en imposant une catégorie
+précise. **Durcir une consigne qu'on n'a pas comprise, c'est la casser.**
+
+**Et on ne redépose pas pour corriger** : c'est l'erreur n° 4 du mode d'emploi
+(Bredent déposé trois fois). Une pièce mal catégorisée est au portail ; elle
+se signale à Aurélie GUILLOTEAU, elle ne se redépose pas.
