@@ -639,3 +639,26 @@ la déclarer non déductible était faux.
 À noter aussi : un ticket de **boissons sans nourriture** relève des frais de
 réception plutôt que du repas d'affaires. La distinction change le compte
 d'imputation, et c'est TGS qui tranche.
+
+## Règle 22 — valider le JavaScript avant de l'envoyer, et le garder court
+
+Trois fois dans la journée du 06/10/2026 : `SyntaxError: Unexpected end of
+input`. Jamais une faute de syntaxe — **toujours un collage tronqué.** La
+troisième fois, le script faisait 125 lignes dont trente lignes de données
+très longues ; la coupure est tombée à la ligne 100.
+
+**Deux gestes, avant tout envoi de script :**
+
+1. **Valider.** `cp script.gs /tmp/t.js && node --check /tmp/t.js`. Un
+   comptage d'accolades ne suffit pas : il dit « équilibré » sur du code
+   cassé. `node --check` tranche en une seconde, et il faut l'extension
+   `.js` — il refuse `.gs`.
+2. **Raccourcir.** Sortir des données tout ce qui n'y est pas indispensable :
+   les notes longues deviennent des constantes indexées par fournisseur. Le
+   même script est passé de 125 à 84 lignes et de lignes à 180 caractères à
+   aucune au-delà de 84.
+
+**Et si l'erreur arrive quand même** : vérifier d'abord que le fichier envoyé
+est valide, puis demander la ligne citée. Si elle tombe au milieu d'une
+fonction, c'est le collage, pas le code — inutile de réécrire le script, il
+suffit de le raccourcir.
