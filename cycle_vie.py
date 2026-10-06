@@ -127,6 +127,10 @@ def cycle_de(p, tous, par_chiffres, par_montant, textes, mreg):
     # de decembre 2025, qui relevent du bilan 2025.
     if etat.startswith("HORS"):
         return "HORS_PERIMETRE", "ne releve pas de l exercice 2026"
+    if etat.startswith("SANS OBJET"):
+        return "HORS_PERIMETRE", "la piece n existe pas (abonnement resilie)"
+    if etat.startswith("A_VENIR"):
+        return "HORS_PERIMETRE", "pas encore emise"
     if etat.startswith("DEPOSEE") or "DEPOSEES TGS" in e:
         return "ENVOYE_TGS", "etat DEPOSEE ou dossier 3 - DEPOSEES TGS"
     ref = (p.get("reference") or "").strip()
