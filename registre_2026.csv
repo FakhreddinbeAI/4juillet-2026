@@ -29,46 +29,46 @@
 date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 #
 # --- COFICA BAIL — credit-bail, 1 353,76 EUR/mois, contrat 980 750 019 180 56 -
-2026-07-29;COFICA;FACTURE;1353.76;750004820769;2026-01-05-au-2026-02-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Duplicata emis le 29/07/2026. Montant lu dans le PDF.
-2026-07-29;COFICA;FACTURE;1353.76;750004820768;2026-02-05-au-2026-03-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Duplicata emis le 29/07/2026. Montant lu dans le PDF.
-2026-07-28;COFICA;FACTURE;1353.76;750004815707;2026-08-05-au-2026-09-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF.
-;COFICA;FACTURE;1353.76;;2026-03-05-au-2026-04-04;MANQUANT;;A reclamer a Cofica Bail, agence 95908.
-2026-03-27;COFICA;FACTURE;1353.76;750004747696;2026-04-05-au-2026-05-04;RECU;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF. Fichier nomme 2026-03-27_Cofica-Bail_Facture-Loyer.pdf : la date du nom est celle d EMISSION, la periode couvre AVRIL. A renommer. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "2026-03-27_Cofica-Bail_Facture-Loyer.pdf" id 1w5q1774xudTC8DP6o1oq8nedUGUVz3Nc. Numero CONFIRME en lisant le PDF : facture 750 004747696, periode 05/04 au 04/05, 1086,47 HT + 217,29 TVA + 50,00 assurance = 1353,76. Le nom ne portait pas le numero.
-;COFICA;FACTURE;1353.76;;2026-05-05-au-2026-06-04;MANQUANT;;
-2026-05-28;COFICA;FACTURE;1353.76;750004781830;2026-06-05-au-2026-07-04;RECU;Drive partage (racine 0AF4CviDfBKmdUk9PVA);Montant lu dans le PDF. Fichier nomme 'Cofibail 06-07 2026', SANS EXTENSION : invisible a toute recherche par nom de fichier. A renommer.
-2026-06-26;COFICA;FACTURE;1353.76;750004798493;2026-07-05-au-2026-08-04;RENOMME;Drive partage > Brother > Financement et leasing;1 303,76 de loyer + 50,00 d assurance financiere. Lue par Claude in Chrome, scan sans couche texte.
+2026-07-29;COFICA;FACTURE;1353.76;750004820769;2026-01-05-au-2026-02-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Duplicata emis le 29/07/2026. Montant lu dans le PDF. LIBELLE LCL : PRLV SEPA Cofica Bail.
+2026-07-29;COFICA;FACTURE;1353.76;750004820768;2026-02-05-au-2026-03-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Duplicata emis le 29/07/2026. Montant lu dans le PDF. LIBELLE LCL : PRLV SEPA Cofica Bail.
+2026-07-28;COFICA;FACTURE;1353.76;750004815707;2026-08-05-au-2026-09-04;RENOMME;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF. LIBELLE LCL : PRLV SEPA Cofica Bail.
+;COFICA;FACTURE;1353.76;;2026-03-05-au-2026-04-04;MANQUANT;;A reclamer a Cofica Bail, agence 95908. LIBELLE LCL : PRLV SEPA Cofica Bail.
+2026-03-27;COFICA;FACTURE;1353.76;750004747696;2026-04-05-au-2026-05-04;RECU;Drive partage > Lucie - Lisa : factures reglees;Montant lu dans le PDF. Fichier nomme 2026-03-27_Cofica-Bail_Facture-Loyer.pdf : la date du nom est celle d EMISSION, la periode couvre AVRIL. A renommer. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "2026-03-27_Cofica-Bail_Facture-Loyer.pdf" id 1w5q1774xudTC8DP6o1oq8nedUGUVz3Nc. Numero CONFIRME en lisant le PDF : facture 750 004747696, periode 05/04 au 04/05, 1086,47 HT + 217,29 TVA + 50,00 assurance = 1353,76. Le nom ne portait pas le numero. LIBELLE LCL : PRLV SEPA Cofica Bail.
+;COFICA;FACTURE;1353.76;;2026-05-05-au-2026-06-04;MANQUANT;; LIBELLE LCL : PRLV SEPA Cofica Bail.
+2026-05-28;COFICA;FACTURE;1353.76;750004781830;2026-06-05-au-2026-07-04;RECU;Drive partage (racine 0AF4CviDfBKmdUk9PVA);Montant lu dans le PDF. Fichier nomme 'Cofibail 06-07 2026', SANS EXTENSION : invisible a toute recherche par nom de fichier. A renommer. LIBELLE LCL : PRLV SEPA Cofica Bail.
+2026-06-26;COFICA;FACTURE;1353.76;750004798493;2026-07-05-au-2026-08-04;RENOMME;Drive partage > Brother > Financement et leasing;1 303,76 de loyer + 50,00 d assurance financiere. Lue par Claude in Chrome, scan sans couche texte. LIBELLE LCL : PRLV SEPA Cofica Bail.
 #
 # --- GOOGLE WORKSPACE — Business Plus, 3 utilisateurs, 91,08 EUR/mois ---------
 # Les factures sont emises le dernier jour du mois et envoyees le 1er ou 2 du
 # mois suivant. PIEGE : le fichier nomme "2026-07-01" dans le Drive est la
 # facture de JUIN. Toujours se fier a la periode.
-2026-07-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013852502;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF : 75,90 HT + 15,18 TVA.
-2026-08-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0014124467;2026-08-01-au-2026-08-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.
-2026-01-31;GOOGLE-WORKSPACE;FACTURE;87.41;GCFRD0011667476;2026-01-01-au-2026-01-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;Google Workspace Business Plus, 3 comptes. 72,84 HT + 20%. Montant LU dans le PDF.
-2026-02-28;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0011894244;2026-02-01-au-2026-02-28;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
-2026-03-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012241282;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
-2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
-2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA.
-2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF.
-2026-09-30;GOOGLE-WORKSPACE;FACTURE;105.48;GCFRD0014580910;2026-09-01-au-2026-09-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;105,48 et NON 91,08 : 75,90 d abonnement 3 comptes PLUS 12,00 de renouvellement du domaine implantologielege.com le 24/09. Le domaine se renouvelle chaque septembre, donc ce mois-la coutera toujours 14,40 de plus. 87,90 HT + 17,58 TVA.
+2026-07-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013852502;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.
+2026-08-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0014124467;2026-08-01-au-2026-08-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-01-31;GOOGLE-WORKSPACE;FACTURE;87.41;GCFRD0011667476;2026-01-01-au-2026-01-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;Google Workspace Business Plus, 3 comptes. 72,84 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-02-28;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0011894244;2026-02-01-au-2026-02-28;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-03-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012241282;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.
+2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.
+2026-09-30;GOOGLE-WORKSPACE;FACTURE;105.48;GCFRD0014580910;2026-09-01-au-2026-09-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;105,48 et NON 91,08 : 75,90 d abonnement 3 comptes PLUS 12,00 de renouvellement du domaine implantologielege.com le 24/09. Le domaine se renouvelle chaque septembre, donc ce mois-la coutera toujours 14,40 de plus. 87,90 HT + 17,58 TVA. LIBELLE LCL : CB97Google Works.
 #
 # --- ANTHROPIC — Max plan 5x, 108,00 EUR/mois (90,00 HT + 18,00 TVA) ---------
-2026-07-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0007;2026-07-13-au-2026-08-13;RENOMME;Mon Drive > FACTURATION;Montant lu dans le mail Stripe. Recu 2842-1119-2935.
-2026-07-13;ANTHROPIC;RECU;108.00;2842-1119-2935;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement, CB 2097.
-2026-08-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0008;2026-08-13-au-2026-09-13;RENOMME;Mon Drive > FACTURATION;Recu 2240-8167-3237.
-2026-08-13;ANTHROPIC;RECU;108.00;2240-8167-3237;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement.
-2026-09-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0009;2026-09-13-au-2026-10-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. Porte la TVA intracom IE4276970QH.
+2026-07-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0007;2026-07-13-au-2026-08-13;RENOMME;Mon Drive > FACTURATION;Montant lu dans le mail Stripe. Recu 2842-1119-2935. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-07-13;ANTHROPIC;RECU;108.00;2842-1119-2935;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement, CB 2097. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-08-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0008;2026-08-13-au-2026-09-13;RENOMME;Mon Drive > FACTURATION;Recu 2240-8167-3237. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-08-13;ANTHROPIC;RECU;108.00;2240-8167-3237;;RENOMME;Mon Drive > FACTURATION;Preuve de paiement. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-09-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0009;2026-09-13-au-2026-10-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. Porte la TVA intracom IE4276970QH. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
 #
 # Les 6 premieres factures Anthropic sont dans le Drive depuis le rapatriement
 # du 09/07/2026, sous un ancien nommage. Montants NON VERIFIES : le plan a
 # change en avril (deux factures en 04/2026), le tarif n'etait pas 108,00 avant.
 # L'abonnement demarre en FEVRIER 2026 : janvier n'est donc pas un trou.
-2026-02-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0001;2026-02-09-au-2026-03-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. PAS 108 EUR : le plan Max ne commence qu'en avril. DATE CORRIGEE le 05/10 : le PDF porte le 09/02 et non le 10/02. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
-2026-03-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0002;2026-03-09-au-2026-04-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. DATE CORRIGEE le 05/10 : 09/03 et non 10/03. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
-2026-04-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0003;2026-04-09-au-2026-05-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. Derniere facture au tarif Pro. DATE CORRIGEE le 05/10 : 09/04 et non 10/04. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
-2026-04-13;ANTHROPIC;FACTURE;88.69;HKTDOLB4-0004;2026-04-13-au-2026-05-13;RENOMME;Mon Drive > FACTURATION;Passage au plan Max 5x le 13/04 : 90,00 HT moins 16,09 de prorata sur le Pro non consomme, + 20%. Ce n est pas un doublon de la 0003. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
-2026-05-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0005;2026-05-13-au-2026-06-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
-2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION.
+2026-02-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0001;2026-02-09-au-2026-03-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. PAS 108 EUR : le plan Max ne commence qu'en avril. DATE CORRIGEE le 05/10 : le PDF porte le 09/02 et non le 10/02. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-03-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0002;2026-03-09-au-2026-04-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. DATE CORRIGEE le 05/10 : 09/03 et non 10/03. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-04-09;ANTHROPIC;FACTURE;21.60;HKTDOLB4-0003;2026-04-09-au-2026-05-09;RENOMME;Mon Drive > FACTURATION;Claude Pro, 18,00 HT + 20%. Derniere facture au tarif Pro. DATE CORRIGEE le 05/10 : 09/04 et non 10/04. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-04-13;ANTHROPIC;FACTURE;88.69;HKTDOLB4-0004;2026-04-13-au-2026-05-13;RENOMME;Mon Drive > FACTURATION;Passage au plan Max 5x le 13/04 : 90,00 HT moins 16,09 de prorata sur le Pro non consomme, + 20%. Ce n est pas un doublon de la 0003. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-05-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0005;2026-05-13-au-2026-06-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
+2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;RENOMME;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU.
 #
 # --- ARGOAT — laboratoire de prothese, montant variable, TVA 0% (art 264-4-1) -
 2026-04-01;ARGOAT;FACTURE;45.00;ARG12031;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.
@@ -78,29 +78,29 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 ;ARGOAT;FACTURE;;;2026-04-01-au-2026-04-30;A_VERIFIER;;TROU APPARENT : Argoat n a envoye que mars, mai, juin, juillet. Soit il n y a pas eu de travaux en avril, soit la facture manque. A confirmer aupres du labo.
 #
 # --- MUTUALEASE / CM-CIC LEASING — contrat FT0801600, 182,30 EUR/trimestre ----
-2026-03-16;MUTUALEASE;FACTURE;;020-FL-32158803;2026-04-01-au-2026-06-30;A_VERIFIER;portail TGS (depose le 28/07/2026);Deposee par erreur pour le bilan 2025. Elle appartient a 2026. MONTANT A CONFIRMER.
-2026-06-30;MUTUALEASE;FACTURE;;020-FC-01179765;;A_VERIFIER;Drive partage > Lucie - Lisa : factures reglees;Nature a confirmer (FC et non FL : peut-etre un decompte, pas un loyer).
+2026-03-16;MUTUALEASE;FACTURE;;020-FL-32158803;2026-04-01-au-2026-06-30;A_VERIFIER;portail TGS (depose le 28/07/2026);Deposee par erreur pour le bilan 2025. Elle appartient a 2026. MONTANT A CONFIRMER. LIBELLE LCL : PRLV SEPA LIXXBAIL (a confirmer).
+2026-06-30;MUTUALEASE;FACTURE;;020-FC-01179765;;A_VERIFIER;Drive partage > Lucie - Lisa : factures reglees;Nature a confirmer (FC et non FL : peut-etre un decompte, pas un loyer). LIBELLE LCL : PRLV SEPA LIXXBAIL (a confirmer).
 #
 # --- CMV MEDIFORCE — credit-bail contre-angles, 80,00 EUR/mois, A1S88001 ------
 # Contrat d origine : bons de commande HENRY SCHEIN Pack Serenite de 12/2024,
 # location B.A. International sur 36 mois. Mediforce n est que le financeur.
-;CMV-MEDIFORCE;FACTURE;80.00;;2026-01-01-au-2026-01-31;A_VERIFIER;;13 pieces Mediforce ont ete deposees le 29/07/2026 dont 7 couvrent des periodes 2026. A ventiler mois par mois.
+;CMV-MEDIFORCE;FACTURE;80.00;;2026-01-01-au-2026-01-31;A_VERIFIER;;13 pieces Mediforce ont ete deposees le 29/07/2026 dont 7 couvrent des periodes 2026. A ventiler mois par mois. LIBELLE LCL : PRLV SEPA BNP PARIBAS LEASE GROUP (a confirmer).
 #
 # --- ARIES CONSULTING FZCO / ENTREPRENEURS.COM — 990,00 EUR/mois -------------
 # Paiement par CARTE a Abu Dhabi. Le debit bancaire est de 1 019,70 EUR :
 # 990,00 au fournisseur + 29,70 de COMMISSION DE CHANGE LCL (3,00%).
 # La commission s impute en FRAIS BANCAIRES, pas en formation.
-;ARIES;FACTURE;990.00;;2026-01-01-au-2026-01-31;MANQUANT;;Exonere de TVA (export de services, societe de Dubai).
-2026-02-01;ARIES;FACTURE;990.00;F-2026-02-000008793;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Incubateur Solo x9. 990,00 HT, TVA aucune (export de services EAU). Echeance 16/02. Ref virement PLD8QCOT1OJZZZ.
-2026-03-01;ARIES;FACTURE;990.00;F-2026-03-000009276;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Echeance 16/03. Ref virement PLADGSRCQATDZZ. NE PAS confondre avec la 009829 : meme montant, numero et reference differents.
-2026-03-30;ARIES;FACTURE;990.00;F-2026-03-000009829;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/03 mais echeance 14/04 : c est le mois d AVRIL. Ref virement PL2ZU6B2C1HEZZ. Verifie contre la 009276, ce n est pas un doublon.
-2026-04-30;ARIES;FACTURE;990.00;F-2026-04-0000010320;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/04, echeance 15/05 : mois de MAI. Ref virement PLDDLZCBBWH1ZZ.
-2026-05-31;ARIES;FACTURE;990.00;INV-2026-01345;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Nouveau format de numerotation. AUTOLIQUIDATION art 44 dir 2006/112/CE : la TVA est due par le preneur, a signaler au comptable. Numero fiscal client 91147017700013.
-;ARIES;FACTURE;990.00;;2026-07-01-au-2026-07-31;MANQUANT;;Rien recu depuis la facture de juin. A telecharger sur l espace entrepreneurs.com.
-;ARIES;FACTURE;990.00;;2026-08-01-au-2026-08-31;MANQUANT;;
+;ARIES;FACTURE;990.00;;2026-01-01-au-2026-01-31;MANQUANT;;Exonere de TVA (export de services, societe de Dubai). LIBELLE LCL : CB97ARIES CONSUL.
+2026-02-01;ARIES;FACTURE;990.00;F-2026-02-000008793;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Incubateur Solo x9. 990,00 HT, TVA aucune (export de services EAU). Echeance 16/02. Ref virement PLD8QCOT1OJZZZ. LIBELLE LCL : CB97ARIES CONSUL.
+2026-03-01;ARIES;FACTURE;990.00;F-2026-03-000009276;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Echeance 16/03. Ref virement PLADGSRCQATDZZ. NE PAS confondre avec la 009829 : meme montant, numero et reference differents. LIBELLE LCL : CB97ARIES CONSUL.
+2026-03-30;ARIES;FACTURE;990.00;F-2026-03-000009829;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/03 mais echeance 14/04 : c est le mois d AVRIL. Ref virement PL2ZU6B2C1HEZZ. Verifie contre la 009276, ce n est pas un doublon. LIBELLE LCL : CB97ARIES CONSUL.
+2026-04-30;ARIES;FACTURE;990.00;F-2026-04-0000010320;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Emise le 30/04, echeance 15/05 : mois de MAI. Ref virement PLDDLZCBBWH1ZZ. LIBELLE LCL : CB97ARIES CONSUL.
+2026-05-31;ARIES;FACTURE;990.00;INV-2026-01345;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Nouveau format de numerotation. AUTOLIQUIDATION art 44 dir 2006/112/CE : la TVA est due par le preneur, a signaler au comptable. Numero fiscal client 91147017700013. LIBELLE LCL : CB97ARIES CONSUL.
+;ARIES;FACTURE;990.00;;2026-07-01-au-2026-07-31;MANQUANT;;Rien recu depuis la facture de juin. A telecharger sur l espace entrepreneurs.com. LIBELLE LCL : CB97ARIES CONSUL.
+;ARIES;FACTURE;990.00;;2026-08-01-au-2026-08-31;MANQUANT;; LIBELLE LCL : CB97ARIES CONSUL.
 #
 # --- MACSF — RCP + Protection juridique SELARL, contrat 7904376-52 -----------
-2026-06-03;MACSF;ATTESTATION;229.39;7904376-52;2026-07-01-au-2027-06-30;RECU;Mon Drive > Macsf assurance 2026-2027;Avis d echeance + attestation. 229,39 EUR/an preleves 19,11 EUR/mois de 07/2026 a 06/2027.
+2026-06-03;MACSF;ATTESTATION;229.39;7904376-52;2026-07-01-au-2027-06-30;RECU;Mon Drive > Macsf assurance 2026-2027;Avis d echeance + attestation. 229,39 EUR/an preleves 19,11 EUR/mois de 07/2026 a 06/2027. LIBELLE LCL : PRLV SEPA MACSF-PREV- (prevoyance) / MACSF-ASSU- (assurances).
 #
 # --- FORMATION ---------------------------------------------------------------
 2026-08-31;ADF;FACTURE;389.00;C-30800;2026-11-24-au-2026-11-28;RENOMME;Mon Drive > FACTURATION;Congres ADF 2026, apprenant MENANTEAU Lucie, payeur SELARL TIGHZA. Exonere de TVA art 261-4-4-a. RESERVE : c est une CONFIRMATION D INSCRIPTION, pas une facture. La vraie facture est dans l Espace Apprenant adfcongres.com ; attestations disponibles a partir du 03/12/2026. Prise en charge FIFPL possible.
@@ -108,37 +108,37 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # --- CANVA — 12,00 EUR/mois --------------------------------------------------
 # Les factures arrivent sur la boite PERSONNELLE ftighza@gmail.com et non sur
 # contact@. Rien de posterieur au 06/06/2026 dans la boite du cabinet.
-2026-01-06;CANVA;FACTURE;12.00;04753-52817600-1;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Facture adressee a fakhreddine tighza / ftighza@gmail.com, SANS SIREN : ce n est pas la SELARL qui est cliente. A faire valider par le comptable.
-2026-02-06;CANVA;FACTURE;12.00;04784-61986565-1;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
-2026-03-06;CANVA;FACTURE;12.00;04812-63634805-1;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
-2026-04-06;CANVA;FACTURE;12.00;04843-58576697-1;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
-2026-05-06;CANVA;FACTURE;12.00;04873-50448095-1;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA.
-2026-06-06;CANVA;FACTURE;12.00;04904-74747500-1;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Derniere facture presente dans le Drive.
-;CANVA;FACTURE;12.00;;2026-07-01-au-2026-07-31;MANQUANT;;A recuperer sur la boite perso ou sur canva.com.
-;CANVA;FACTURE;12.00;;2026-08-01-au-2026-08-31;MANQUANT;;
-;CANVA;FACTURE;12.00;;2026-09-01-au-2026-09-30;MANQUANT;;Emise le 06/09 selon le rythme. La suivante tombe le 06/10.
+2026-01-06;CANVA;FACTURE;12.00;04753-52817600-1;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Facture adressee a fakhreddine tighza / ftighza@gmail.com, SANS SIREN : ce n est pas la SELARL qui est cliente. A faire valider par le comptable. LIBELLE LCL : CB97CANVA*.
+2026-02-06;CANVA;FACTURE;12.00;04784-61986565-1;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. LIBELLE LCL : CB97CANVA*.
+2026-03-06;CANVA;FACTURE;12.00;04812-63634805-1;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. LIBELLE LCL : CB97CANVA*.
+2026-04-06;CANVA;FACTURE;12.00;04843-58576697-1;2026-04-01-au-2026-04-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. LIBELLE LCL : CB97CANVA*.
+2026-05-06;CANVA;FACTURE;12.00;04873-50448095-1;2026-05-01-au-2026-05-31;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. LIBELLE LCL : CB97CANVA*.
+2026-06-06;CANVA;FACTURE;12.00;04904-74747500-1;2026-06-01-au-2026-06-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;10,00 HT + 2,00 TVA. Derniere facture presente dans le Drive. LIBELLE LCL : CB97CANVA*.
+;CANVA;FACTURE;12.00;;2026-07-01-au-2026-07-31;MANQUANT;;A recuperer sur la boite perso ou sur canva.com. LIBELLE LCL : CB97CANVA*.
+;CANVA;FACTURE;12.00;;2026-08-01-au-2026-08-31;MANQUANT;; LIBELLE LCL : CB97CANVA*.
+;CANVA;FACTURE;12.00;;2026-09-01-au-2026-09-30;MANQUANT;;Emise le 06/09 selon le rythme. La suivante tombe le 06/10. LIBELLE LCL : CB97CANVA*.
 #
 # --- LA FRAISE PRO — 119,00 EUR/mois ----------------------------------------
-2026-06-30;LA-FRAISE;FACTURE;119.00;F-2026-06300142;;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;99,17 HT + 19,83 TVA. L abonnement N EST PAS resilie : la facture du 30/09/2026 est arrivee.
+2026-06-30;LA-FRAISE;FACTURE;119.00;F-2026-06300142;;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;99,17 HT + 19,83 TVA. L abonnement N EST PAS resilie : la facture du 30/09/2026 est arrivee. LIBELLE LCL : CB97LA FRAISE PRO via Mollie.
 #
 # --- FOURNISSEURS DIVERS -----------------------------------------------------
-2026-08-17;MADE-IN-LABS;RELANCE;8316.98;;;RENOMME;Mon Drive > Factures_impayees;Solde debiteur. 3 factures impayees : 3 522,72 (31/05), 3 089,02 (30/06), 1 705,24 (31/07). LES 3 FACTURES ELLES-MEMES SONT A RECUPERER. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "2026-08-17_MADE-IN-LABS_RELANCE_8316.98_solde-debiteur.pdf" id 1qdH1mDWz0lKpcPzyRS5C1CCmFttv3pd_. Ratee par le script faute de reference : aucune cle pour la retrouver.
-;MADE-IN-LABS;FACTURE;3522.72;;2026-05-01-au-2026-05-31;MANQUANT;;
-;MADE-IN-LABS;FACTURE;3089.02;;2026-06-01-au-2026-06-30;MANQUANT;;
-2026-07-31;MADE-IN-LABS;FACTURE;1705.24;36187;2026-07-01-au-2026-07-31;RECU;Drive partage > Lisa - Lucie : factures a regler;1 694,70 HT + 10,54 TVA (une gouttiere de bruxisme a 20%, le reste exonere art 261-4-1 CGI). Fichier nomme 'MADE IN LABS JUILLET ', sans extension et avec une espace finale. A renommer. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "MADE IN LABS JUILLET" id 1qdkeUZ4CrGHhrfaQneAaXHZalmGBq9wg, dans le drive partage.
-2026-08-27;SEPTODONT;RELANCE;;;;RECU;Mon Drive > FACTURATION;Rappel de paiement. Facture d origine a retrouver. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "SEPTODONT - Rappel de paiement - 27/08/2026.pdf" id 1aYB5TZkI1usPP-5RDmYY6XSo6xeLzQCV, dans FACTURATION.
+2026-08-17;MADE-IN-LABS;RELANCE;8316.98;;;RENOMME;Mon Drive > Factures_impayees;Solde debiteur. 3 factures impayees : 3 522,72 (31/05), 3 089,02 (30/06), 1 705,24 (31/07). LES 3 FACTURES ELLES-MEMES SONT A RECUPERER. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "2026-08-17_MADE-IN-LABS_RELANCE_8316.98_solde-debiteur.pdf" id 1qdH1mDWz0lKpcPzyRS5C1CCmFttv3pd_. Ratee par le script faute de reference : aucune cle pour la retrouver. LIBELLE LCL : VIR SEPA Made in labs.
+;MADE-IN-LABS;FACTURE;3522.72;;2026-05-01-au-2026-05-31;MANQUANT;; LIBELLE LCL : VIR SEPA Made in labs.
+;MADE-IN-LABS;FACTURE;3089.02;;2026-06-01-au-2026-06-30;MANQUANT;; LIBELLE LCL : VIR SEPA Made in labs.
+2026-07-31;MADE-IN-LABS;FACTURE;1705.24;36187;2026-07-01-au-2026-07-31;RECU;Drive partage > Lisa - Lucie : factures a regler;1 694,70 HT + 10,54 TVA (une gouttiere de bruxisme a 20%, le reste exonere art 261-4-1 CGI). Fichier nomme 'MADE IN LABS JUILLET ', sans extension et avec une espace finale. A renommer. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "MADE IN LABS JUILLET" id 1qdkeUZ4CrGHhrfaQneAaXHZalmGBq9wg, dans le drive partage. LIBELLE LCL : VIR SEPA Made in labs.
+2026-08-27;SEPTODONT;RELANCE;;;;RECU;Mon Drive > FACTURATION;Rappel de paiement. Facture d origine a retrouver. LOCALISE le 06/10 par le connecteur (le script Apps Script ne voit pas le drive partage) : "SEPTODONT - Rappel de paiement - 27/08/2026.pdf" id 1aYB5TZkI1usPP-5RDmYY6XSo6xeLzQCV, dans FACTURATION. LIBELLE LCL : VIR INST septodont sas.
 #
 # --- GACD — fournisseur decouvert le 25/09/2026 dans FACTURATION ------------
 # Client 10096661. Factures adressees a assistante@implantologielege.com.
 # Reglement a 10 jours date de facture. Absent du registre jusqu'ici.
-2026-07-28;GACD;FACTURE;548.73;2402391923;;RENOMME;Mon Drive > FACTURATION;Commande 1700235938. 457,29 HT + 91,44 TVA. Montant lu dans le PDF.
-2026-08-29;GACD;FACTURE;716.16;2402408753;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465. 596,82 HT + 119,34 TVA. Montant lu dans le PDF.
-2026-09-01;GACD;FACTURE;61.15;2402410567;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465 (serviettes). 50,96 HT + 10,19 TVA. Montant lu dans le PDF.
-2026-09-04;GACD;FACTURE;645.59;2402412732;;RENOMME;Mon Drive > FACTURATION;Commande 1700275308. 537,99 HT + 107,60 TVA. Montant lu dans le PDF.
-;GACD;FACTURE;;;2026-01-01-au-2026-06-30;A_VERIFIER;;GACD facture regulierement mais rien avant juillet 2026 dans FACTURATION. Les factures du 1er semestre sont probablement sur la boite de Lucie (assistante@). A RECUPERER.
+2026-07-28;GACD;FACTURE;548.73;2402391923;;RENOMME;Mon Drive > FACTURATION;Commande 1700235938. 457,29 HT + 91,44 TVA. Montant lu dans le PDF. LIBELLE LCL : VIR INST GACD SAS.
+2026-08-29;GACD;FACTURE;716.16;2402408753;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465. 596,82 HT + 119,34 TVA. Montant lu dans le PDF. LIBELLE LCL : VIR INST GACD SAS.
+2026-09-01;GACD;FACTURE;61.15;2402410567;;RENOMME;Mon Drive > FACTURATION;Commande 1700263465 (serviettes). 50,96 HT + 10,19 TVA. Montant lu dans le PDF. LIBELLE LCL : VIR INST GACD SAS.
+2026-09-04;GACD;FACTURE;645.59;2402412732;;RENOMME;Mon Drive > FACTURATION;Commande 1700275308. 537,99 HT + 107,60 TVA. Montant lu dans le PDF. LIBELLE LCL : VIR INST GACD SAS.
+;GACD;FACTURE;;;2026-01-01-au-2026-06-30;A_VERIFIER;;GACD facture regulierement mais rien avant juillet 2026 dans FACTURATION. Les factures du 1er semestre sont probablement sur la boite de Lucie (assistante@). A RECUPERER. LIBELLE LCL : VIR INST GACD SAS.
 #
 # --- NEOHM ------------------------------------------------------------------
-2026-06-04;NEOHM;FACTURE;1132.80;FR159171;;RENOMME;Mon Drive > FACTURATION;Kit de chirurgie personnalise, 944,00 HT + 188,80 TVA. Arrivee sous forme de RELANCE le 07/09 mais le document contient la facture complete. Reglement par virement BRED.
+2026-06-04;NEOHM;FACTURE;1132.80;FR159171;;RENOMME;Mon Drive > FACTURATION;Kit de chirurgie personnalise, 944,00 HT + 188,80 TVA. Arrivee sous forme de RELANCE le 07/09 mais le document contient la facture complete. Reglement par virement BRED. LIBELLE LCL : VIR INST BRED Neohm.
 #
 # --- NOTRE ACCORD — mediation ------------------------------------------------
 # ATTENTION : ces factures sont etablies au nom de FAKHREDDINE TIGHZA en
@@ -146,13 +146,13 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # (SIREN 911470177). Le Dr, gerant de la SELARL, a decide le 25/09/2026 que
 # la charge passe a ce titre. Justification a rappeler a TGS si la question
 # se pose.
-2026-02-04;NOTRE-ACCORD;FACTURE;345.48;F-20260204-4412;;RENOMME;Mon Drive > FACTURATION;Provision reunion de mediation du 11/02/2026. 287,90 HT + 57,58 TVA. Mediatrices Coutansais et Fragne.
-2026-03-04;NOTRE-ACCORD;FACTURE;483.68;F-20260304-4565;;RENOMME;Mon Drive > FACTURATION;Provision reunion du 11/03/2026 + quote-part. 403,06 HT + 80,62 TVA. 3 exemplaires recus, 2 doublons sortis en 4 - A TRIER apres verification du numero de piece.
+2026-02-04;NOTRE-ACCORD;FACTURE;345.48;F-20260204-4412;;RENOMME;Mon Drive > FACTURATION;Provision reunion de mediation du 11/02/2026. 287,90 HT + 57,58 TVA. Mediatrices Coutansais et Fragne. LIBELLE LCL : PRLV SEPA SAS NOTRE ACCORD.
+2026-03-04;NOTRE-ACCORD;FACTURE;483.68;F-20260304-4565;;RENOMME;Mon Drive > FACTURATION;Provision reunion du 11/03/2026 + quote-part. 403,06 HT + 80,62 TVA. 3 exemplaires recus, 2 doublons sortis en 4 - A TRIER apres verification du numero de piece. LIBELLE LCL : PRLV SEPA SAS NOTRE ACCORD.
 #
 # --- SOCIAL ET FISCAL (ne passent pas par le circuit factures) ---------------
 2026-08-06;CPAM-VENDEE;INDU;96.75;2606534061;;RENOMME;Mon Drive > Comptabilite > 05 - Fiscal & Social;Lot 466, pieces justificatives non transmises. Delai de 2 mois a compter du 11/08/2026. CONFIE A LUCIE le 28/09/2026, elle s en occupe. Ne pas relancer le Dr dessus.
-2026-08-07;URSSAF;AFFILIATION;;527258240324;;RENOMME;Mon Drive > Comptabilite > 07 - RH & Paie;Compte employeur ouvert, embauche au 01/05/2026. DSN mensuelle due le 15. A verifier avec In Extenso.
-;MACSF;ATTESTATION;;P15-001;2026-01-01-au-2026-12-31;MANQUANT;;ATTESTATION FISCALE MADELIN, contrat de prevoyance P15 001. ASSUREUR = MACSF, meme espace client que la RCP : macsf.fr, identifiant 7904376. L attestation 2025 a ete fournie a TGS (confirme le 25/09/2026). Celle de 2026 se telechargera sur macsf.fr en janvier 2027 : ne pas refaire la recherche.
+2026-08-07;URSSAF;AFFILIATION;;527258240324;;RENOMME;Mon Drive > Comptabilite > 07 - RH & Paie;Compte employeur ouvert, embauche au 01/05/2026. DSN mensuelle due le 15. A verifier avec In Extenso. LIBELLE LCL : PRLV SEPA URSSAF CENTRE DE GESTION PAM / URSSAF PAYS DE LOIRE.
+;MACSF;ATTESTATION;;P15-001;2026-01-01-au-2026-12-31;MANQUANT;;ATTESTATION FISCALE MADELIN, contrat de prevoyance P15 001. ASSUREUR = MACSF, meme espace client que la RCP : macsf.fr, identifiant 7904376. L attestation 2025 a ete fournie a TGS (confirme le 25/09/2026). Celle de 2026 se telechargera sur macsf.fr en janvier 2027 : ne pas refaire la recherche. LIBELLE LCL : PRLV SEPA MACSF-PREV- (prevoyance) / MACSF-ASSU- (assurances).
 2026-01-31;BNP-2112;RELEVE;;26001;2026-01-01-au-2026-01-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Compte pro BNP Reze Pont Rousseau. Titulaire M TIGHZA FAKHREDDINE personne physique, PAS la SELARL. Solde 972.60 -> 1686.53
 2026-02-28;BNP-2112;RELEVE;;26002;2026-02-01-au-2026-02-28;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 1686.53 -> 2550.80
 2026-03-31;BNP-2112;RELEVE;;26003;2026-03-01-au-2026-03-31;RENOMME;Compta Cabinet Tighza > 03 - Releves bancaires > 2026;Solde 2550.80 -> 1693.37
@@ -166,17 +166,17 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # Adresse de facturation : SELARL TIGHZA / LOISEAU JOHANNE. Livraison chez
 # Argoat Dentaire. Tout vient de la 2e relance du 24/07/2026, qui porte le
 # releve de compte complet ET la reimpression de la facture 9060107688.
-2026-05-26;STRAUMANN;FACTURE;100.74;9060107688;;RECU;Drive partage > Brother (scans du 30/07/2026);WN Pilier Variobase avec vis, 100,00 moins remise 26% = 74,00 + 9,95 de port + 16,79 TVA. Echeance 25/06. Facture REIMPRIMEE en entier dans le scan.
-2026-06-16;STRAUMANN;FACTURE;100.74;9060125749;;MANQUANT;;Connue par la SEULE ligne du releve de compte du 24/07 : date, echeance 16/07, montant. La facture elle-meme n a pas ete vue. A tirer de l eShop straumann.fr.
-2026-06-30;STRAUMANN;AVOIR;88.80;9060136144;;RECU;Drive partage > Brother (scans du 30/07/2026);AVOIR, montant negatif au releve. Le coupon de paiement est scanne (page 2 sur 2) ; la page 1 manque.
-2026-07-24;STRAUMANN;RELANCE;112.68;;;RECU;Drive partage > Brother (scans du 30/07/2026);Deuxieme relance. Total echu 100,74, solde du compte 112,68. Verifie : 100,74 + 100,74 - 88,80 = 112,68.
+2026-05-26;STRAUMANN;FACTURE;100.74;9060107688;;RECU;Drive partage > Brother (scans du 30/07/2026);WN Pilier Variobase avec vis, 100,00 moins remise 26% = 74,00 + 9,95 de port + 16,79 TVA. Echeance 25/06. Facture REIMPRIMEE en entier dans le scan. LIBELLE LCL : VIR INST STraumann SAS.
+2026-06-16;STRAUMANN;FACTURE;100.74;9060125749;;MANQUANT;;Connue par la SEULE ligne du releve de compte du 24/07 : date, echeance 16/07, montant. La facture elle-meme n a pas ete vue. A tirer de l eShop straumann.fr. LIBELLE LCL : VIR INST STraumann SAS.
+2026-06-30;STRAUMANN;AVOIR;88.80;9060136144;;RECU;Drive partage > Brother (scans du 30/07/2026);AVOIR, montant negatif au releve. Le coupon de paiement est scanne (page 2 sur 2) ; la page 1 manque. LIBELLE LCL : VIR INST STraumann SAS.
+2026-07-24;STRAUMANN;RELANCE;112.68;;;RECU;Drive partage > Brother (scans du 30/07/2026);Deuxieme relance. Total echu 100,74, solde du compte 112,68. Verifie : 100,74 + 100,74 - 88,80 = 112,68. LIBELLE LCL : VIR INST STraumann SAS.
 #
 # --- ORDRE NATIONAL DES CHIRURGIENS-DENTISTES --------------------------------
-2026-07-23;ONCD;RELANCE;462.00;262785280708;2026-01-01-au-2026-12-31;RECU;Drive partage > Brother (scans du 30/07/2026);Cotisation ordinale 2026, EXIGIBLE AU 31 MARS. Rappel du 23/07 avec un mois pour regulariser, donc echu depuis fin aout. Praticien n 66298. L attestation de reglement se telecharge sur cotisation.ordre-chirurgiens-dentistes.fr avec le numero d appel. A VERIFIER SI C EST PAYE.
+2026-07-23;ONCD;RELANCE;462.00;262785280708;2026-01-01-au-2026-12-31;RECU;Drive partage > Brother (scans du 30/07/2026);Cotisation ordinale 2026, EXIGIBLE AU 31 MARS. Rappel du 23/07 avec un mois pour regulariser, donc echu depuis fin aout. Praticien n 66298. L attestation de reglement se telecharge sur cotisation.ordre-chirurgiens-dentistes.fr avec le numero d appel. A VERIFIER SI C EST PAYE. LIBELLE LCL : CHQ. 8430662 et 8430663, 462,00 chacun — ET un BLOCAGE de 462,00 passe 2 fois.
 #
 # --- DIVERS 2026 -------------------------------------------------------------
 2026-07-22;ANTAI;FACTURE;50.00;21440109300015-26-2-185-023-033;;RECU;Drive partage > Brother (scans du 30/07/2026);Forfait de post-stationnement, Nantes, 7 quai des Antilles le 04/07/2026. Vehicule VOLVO GT-908-PS au nom de la SELARL. Un FPS est une redevance, pas une amende : la deductibilite se demande au comptable. Majoration si impaye 3 mois apres le 22/07.
-2026-07-29;LA-CASCADE;TICKET;69.20;A167;;RECU;Drive partage > Brother (scans du 30/07/2026);Bar, Clisson. Le ticket porte la mention NON PAYE. Frais de reception : il faut le motif professionnel et les convives, sinon ce n est pas deductible.
+2026-07-29;LA-CASCADE;TICKET;69.20;A167;;RECU;Drive partage > Brother (scans du 30/07/2026);Bar, Clisson. Le ticket porte la mention NON PAYE. Frais de reception : il faut le motif professionnel et les convives, sinon ce n est pas deductible. LIBELLE LCL : CB97LA CASCADE.
 #
 # --- SCANS BROTHER NON DECHIFFRES --------------------------------------------
 # Deux PDF du 30/07/2026 sont des images sans couche texte. Le connecteur
@@ -191,7 +191,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 2026-05-07;NOTE-HONORAIRES;FACTURE;232.00;2825;;RENOMME;Compta Cabinet Tighza > 02 - Recettes;Acte TO45 du 07/05/2026. 232,00 d honoraires, base de remboursement AMO 96,75, reste a charge patient 135,25. Sortie de FACTURATION, renommee sans le nom du patient. PISTE A VERIFIER : la base de 96,75 est exactement le montant de l indu CPAM Vendee (creance 2606534061, lot 466, pieces justificatives non transmises). Pour un TO45 il faut une entente prealable. A confirmer par Lucie.
 #
 # --- ROTEC — laboratoire, compte C012667 -------------------------------------
-2026-02-18;ROTEC;RELANCE;1004.50;C012667;;RECU;Drive partage > Scan2026-03-07_163506.pdf;Relance du 18/02/2026, niveau 3 sur les plus anciennes. 14 factures impayees de juin a decembre 2025, moins un virement de 861,00 le 21/01/2026. Total verifie au centime : 1 865,50 - 861,00 = 1 004,50. Les factures sous-jacentes sont de 2025, exercice CLOS : ne pas rouvrir le bilan. Le solde ouvert est un sujet de REGLEMENT, pas de justificatif.
+2026-02-18;ROTEC;RELANCE;1004.50;C012667;;RECU;Drive partage > Scan2026-03-07_163506.pdf;Relance du 18/02/2026, niveau 3 sur les plus anciennes. 14 factures impayees de juin a decembre 2025, moins un virement de 861,00 le 21/01/2026. Total verifie au centime : 1 865,50 - 861,00 = 1 004,50. Les factures sous-jacentes sont de 2025, exercice CLOS : ne pas rouvrir le bilan. Le solde ouvert est un sujet de REGLEMENT, pas de justificatif. LIBELLE LCL : VIR INST ROTEC.
 #
 # --- VEHICULE DE LA SOCIETE — VOLVO GT-908-PS --------------------------------
 # Trois pieces distinctes sur le meme vehicule, de nature fiscale differente.
@@ -199,7 +199,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # une redevance d occupation du domaine public : a trancher avec le comptable.
 2025-11-13;DGFIP-AMENDES;FACTURE;75.00;0440-1601-1250-4730-11;;RECU;Drive partage > Scan08062026-3.pdf;AMENDE FORFAITAIRE MAJOREE. Infraction du 02/07/2025 a Reze, zone bleue sans disque. Decision de l officier du ministere public du 22/10/2025. La reduction a 60,00 a expire le 13/12/2025. HORS EXERCICE 2026 : la charge est de 2025, exercice clos, et elle est NON DEDUCTIBLE. Seule question : est-ce paye ? A defaut, poursuites sur comptes et vehicules. Greffe 00014025 6672479126.
 #
-2026-09-30;LA-FRAISE;FACTURE;119.00;F-2026-093001309;2026-09-30-au-2026-10-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Licence La Fraise Cabinet, mensuel sans engagement. 99,17 HT + 19,83 TVA. Facturation Hyperline. La facture du 30 couvre le mois SUIVANT.
+2026-09-30;LA-FRAISE;FACTURE;119.00;F-2026-093001309;2026-09-30-au-2026-10-30;RENOMME;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;Licence La Fraise Cabinet, mensuel sans engagement. 99,17 HT + 19,83 TVA. Facturation Hyperline. La facture du 30 couvre le mois SUIVANT. LIBELLE LCL : CB97LA FRAISE PRO via Mollie.
 #
 # --- EXECOM — informatique ---------------------------------------------------
 2026-06-30;EXECOM;FACTURE;334.80;FA006127;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Disque dur NVMe 512 Go 99,00 + forfait deplacement, intervention et clonage 180,00 = 279,00 HT + 55,80 TVA. Devis DE002711 du 21/05/2026. ECHEANCE AU 30/06/2026, donc en retard de trois mois, et toujours dans le dossier a regler.
@@ -212,14 +212,14 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # avec Claude in Chrome, qui voit les pages telles qu elles s affichent.
 #
 # --- COFICA septembre, retrouve le 01/10 -------------------------------------
-2026-08-28;COFICA;FACTURE;1353.76;750004832398;2026-09-05-au-2026-10-04;RENOMME;Drive partage > Brother > Financement et leasing;Lue par Claude in Chrome, scan sans couche texte. Verifie contre la 750004798493 : numeros, dates d emission et periodes differents, ce ne sont pas des doublons.
+2026-08-28;COFICA;FACTURE;1353.76;750004832398;2026-09-05-au-2026-10-04;RENOMME;Drive partage > Brother > Financement et leasing;Lue par Claude in Chrome, scan sans couche texte. Verifie contre la 750004798493 : numeros, dates d emission et periodes differents, ce ne sont pas des doublons. LIBELLE LCL : PRLV SEPA Cofica Bail.
 #
 # --- STRAUMANN, suite — DEUX comptes clients distincts ------------------------
 # 9060181129 est sur le compte 15133210, les deux autres sur 15133626. A
 # ventiler separement si le comptable le demande.
-2026-09-16;STRAUMANN;FACTURE;172.74;9060181129;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte client 15133210. RC Variobase + analogue, livres au labo Argoat. Echeance 16/10/2026. La reference de commande contient un nom de patient : ne pas la reporter dans le nom de fichier.
-2026-09-18;STRAUMANN;FACTURE;33.21;9060182966;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. Analogue d implant WN, BL 849155730. Echeance 18/10/2026.
-2026-09-18;STRAUMANN;FACTURE;97.72;9060183030;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. WN Variobase diametre 7 mm, BL 849155553. Echeance 18/10/2026. Meme commande que la 9060182966 mais numero, BL et produit differents : PAS un doublon, verifie.
+2026-09-16;STRAUMANN;FACTURE;172.74;9060181129;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte client 15133210. RC Variobase + analogue, livres au labo Argoat. Echeance 16/10/2026. La reference de commande contient un nom de patient : ne pas la reporter dans le nom de fichier. LIBELLE LCL : VIR INST STraumann SAS.
+2026-09-18;STRAUMANN;FACTURE;33.21;9060182966;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. Analogue d implant WN, BL 849155730. Echeance 18/10/2026. LIBELLE LCL : VIR INST STraumann SAS.
+2026-09-18;STRAUMANN;FACTURE;97.72;9060183030;;RENOMME;Drive partage > Brother > Factures fournisseurs;Compte 15133626. WN Variobase diametre 7 mm, BL 849155553. Echeance 18/10/2026. Meme commande que la 9060182966 mais numero, BL et produit differents : PAS un doublon, verifie. LIBELLE LCL : VIR INST STraumann SAS.
 #
 # --- SEPTODONT — client 1034064 ----------------------------------------------
 # La relance du 11/09 est INTEGRALEMENT couverte par des pieces deja au Drive.
@@ -227,11 +227,11 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # 763,76 (solde du compte) = 364,73 + 383,63 (echues) + 15,40 (pas encore echue
 # au jour de la relance). L ecart de 15,40 entre les deux montants du courrier
 # est donc explique au centime.
-2026-06-25;SEPTODONT;FACTURE;359.02;90049585;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Image InlayCore. Echeance 10/07/2026. Absente de la relance du 11/09, donc reglee.
-2026-07-28;SEPTODONT;FACTURE;364.73;90056093;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Endomethasone. 303,94 HT + 60,79 TVA. Echeance 12/08/2026, ECHUE. Contrat 000055814.
-2026-07-28;SEPTODONT;FACTURE;383.63;90056020;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septanest, Septoject, Scandonest. DEUX TAUX DE TVA : 21,35 a 20 % et 5,26 a 2,10 % sur les anesthesiques. Echeance 12/08/2026, ECHUE. Contrat 000054880.
-2026-09-03;SEPTODONT;FACTURE;15.40;90060529;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septoject. Echeance 18/09/2026, non echue au jour de la relance : c est elle qui explique l ecart de 15,40.
-2026-09-11;SEPTODONT;RELANCE;763.76;1034064;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Deuxieme relance. Total des factures dues 748,36, solde du compte 763,76. Les trois factures sont identifiees et presentes.
+2026-06-25;SEPTODONT;FACTURE;359.02;90049585;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Image InlayCore. Echeance 10/07/2026. Absente de la relance du 11/09, donc reglee. LIBELLE LCL : VIR INST septodont sas.
+2026-07-28;SEPTODONT;FACTURE;364.73;90056093;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Hemocollagene + Endomethasone. 303,94 HT + 60,79 TVA. Echeance 12/08/2026, ECHUE. Contrat 000055814. LIBELLE LCL : VIR INST septodont sas.
+2026-07-28;SEPTODONT;FACTURE;383.63;90056020;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septanest, Septoject, Scandonest. DEUX TAUX DE TVA : 21,35 a 20 % et 5,26 a 2,10 % sur les anesthesiques. Echeance 12/08/2026, ECHUE. Contrat 000054880. LIBELLE LCL : VIR INST septodont sas.
+2026-09-03;SEPTODONT;FACTURE;15.40;90060529;;RENOMME;Drive partage > Lisa - Lucie : factures a regler;Septoject. Echeance 18/09/2026, non echue au jour de la relance : c est elle qui explique l ecart de 15,40. LIBELLE LCL : VIR INST septodont sas.
+2026-09-11;SEPTODONT;RELANCE;763.76;1034064;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Deuxieme relance. Total des factures dues 748,36, solde du compte 763,76. Les trois factures sont identifiees et presentes. LIBELLE LCL : VIR INST septodont sas.
 #
 # --- ZFX LYON ----------------------------------------------------------------
 2026-06-04;ZFX;RELANCE;253.99;D-2606.08953;;RENOMME;Drive partage > Brother > Courriers fournisseurs;MISE EN DEMEURE portant sur la facture R-2602.52453 du 13/02/2026. Solde du 253,99.
@@ -278,8 +278,8 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # LCL. Ils apparaitront donc dans les debits a saisir, et ils ne doivent pas
 # etre traites comme des factures fournisseurs. La quote-part 2026 ne sera
 # connue qu au printemps 2027.
-2026-08-31;SCM-LEGESMILE;RELEVE;9787.35;45530000;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Grand livre du compte courant 45530000 C/c selarl - dr tighza fakhreddine dans la comptabilite de la SCM, edite le 31/08/2026 par Youssef GUERIBI. Solde debiteur de 9 787,35 au 31/12/2025. Exercice 2025 donc clos, mais le solde reste du.
-2026-03-31;SCM-LEGESMILE;RELEVE;120314.80;QP-2025;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Synthese de repartition des charges, fichier SCM LEGESMILE - SCDF - Repartition charges au 31.03.2026.xlsx. Contient 2025 ET 2024. Quote-part SELARL TIGHZA 2025 : 120 314,80. Pour memoire 2024 : 128 737,37.
+2026-08-31;SCM-LEGESMILE;RELEVE;9787.35;45530000;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Grand livre du compte courant 45530000 C/c selarl - dr tighza fakhreddine dans la comptabilite de la SCM, edite le 31/08/2026 par Youssef GUERIBI. Solde debiteur de 9 787,35 au 31/12/2025. Exercice 2025 donc clos, mais le solde reste du. LIBELLE LCL : VIR SEPA SCM Legesmile.
+2026-03-31;SCM-LEGESMILE;RELEVE;120314.80;QP-2025;2025-01-01-au-2025-12-31;RECU;Drive > Downloads (miroir du PC);Synthese de repartition des charges, fichier SCM LEGESMILE - SCDF - Repartition charges au 31.03.2026.xlsx. Contient 2025 ET 2024. Quote-part SELARL TIGHZA 2025 : 120 314,80. Pour memoire 2024 : 128 737,37. LIBELLE LCL : VIR SEPA SCM Legesmile.
 #
 # --- ORMCO FRANCE (groupe ENVISTA) — client 101265183 ------------------------
 # Fournisseur d aligneurs SPARK. ABSENT DU REGISTRE jusqu au 05/10/2026 : ses
@@ -297,13 +297,13 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # virement, carte ou prelevement SEPA uniquement. IBAN Deutsche Bank
 # FR76 1778 9000 0110 5105 4300 075. Toujours indiquer le code client ET le
 # numero de facture.
-2026-04-09;ORMCO;FACTURE;19.98;331172674;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 09/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO - 331172674 V1" id 1EGivD1LsMfalKlyR7yAqZbVslsSc__A8.
-2026-04-11;ORMCO;FACTURE;19.98;331173068;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 20 Refinement, 449,00 remise a 100 %, 16,65 de port + 3,33 de TVA. Echeance 11/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO 331173068 V1" id 1yzgY_h1YfeWPJOaiKEh5c9AgxLy85XpG.
-2026-04-13;ORMCO;FACTURE;19.98;331173646;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 13/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO 331173646 - 04/2026 V1 " id 1ok2cUzzjqfumnCdjup1chj8kgTmUQu6E.
-2026-06-03;ORMCO;FACTURE;1348.66;331190204;;RECU;Drive partage > Lisa - Lucie : factures a regler;SPARK 35 Dual Arch, 2 018,00 remise 45,1 % = 1 107,88 HT + 16,00 de port + 224,78 de TVA. Echeance 03/07/2026. A VERIFIER : facturee a DR TIGHZA mais expedition et "nom du docteur" au DR ANGIBAUD GEOFFREY, associe de la SCM. Ce n est pas un traitement de la SELARL. Soit le compte client 101265183 sert a tout le cabinet et la charge doit etre refacturee a Angibaud, soit l adresse de facturation est fausse chez Ormco. 1 348,66 EUR en jeu. FICHIER REEL identifie le 05/10 en LISANT le PDF : "331190204.pdf" id 1sxPvRd7oQyDMF8mt1MAe78J4nlZRXT7h.
-2026-04-01;ORMCO;AR;19.20;retour-cheque;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Retour du cheque n 8430660 de 19,20, tire sur le LCL 07480 070666. Motif : ni date ni signe, ET Ormco n accepte plus les cheques depuis le 01/04/2025. Confirme au passage le numero du compte LCL.
-2026-02-05;ORMCO;FACTURE;19.20;331150973;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 35 Refinement, 431,00 remise a 100 %, 16,00 de port + 3,20 de TVA. Echeance 07/03/2026. IMPAYEE : le cheque emis le 13/03 pour ce montant exact est revenu le 01/04. Un fichier s intitule pourtant ORMCO Regle par chq le 13/03/2026 — l affirmation est FAUSSE, c est un faux positif dans le suivi. Existe en DEUX exemplaires, doublon prouve : meme numero, meme commande 50782572, meme livraison 456954555, meme ligne. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO .pdf" id 1bPCVfvSCYWecKY9UxCF8uITPaUZxRHqT.
-2026-04-09;ORMCO;FACTURE;19.98;331172675;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 20 Refinement, 449,00 remise a 100 %, 16,65 de port + 3,33 de TVA. Echeance 09/05/2026. Fichier nomme seulement ORMCO .pdf. NE PAS CONFONDRE avec la 331172674 : numeros consecutifs, meme date, meme montant, mais commandes 50809738 et 50787194, livraisons 458846845 et 458849689, produits et patients differents. Ce ne sont PAS des doublons. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO .pdf" id 1Wn0Z2xODBWJGFlxuk6BNEuSBw_skYfqb.
+2026-04-09;ORMCO;FACTURE;19.98;331172674;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 09/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO - 331172674 V1" id 1EGivD1LsMfalKlyR7yAqZbVslsSc__A8. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-04-11;ORMCO;FACTURE;19.98;331173068;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 20 Refinement, 449,00 remise a 100 %, 16,65 de port + 3,33 de TVA. Echeance 11/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO 331173068 V1" id 1yzgY_h1YfeWPJOaiKEh5c9AgxLy85XpG. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-04-13;ORMCO;FACTURE;19.98;331173646;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK Advanced Refinement, kit offert, 16,65 de port + 3,33 de TVA. Echeance 13/05/2026. Docteur Tighza. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO 331173646 - 04/2026 V1 " id 1ok2cUzzjqfumnCdjup1chj8kgTmUQu6E. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-06-03;ORMCO;FACTURE;1348.66;331190204;;RECU;Drive partage > Lisa - Lucie : factures a regler;SPARK 35 Dual Arch, 2 018,00 remise 45,1 % = 1 107,88 HT + 16,00 de port + 224,78 de TVA. Echeance 03/07/2026. A VERIFIER : facturee a DR TIGHZA mais expedition et "nom du docteur" au DR ANGIBAUD GEOFFREY, associe de la SCM. Ce n est pas un traitement de la SELARL. Soit le compte client 101265183 sert a tout le cabinet et la charge doit etre refacturee a Angibaud, soit l adresse de facturation est fausse chez Ormco. 1 348,66 EUR en jeu. FICHIER REEL identifie le 05/10 en LISANT le PDF : "331190204.pdf" id 1sxPvRd7oQyDMF8mt1MAe78J4nlZRXT7h. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-04-01;ORMCO;AR;19.20;retour-cheque;;RENOMME;Drive partage > Brother > Courriers fournisseurs;Retour du cheque n 8430660 de 19,20, tire sur le LCL 07480 070666. Motif : ni date ni signe, ET Ormco n accepte plus les cheques depuis le 01/04/2025. Confirme au passage le numero du compte LCL. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-02-05;ORMCO;FACTURE;19.20;331150973;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 35 Refinement, 431,00 remise a 100 %, 16,00 de port + 3,20 de TVA. Echeance 07/03/2026. IMPAYEE : le cheque emis le 13/03 pour ce montant exact est revenu le 01/04. Un fichier s intitule pourtant ORMCO Regle par chq le 13/03/2026 — l affirmation est FAUSSE, c est un faux positif dans le suivi. Existe en DEUX exemplaires, doublon prouve : meme numero, meme commande 50782572, meme livraison 456954555, meme ligne. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO .pdf" id 1bPCVfvSCYWecKY9UxCF8uITPaUZxRHqT. LIBELLE LCL : VIR INST Ormco France SAS.
+2026-04-09;ORMCO;FACTURE;19.98;331172675;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai : Factures de 03 a 2026;SPARK 20 Refinement, 449,00 remise a 100 %, 16,65 de port + 3,33 de TVA. Echeance 09/05/2026. Fichier nomme seulement ORMCO .pdf. NE PAS CONFONDRE avec la 331172674 : numeros consecutifs, meme date, meme montant, mais commandes 50809738 et 50787194, livraisons 458846845 et 458849689, produits et patients differents. Ce ne sont PAS des doublons. FICHIER REEL identifie le 05/10 en LISANT le PDF : "ORMCO .pdf" id 1Wn0Z2xODBWJGFlxuk6BNEuSBw_skYfqb. LIBELLE LCL : VIR INST Ormco France SAS.
 #
 # --- LE DOSSIER D EXTRACTION DE JUILLET 2026 ---------------------------------
 # 01 - Factures fournisseurs > 2025 > Jan-Mai 2025 (boite ftighza)

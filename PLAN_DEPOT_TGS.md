@@ -274,3 +274,65 @@ elles sont des charges 2026 de la SELARL.
   deux Aries 990,00 €, quatre ORMCO 19,98 €, six Canva 12,00 €. Seule la
   référence tranche.
 - **Ne pas redéposer les 18 pièces déjà au portail.**
+
+---
+
+# MISE À JOUR DU 6 OCTOBRE — après le rapprochement LCL
+
+## Pourquoi les fichiers ne sont PAS renommés
+
+Le projet était d'aligner le mot FOURNISSEUR sur le libellé bancaire. Après
+avoir lu les dix relevés : **ça n'apporte rien.** `COFICA` correspond déjà à
+`PRLV SEPA Cofica Bail` sur le mot distinctif, `STRAUMANN` à
+`VIR INST STraumann SAS`, `GACD` à `VIR INST GACD SAS`. Ajouter `-BAIL` ou
+`-SAS` n'aide personne, et toucher 40 fichiers dans un drive partagé a déjà
+coûté un faux renommage aujourd'hui.
+
+Le libellé bancaire est donc inscrit **au registre**, sur 91 lignes, sans
+toucher un seul fichier. Mme Daheron lit `PRLV SEPA Cofica Bail` sur le
+relevé, cherche ce libellé dans le registre, trouve la pièce.
+
+Deux libellés méritent l'attention parce qu'ils ne ressemblent pas au
+fournisseur :
+
+- **Anthropic** paie sous `CB97ANTHROPIC* C` puis, après le passage au plan
+  Max, sous `CB97CLAUDE.AI SU`. Même fournisseur, deux empreintes.
+- **MACSF** se prélève en deux flux : `MACSF-PREV-` pour la prévoyance —
+  c'est lui qui porte le Madelin P15 001 — et `MACSF-ASSU-` pour les
+  assurances.
+
+## Pièces trouvées en plus, à ajouter aux lots
+
+| Pièce | Montant | Lien |
+|---|---|---|
+| GACD 2402391923 du 28/07 | 548,73 € | https://drive.google.com/file/d/1wuP3jEyqWSwulMs2GI9TTcghaBHq6x4W/view |
+| GACD 2402408753 du 29/08 | 716,16 € | https://drive.google.com/file/d/1rYVrC9Xd-IAAocxk5Q91EavSHz7H9-Gs/view |
+| GACD 2402410567 du 01/09 | 61,15 € | https://drive.google.com/file/d/1ga5_5cIITqFRccIpEaT_vYViy82oDM9Y/view |
+| GACD 2402412732 du 04/09 | 645,59 € | https://drive.google.com/file/d/1rn64BZ1H7RAxy5mTpDIfaWMEIstVGoWF/view |
+| GACD 2402379458 du 07/07 | 44,45 € | https://drive.google.com/file/d/1nreB124Nr2Ljal-NjWoN93YNH6llMVzo/view |
+| Straumann 9060036699 du 20/02 | — | https://drive.google.com/file/d/1q-yLm9QvIwrBKLPL735tNNscN86A3pcr/view |
+| Septodont 2e relance du 03/07 | — | https://drive.google.com/file/d/1ORLkVhWvZvbismul_P1IJBKIztD3_1wo/view |
+| COFICA 750004820770 (période 12/2025) | 1 353,76 € | https://drive.google.com/file/d/1ZANammEchjgQwxbRaJwKAoPfLRY4kkLj/view |
+
+> Le GACD 2402379458 et le Straumann 9060036699 **ne sont pas au registre** :
+> à y ajouter en les déposant.
+>
+> Le COFICA 750004820770 couvre **décembre 2025**, exercice clos. À déposer
+> seulement si Mme Daheron cherche un loyer manquant sur le bilan passé.
+
+## Ce que le rapprochement change dans l'ordre des priorités
+
+Le trou côté factures n'est pas de 12 680 € mais de **67 073 €**. Déposer ce
+qu'on a reste utile, mais ne referme qu'une partie du dossier. Les quatre
+courriers qui comptent, par ordre de montant :
+
+| À qui | Montant | Quoi |
+|---|---|---|
+| **LCL** | 44 419 € | les **trois tableaux d'amortissement** (prêts 22913265, 22813156, 24921149) |
+| **Made in Labs** | 18 070 € | les factures des sept virements de l'année |
+| **Straumann** | 16 288 € | les factures des cinq virements |
+| **Rotec et NTJ** | 11 044 € | les factures de leurs dix virements |
+
+Et sept abonnements prélevés chaque mois sans aucune facture au dossier :
+Doctolib, Recept AI, Icare, Free, IONOS, Apple, BNP Paribas Lease. Un passage
+par espace client suffit, et il faut en profiter pour automatiser la suite.
