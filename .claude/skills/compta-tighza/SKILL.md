@@ -354,3 +354,22 @@ des relevés commence le 06/12/2025, donc le premier paiement de l'année règle
 une facture de décembre — tout est décalé d'un rang. Le **comptage**, lui,
 est solide : dix prélèvements pour sept factures prouve que les sept sont
 payées, et que trois factures manquent.
+
+### Le déplacement vers le drive partagé est À SENS UNIQUE
+
+`contact@` est **organisateur de contenu** sur « Lisa et Lucie - Suivi
+compta », pas organisateur. Conséquence vérifiée le 06/10 : on peut y
+**déposer** un fichier, on ne peut plus l'en **sortir**. L'erreur est donc
+irréversible sans Lucie.
+
+À faire AVANT tout déplacement, et pas après : vérifier que la pièce n'y est
+pas déjà sous un autre nom. Lucie nomme en brut — `2402391923.pdf` — là où
+nous nommons selon la convention. La même facture peut donc exister deux
+fois sans que le nom le signale.
+
+C'est arrivé : la facture GACD 2402391923 est aujourd'hui dans « réglées »
+sous son nom de convention ET dans « à régler » sous `2402391923.pdf`.
+Classée payée et impayée à la fois, et je ne peux pas le corriger.
+
+**Et « à régler » est le domaine de Lucie.** On y ajoute, on n'y retire
+rien, on n'y réarbitre rien.
