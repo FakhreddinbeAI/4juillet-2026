@@ -662,3 +662,27 @@ très longues ; la coupure est tombée à la ligne 100.
 est valide, puis demander la ligne citée. Si elle tombe au milieu d'une
 fonction, c'est le collage, pas le code — inutile de réécrire le script, il
 suffit de le raccourcir.
+
+## Règle 23 — ne jamais dire à Chrome de sauter la vérification
+
+Le 06/10/2026 j'ai écrit dans un prompt de dépôt : « *PAS DE VERIFICATION
+PREALABLE DANS L'HISTORIQUE. J'ai controle : aucune facture Doctolib, Ionos ou
+Recept AI n'a jamais ete deposee.* »
+
+**Je n'avais pas contrôlé.** Mon propre index a trouvé, dix minutes plus tard,
+que les **douze factures Ionos de 2025 étaient déposées** depuis le 06/06,
+sous la forme `IN 2025 MM 09 <référence>.pdf` — dont celle de décembre 2025,
+qui était dans mon lot. Et `RECEPT AI 25 .pdf` correspond très probablement à
+la facture de 25,00 € du même lot.
+
+Deux fautes superposées : affirmer un contrôle que je n'avais pas fait, et
+**retirer le garde-fou** qui l'aurait rattrapé. Chrome aurait vu le doublon si
+je l'avais laissé chercher.
+
+**La vérification dans l'historique reste dans tous les prompts de dépôt.**
+Elle coûte quelques secondes par pièce ; un doublon coûte le démêlage, et
+c'est l'erreur n° 4 du mode d'emploi — Bredent déposé trois fois.
+
+**La seule exception légitime** est une pièce sans numéro, comme un ticket de
+caisse : il n'y a alors rien à chercher. Et même là, on le dit en expliquant
+*pourquoi*, pas en affirmant un contrôle.

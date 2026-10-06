@@ -1154,15 +1154,15 @@ donnait de vraies factures.
 ```
 Va sur https://monespaceclient.tgs-france.fr
 
-Tu vas deposer 30 factures que tu as telechargees tout a l'heure dans le
+Tu vas deposer 29 factures que tu as telechargees tout a l'heure dans le
 dossier Telechargements de cet ordinateur. PAR LOTS DE CINQ, et tu me dis
 ou tu en es apres chaque lot.
 
 NE DEPOSE QUE CES TROIS FOURNISSEURS :
  - DOCTOLIB : 10 factures, de FRIN25-01451287 a FRIN25-02696811
- - IONOS : 10 factures, numeros 202543127270, 202543535136, 202543954441,
-   202544376491, 202544804130, 202545245288, 312100052855, 312100213292,
-   312100382919, 312100558302
+ - IONOS : 9 factures (celles de 2026), numeros 202543535136,
+   202543954441, 202544376491, 202544804130, 202545245288, 312100052855,
+   312100213292, 312100382919, 312100558302
  - RECEPT AI : 10 factures, emises par BUDGIE S.A.S., numeros commencant
    par Invoice-B93C3B79-
 
@@ -1176,9 +1176,22 @@ NE DEPOSE PAS, meme si les fichiers sont la :
 Categorie pour toutes : "Je ne sais pas ou deposer ce document",
 sous-categorie "Equipe comptable".
 
-PAS DE VERIFICATION PREALABLE DANS L'HISTORIQUE. J'ai controle : aucune
-facture Doctolib, Ionos ou Recept AI n'a jamais ete deposee. Ne perds pas de
-temps a chercher.
+DEUX PIECES A NE PAS DEPOSER, OU A VERIFIER D'ABORD :
+
+ - IONOS facture 202543127270 (celle de decembre 2025) est DEJA AU PORTAIL,
+   sous le nom « IN 2025 12 09 202543127270.pdf », Depot OK le 06/06/2026.
+   NE LA DEPOSE PAS. Les douze factures Ionos de 2025 y sont deja, sous la
+   forme « IN 2025 MM 09 <reference>.pdf ». Seules les NEUF de 2026 sont a
+   deposer.
+
+ - RECEPT AI, la facture de 25,00 EUR : le portail porte « RECEPT AI 25 .pdf »,
+   Depot OK le 07/06/2026. C'est tres probablement la meme. OUVRE ce depot et
+   compare avant de deposer. Si c'est la meme, ne la depose pas et dis-le-moi.
+
+POUR LES AUTRES, verifie quand meme l'historique avant chaque depot : cherche
+le numero complet. Je m'etais permis de te dire de sauter cette etape en
+affirmant avoir controle — je ne l'avais pas fait, et c'est precisement comme
+ca qu'on depose deux fois la meme piece.
 
 Ne renomme rien. Ne supprime rien. Ne deplace rien.
 
