@@ -331,29 +331,37 @@ Et surtout : **ne jamais déplacer un fichier du Bureau ni de Documents.**
 `Bureau > Comptabilité Cabinet Tighza` est dans le miroir Drive pour
 ordinateur — l'en sortir le supprimerait du disque. Pour ceux-là, copier.
 
-### Comment trancher payé / non payé sans deviner
+### Comment trancher payé / non payé — VOIR LA RÈGLE 20, qui remplace ceci
 
-Trois critères, par ordre de force. Si aucun ne tranche, la pièce va dans
-**à régler** : c'est le défaut prudent, parce qu'une facture classée à tort
-en « réglées » ne sera jamais réclamée, alors qu'une relance inutile ne coûte
-rien.
+> **Cette section a été écrite le matin du 06/10/2026 et la règle 20, posée
+> par le Dr l'après-midi, la remplace.** Elle est conservée pour mémoire,
+> rayée, parce que les deux critères qu'elle proposait ont tous les deux
+> produit de fausses conclusions dans la journée.
 
-1. **Prélèvement automatique** → réglée. Le prélèvement ne se négocie pas.
-   Vaut pour COFICA, Anthropic, Google Workspace, Canva, Aries, La Fraise,
-   Doctolib, Icare, IONOS, Free, Apple, Recept AI, MACSF, URSSAF, CARCDSF.
-2. **Total payé au fournisseur ≥ total facturé** → les pièces au dossier sont
-   réglées. GACD 5 499 € payés contre 2 016 € facturés, Straumann 16 704 €
-   contre 493 €.
-3. **Une relance, une mise en demeure ou un retour de chèque** → à régler,
-   quoi que dise le reste. C'est une preuve directe de l'impayé.
+~~1. Prélèvement automatique → réglée.~~ **Faux.** « Cofica est prélevé » ne
+dit pas *quelle* échéance est payée : dix prélèvements Cofica font 1 353,76 €
+au centime. Le mode de paiement qualifie le fournisseur, jamais la pièce.
 
-**Ce qui NE tranche pas** : un appariement montant par montant. Dix
-prélèvements COFICA font 1 353,76 € au centime, sept factures Google
-Workspace 91,08 €. Et l'appariement chronologique est trompeur : la fenêtre
-des relevés commence le 06/12/2025, donc le premier paiement de l'année règle
-une facture de décembre — tout est décalé d'un rang. Le **comptage**, lui,
-est solide : dix prélèvements pour sept factures prouve que les sept sont
-payées, et que trois factures manquent.
+~~2. Total payé au fournisseur ≥ total facturé → réglées.~~ **Faux, et
+démontré le 06/10.** Le raisonnement est vide quand le registre ne porte
+aucune facture du fournisseur — ROTEC : zéro facture enregistrée, donc la
+comparaison compare à rien. Il est faux aussi quand les paiements règlent un
+exercice clos : sur 45 402 € que j'annonçais manquants chez quatre
+fournisseurs, 23 927 € soldaient **2025**, et les 16 288 € de Straumann
+étaient entièrement imaginaires.
+
+3. **Une relance, une mise en demeure ou un retour de chèque → à régler**,
+   quoi que dise le reste. Celui-là tient : c'est une preuve directe.
+
+**La règle qui s'applique est la 20 : le paiement n'est prouvé que par le
+relevé LCL**, soit parce que le libellé du débit porte la référence de la
+pièce, soit parce que le montant est unique des deux côtés. Sinon la chaîne
+ne s'incrémente pas, et `A_TRIER` veut dire « je ne peux pas prouver ».
+
+Reste vrai de cette section : **le comptage**. Dix prélèvements pour sept
+factures prouve que les sept sont payées et que trois manquent. Et
+l'appariement chronologique est trompeur — la fenêtre des relevés commence le
+06/12/2025, donc tout est décalé d'un rang.
 
 ### Le déplacement vers le drive partagé est À SENS UNIQUE
 
