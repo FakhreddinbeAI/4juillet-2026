@@ -1008,3 +1008,123 @@ clairement si l'un des cinq n'a PAS pu etre depose, avec la raison.
 `CB97PETRO-OUEST 05/04/26` de **116,33 €** sans ticket scanné. C'est
 l'erreur n° 3 du mode d'emploi : un ticket se photographie le jour même.
 Celui-là est probablement perdu — à chercher dans la voiture ou le bureau.
+
+---
+
+## PROMPT 14 — récolte des abonnements dans la boîte ftighza@gmail.com  *(06/10/2026)*
+
+**À lancer dans Chrome connecté à `ftighza@gmail.com`.** C'est la boîte
+personnelle du Dr : quinze fournisseurs y envoient leurs factures, et
+**aucune n'est jamais arrivée à la comptabilité** — 16 134 € de prélèvements
+sans une seule pièce au registre.
+
+**Deux règles absolues pour cette boîte :**
+
+1. **Aucun mail ne part de `ftighza@gmail.com`.** Pas de transfert, pas de
+   renvoi, pas de règle automatique. C'est le DOCUMENT qui circule, jamais le
+   mail. Le prompt le dit, et il faut que ça y reste.
+2. **Télécharger seulement.** Pas de renommage ici : le renommage se fait
+   ensuite avec le PROMPT 1, sur les fichiers déjà en local. Une tâche à la
+   fois.
+
+```
+Tu es dans Gmail, boîte ftighza@gmail.com.
+
+OBJECTIF : telecharger en local, dans le dossier Telechargements de cet
+ordinateur, toutes les factures des fournisseurs listes ci-dessous, pour la
+periode du 01/12/2025 au 06/10/2026.
+
+INTERDIT, et c'est important : tu ne transferes AUCUN mail, tu ne reponds a
+aucun mail, tu ne cree aucune regle de transfert. Tu ouvres la piece jointe
+et tu la telecharges, point. Si une facture n'est pas en piece jointe mais
+derriere un lien « voir ma facture », tu suis le lien et tu telecharges le
+PDF depuis le site.
+
+Ne renomme rien. Ne supprime rien. Ne range rien. Juste telecharger.
+
+METHODE : un fournisseur a la fois, dans l'ordre ci-dessous. Apres chaque
+fournisseur, dis-moi combien de factures tu as telechargees et sur quelle
+periode. Puis passe au suivant.
+
+Pour chacun, cherche dans Gmail avec cette requete, puis adapte si elle ne
+rend rien :
+
+ 1. LIXXBAIL          lixxbail OR "LIXXBAIL" has:attachment after:2025/11/30
+    (12 prelevements, 7 198 EUR sur l'annee. C'est un CREDIT-BAIL, donc la
+    piece la plus importante de toute la liste.)
+
+ 2. DOCTOLIB          from:doctolib.fr has:attachment after:2025/11/30
+    (10 prelevements, 1 490 EUR)
+
+ 3. AMAZON            from:amazon.fr facture after:2025/11/30
+    (14 debits, 1 338 EUR. ATTENTION : une partie est peut-etre
+    personnelle. Telecharge tout, on triera apres.)
+
+ 4. RECEPT AI         recept has:attachment after:2025/11/30
+    (10 prelevements, 1 244 EUR)
+
+ 5. ICARE             icare has:attachment after:2025/11/30
+    (10 prelevements, 1 040 EUR)
+
+ 6. FREE              from:free.fr OR from:freemobile has:attachment
+                      after:2025/11/30
+    (19 debits, 936 EUR)
+
+ 7. BNP PARIBAS LEASE "BNP Paribas Lease" OR "BNP Lease" after:2025/11/30
+    (10 prelevements, 800 EUR. Credit-bail aussi.)
+
+ 8. CM-CIC LEASING    "CM-CIC" OR "Leasing Solutions" after:2025/11/30
+    (3 prelevements, 683 EUR)
+
+ 9. IONOS             from:ionos.fr has:attachment after:2025/11/30
+    (10 prelevements, 294 EUR)
+
+10. HOSTINGER         from:hostinger has:attachment after:2025/11/30
+    (1 debit, 245 EUR)
+
+11. ADOBE             from:adobe.com has:attachment after:2025/11/30
+    (10 prelevements, 240 EUR)
+
+12. SPOTIFY           from:spotify has:attachment after:2025/11/30
+    (10 prelevements, 212 EUR. Probablement personnel — telecharge quand
+    meme, le Dr tranchera.)
+
+13. OPENAI            from:openai.com has:attachment after:2025/11/30
+    (2 debits, 204 EUR)
+
+14. APPLE             from:apple.com facture OR receipt after:2025/11/30
+    (11 debits, 180 EUR. Probablement mixte perso/pro.)
+
+15. MICROSOFT         from:microsoft.com facture after:2025/11/30
+    (3 debits, 30 EUR)
+
+16. CANVA             from:canva.com has:attachment after:2025/11/30
+    (il manque 3 factures de 12,00 EUR : juillet, aout, septembre 2026)
+
+17. ARIES / ENTREPRENEURS.COM
+                      entrepreneurs.com OR "Aries Consulting"
+                      after:2026/05/01
+    (il manque 3 factures de 990,00 EUR depuis juin 2026)
+
+18. MACSF PREVOYANCE  macsf OR madelin OR prevoyance after:2025/11/30
+    (contrat de prevoyance Madelin, numero P15 001 ou F0015 — le numero
+    exact est incertain. On cherche l'ATTESTATION FISCALE.)
+
+EN RETOUR, un tableau avec, par fournisseur : le nombre de factures
+telechargees, les mois couverts, et les mois MANQUANTS. Les trous
+m'interessent autant que les trouvailles : si Doctolib preleve dix fois et
+que tu ne trouves que sept factures, je veux savoir lesquelles manquent.
+
+Dis-moi aussi si un fournisseur n'envoie pas de facture par mail mais
+seulement un avis de prelevement : dans ce cas il faudra passer par son
+espace client, et je te ferai un autre prompt.
+```
+
+**Après ce prompt**, les fichiers seront dans `Téléchargements` sous leurs
+noms d'origine. Deux étapes suivent, séparément : le **PROMPT 1** pour les
+renommer à la convention, puis le dépôt par lots de cinq.
+
+**Et je les verrai** : le dossier `Téléchargements` du PC est miroité dans le
+Drive (`1adB-euhu-ZkMQ1E07_J5azVWgWji2Zat`). Dès que la synchronisation est
+passée, je peux lire les montants dans les PDF et compléter le registre sans
+que tu aies à me dire quoi que ce soit.
