@@ -1,7 +1,7 @@
 # Ce qui manque au bilan 2026
 
 *Fichier de travail pour la fin d'exercice. Établi le 6 octobre 2026, à jour
-du dépôt de 15h30.*
+de la récolte dans `ftighza@gmail.com` (16h).*
 
 > **Avant d'utiliser cette liste, la revérifier.** Six fois le 6 octobre j'ai
 > annoncé des pièces manquantes qui étaient déjà déposées. La commande qui
@@ -25,10 +25,10 @@ Vérifié le 06/10 : aucune de ces pièces n'est ni au Drive, ni au portail.
 | COFICA | loyer 750004781830 | 1 353,76 € | agence 95908. Le registre dit « fichier nommé Cofibail 06-07 2026, sans extension » — jamais retrouvé |
 | COFICA | 2 loyers non identifiés | 2 707,52 € | 10 prélèvements au relevé pour 7 factures au registre |
 | ROTEC | factures sous la relance C012667 | 1 004,50 € | ROTEC. La relance existe, les factures d'origine non |
-| ARIES | 3 factures | 2 970,00 € | espace entrepreneurs.com. Rien reçu depuis juin |
+| ARIES | **1** facture, celle de janvier 2026 | 990,00 € | à réclamer. Débit `CB97ARIES CONSUL 24/01/26` au relevé 47 |
 | ZFX | facture R-2602.52453 du 13/02 | 253,99 € | ZFX. Connue par la seule mise en demeure |
 | STRAUMANN | facture 9060125749 | 100,74 € | eShop Straumann. Connue par la seule ligne du relevé de compte du 24/07 |
-| CANVA | 3 factures | 36,00 € | canva.com, ou la boîte perso du Dr |
+| CANVA | 5 factures | 60,00 € | **espace client canva.com** uniquement. Les mails n'ont pas de PDF, et déc. 2025, mai, juil., août et sept. 2026 manquent même dans la boîte |
 | ADF | la vraie facture | 389,00 € | adfcongres.com, Espace Apprenant. Ce qui est déposé est une **confirmation d'inscription** |
 | SEPTODONT | facture d'origine du rappel du 27/08 | — | le fournisseur |
 | PETRO-OUEST | ticket du 05/04/2026 | 116,33 € | la voiture, le bureau. Débit `CB97PETRO-OUEST 05/04/26` au relevé 50 |
@@ -39,44 +39,59 @@ tiers et qu'il suffit de demander.
 
 ---
 
-## 2. Le vrai trou : 16 134 € prélevés sans AUCUNE facture au dossier
+## 2. Les abonnements : 16 134 € prélevés, et seuls 4 fournisseurs facturent par mail
 
-Quinze fournisseurs prélèvent chaque mois. **Pas une seule facture d'eux dans
-le registre.** Ce ne sont pas des pièces égarées : elles n'ont jamais été
-collectées.
+**Récolte du 06/10 dans `ftighza@gmail.com` : 35 factures sur la période.**
+Le constat le plus utile est négatif — **quatorze fournisseurs sur dix-huit
+n'envoient aucune facture par mail.** Il faudra passer par leur espace client,
+et le Dr doit y être connecté.
 
-| Fournisseur | Débits | Total |
+### Récupéré (4 fournisseurs, tout est là)
+
+| Fournisseur | Factures | Période | Note |
+|---|---|---|---|
+| DOCTOLIB | 10 | déc. 2025 → sept. 2026 | aucun trou |
+| RECEPT AI | 10 | déc. 2025 → sept. 2026 | facturé par **Budgie S.A.S.** — c'est pour ça que « recept » ne trouvait rien |
+| IONOS | 10 | déc. 2025 → sept. 2026 | le relevé porte le n° de facture (`Fact. 202543127270`) : appariement un à un possible |
+| MACSF | 1 attestation | 2025 | **contrat P15001 confirmé**, 4 936,81 € de cotisations déductibles en 2025 |
+
+### À prendre sur l'espace client (13 fournisseurs)
+
+| Fournisseur | Montant LCL | Ce que la boîte mail donne |
 |---|---|---|
-| LIXXBAIL | 12 | 7 197,67 € |
-| DOCTOLIB | 10 | 1 490,00 € |
-| AMAZON | 14 | 1 338,27 € |
-| RECEPT AI | 10 | 1 244,00 € |
-| ICARE | 10 | 1 040,00 € |
-| FREE | 19 | 936,07 € |
-| BNP PARIBAS LEASE | 10 | 800,00 € |
-| CM-CIC LEASING | 3 | 683,16 € |
-| IONOS | 10 | 294,00 € |
-| HOSTINGER | 1 | 244,66 € |
-| ADOBE | 10 | 239,90 € |
-| SPOTIFY | 10 | 212,40 € |
-| OPENAI | 2 | 203,98 € |
-| APPLE | 11 | 179,89 € |
-| MICROSOFT | 3 | 30,00 € |
-| **TOTAL** | **135** | **16 134,00 €** |
+| **LIXXBAIL** | **7 197,67 €** | rien. Contrat **EM002148431**. Crédit-bail : la pièce la plus importante du dossier |
+| AMAZON | 1 338,27 € | rien. 50+ commandes, bien plus que les 14 débits pro → tri à faire |
+| ICARE | 1 040,00 € | rien. C'est l'**entretien du Volkswagen**, pas un logiciel |
+| FREE | 936,07 € | 9 avis sans PDF. **Avril 2026 manque même en avis** |
+| BNP PARIBAS LEASE | 800,00 € | rien. Crédit-bail, factures par courrier |
+| CM-CIC LEASING | 683,16 € | géré par **Mutualease**. Les mails annoncent un duplicata, l'original part par courrier ou Chorus Pro |
+| IONOS | — | *(récupéré)* |
+| HOSTINGER | 244,66 € | rien sur la période. **Et `drtighza.fr` a expiré le 11/06/2026** |
+| ADOBE | 239,90 € | un rappel de renouvellement, pas de facture |
+| SPOTIFY | 212,40 € | rien. Probablement personnel |
+| APPLE | 179,89 € | 2 PDF de févr. 2026, et **31 reçus écrits dans le corps du mail**, sans PDF. 31 reçus pour 11 débits : mélange perso/pro certain |
+| MICROSOFT | 30,00 € | rien |
+| CANVA | 36,00 € | avis sans PDF |
 
-**C'est le premier poste de ce fichier, et de loin.** Chaque facture se
-télécharge sur un espace client, en quelques minutes par fournisseur. Le
-Lixxbail à lui seul fait 7 198 € — et c'est un crédit-bail, donc une pièce
-que TGS réclamera forcément.
+### Deux corrections que la récolte a produites
 
-Deux remarques :
-- **AMAZON, SPOTIFY, APPLE, MICROSOFT** : à trancher avant de réclamer. Une
-  partie est peut-être personnelle, et dans ce cas elle n'a pas à figurer au
-  bilan — elle relève du compte courant d'associé.
-- La plupart arrivent sur **ftighza@gmail.com**, non connectée ici. Le
-  branchement de cette boîte en lecture débloquerait l'essentiel.
+**ARIES : il ne manque pas trois factures, mais une.** L'abonnement s'est
+**arrêté** — dernier débit le 26/05/2026, et les relevés vont jusqu'au 05/10.
+Quatre mois sans prélèvement, et rien dans la boîte depuis mai. Les factures
+de juin à septembre n'existent pas. Seule celle de **janvier 2026** manque.
 
----
+**Et Aries coûte 1 017,73 € par mois, pas 990 €.** Chaque débit porte une
+`COM CHANGE` de 27,73 € que la facture de Dubaï ne mentionne pas :
+**168,35 € de commissions de change sur l'année**. C'est une charge bancaire
+déductible pour laquelle aucun justificatif fournisseur n'existera jamais —
+le relevé est la pièce.
+
+**OPENAI : deux problèmes distincts, pas un.** Le LCL porte deux débits de
+101,99 € (`CB97OPENAI *CHAT`, 29/12 et 28/01) **sans facture**. Et Chrome a
+trouvé deux factures de septembre (80,09 € + 39,91 €) qui **ne correspondent à
+aucun débit LCL** : elles ont été payées sur une **Mastercard •••• 0422**, qui
+n'est pas le compte de la SELARL. L'abonnement ChatGPT Business, ouvert le
+04/03/2026, n'apparaît nulle part.
 
 ## 3. À qualifier avant de pouvoir conclure
 
@@ -133,3 +148,29 @@ registre et prendre son silence pour une absence.
 Les pièces à réclamer font ~18 000 €, mais **le vrai sujet est les 16 134 €
 d'abonnements jamais collectés** — et la clé de ce poste est le branchement
 de la boîte `ftighza@gmail.com` en lecture.
+
+---
+
+## 6. La Mastercard •••• 0422 — à qualifier d'urgence
+
+OpenAI et Entrepreneurs.com (un « PASS VIP – Semaine du Scaling » de 32,09 $
+le 27/08/2026) sont payés avec cette carte. **Elle n'est pas la carte LCL de
+la SELARL**, dont les tickets portent `••••2097`, et aucun de ces débits
+n'apparaît sur les relevés.
+
+Deux conséquences, et il faut trancher avant la clôture :
+
+- si c'est une **carte personnelle**, ces dépenses ne sont pas des charges de
+  la SELARL. Elles relèvent du compte courant d'associé — et des factures
+  existent à leur nom, ce qui pourrait conduire à les imputer à tort.
+- si c'est un **second compte professionnel**, alors il manque un relevé
+  bancaire entier au dossier, et les contrôles de complétude faits sur le LCL
+  et le BNP ne couvrent pas tout.
+
+**La deuxième hypothèse est la plus grave** : elle invaliderait partiellement
+le rapprochement. À vérifier en premier.
+
+## 7. Hors comptabilité, mais à savoir
+
+**`drtighza.fr` a expiré le 11/06/2026** — hébergement et nom de domaine. Ce
+n'est pas un sujet de bilan, mais ça se voit de l'extérieur.
