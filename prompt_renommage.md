@@ -755,3 +755,98 @@ passer l'état à `DEPOSEE` au registre. À signaler à Mme Daheron au passage :
 Aries Consulting FZCO est à Dubaï, donc **autoliquidation de la TVA**
 (art. 44 dir. 2006/112/CE) — 4 950 € de prestations sans TVA déductible, à
 déclarer en TVA due et déductible simultanément.
+
+---
+
+## PROMPT 11 — lot 7 recomposé, cinq factures fournisseurs  *(prêt à coller, 06/10/2026)*
+
+**Pourquoi le lot 7 du fichier LOTS_DEPOT n'est pas celui-ci.** Il mélangeait
+trois catégories de dépôt — factures fournisseurs, recettes (la note
+d'honoraires 2825) et relevés bancaires (le BNP 26009) — soit trois tâches
+déguisées en une, contre la règle maison. Et il contenait l'ADF, qui est une
+**confirmation d'inscription et non une facture**, plus le GACD encore sous
+son nom brut. Les quatre sortent ; deux factures La Fraise les remplacent.
+
+**Liens directs par fichier** et non lien de dossier : les cinq vivent dans
+quatre dossiers différents.
+
+**Trois pièges, tous dans le prompt :**
+
+1. **Les deux La Fraise font 119,00 € chacune** — même piège qu'Aries. Juin et
+   septembre, deux abonnements distincts.
+2. **L'historique contient un dépôt Execom de 2025** (`execom chq 8430739
+   504 00euros`). Chercher « EXECOM » fait croire que c'est fait.
+3. **L'historique contient deux dépôts Neohm** (`NEOHM Facture FR156786`,
+   `NEOHM facture 1sur 2 de 2210 4`). Ni l'un ni l'autre n'est FR159171.
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+J'ai 5 factures fournisseurs a deposer. Elles sont dans quatre dossiers
+differents du Drive, donc je te donne un lien par fichier. Ouvre chaque lien,
+telecharge le PDF, puis depose-le.
+
+1. NEOHM facture FR159171 - 1132,80 EUR
+   https://drive.google.com/file/d/1qYs4IVimDiuRKn4H60xCbNqnjvnV6shO/view
+
+2. EXECOM facture FA006127 - 334,80 EUR
+   https://drive.google.com/file/d/1Bt5MTZmkOQO1FBD8_FMHKUBIAF8rpAWP/view
+
+3. ZFX mise en demeure D-2606.08953 - 253,99 EUR
+   https://drive.google.com/file/d/1lFKmgHbsS0e7-lmQ2RzAiP2MZzTTQYaa/view
+
+4. LA FRAISE facture F-2026-06300142 - 119,00 EUR
+   https://drive.google.com/file/d/1ngE-uC5l_IgDZn1cX9wqDDt586sciSQc/view
+
+5. LA FRAISE facture F-2026-093001309 - 119,00 EUR
+   https://drive.google.com/file/d/1FCXJMeuo8Zx9vlQxptGx13HPGXi1jWr4/view
+
+AVERTISSEMENT 1. Les deux factures La Fraise font 119,00 EUR chacune. Ce ne
+sont PAS des doublons : l'une est de juin, l'autre de septembre. Depose les
+deux.
+
+AVERTISSEMENT 2. Pour verifier si une piece est deja presente, cherche
+TOUJOURS le NUMERO COMPLET, jamais le nom du fournisseur :
+- « EXECOM » ramene un depot de 2025 (execom chq 8430739 504 00euros) qui
+  n'a rien a voir.
+- « NEOHM » ramene deux depots (NEOHM Facture FR156786 et NEOHM facture
+  1sur 2 de 2210 4) dont aucun n'est FR159171.
+Si tu cherches le fournisseur, tu vas croire a tort que c'est deja fait.
+
+Pour chaque fichier, dans cet ordre :
+
+ETAPE 1 - verifier qu'il n'y est pas deja.
+Ouvre Mes depots de documents puis Historique des depots.
+Plage de dates la plus large, toutes categories.
+Cherche le numero complet : FR159171, puis FA006127, puis D-2606.08953 ou
+2606.08953, puis F-2026-06300142, puis F-2026-093001309.
+Si tu trouves le numero complet, ne depose pas et dis-le-moi.
+
+ETAPE 2 - deposer.
+Categorie pour les cinq : Mes fournisseurs (Achats) / Mes factures d'achat.
+C'est la meme categorie que les factures Aries deposees a 14h15.
+
+ETAPE 3 - noter.
+Releve la date, l'heure et le statut affiche apres l'envoi.
+
+Ne depose rien d'autre. Ne renomme rien. Ne supprime rien. Ne deplace rien.
+
+En retour, pour chaque fichier : depose ou deja present, date et heure,
+statut affiche. Et dis-moi clairement si l'un des cinq n'a PAS pu etre
+depose, avec la raison.
+```
+
+**Total du lot : 1 959,59 €.**
+
+**À signaler à Mme Daheron avec ce lot :** la pièce ZFX est une **mise en
+demeure** portant sur la facture R-2602.52453 du 13/02/2026, et cette facture
+d'origine n'est ni au Drive ni au portail. Elle est à réclamer à ZFX.
+
+## Les quatre pièces sorties du lot 7, et où elles vont
+
+| Pièce | Pourquoi elle sort | Catégorie de dépôt |
+|---|---|---|
+| ADF C-30800 · 389 € | confirmation d'inscription, pas une facture — la vraie est sur adfcongres.com, Espace Apprenant | fournisseurs, après récupération |
+| GACD 2402391923 · 548,73 € | encore nommée `2402391923.pdf` | fournisseurs, après renommage |
+| Note d'honoraires 2825 · 232 € | c'est une **recette**, pas un achat | recettes |
+| Relevé BNP 26009 | relevé bancaire | relevés bancaires |
