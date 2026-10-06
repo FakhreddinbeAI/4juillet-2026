@@ -117,8 +117,12 @@ def cycle_de(p, tous, par_chiffres, par_montant, textes, mreg):
     etat = (p.get("etat") or "").strip().upper()
 
     # 1. le portail fait foi
-    if etat.startswith("DEPOSEE") or "depose" in el or "DEPOSEES TGS" in e:
-        return "ENVOYE_TGS", "etat ou emplacement"
+    # On ne croit plus un EMPLACEMENT qui affirme « depose le ... » : la
+    # Mutualease 020-FL-32158803 portait cette mention alors que son numero
+    # est absent de l historique. Seuls l etat DEPOSEE — qui exige une preuve,
+    # cf. coherence.py — et le dossier « 3 - DEPOSEES TGS » comptent.
+    if etat.startswith("DEPOSEE") or "DEPOSEES TGS" in e:
+        return "ENVOYE_TGS", "etat DEPOSEE ou dossier 3 - DEPOSEES TGS"
     ref = (p.get("reference") or "").strip()
     if ref and cherche(ref, tous, par_chiffres):
         return "ENVOYE_TGS", "trouvee dans l historique du portail"

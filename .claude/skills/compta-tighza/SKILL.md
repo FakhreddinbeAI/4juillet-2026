@@ -686,3 +686,35 @@ c'est l'erreur n° 4 du mode d'emploi — Bredent déposé trois fois.
 **La seule exception légitime** est une pièce sans numéro, comme un ticket de
 caisse : il n'y a alors rien à chercher. Et même là, on le dit en expliquant
 *pourquoi*, pas en affirmant un contrôle.
+
+## Règle 24 — `coherence.py` passe avant toute affirmation sur l'état du dossier
+
+Écrit le 06/10/2026 après une journée de fautes qui avaient toutes le même
+point commun : **rien ne les contredisait automatiquement.**
+
+```
+python3 -I coherence.py registre_2026.csv lcl_2026.csv \
+        historique_portail.txt historique_portail_statuts.txt
+```
+
+Il compare trois sources — ce que je crois (le registre), ce que TGS a reçu
+(l'historique), ce que la banque a payé (le relevé) — et sort les divergences.
+**Sortie vide = seul résultat acceptable.** Il a trouvé du premier coup :
+
+- **42 pièces au portail dont l'état disait le contraire.** Je ne mettais à
+  jour que celles déposées de ma main ; celles que l'index trouvait restaient
+  marquées non déposées.
+- **Une ligne de l'historique collée sur la précédente.** Un `cat >>` sur un
+  fichier sans retour à la ligne final avait soudé la première ligne ajoutée à
+  la dernière existante, avalant le nom d'une facture Aries dans le champ
+  statut. L'index ne la voyait plus, et je l'annonçais absente du portail.
+  **Un `printf '\n' >>` avant tout ajout, et le contrôle vérifie désormais la
+  terminaison de chaque fichier.**
+- **Un emplacement qui affirmait « déposé le 28/07 »** pour une Mutualease
+  dont le numéro est absent de l'historique. `cycle_vie.py` ne croit plus un
+  emplacement : il exige l'état `DEPOSEE`, qui lui-même exige une preuve.
+
+**Et l'état `DEPOSEE` ne se décrète pas.** Si la référence ne se retrouve pas
+dans l'historique, la note doit **nommer le dépôt entre apostrophes**, et le
+contrôle vérifie que ce nom existe vraiment. Une affirmation non vérifiable
+est signalée comme telle.
