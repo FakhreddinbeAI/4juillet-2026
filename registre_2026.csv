@@ -359,3 +359,31 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 #   TIGHZA Fakhreddine 444704100 SNIR 2025.pdf
 #   AF 2025 Retraite Dr Tighza.pdf
 #
+#
+# --- ETAT DU PORTAIL AU 06/10/2026, releve dans l historique des depots ------
+# 41 des 117 pieces sont DEPOSEES et cochees. 76 restantes :
+#   RENOMME     38 pieces   19 593,99  pretes a deposer
+#   RECU        19 pieces  136 702,52  a renommer d abord
+#   MANQUANT    13 pieces   12 775,99  a reclamer
+#   A_VERIFIER   6 pieces       80,00  montant a lire
+#
+# LES RELEVES LCL 046 A 055 SONT DEPOSES (06/10). Le trou du controle bancaire
+# est comble cote portail ; l analyse des 677 mouvements est dans lcl_2026.csv.
+#
+# TROIS DEPOTS AVAIENT ECHOUE le 03/07, statut « Depot KO » : l inventaire par
+# plan comptable au 31/12/2025, h 25492616 et H 23190485. Les trois ont ete
+# redeposes avec succes les 17/07 et 27/07. Rien a reprendre, mais un depot
+# peut rater en silence : d ou la lecture de l historique.
+#
+# DOUBLONS AU PORTAIL, a eviter desormais via « 3 - DEPOSEES TGS » :
+#   releves BNP 26001 a 26008 deposes le 26/09 PUIS le 06/10
+#   STRAUMANN 9060107688 deux fois le 06/10
+#   Cofica Bail Facture Loyer deux fois le 06/10
+#   MADE IN LABS JUILLET et MIL Juillet : meme document
+#   BREDENT les 24/07 et 27/07
+#
+# PIECE DEPOSEE MAIS INTROUVABLE PAR SON NOM : le loyer COFICA de mars est au
+# portail sous « 2026 03 27 Cofica Bail Facture Loyer.pdf », sans numero. Son
+# identite (facture 750 004747696) n est etablie qu en LISANT le PDF. Le
+# rapprochement par nom l aurait comptee manquante.
+#
