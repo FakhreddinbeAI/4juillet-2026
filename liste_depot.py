@@ -39,7 +39,8 @@ def main(reg, *hist):
     groupes = defaultdict(list)
     for p in lignes(reg):
         etat = (p.get("etat") or "").strip().upper()
-        if etat.startswith("DEPOSEE") or etat.startswith("HORS"):
+        if (etat.startswith("DEPOSEE") or etat.startswith("HORS")
+                or etat.startswith("A_VENIR")):
             continue
         ref = (p.get("reference") or "").strip()
         if not ref or len("".join(c for c in ref if c.isdigit())) < 4:

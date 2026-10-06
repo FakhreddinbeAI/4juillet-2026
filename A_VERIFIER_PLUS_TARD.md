@@ -93,3 +93,17 @@ chèques sur LCL ne vient qu'après, et seulement si un seul appel existe.
 
 **DGFiP 22 €**, mise en demeure valant commandement, délai de 30 jours expiré
 depuis mars. Une saisie pour 22 € coûte bien plus que 22 €. À payer, point.
+
+---
+
+## 6. Janvier 2027 — attestation Madelin MACSF de l'exercice 2026
+
+Celle de **2025** est déposée : `Attestation Madelin au 31 12 2025.pdf`,
+Dépôt OK le 21/09/2026. Rien à faire dessus.
+
+Celle au **31/12/2026** se télécharge sur `macsf.fr`, identifiant **7904376**,
+à partir de janvier 2027. **Ne pas la chercher avant : elle n'existe pas.**
+
+Numéro de contrat à chercher sous **deux** formes — mes documents internes du
+25/09 écrivent `P15 001`, le Dr se souvient d'un `F0015`. L'attestation n'est
+pas dans le Drive, donc aucune pièce ici ne permet de trancher.

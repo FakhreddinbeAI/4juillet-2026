@@ -74,8 +74,15 @@ MACSF 229,39 €, STRAUMANN 189,54 €, ARGOAT 160 €, ANTHROPIC 108 €, CPAM
 96,75 €, ORMCO 3 × ~20 €, ANTAI 50 €, DGFiP 22 €, et six lignes sans montant
 (Mutualease FL, URSSAF, deux scans, relevé BNP 26009).
 
-**Trois ne sont pas à déposer mais à obtenir** — elles n'existent pas encore :
-ZFX R-2602.52453, STRAUMANN 9060125749, MACSF attestation Madelin P15-001.
+**Deux ne sont pas à déposer mais à obtenir** — elles n'existent pas
+encore : ZFX R-2602.52453 et STRAUMANN 9060125749.
+
+*(J'y comptais aussi l'attestation Madelin MACSF. À tort : le Dr l'a
+déposée en septembre et l'historique le confirme — `Attestation Madelin
+au 31 12 2025.pdf`, Dépôt OK le 21/09/2026. Ma propre note disait déjà
+« fournie à TGS, confirmé le 25/09 ». Cette ligne du registre suit
+l'attestation **2026**, qui ne peut exister qu'en janvier 2027 : elle est
+passée en `A_VENIR` et sort des listes de travail.)*
 
 ## Les urgences, qui ne sont pas des montants
 

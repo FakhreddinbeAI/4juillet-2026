@@ -52,7 +52,8 @@ def main(reg, *hist):
     tranchees, deja, absentes, muettes = [], [], [], []
     for p in pieces:
         etat = (p.get("etat") or "").strip().upper()
-        if etat.startswith("DEPOSEE") or etat.startswith("HORS"):
+        if (etat.startswith("DEPOSEE") or etat.startswith("HORS")
+                or etat.startswith("A_VENIR")):
             tranchees.append(p)
             continue
         ref = (p.get("reference") or "").strip()
@@ -74,7 +75,7 @@ def main(reg, *hist):
     print("%d pieces au registre, %d depots au portail.\n"
           % (len(pieces), len(tous)))
 
-    print("--- 0. DEJA TRANCHEES A LA MAIN : %d pieces, %.2f EUR ---"
+    print("--- 0. HORS DU LOT (deposee a l oeil, hors perimetre, ou pas\n       encore emise) : %d pieces, %.2f EUR ---"
           % (len(tranchees), sum(montant(p) for p in tranchees)))
     for p in sorted(tranchees, key=lambda x: -montant(x)):
         print("  %-16s %-14s %10.2f  %-9s %s"
