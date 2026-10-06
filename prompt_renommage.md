@@ -1128,3 +1128,65 @@ renommer à la convention, puis le dépôt par lots de cinq.
 Drive (`1adB-euhu-ZkMQ1E07_J5azVWgWji2Zat`). Dès que la synchronisation est
 passée, je peux lire les montants dans les PDF et compléter le registre sans
 que tu aies à me dire quoi que ce soit.
+
+---
+
+## PROMPT 15 — déposer les 30 abonnements depuis Téléchargements  *(06/10/2026)*
+
+**Ce qu'on dépose : 3 028 €**, les trois seuls fournisseurs dont la boîte perso
+donnait de vraies factures.
+
+| Fournisseur | Pièces | Montant | Preuve de paiement |
+|---|---|---|---|
+| DOCTOLIB | 10 | 1 490,00 € | le libellé du prélèvement **porte le n° de facture** |
+| IONOS | 10 | 294,00 € | idem, `Num-CL. K874506958/ Fact. ...` |
+| RECEPT AI | 10 | 1 244,00 € | montant différent chaque mois, donc apparié |
+
+**Ce qu'on ne dépose PAS, et pourquoi :**
+
+- **OPENAI** (2 factures de sept.) — payées sur la Mastercard •••• 0422, qui
+  n'est pas le compte de la SELARL. Ce ne sont pas des charges de la société.
+- **APPLE** (2 PDF de févr.) — à rapprocher des 11 débits du compte pro avant
+  de conclure lesquels sont les bons.
+- **HOSTINGER** (2 factures) — avril et juin **2025**, hors exercice.
+- **MACSF** (attestation) — déjà déposée le 21/09.
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+Tu vas deposer 30 factures que tu as telechargees tout a l'heure dans le
+dossier Telechargements de cet ordinateur. PAR LOTS DE CINQ, et tu me dis
+ou tu en es apres chaque lot.
+
+NE DEPOSE QUE CES TROIS FOURNISSEURS :
+ - DOCTOLIB : 10 factures, de FRIN25-01451287 a FRIN25-02696811
+ - IONOS : 10 factures, numeros 202543127270, 202543535136, 202543954441,
+   202544376491, 202544804130, 202545245288, 312100052855, 312100213292,
+   312100382919, 312100558302
+ - RECEPT AI : 10 factures, emises par BUDGIE S.A.S., numeros commencant
+   par Invoice-B93C3B79-
+
+NE DEPOSE PAS, meme si les fichiers sont la :
+ - les 2 factures OPENAI (AXWEORR0-0016 et -0017)
+ - les 2 factures APPLE (BC84645699 et BC84669852)
+ - les 2 factures HOSTINGER (HCY-14754950 et HCY-13424861) : elles sont
+   de 2025, hors exercice
+ - l'attestation MACSF : elle est deja au portail
+
+Categorie pour toutes : "Je ne sais pas ou deposer ce document",
+sous-categorie "Equipe comptable".
+
+PAS DE VERIFICATION PREALABLE DANS L'HISTORIQUE. J'ai controle : aucune
+facture Doctolib, Ionos ou Recept AI n'a jamais ete deposee. Ne perds pas de
+temps a chercher.
+
+Ne renomme rien. Ne supprime rien. Ne deplace rien.
+
+EN RETOUR, pour chaque lot de cinq : les noms de fichiers deposes, l'heure,
+le statut affiche. Et a la fin, la liste des 30 references effectivement
+deposees — j'en ai besoin pour cocher le tableau de suivi.
+
+Si un fichier manque dans Telechargements, dis-le : il y a peut-etre des
+doublons « (1) » de ta premiere tentative Doctolib, et dans ce cas ne depose
+que l'original.
+```
