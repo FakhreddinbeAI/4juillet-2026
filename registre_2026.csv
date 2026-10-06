@@ -327,3 +327,35 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note
 # Sa periode couvre DECEMBRE 2025 : exercice CLOS, donc rien a deposer pour 2026 — mais
 # a signaler si TGS cherche un loyer COFICA manquant sur le bilan passe.
 #
+#
+# --- CE QUE LA LISTE DU PC A DEBLOQUE, LE 06/10 ------------------------------
+# Les noms du disque utilisent des ESPACES, pas des tirets bas : aucune de mes
+# recherches Drive ne pouvait les trouver. TGS lit le document, pas le nom,
+# donc rien a renommer avant de deposer.
+#
+# TROUVES SUR LE PC, a deposer directement depuis le disque :
+#   2026 01 31 a 2026 08 31 BNP 2112 RELEVE 26001 a 26008  -> les 8 manquants
+#   amende 75 .pdf                                         -> DGFIP-AMENDES 75,00
+#   ONCD chq 8430738 462 00euros.pdf                       -> preuve de paiement ONCD
+#   Attestation Madelin au 31 12 2025.pdf                  -> MADELIN, mais 2025
+#   SCM LEGESMILE SCDF Repartition charges au 31 03 2026.xlsx -> quote-part 120 314,80
+#   LEGESMILE SCM Liasse 2036 31 12 2025.pdf
+#   Compte courant 2025 DR TIGHZA.pdf    -> a relier aux 16 000 verses a la SELARL
+#   2026 02 11 CMV Mediforce Releve Echeances.pdf -> l echeancier cherche depuis des semaines
+#
+# TOUJOURS ABSENTS, meme du PC : COFICA mai 750004781830, ROTEC C012667, ANTAI,
+# DGFiP relance 22,00, avoir Straumann 9060136144, relance Straumann 112,68,
+# MUTUALEASE 020-FL-32158803 (le disque porte f 020 fl 30525487, autre piece).
+#
+# RELEVES LCL : le disque s arrete a janvier 2026 (COMPTEPROLCL ... 20260105 et
+# LCL202601). FEVRIER A SEPTEMBRE 2026 MANQUENT. C est le trou du controle
+# bancaire : rien a analyser avant de les telecharger sur l espace LCL.
+#
+# PIECES HORS REGISTRE reperees au passage, a qualifier :
+#   hostinger hcy 14754950 justif 64 67 avoir 25 92 .pdf
+#   FACTURE 1400 euros allianz.pdf
+#   FACTURE N 214015 DE annexe TIGHZA.pdf
+#   Facture Gestion de Conflits TIGHZA.pdf
+#   TIGHZA Fakhreddine 444704100 SNIR 2025.pdf
+#   AF 2025 Retraite Dr Tighza.pdf
+#
