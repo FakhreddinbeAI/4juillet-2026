@@ -138,9 +138,15 @@ function remplirDatesPortail() {
   Logger.log("Dates inscrites : " + mis + " / deja remplies : " + deja);
   Logger.log("Cochees SANS date (" + vides.length + ") : "
     + vides.join(", "));
-  SpreadsheetApp.getUi().alert("Dates de depot inscrites : " + mis
-    + "\nDeja remplies : " + deja
-    + "\nCochees sans date : " + vides.length);
+  try {
+    SpreadsheetApp.getUi().alert("Dates de depot inscrites : " + mis
+      + "\nDeja remplies : " + deja
+      + "\nCochees sans date : " + vides.length);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }
 
 function montant_(v) {

@@ -101,7 +101,13 @@ function allegerMaintenant() {
   Logger.log("Blocs (" + plages.length + ") : " + plages.join(", "));
   Logger.log("Derniere ligne avec du contenu : " + derVraie);
   Logger.log("Lignes cochees : " + coches);
-  SpreadsheetApp.getUi().alert("Allege.\nBlocs de contenu : "
-    + plages.length + "\nDerniere ligne : " + derVraie
-    + "\nDeclencheurs coupes : " + coupes);
+  try {
+    SpreadsheetApp.getUi().alert("Allege.\nBlocs de contenu : "
+      + plages.length + "\nDerniere ligne : " + derVraie
+      + "\nDeclencheurs coupes : " + coupes);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

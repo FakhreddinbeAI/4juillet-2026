@@ -55,6 +55,12 @@ function carte() {
   var fi = f.getFilter();
   Logger.log("Filtre : " + (fi ? "pose sur " + fi.getRange().getA1Notation()
     : "aucun"));
-  SpreadsheetApp.getUi().alert("Blocs de contenu : " + plages.length
-    + "\nLiens en L : " + liens + "\nCochees : " + coches.length);
+  try {
+    SpreadsheetApp.getUi().alert("Blocs de contenu : " + plages.length
+      + "\nLiens en L : " + liens + "\nCochees : " + coches.length);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

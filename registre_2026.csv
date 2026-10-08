@@ -968,3 +968,25 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # note d honoraires. Le brief interdit que des donnees patient transitent
 # par la compta ; c est au Dr de les sortir.
 #
+
+#
+# --- getUi() N EST PAS TOUJOURS DISPONIBLE (08/10/2026) -------------------
+# ajouterLesVingtQuatre a fait tout son travail — 24 lignes ecrites, deux
+# montants corriges — puis a leve « Cannot call SpreadsheetApp.getUi() from
+# this context » sur sa derniere ligne, celle qui affiche la fenetre de
+# resultat. Le Dr a cru a un echec.
+#
+# getUi() n existe que si le script tourne AVEC une interface. Lance depuis
+# l editeur, par un declencheur ou par automatisation, il echoue. Faire
+# dependre la fin d un script de l affichage d une fenetre, c est le faire
+# echouer sur du decor.
+#
+# CORRIGE DANS LES NEUF SCRIPTS concernes : chaque alert() est desormais
+# dans un try/catch qui journalise au lieu de planter. Le journal est la
+# seule sortie sur laquelle on peut compter.
+#
+# LE COLLAGE, LUI, A VRAIMENT ECHOUE : ligne 189 VIDE, derniere ligne
+# remplie 188. Deux echecs du presse-papiers dans la journee, aucun des deux
+# annonce. Un collage rate ne dit rien ; un script dit ce qu il a fait.
+# Pour tout ajout au Sheet, on passe desormais par un script.
+#

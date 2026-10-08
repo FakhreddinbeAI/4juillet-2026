@@ -127,6 +127,12 @@ function cocherDeposes() {
   Logger.log("References attendues introuvables (" + absents.length + ") : "
     + absents.join(", "));
   Logger.log("Couples non tranches (" + amb.length + ") : " + amb.join(" | "));
-  SpreadsheetApp.getUi().alert("Cochees : " + coche + "\nDeja : " + deja
-    + "\nIntrouvables : " + absents.length + "\nAmbigus : " + amb.length);
+  try {
+    SpreadsheetApp.getUi().alert("Cochees : " + coche + "\nDeja : " + deja
+      + "\nIntrouvables : " + absents.length + "\nAmbigus : " + amb.length);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

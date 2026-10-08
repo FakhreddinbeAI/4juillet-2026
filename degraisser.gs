@@ -55,9 +55,15 @@ function degraisserEssai() {
     + (e.garde + 1) + " a " + e.maxi);
   Logger.log(sup > 0 ? "Lance degraisserVraiment() pour le faire."
     : "Rien a supprimer.");
-  SpreadsheetApp.getUi().alert("Grille : " + e.maxi
-    + "\nContenu jusqu a : " + e.derVraie
-    + "\nA supprimer : " + sup + " lignes vides");
+  try {
+    SpreadsheetApp.getUi().alert("Grille : " + e.maxi
+      + "\nContenu jusqu a : " + e.derVraie
+      + "\nA supprimer : " + sup + " lignes vides");
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }
 
 function degraisserVraiment() {
@@ -67,6 +73,12 @@ function degraisserVraiment() {
   e.f.deleteRows(e.garde + 1, sup);
   Logger.log("Supprime " + sup + " lignes vides. Grille : "
     + e.f.getMaxRows() + " lignes.");
-  SpreadsheetApp.getUi().alert("Supprime : " + sup + " lignes vides.\n"
-    + "Grille ramenee a " + e.f.getMaxRows() + " lignes.");
+  try {
+    SpreadsheetApp.getUi().alert("Supprime : " + sup + " lignes vides.\n"
+      + "Grille ramenee a " + e.f.getMaxRows() + " lignes.");
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

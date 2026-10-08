@@ -60,6 +60,12 @@ function completerLCL() {
   Logger.log("Dates completees : " + mis);
   Logger.log("Cochees encore sans date (" + reste.length + ") : "
     + reste.join(", "));
-  SpreadsheetApp.getUi().alert("Completees : " + mis
-    + "\nEncore sans date : " + reste.length);
+  try {
+    SpreadsheetApp.getUi().alert("Completees : " + mis
+      + "\nEncore sans date : " + reste.length);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

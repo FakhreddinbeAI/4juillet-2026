@@ -129,8 +129,14 @@ function ajouterLesVingtQuatre() {
   Logger.log("Montants corriges : " + faits.length + " -> "
     + faits.join(" | "));
 
-  SpreadsheetApp.getUi().alert("Ajoutees : " + aj.length
-    + "\nDeja presentes : " + deja.length
-    + "\nMontants corriges : " + faits.length
-    + "\nDerniere ligne avant ajout : " + der);
+  try {
+    SpreadsheetApp.getUi().alert("Ajoutees : " + aj.length
+      + "\nDeja presentes : " + deja.length
+      + "\nMontants corriges : " + faits.length
+      + "\nDerniere ligne avant ajout : " + der);
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }

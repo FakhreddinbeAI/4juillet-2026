@@ -258,6 +258,12 @@ function synchroniser() {
     Logger.log("  + " + aj[k][4] + " " + aj[k][7] + " " + aj[k][6]
       + "  [" + (aj[k][0] ? "cochee" : "non cochee") + "]");
   }
-  SpreadsheetApp.getUi().alert("Ajoutees : " + aj.length
-    + "\nDeja presentes : " + sautees + "\nOnglet : " + f.getName());
+  try {
+    SpreadsheetApp.getUi().alert("Ajoutees : " + aj.length
+      + "\nDeja presentes : " + sautees + "\nOnglet : " + f.getName());
+  } catch (e) {
+    // getUi() echoue hors contexte d interface : le
+    // journal suffit, le travail est deja fait.
+    Logger.log("Pas d interface : " + e);
+  }
 }
