@@ -1203,3 +1203,95 @@ Si un fichier manque dans Telechargements, dis-le : il y a peut-etre des
 doublons « (1) » de ta premiere tentative Doctolib, et dans ce cas ne depose
 que l'original.
 ```
+
+---
+
+## PROMPT 16 — les trois Bongert payées (08/10/2026)
+
+**Pourquoi un prompt sur mesure et pas le PROMPT 2.** Le dossier
+« Règlements Mai » contient **sept** factures Bongert. Deux des trois à
+déposer portent le nom `BONGERT`, à l'identique, et une quatrième s'appelle
+`BONGERT .pdf`. Désigner par le nom, ici, c'est déposer au hasard. Ce prompt
+désigne donc par **URL directe**, et nomme les quatre à ne pas toucher.
+
+**Pourquoi renommer d'abord, et pas seulement par propreté.** Un fichier
+déposé sous le nom `BONGERT` ne contient aucun chiffre. L'index de
+l'historique du portail repère les dépôts par leurs **suites de chiffres** :
+une pièce déposée sous ce nom serait introuvable ensuite, et je ne pourrais
+plus jamais prouver qu'elle y est. La facture 24515923 a été retrouvée parce
+qu'elle avait été déposée sous `24515923 BONGERT 100 60.pdf`. Le renommage
+est ce qui rend le dépôt vérifiable.
+
+### Étape A — renommer (une seule tâche)
+
+```
+Ouvre ces trois fichiers Google Drive, un par un, par leur lien direct.
+Ne passe pas par le dossier : plusieurs fichiers y portent le meme nom.
+
+1. https://drive.google.com/file/d/1eLtakgDw5ANRsHMrD-DmEuoqg_45PuHD/view
+   Renomme-le : 2026-02-28_BONGERT_FACTURE_40.40_24515266.pdf
+
+2. https://drive.google.com/file/d/1gUxQIkqPVk8p36fUw9j-NNZ4DpktxZjA/view
+   Renomme-le : 2026-03-15_BONGERT_FACTURE_271.45_24515482.pdf
+
+3. https://drive.google.com/file/d/1fr7XQwAtA4VHkFYusozci7fH73GLJI_C/view
+   Renomme-le : 2026-03-31_BONGERT_FACTURE_98.85_24515704.pdf
+
+Avant de renommer chacun, ouvre le PDF et verifie que le numero de facture
+en haut a droite correspond bien a celui du nouveau nom. Si ce n'est pas le
+cas, NE RENOMME PAS et dis-le-moi : cela voudrait dire que les liens ne
+pointent pas ou je crois.
+
+Ne renomme rien d'autre. Ne deplace rien. Ne supprime rien.
+En retour : les trois anciens noms et les trois nouveaux.
+```
+
+### Étape B — déposer (seulement quand les noms sont propres)
+
+```
+Va sur https://monespaceclient.tgs-france.fr
+
+Trois fichiers a deposer. Pour chacun, dans cet ordre :
+
+ETAPE 1 - verifier qu'il n'y est pas deja.
+Ouvre Mes depots de documents puis Historique des depots.
+Plage large, toutes categories. Cherche le numero de facture.
+Si tu le trouves deja, ne depose pas et dis-le-moi.
+Les trois numeros a chercher : 24515266, 24515482, 24515704.
+
+ETAPE 2 - deposer.
+Categorie : "Je ne sais pas ou deposer ce document".
+C'est la categorie a utiliser par DEFAUT. Ne choisis JAMAIS une categorie
+plus precise de toi-meme : c'est TGS qui impute, pas nous.
+
+ETAPE 3 - noter la date, l'heure et le statut affiche apres l'envoi.
+
+Les trois fichiers, dans le dossier « Reglements Mai » :
+  2026-02-28_BONGERT_FACTURE_40.40_24515266.pdf
+  2026-03-15_BONGERT_FACTURE_271.45_24515482.pdf
+  2026-03-31_BONGERT_FACTURE_98.85_24515704.pdf
+
+QUATRE AUTRES FACTURES BONGERT SONT DANS LE MEME DOSSIER.
+Ne les depose pas, pour deux raisons differentes :
+  24511761 (15/07/2025) et 24513834 (30/11/2025) relevent de l'exercice
+    2025, qui est clos. Les deposer maintenant brouillerait le bilan 2026.
+  24515923 et 24516144 sont DEJA sur le portail. Les redeposer creerait un
+    doublon, et un doublon de facture c'est un risque de charge comptee deux
+    fois.
+
+Ne depose rien d'autre. Ne supprime rien. Ne deplace rien.
+
+En retour, pour chaque fichier : depose ou deja present, date et heure,
+categorie choisie, statut.
+```
+
+**Ce que j'ai déjà vérifié de mon côté** : les trois numéros sont absents de
+l'historique du portail (1 298 dépôts indexés). L'étape 1 reste dans le
+prompt quand même — le 06/10 j'ai écrit « j'ai contrôlé, aucune n'a été
+déposée » dans un prompt, et les douze IONOS 2025 y étaient.
+
+**Ce que je ne fais pas déposer : le déplacement.** Ces trois factures sont
+payées, donc elles n'ont plus leur place dans « factures à régler ». Mais ce
+dossier est celui de Lucie, et j'y ajoute sans jamais rien en retirer. Elles
+restent où elles sont ; dis-moi si tu veux qu'on les range dans
+« factures réglées » et je ferai un prompt pour ça.
