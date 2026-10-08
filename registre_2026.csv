@@ -912,3 +912,59 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # Plusieurs factures Google existent en DOUBLE entre ce dossier et
 # FACTURATION : GCFRD0012563912, GCFRD0013126604, GCFRD0013433498.
 #
+#
+# --- BILAN DU BALAYAGE EXHAUSTIF DU DRIVE (08/10/2026) --------------------
+# Soixante-deux fichiers renommes au format
+#   AAAA-MM-JJ_FOURNISSEUR_TYPE_MONTANT_NUMERO.pdf
+# dans tous les dossiers AUTORISES. Rien touche dans « Lisa - Lucie :
+# factures a regler » ni dans « Reglements Mai » qui en est un sous-dossier,
+# selon la consigne du Dr : c est le dossier de Lucie.
+#
+# DOSSIERS PARCOURUS :
+#   Lucie - Lisa : factures reglees           1 fichier
+#   Reglements Mars                           7 raccourcis
+#   Mon Drive > FACTURATION                  33 fichiers, 16 renommes
+#   Mon Drive > Brother                      13 fichiers, 5 renommes
+#   Brother > Factures fournisseurs / Courriers / Financement   4 fichiers
+#   Factures labo/fournisseurs                4 fichiers, 4 renommes
+#   Compta Cabinet > Abonnements & services  35 fichiers, 24 renommes
+#   Drive partage > compta (1mgipX...)       ~45 fichiers, 16 renommes
+#   Reglements Mai                           53 fichiers LUS, non renommes
+#
+# CE QUE LE RENOMMAGE A REVELE, ET QU AUCUN AUTRE CONTROLE NE VOYAIT :
+#
+# 1. HENRY SCHEIN, 1 071,75 EUR impayes sur six factures. Fournisseur absent
+#    du registre ET invisible pour audit_lcl.py, puisque rien n a ete paye :
+#    aucun debit ne le trahissait.
+# 2. MADE IN LABS 35195 et 35435 valaient 1 967,00 et 1 329,95, pas 967,00 et
+#    329,95. Deux mille euros, confirmes par les debits du releve.
+# 3. CANVA vaut 12,00 et non 13,32 : la difference est 1,32 de commission de
+#    change, un frais BANCAIRE qui ne figure sur aucune facture.
+# 4. ONZE factures ROTEC 2026 dormaient au Drive, dont sept deja deposees.
+#    La reclamation prevue a ete ANNULEE.
+# 5. Une facture GOOGLE inconnue, GCFRD0011327141 du 02/01/2026.
+# 6. HOSTINGER, abonnement annuel de 129,47 dont la facture 2026 n a jamais
+#    ete recuperee, et facturee au nom personnel du Dr.
+#
+# LES DOUBLONS, MARQUES PAR LE SUFFIXE « _DOUBLON » ET JAMAIS SUPPRIMES :
+#   4 ARGOAT (les « Dr TIGHZA - Facture <mois> (1).pdf »)
+#   3 GOOGLE entre FACTURATION et Abonnements
+#   2 NOTRE ACCORD
+#   1 STRAUMANN 9060036699, deux fois dans LE MEME dossier
+#   1 COFICA 750004747696, idem
+#   1 MUTUALEASE 06-2025, idem
+#   2 exemplaires de l attestation MACSF du local
+#   3 copies de la preuve de virement GACD 761,19
+#   1 NTJ 20240268, et 1 MIL 35195 (dans Reglements Mai, non renommes)
+# Le courrier Straumann du 06/2026 explique une partie de ces doublons :
+# « reenvoi de vos factures suite a un incident technique ».
+#
+# CE QUI RESTE IRREDUCTIBLE : deux scans Brother sans couche de texte
+# (121631 et 121442) et un « 20260212133923.pdf » muet. Ils ne se liront
+# qu a l oeil.
+#
+# ET DEUX DOCUMENTS PATIENTS trouves dans des dossiers de compta, renommes
+# en le signalant mais NON deplaces : un devis de mutuelle ROEDERER et une
+# note d honoraires. Le brief interdit que des donnees patient transitent
+# par la compta ; c est au Dr de les sortir.
+#
