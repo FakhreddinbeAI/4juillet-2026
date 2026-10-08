@@ -990,3 +990,26 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # annonce. Un collage rate ne dit rien ; un script dit ce qu il a fait.
 # Pour tout ajout au Sheet, on passe desormais par un script.
 #
+
+#
+# --- UN SCRIPT A DONNEES EN DUR VIEILLIT (08/10/2026) --------------------
+# remplirDatesPortail a laisse DIX lignes cochees sans date : les ROTEC. Sa
+# table DATES avait ete generee AVANT que ces factures entrent au registre.
+# Le script n etait pas casse, il etait PERIME.
+#
+# LA REGLE : apres tout ajout de pieces, horodatage.gs doit etre REGENERE
+# par gen_horodatage.py, pas seulement relance. Un script qui porte ses
+# donnees en dur ne sait rien de ce qui est arrive apres lui.
+#
+# Les dix dates relevees au portail : 5110778, 5110828 et 5110950 deposees
+# le 20/04/2026 ; 5113053, 5116617, 5117001, 5118293, 5118531, 5119917 et
+# 5120388 le 24/06/2026. Donc les ROTEC de janvier etaient chez TGS des
+# avril, et les suivantes en juin — bien avant que mon registre les
+# connaisse.
+#
+# AUTRE DEFAUT DU MEME ORDRE : les lignes ecrites par script affichent
+# TRUE / FALSE en TEXTE, parce que la case a cocher est une VALIDATION DE
+# DONNEES attachee a la cellule, et que setValues() n en pose pas. Ecrire un
+# booleen ne cree pas une case. Il faut reposer les cases sur la plage apres
+# tout ajout de lignes.
+#
