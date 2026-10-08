@@ -9,7 +9,7 @@ l'historique TGS pour voir ce qui a été déposé. C'est une heure perdue et un
 source d'erreurs : **j'ai déjà cet historique en local**, les 1 298 dépôts
 indexés, recoupés ce matin avec le registre sans une seule divergence.
 
-Les **95 pièces** ci-dessous sont celles dont la présence au portail est
+Les **97 pièces** ci-dessous sont celles dont la présence au portail est
 prouvée par cet index. Chrome n'a rien à chercher : il colle, il exécute.
 
 ---
@@ -45,9 +45,9 @@ prouvée par cet index. Chrome n'a rien à chercher : il colle, il exécute.
 ```javascript
 /**
  * cocherDeposes() — coche en colonne A les pieces reellement deposees sur
- * le portail TGS, d apres l index local des 1298 depots du portail.
+ * le portail TGS, d apres l index local des depots du portail.
  * N ECRIT QU EN A ET B. Ne touche JAMAIS K (vigilance) ni L (liens).
- * Genere le 08/10/2026 : 80 references + 15 couples fournisseur/montant.
+ * Genere par gen_cochage.py : 82 references + 15 couples fournisseur/montant.
  */
 
 var REFS = [
@@ -56,22 +56,22 @@ var REFS = [
   "04873-50448095-1", "04904-74747500-1", "20240268", "202543535136",
   "202543954441", "202544376491", "202544804130", "202545245288",
   "21440109300015-26-2-185-023-033", "2240-8167-3237", "2402408753",
-  "2402410567", "2402412732", "26001", "26002", "26003", "26004", "26005",
-  "26006", "26007", "26008", "26232180", "312100052855", "312100213292",
-  "312100382919", "312100558302", "331150973", "331172675", "45530000",
-  "750004747696", "750004798493", "750004815707", "750004820768",
-  "750004820769", "750004832398", "9060107688", "9060181129", "9060182966",
-  "9060183030", "A167", "AMR-2026-01-05471", "D-2606.08953",
-  "F-2026-02-000008793", "F-2026-03-000009276", "F-2026-03-000009829",
-  "F-2026-04-0000010320", "F-2026-06300142", "F-2026-093001309",
-  "F-20260204-4412", "F-20260304-4565", "FA006127", "FR159171",
-  "FRIN25-01591543", "FRIN25-01709447", "FRIN25-01865267",
-  "FRIN25-01992157", "FRIN25-02132567", "FRIN25-02270457",
-  "FRIN25-02316023", "FRIN25-02486130", "FRIN25-02696811",
-  "GCFRD0011667476", "GCFRD0014580910", "HKTDOLB4-0001", "HKTDOLB4-0002",
-  "HKTDOLB4-0003", "HKTDOLB4-0004", "HKTDOLB4-0005", "HKTDOLB4-0006",
-  "HKTDOLB4-0007", "HKTDOLB4-0008", "HKTDOLB4-0009", "INV-2026-01345",
-  "QP-2025"
+  "2402410567", "2402412732", "24515923", "24516144", "26001", "26002",
+  "26003", "26004", "26005", "26006", "26007", "26008", "26232180",
+  "312100052855", "312100213292", "312100382919", "312100558302",
+  "331150973", "331172675", "45530000", "750004747696", "750004798493",
+  "750004815707", "750004820768", "750004820769", "750004832398",
+  "9060107688", "9060181129", "9060182966", "9060183030", "A167",
+  "AMR-2026-01-05471", "D-2606.08953", "F-2026-02-000008793",
+  "F-2026-03-000009276", "F-2026-03-000009829", "F-2026-04-0000010320",
+  "F-2026-06300142", "F-2026-093001309", "F-20260204-4412",
+  "F-20260304-4565", "FA006127", "FR159171", "FRIN25-01591543",
+  "FRIN25-01709447", "FRIN25-01865267", "FRIN25-01992157",
+  "FRIN25-02132567", "FRIN25-02270457", "FRIN25-02316023",
+  "FRIN25-02486130", "FRIN25-02696811", "GCFRD0011667476",
+  "GCFRD0014580910", "HKTDOLB4-0001", "HKTDOLB4-0002", "HKTDOLB4-0003",
+  "HKTDOLB4-0004", "HKTDOLB4-0005", "HKTDOLB4-0006", "HKTDOLB4-0007",
+  "HKTDOLB4-0008", "HKTDOLB4-0009", "INV-2026-01345", "QP-2025"
 ];
 
 var COUPLES = [
@@ -171,7 +171,7 @@ ou H ne portent pas le nom attendu — avant d'écrire quoi que ce soit.
 
 | critère | pièces | fiabilité |
 |---|---|---|
-| référence exacte en colonne H | 80 | certaine |
+| référence exacte en colonne H | 82 | certaine |
 | fournisseur + montant, **une seule ligne candidate** | 15 | contrôlée |
 
 Les 15 sans référence sont les Recept AI, les pleins Petro-Ouest, les
@@ -184,13 +184,13 @@ cochée qu'une case cochée au hasard.
 se déclenche pas sur une modification faite par un script. Si le script ne
 posait pas la date, la colonne B resterait vide.
 
-**Une 96ᵉ pièce est volontairement exclue** : le Septodont sans montant au
+**Une 98ᵉ pièce est volontairement exclue** : le Septodont sans montant au
 registre. Sans référence *et* sans montant, il n'y a rien sur quoi
 s'appuyer — le cocher serait une devinette. À faire à la main.
 
 ## COMMENT JE SAURAI SI ÇA S'EST BIEN PASSÉ
 
-Le journal doit afficher **Cochées : 95** (ou 95 réparties entre « cochées »
+Le journal doit afficher **Cochées : 97** (ou 97 réparties entre « cochées »
 et « déjà cochées »), **Introuvables : 0**, **Ambigus : 0**.
 
 Si « Introuvables » n'est pas à zéro, ce n'est pas un bug : cela veut dire que

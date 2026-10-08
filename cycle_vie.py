@@ -189,6 +189,16 @@ def cycle_de(p, tous, par_chiffres, par_montant, textes, mreg):
     if ref and cherche(ref, tous, par_chiffres):
         return "ENVOYE_TGS", "trouvee dans l historique du portail"
 
+    # 1 bis. le REGLEMENT GROUPE : un seul virement solde plusieurs factures.
+    # cycle_vie apparie une piece a un debit ; il est aveugle au virement
+    # unique qui regle un lot. Le 11/06/2026, 670,15 EUR libelle « Bongert
+    # fevrier mars avril 26 » solde exactement les cinq factures Bongert 2026
+    # (40,40 + 271,45 + 98,85 + 100,60 + 158,85). La preuve n est pas un
+    # appariement mais une SOMME EXACTE plus une periode concordante : elle
+    # doit etre ecrite a la main dans la note, et citer la ligne de releve.
+    if "REGLEMENT GROUPE PROUVE" in (p.get("note") or "").upper():
+        return "PAYE", "reglement groupe, preuve citee dans la note"
+
     # 2. le paiement retrouve au releve LCL — la SEULE preuve de paiement
     d, pq = paiement_prouve(p, par_montant, textes, mreg)
     if d:

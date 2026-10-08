@@ -606,8 +606,8 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # independantes — et cela explique pourquoi un appariement facture par
 # paiement n a jamais marche chez eux.
 #
-2026-03-31;BONGERT;FACTURE;98.85;24515704;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515704 du 31/03/2026, 98,85 EUR. Reparation resine 40,40 + renfort grillage faconne 58,45. Exoneration de TVA art. 261-4-1 du CGI. Client C0009322.;A_PAYER
-2026-02-28;BONGERT;FACTURE;40.40;24515266;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515266 du 28/02/2026, 40,40 EUR, une reparation resine. Fichier nomme simplement « BONGERT ».;A_PAYER
+2026-03-31;BONGERT;FACTURE;98.85;24515704;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515704 du 31/03/2026, 98,85 EUR. Reparation resine 40,40 + renfort grillage faconne 58,45. Exoneration de TVA art. 261-4-1 du CGI. Client C0009322. REGLEMENT GROUPE PROUVE : virement du 11/06/2026, 670,15 EUR, releve 52, « VIR INST Bongert digital | LIBELLE:Bongert fevrier mars avril 26 ». Cette somme est EXACTEMENT 40,40 + 271,45 + 98,85 + 100,60 + 158,85, soit les cinq factures Bongert de l exercice 2026, et le libelle nomme les mois concernes. Les cinq sont donc payees.;PAYE
+2026-02-28;BONGERT;FACTURE;40.40;24515266;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515266 du 28/02/2026, 40,40 EUR, une reparation resine. Fichier nomme simplement « BONGERT ». REGLEMENT GROUPE PROUVE : virement du 11/06/2026, 670,15 EUR, releve 52, « VIR INST Bongert digital | LIBELLE:Bongert fevrier mars avril 26 ». Cette somme est EXACTEMENT 40,40 + 271,45 + 98,85 + 100,60 + 158,85, soit les cinq factures Bongert de l exercice 2026, et le libelle nomme les mois concernes. Les cinq sont donc payees.;PAYE
 2025-07-15;BONGERT;FACTURE;977.40;24511761;;HORS PERIMETRE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24511761 du 15/07/2025, 977,40 EUR. HORS EXERCICE 2026 — elle releve du bilan 2025. Fichier nomme « BONGERT .pdf ».;HORS_PERIMETRE
 2026-04-01;NTJ;FACTURE;;20240268;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 20240268 du 01/04/2026, periode MARS 2026. Montant non visible dans l extrait, A LIRE. DOUBLON : presente DEUX FOIS, sous « NTJ - 03/2026 - 20240268 » (id 1x9MQ7X9r6ZKJMp322PFG0XZMWbtfWAkA) et « NTJ 20240268 - 04/2026 V1 » (id 1tlsbmxBDC-VL342A8YS7EhUgArYhyG4d), TOUTES DEUX de 32 829 octets — identiques a l octet, contrairement au doublon Made in Labs. Le titre du second est trompeur : il annonce 04/2026 alors que la facture couvre mars. ETAT CORRIGE le 08/10/2026 : elle EST au portail, et DEUX FOIS — « NTJ 20240268 04 2026 V1 1 .pdf » et « NTJ 20240268 04 2026 V1 .pdf ». Le doublon du Drive a donc ete DEPOSE EN DOUBLE chez TGS. A signaler a Mme Daheron pour qu elle n enregistre la charge qu une fois.;ENVOYE_TGS
 2026-05-04;NTJ;FACTURE;;20240280;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 20240280 du 04/05/2026, periode AVRIL 2026. Montant a lire. Fichier « NTJ  Avril 2026.pdf ».;A_PAYER
@@ -653,4 +653,35 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # de DOUBLE ENREGISTREMENT COMPTABLE. Trouve non pas en cherchant, mais parce
 # que coherence.py a refuse de laisser passer un etat qui contredisait le
 # cycle. C est exactement a cela que sert ce controle.
+#
+2026-03-15;BONGERT;FACTURE;271.45;24515482;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. LUE : facture 24515482 du 15/03/2026, 271,45 EUR (123,80 + 147,65). Appareil resine transitoire, arcades 3D, planification implantaire. Exoneration art. 261-4-1 CGI. Fichier nomme « BONGERT ». REGLEMENT GROUPE PROUVE : virement du 11/06/2026, 670,15 EUR, releve 52, « VIR INST Bongert digital | LIBELLE:Bongert fevrier mars avril 26 ». Cette somme est EXACTEMENT 40,40 + 271,45 + 98,85 + 100,60 + 158,85, soit les cinq factures Bongert de l exercice 2026, et le libelle nomme les mois concernes. Les cinq sont donc payees.;PAYE
+2025-11-30;BONGERT;FACTURE;809.20;24513834;;HORS PERIMETRE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. LUE : facture 24513834 du 30/11/2025, 809,20 EUR. HORS EXERCICE 2026 — bilan 2025. Fichier « FACTURE 30112025 DR TIGHZA.pdf », dont le nom ne disait ni le fournisseur ni le numero.;HORS_PERIMETRE
+2026-04-15;BONGERT;FACTURE;100.60;24515923;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. LUE : facture 24515923 du 15/04/2026, 100,60 EUR, quatre couronnes provisoires. DEJA AU PORTAIL. REGLEMENT GROUPE PROUVE : virement du 11/06/2026, 670,15 EUR, releve 52, « VIR INST Bongert digital | LIBELLE:Bongert fevrier mars avril 26 ». Cette somme est EXACTEMENT 40,40 + 271,45 + 98,85 + 100,60 + 158,85, soit les cinq factures Bongert de l exercice 2026, et le libelle nomme les mois concernes. Les cinq sont donc payees. ETAT MIS A DEPOSEE le 08/10/2026 : presente au portail sous '24515923 BONGERT 100 60.pdf' / '24516144 BONGERT 158 85.pdf'.;ENVOYE_TGS
+2026-04-30;BONGERT;FACTURE;158.85;24516144;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. LUE : facture 24516144 du 30/04/2026, 158,85 EUR, planification implantaire 3 implants. DEJA AU PORTAIL. REGLEMENT GROUPE PROUVE : virement du 11/06/2026, 670,15 EUR, releve 52, « VIR INST Bongert digital | LIBELLE:Bongert fevrier mars avril 26 ». Cette somme est EXACTEMENT 40,40 + 271,45 + 98,85 + 100,60 + 158,85, soit les cinq factures Bongert de l exercice 2026, et le libelle nomme les mois concernes. Les cinq sont donc payees. ETAT MIS A DEPOSEE le 08/10/2026 : presente au portail sous '24515923 BONGERT 100 60.pdf' / '24516144 BONGERT 158 85.pdf'.;ENVOYE_TGS
+#
+# --- LES SEPT BONGERT DE « REGLEMENTS MAI » (08/10/2026) ------------------
+# J en avais inscrit TROIS hier. Il y en a SEPT. Ma passe precedente n a vu
+# que ce qu une recherche lui avait rendu, et je l ai prise pour l inventaire
+# du fournisseur. Compter les fichiers d un fournisseur AVANT de conclure.
+#
+# Exercice 2026, cinq factures, toutes exonerees art. 261-4-1 CGI :
+#   24515266  28/02/2026    40,40
+#   24515482  15/03/2026   271,45
+#   24515704  31/03/2026    98,85
+#   24515923  15/04/2026   100,60
+#   24516144  30/04/2026   158,85
+#                        --------
+#                          670,15  = le virement du 11/06/2026. Exactement.
+#
+# Hors 2026 : 24511761 (15/07/2025, 977,40) et 24513834 (30/11/2025, 809,20).
+#
+# UN PIEGE DE LECTURE A NE PLUS REFAIRE : le pied de CHAQUE facture Bongert
+# affiche « 620,00 72,10 » et « 14 2,10 ». Ces nombres sont IDENTIQUES sur les
+# sept factures : c est un bloc de formulaire mal extrait, PAS la base de TVA
+# ni la TVA de la facture lue. Qui recopierait 620,00 comme base imposable se
+# tromperait sept fois de suite. Le seul montant fiable est celui qui precede
+# « EUR » apres les asterisques.
+#
+# DEUX DES CINQ SONT DEJA AU PORTAIL (24515923, 24516144). Les trois autres
+# sont payees mais pas deposees : 24515266, 24515482, 24515704.
 #

@@ -95,8 +95,13 @@ def main(reg, lcl, *hist):
             continue
         if m in D:
             continue
-        # tolerance : un montant peut etre paye groupe, ou pas encore paye
-        if (p.get("cycle") or "").strip().upper() == "PAYE":
+        # tolerance : un montant peut etre paye groupe, ou pas encore paye.
+        # Un REGLEMENT GROUPE PROUVE est justement le cas ou le montant de la
+        # piece n apparait PAS au releve : c est leur somme qui y figure. La
+        # note doit alors citer la ligne de releve ; cf. les cinq Bongert 2026
+        # soldees par un virement de 670,15 le 11/06.
+        groupe = "REGLEMENT GROUPE PROUVE" in (p.get("note") or "").upper()
+        if (p.get("cycle") or "").strip().upper() == "PAYE" and not groupe:
             pb("MARQUEE PAYE MAIS LE MONTANT N EXISTE PAS AU RELEVE", p,
                "%.2f introuvable parmi les debits" % m)
 
