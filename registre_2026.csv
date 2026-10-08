@@ -711,3 +711,48 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # qui tourne depuis des jours sans divergence. Quand les deux se contredisent,
 # c est le nouveau qu on suspecte d abord.
 #
+2026-01-05;LCL-70666;RELEVE;;046;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 01 05 LCL 70666 RELEVE 046.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-02-05;LCL-70666;RELEVE;;047;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 02 05 LCL 70666 RELEVE 047.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-03-05;LCL-70666;RELEVE;;048;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 03 05 LCL 70666 RELEVE 048.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-04-03;LCL-70666;RELEVE;;049;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 04 03 LCL 70666 RELEVE 049.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-05-05;LCL-70666;RELEVE;;050;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 05 05 LCL 70666 RELEVE 050.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-06-05;LCL-70666;RELEVE;;051;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 06 05 LCL 70666 RELEVE 051.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-07-03;LCL-70666;RELEVE;;052;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 07 03 LCL 70666 RELEVE 052.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-08-05;LCL-70666;RELEVE;;053;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 08 05 LCL 70666 RELEVE 053.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-09-04;LCL-70666;RELEVE;;054;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 09 04 LCL 70666 RELEVE 054.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-10-05;LCL-70666;RELEVE;;055;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Depose au portail sous '2026 10 05 LCL 70666 RELEVE 055.pdf'. MON REGISTRE NE SUIVAIT QUE LES RELEVES BNP : les dix releves LCL de l exercice etaient deposes chez TGS sans que je les compte. Trouve parce que le Dr a compte les depots a la main.;ENVOYE_TGS
+2026-02-20;STRAUMANN;FACTURE;;9060036699;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Deposee sous '2026 02 20 Straumann Group Facture 9060036699.pdf'. MONTANT INCONNU : le nom du depot n en porte pas. A lire dans le PDF. Absente du registre jusqu ici.;ENVOYE_TGS
+2026-06-26;ROTEC;FACTURE;107.50;5121155;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Deposee sous '2026 06 26 ROTEC FACTURE 107 50 5121155.pdf'. Montant 107,50 ANNONCE PAR LE NOM DU DEPOT, a confirmer sur le PDF. Interessant : le registre tenait ROTEC pour un sujet 2025 clos (relance C012667, 14 factures de juin a decembre 2025). Il y a donc aussi de l activite ROTEC en 2026.;ENVOYE_TGS
+2026-07-07;GACD;FACTURE;44.45;2402379458;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Deposee sous '2026 07 07 GACD FACTURE 44 45 2402379458.pdf'. Montant ANNONCE PAR LE NOM, a confirmer.;ENVOYE_TGS
+2026-07-29;COFICA;FACTURE;1353.76;750004820770;2025-12-05-au-2026-01-04;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Deposee sous '2026 07 29 cofica facture 1353 76 750004820770 p2025 12 05 au 2026 01 04 dup...'. Le nom porte la mention « dup », donc ce depot est lui-meme signale comme un doublon. La PERIODE est 05/12/2025 au 04/01/2026 : elle releve donc en grande partie de 2025. A faire trancher par Mme Daheron avant imputation.;ENVOYE_TGS
+2026-02-11;CMV-MEDIFORCE;RELEVE;;echeances-2026;;DEPOSEE;Portail TGS (depose, absent du registre jusqu au 08/10/2026); AJOUTEE LE 08/10/2026. Deposee sous '2026 02 11 CMV Mediforce Releve Echeances.pdf'. A RAPPROCHER de la ligne CMV-MEDIFORCE a 80,00 deja au registre, sans reference et A_TRIER : c est peut-etre la meme piece.;ENVOYE_TGS
+#
+# --- LE TROU TROUVE PAR UN COMPTAGE A LA MAIN (08/10/2026) ----------------
+# Le Dr a compte les depots du portail depuis le 05/10 et en a trouve 146
+# quand j annoncais 98 pieces deposees EN TOUT. Les deux chiffres ne
+# mesuraient pas la meme chose — le portail porte 1 811 depots couvrant
+# 2024, 2025 et 2026, mon registre 172 pieces du seul exercice 2026 — mais
+# la question a decouvert un vrai manque.
+#
+# Sur 68 depots dont le nom commence par une date 2026, 20 n avaient aucune
+# piece au registre. Cinq etaient de faux orphelins : les tickets Petro-Ouest
+# et Super U, presents au registre mais sans reference, donc impossibles a
+# rattacher par numero. Les QUINZE autres sont de vrais manques, inscrits
+# ci-dessus : les dix releves LCL 046 a 055, Straumann 9060036699, ROTEC
+# 5121155, GACD 2402379458, Cofica 750004820770 et le releve d echeances
+# CMV Mediforce.
+#
+# LA FAILLE N EST PAS L OUBLI, C EST LE SENS DU CONTROLE. coherence.py
+# verifiait registre -> portail : chaque piece que je connais est-elle bien
+# deposee. Il ne verifiait JAMAIS portail -> registre : chaque depot de 2026
+# correspond-il a une piece que je connais. Un controle qui ne regarde que
+# dans un sens ne peut pas voir ce qu on ne lui a jamais dit d attendre.
+#
+# AUTRE LIMITE A RETENIR : mon historique du portail a ete recolte le 06 et
+# 07/10. Tout depot posterieur m est INVISIBLE. L ecart de 11 entre les 146
+# du Dr et mes 135 est tres probablement la. Un historique date doit etre
+# rafraichi avant toute affirmation sur « ce qui est depose ».
+#
+# ET UNE DECOUVERTE DE FOND : ROTEC a de l activite en 2026 (facture 5121155
+# du 26/06). Le registre le traitait comme un sujet 2025 clos.
+#

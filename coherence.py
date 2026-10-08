@@ -28,6 +28,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from index_portail import cherche, construire
 
 
+def norm(s):
+    """Reduit a l essentiel comparable : minuscules, chiffres et lettres.
+    Le portail remplace les ponctuations par des espaces, donc « FRIN25-01 »
+    y devient « FRIN25 01 » : sans cette reduction, rien ne se rattache."""
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+
 def pieces(chemin):
     brut = [l for l in io.open(chemin, encoding="utf-8")
             if l.strip() and not l.startswith("#")]
@@ -124,6 +131,46 @@ def main(reg, lcl, *hist):
         e = (p.get("etat") or "").strip()
         if e and e.upper() not in connus:
             pb("ETAT INCONNU", p, "'%s'" % e)
+
+    # 4 bis. LE CONTROLE DANS L AUTRE SENS. Les controles ci-dessus vont du
+    # registre vers le portail : chaque piece que je connais est-elle bien
+    # deposee. Ils ne pouvaient PAS voir l inverse — un depot de 2026 qui ne
+    # correspond a aucune piece du registre. Le 08/10/2026 le Dr a compte les
+    # depots a la main et trouve 15 pieces deposees que je ne suivais pas,
+    # dont les DIX releves LCL de l exercice. Un controle a sens unique ne
+    # voit jamais ce qu on ne lui a pas dit d attendre.
+    refs_c = [norm(p.get("reference") or "") for p in P]
+    refs_c = [r for r in refs_c if len(r) >= 5]
+    paires = []
+    for p in P:
+        f = [m for m in re.split(r"[^a-z0-9]+",
+             (p.get("fournisseur") or "").lower()) if len(m) >= 4]
+        try:
+            m = norm("%.2f" % float(p["montant"]))
+        except (ValueError, KeyError, TypeError):
+            m = ""
+        if f and m:
+            paires.append((f, m))
+    cites_c = set()
+    for p in P:
+        for c in re.findall(r"'([^']{6,90})'", p.get("note") or ""):
+            if len(norm(c)) >= 8:
+                cites_c.add(norm(c))
+    d2026 = re.compile(r"^\s*2026[\s_-]?(0[1-9]|1[0-2])")
+    for nom in tous:
+        if not d2026.match(nom):
+            continue
+        z = norm(nom)
+        if any(r in z for r in refs_c):
+            continue
+        if any(c in z or z in c for c in cites_c):
+            continue
+        # une piece sans reference se rattache par fournisseur + montant
+        if any(m in z and any(w in nom.lower() for w in f)
+               for f, m in paires):
+            continue
+        pbs.append(("DEPOSE AU PORTAIL MAIS ABSENT DU REGISTRE", nom[:34],
+                    "depot date de 2026 sans piece correspondante"))
 
     # 5. defauts de STRUCTURE des fichiers sources. Celui-la vient d une
     # faute reelle : un « cat >> » sur un fichier sans retour a la ligne final
