@@ -1065,3 +1065,31 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # CONSIGNE A LUCIE : ne rien payer a ROTEC avant d avoir le releve de compte.
 # Le risque est symetrique : payer deux fois, ou laisser courir un impaye.
 #
+#
+# --- UN COMPLEMENT QUI TRONQUE EST UN DESTRUCTEUR (08/10/2026) -----------
+# completerLCL a ecrase la reference de la facture ROTEC 5113053 par « 053 »
+# et lui a donne la date de depot du releve LCL n° 053, le 06/10/2026.
+#
+# LA CAUSE, DANS MON CODE : pour retrouver les references a zero de tete
+# j avais ecrit ("00" + ref).slice(-3). Sur « 046 » cela rend bien « 046 ».
+# Sur « 5113053 », sept caracteres, cela ne complete pas : cela TRONQUE en
+# « 053 ». Et « 053 » est une VRAIE CLE de ma table, celle du releve LCL.
+# Le script a donc cru avoir trouve, et a remplace la reference d une
+# facture fournisseur par celle d un releve bancaire.
+#
+# CORRIGE : on ne complete que si la chaine est PLUS COURTE que la cible.
+#   for (var w = 2; w <= 4; w++) {
+#     if (brut.length < w) essais.push(("0000" + brut).slice(-w));
+#   }
+# Verifie en JS : « 5113053 » ne rend plus que lui-meme, « 46 » rend
+# toujours « 046 ».
+#
+# LA LECON : slice(-n) sur une chaine plus longue que n ne complete pas, il
+# coupe. Et une cle courte issue d une coupe peut collisionner avec une vraie
+# cle — ici un numero de releve bancaire a trois chiffres. Tout
+# « complement » doit verifier qu il complete, jamais supposer.
+#
+# C est Chrome qui l a vu, en relisant la ligne 206 apres coup. Mon propre
+# script annoncait « 1 date completee » : il se felicitait d avoir casse une
+# ligne.
+#

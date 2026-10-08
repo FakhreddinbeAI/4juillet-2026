@@ -28,11 +28,20 @@ function completerLCL() {
     // deux, trois et quatre chiffres : c est la seule difference entre
     // « 46 » tel que Sheets l a stocke et « 046 » tel que le portail
     // l ecrit.
+    // ON NE COMPLETE QUE CE QUI EST PLUS COURT QUE LA CIBLE.
+    // La version precedente faisait ("00" + brut).slice(-3), ce qui sur
+    // « 5113053 » ne completait pas mais TRONQUAIT en « 053 » — une vraie
+    // cle, celle du releve LCL 053. Le script a donc ecrase la reference
+    // d une facture ROTEC par celle d un releve bancaire, et lui a mis la
+    // date de depot de ce releve. Un complement qui tronque est un
+    // destructeur silencieux.
     var essais = [brut];
     if (/^\d+$/.test(brut)) {
-      essais.push(("0" + brut).slice(-2));
-      essais.push(("00" + brut).slice(-3));
-      essais.push(("000" + brut).slice(-4));
+      for (var w = 2; w <= 4; w++) {
+        if (brut.length < w) {
+          essais.push(("0000" + brut).slice(-w));
+        }
+      }
     }
     var v = null;
     for (var j = 0; j < essais.length && !v; j++) v = DATES[essais[j]];
