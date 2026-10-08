@@ -580,3 +580,29 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # Auto-test ajoute : le crible doit retrouver le cas Cofica pour lequel il a
 # ete ecrit. Un filtre qui ne trouve rien peut simplement etre casse.
 #
+2026-03-31;MADE-IN-LABS;FACTURE;967.00;35195;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai;AJOUTEE AU REGISTRE LE 08/10/2026, trouvee en depouillant le dossier « Reglements Mai ». Montant LU DANS LE PDF. Exoneration de TVA art. 261-4-1 du CGI (protheses dentaires). ATTENTION : la facture detaille les travaux par PATIENT NOMME — ne jamais recopier son contenu ici, seuls le numero et le montant. Bons de commande de fevrier et mars 2026. Solde du a l emission : 967,00, donc rien n avait ete paye. PRESENTE EN DEUX EXEMPLAIRES dans le dossier : « MIL 03/2026 V1 » (id 1TJbZF6XexECrtlFFgiAeP5PlrnMmeGt-, 360 094 octets) et « MIL -  03/2026 » (id 1lL4sTcY8JiRqKglvOVMus-lNGV8hnY07, 361 635 octets). DOUBLON CONFIRME le 08/10 : meme numero, meme montant, memes bons, memes patients. Les tailles differentes ne sont qu un double export. Un seul des deux doit rester ;A_PAYER
+2026-04-30;MADE-IN-LABS;FACTURE;329.95;35435;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai;AJOUTEE AU REGISTRE LE 08/10/2026, trouvee en depouillant le dossier « Reglements Mai ». Montant LU DANS LE PDF. Exoneration de TVA art. 261-4-1 du CGI (protheses dentaires). ATTENTION : la facture detaille les travaux par PATIENT NOMME — ne jamais recopier son contenu ici, seuls le numero et le montant. Bons de commande de mars et avril 2026. Solde du a l emission : 296,95 sur 329,95, donc 33,00 avaient deja ete regles. Fichier « MIL 04-2026 », id 1vlHCAoM3slKZMSK7juh-xonmIaHFwmzC.;A_PAYER
+#
+# --- MADE IN LABS : LE DOUBLON TRANCHE, ET DEUX FACTURES DE PLUS ----------
+# Le Dr demande de trancher le doublon des deux fichiers « 03/2026 ». Fait le
+# 08/10 par lecture du contenu, pas par comparaison des noms :
+#   MIL 03/2026 V1   -> facture 35195, 967,00, bons de fevrier-mars
+#   MIL -  03/2026   -> facture 35195, 967,00, LES MEMES BONS
+# Meme numero, meme montant, memes bons de commande, memes patients dans les
+# mille premiers caracteres. C EST UN DOUBLON. Les tailles de fichier
+# differentes — 360 094 et 361 635 octets — ne prouvent rien : c est un double
+# export du meme document. Avoir compare les tailles aurait conclu l inverse.
+#
+# ET DEUX FACTURES INCONNUES DU REGISTRE :
+#   35195 du 31/03/2026, 967,00
+#   35435 du 30/04/2026, 329,95
+# Le registre ne connaissait que 35684 (3 522,72), 3 089,02 et 1 705,24, les
+# trois citees par la relance du 17/08. Les deux premieres de l annee y
+# manquaient entierement.
+#
+# LES FACTURES MADE IN LABS PORTENT UN SOLDE DU a l emission : 967,00 sur
+# 967,00 pour 35195, 296,95 sur 329,95 pour 35435, 852,67 sur 3 522,72 pour
+# 35684. C est un compte courant fournisseur, pas une suite de factures
+# independantes — et cela explique pourquoi un appariement facture par
+# paiement n a jamais marche chez eux.
+#
