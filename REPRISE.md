@@ -16,9 +16,11 @@ retrouve des factures que pour 2 196,51 €, et aucun virement ne correspond à
 un lot identifiable. Payer risque le double paiement, ne pas payer risque
 l'impayé. Seule la 5124043 du 02/09 est sûrement encore due.
 
-Un rappel automatique est aussi programmé pour le lundi 12/10/2026 à 8h30
-(trigger `trig_01JznHdyM2WwwrexbsrvCxfV`). **Les deux existent exprès** :
-si le Dr écrit avant lundi, ce fichier doit suffire.
+Un rappel automatique est aussi programmé pour le **vendredi 09/10/2026 à
+8h30** (trigger `trig_01JznHdyM2WwwrexbsrvCxfV`). Il visait d'abord lundi ;
+le Dr l'a avancé à vendredi matin, puisque le 08/10 était un jeudi et qu'il
+reste donc un jour ouvré. **Les deux existent exprès** : si elle écrit avant
+que le rappel se déclenche, ce fichier doit suffire.
 
 Une fois le rappel fait, supprimer ce bloc.
 
