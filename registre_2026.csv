@@ -756,3 +756,31 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # ET UNE DECOUVERTE DE FOND : ROTEC a de l activite en 2026 (facture 5121155
 # du 26/06). Le registre le traitait comme un sujet 2025 clos.
 #
+2026-01-14;ROTEC;FACTURE;;5110778;;DEPOSEE;Drive partage > Lucie - Lisa : factures reglees > Reglements Mars; AJOUTEE LE 08/10/2026 en depouillant « Reglements Mars », dossier que je n avais JAMAIS ouvert. MONTANT INCONNU : le dossier ne contient que des RACCOURCIS, qui ne rendent aucun texte. A lire. PAYEE : le titre du raccourci dit « VI LE 06/03 », et le relevé 49 porte au 06/03 un VIR INST ROTEC de 958,00 libelle « 2025 + janv 2026 ». Ce virement solde donc du 2025 ET les factures de janvier 2026. DEJA AU PORTAIL sous 'Facture client 5110778 14 01 2026.pdf' : elle etait deposee chez TGS et absente de mon registre. C est le controle portail -> registre qui l a dit.;ENVOYE_TGS
+2026-01-15;ROTEC;FACTURE;;5110828;;DEPOSEE;Drive partage > Lucie - Lisa : factures reglees > Reglements Mars; AJOUTEE LE 08/10/2026 en depouillant « Reglements Mars », dossier que je n avais JAMAIS ouvert. MONTANT INCONNU : le dossier ne contient que des RACCOURCIS, qui ne rendent aucun texte. A lire. PAYEE : le titre du raccourci dit « VI LE 06/03 », et le relevé 49 porte au 06/03 un VIR INST ROTEC de 958,00 libelle « 2025 + janv 2026 ». Ce virement solde donc du 2025 ET les factures de janvier 2026. DEJA AU PORTAIL sous 'Facture client 5110828 15 01 2026.pdf' : elle etait deposee chez TGS et absente de mon registre. C est le controle portail -> registre qui l a dit.;ENVOYE_TGS
+2026-01-16;ROTEC;FACTURE;;5110950;;DEPOSEE;Drive partage > Lucie - Lisa : factures reglees > Reglements Mars; AJOUTEE LE 08/10/2026 en depouillant « Reglements Mars », dossier que je n avais JAMAIS ouvert. MONTANT INCONNU : le dossier ne contient que des RACCOURCIS, qui ne rendent aucun texte. A lire. PAYEE : le titre du raccourci dit « VI LE 06/03 », et le relevé 49 porte au 06/03 un VIR INST ROTEC de 958,00 libelle « 2025 + janv 2026 ». Ce virement solde donc du 2025 ET les factures de janvier 2026. DEJA AU PORTAIL sous 'Facture client 5110950 16 01 2026.pdf' : elle etait deposee chez TGS et absente de mon registre. C est le controle portail -> registre qui l a dit.;ENVOYE_TGS
+2026-02-28;ARGOAT;FACTURE;;;;A_VERIFIER;Drive partage > Lucie - Lisa : factures reglees > Reglements Mars; AJOUTEE LE 08/10/2026. Raccourci « ARGOAT 02/2026 VIREMENT LE 06/03 ». Numero et montant INCONNUS, le raccourci ne rend pas de texte. Comble peut-etre le trou de fevrier dans la serie Argoat du registre. PLACEHOLDER DE REFERENCE RETIRE : j avais ecrit 'a-lire-02-2026', dont les chiffres 022026 se sont apparies par accident au depot 'MIL 02 2026 V1'. Un faux numero qui contient des chiffres cree de fausses correspondances. On laisse la reference VIDE.;A_TRIER
+#
+# --- UN DOSSIER JAMAIS OUVERT, ET DES RACCOURCIS (08/10/2026) -------------
+# En cherchant comment traiter les factures deposees au Drive AVANT paiement,
+# j ai trouve « Reglements Mars : Factures de 01 a 03/2026 » dans les
+# factures reglees. Je ne l avais JAMAIS dépouillé. Il contient sept
+# elements, dont trois factures ROTEC de janvier 2026 et une ARGOAT 02/2026.
+#
+# PIEGE TECHNIQUE A RETENIR : les sept elements sont des RACCOURCIS
+# (application/vnd.google-apps.shortcut), pas des fichiers. Un raccourci ne
+# rend AUCUN texte : une recherche avec snippetVerbosity verrait un dossier
+# vide. Seuls les TITRES informent. Tout balayage de dossier doit donc
+# compter les raccourcis a part et ne jamais conclure « rien dedans ».
+#
+# ROTEC 2026 RECONSTITUE PAR LES LIBELLES DU RELEVE :
+#   21/01   861,00  « Oct novmebre decembre »        -> 2025
+#   20/02   228,00  « Facture 13/05/2025 »           -> 2025
+#   06/03   958,00  « 2025 + janv 2026 »             -> a cheval
+#   12/05  1210,51  « Rotec janvier a avril 2026 »   -> 2026
+#   23/06  3229,50  « Rotec Mars a juin »            -> 2026
+#   18/09   275,50  « Tighza 26/06 jusqu au 01/09 »  -> 2026
+# Soit environ 5 700 EUR d achats ROTEC en 2026 pour trois factures connues
+# et sans montant. Le libelle dit QUELS MOIS reclamer : c est la demande a
+# envoyer a ROTEC.
+#

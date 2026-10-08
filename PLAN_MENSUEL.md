@@ -14,7 +14,95 @@ Trois gestes, pas plus.
 
 Le reste est pour moi.
 
+## LES DEUX PORTES D'ENTRÉE DU SHEET
+
+Mon premier plan était piloté par la banque, et il avait un défaut que tu as
+vu tout de suite : **une facture reçue mais pas encore payée n'y entrait
+nulle part.** Or c'est le cas normal — la facture arrive d'abord, le paiement
+suit.
+
+Il y a donc deux portes, et elles se rejoignent sur **la même ligne du
+Sheet**, identifiée par le numéro de facture.
+
+### Porte 1 — le Drive : la pièce EXISTE
+
+Dès qu'une facture arrive dans le Drive partagé, elle entre au Sheet, **même
+impayée**. Le Drive donne tout sauf le paiement : fournisseur, numéro, date,
+montant.
+
+Le dossier où elle est posée décide de la colonne Action :
+
+| Dossier | Action au Sheet |
+|---|---|
+| `Lisa - Lucie : factures à régler` | **LUCIE PAIE** |
+| `Lucie - Lisa : factures réglées` | **À TRIER** puis À DÉPOSER si le relevé confirme |
+| ailleurs, non classé | **À TRIER** |
+
+Les identifiants, pour que ce soit exécutable :
+- à régler : `1-46UBQ6bdUnR0d9gUio_N4Ctbljo1BR0`
+- réglées : `1VztzEAoBIFCqIBPSCPf8w2X7is5-FH5g`
+- Règlements Mai : `1__WOTqWA6mmmk9ZXFzddrLA8oaDU3tJU`
+- Règlements Mars : `1OZ0QfxNpQ8kUi2hY4G7AdcLXXjwF80RC`
+
+**Le balayage est incrémental.** Je ne relis pas tout chaque mois, je ne
+demande que ce qui est arrivé depuis la dernière fois :
+```
+parentId = '<dossier>' and createdTime > '2026-10-08T00:00:00Z'
+```
+avec `snippetVerbosity: BRIEF`, qui rend le texte que Drive a déjà extrait du
+PDF. Un dossier entier s'identifie en un appel, sans ouvrir un fichier.
+
+**Deux pièges de cette porte, payés tous les deux aujourd'hui.**
+
+Le premier : un dossier peut ne contenir que des **raccourcis**. C'est le cas
+de « Règlements Mars » — sept éléments, sept raccourcis, et un raccourci ne
+rend **aucun texte**. Un balayage qui ne lit que le contenu verrait un
+dossier vide. Il faut compter les raccourcis à part et lire leurs titres.
+
+Le second : **ne jamais mettre de faux numéro en attendant le vrai.** J'ai
+écrit `a-lire-02-2026` pour une Argoat dont je n'ai pas le numéro, et ses
+chiffres `022026` se sont appariés tout seuls au dépôt « MIL 02 2026 V1 ». La
+référence reste **vide** jusqu'à ce qu'on la lise.
+
+### Porte 2 — le relevé LCL : la pièce est PAYÉE
+
+Le relevé ne crée pas de ligne, il en **fait avancer** une : la pièce passe à
+PAYÉ, donc à À DÉPOSER. Et il sert à l'inverse — un débit sans pièce est un
+justificatif à réclamer, c'est ce que fait `audit_lcl.py`.
+
+**Les libellés du relevé disent quoi réclamer.** Exemple du jour, ROTEC :
+
+| Date | Montant | Libellé | Exercice |
+|---|---|---|---|
+| 21/01 | 861,00 | Oct novmebre decembre | 2025 |
+| 20/02 | 228,00 | Facture 13/05/2025 | 2025 |
+| 06/03 | 958,00 | **2025 + janv 2026** | à cheval |
+| 12/05 | 1 210,51 | **Rotec janvier a avril 2026** | 2026 |
+| 23/06 | 3 229,50 | **Rotec Mars a juin** | 2026 |
+| 18/09 | 275,50 | Tighza 26/06 jusqu au 01/09 | 2026 |
+
+Le libellé nomme les mois. La demande à ROTEC s'écrit toute seule : les
+factures de janvier à septembre 2026.
+
+### Ce qui se passe quand les deux portes se contredisent
+
+Le Drive dit « réglée », le relevé ne montre aucun débit ? **Le relevé
+gagne.** Une pièce ne passe à PAYÉ que sur un débit constaté — règle posée le
+06/10 et qui ne bouge pas. Le dossier du Drive n'est qu'un indice.
+
+Sauf un cas : le **règlement groupé**, quand un seul virement solde
+plusieurs factures. Le montant de la pièce n'apparaît alors nulle part ; c'est
+leur somme qui figure. Les cinq Bongert 2026 font exactement 670,15 €, le
+montant du virement du 11/06. Cette preuve s'écrit à la main dans la note
+avec la mention `REGLEMENT GROUPE PROUVE`, et `coherence.py` l'accepte à cette
+condition seulement.
+
 ## CE QUE JE FAIS, DANS CET ORDRE
+
+### 0. Je balaie le Drive partagé
+Incrémental, sur les quatre dossiers ci-dessus, depuis la date du dernier
+balayage. Chaque facture trouvée devient une ligne du registre, avec son
+montant **lu dans le PDF** et jamais recopié du nom du fichier.
 
 ### 1. J'intègre le relevé
 Je convertis le relevé en lignes de `lcl_2026.csv`. C'est la **source de
