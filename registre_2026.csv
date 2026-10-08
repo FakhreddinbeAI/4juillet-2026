@@ -606,3 +606,51 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # independantes — et cela explique pourquoi un appariement facture par
 # paiement n a jamais marche chez eux.
 #
+2026-03-31;BONGERT;FACTURE;98.85;24515704;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515704 du 31/03/2026, 98,85 EUR. Reparation resine 40,40 + renfort grillage faconne 58,45. Exoneration de TVA art. 261-4-1 du CGI. Client C0009322.;A_PAYER
+2026-02-28;BONGERT;FACTURE;40.40;24515266;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24515266 du 28/02/2026, 40,40 EUR, une reparation resine. Fichier nomme simplement « BONGERT ».;A_PAYER
+2025-07-15;BONGERT;FACTURE;977.40;24511761;;HORS PERIMETRE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 24511761 du 15/07/2025, 977,40 EUR. HORS EXERCICE 2026 — elle releve du bilan 2025. Fichier nomme « BONGERT .pdf ».;HORS_PERIMETRE
+2026-04-01;NTJ;FACTURE;;20240268;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 20240268 du 01/04/2026, periode MARS 2026. Montant non visible dans l extrait, A LIRE. DOUBLON : presente DEUX FOIS, sous « NTJ - 03/2026 - 20240268 » (id 1x9MQ7X9r6ZKJMp322PFG0XZMWbtfWAkA) et « NTJ 20240268 - 04/2026 V1 » (id 1tlsbmxBDC-VL342A8YS7EhUgArYhyG4d), TOUTES DEUX de 32 829 octets — identiques a l octet, contrairement au doublon Made in Labs. Le titre du second est trompeur : il annonce 04/2026 alors que la facture couvre mars. ETAT CORRIGE le 08/10/2026 : elle EST au portail, et DEUX FOIS — « NTJ 20240268 04 2026 V1 1 .pdf » et « NTJ 20240268 04 2026 V1 .pdf ». Le doublon du Drive a donc ete DEPOSE EN DOUBLE chez TGS. A signaler a Mme Daheron pour qu elle n enregistre la charge qu une fois.;ENVOYE_TGS
+2026-05-04;NTJ;FACTURE;;20240280;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 20240280 du 04/05/2026, periode AVRIL 2026. Montant a lire. Fichier « NTJ  Avril 2026.pdf ».;A_PAYER
+2026-06-01;NTJ;FACTURE;;20240293;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 20240293 du 01/06/2026, periode MAI 2026. Montant a lire. Fichier nomme simplement « NTJ ».;A_PAYER
+2026-02-03;STRAUMANN;FACTURE;;9060024519;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 9060024519 creee le 03/02/2026, echeance 05/03/2026. Montant a lire. Fichier « Paycenter Straumann Group » — ce n est PAS un bordereau de paiement comme je le supposais, c est bien une facture. NUMERO CLIENT 15123197, alors que les autres factures Straumann du registre portent 15133626 : DEUX COMPTES CLIENTS DISTINCTS, a faire expliquer.;A_PAYER
+2026-02-19;STRAUMANN;FACTURE;;9060036137;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 9060036137 creee le 19/02/2026, echeance 21/03/2026. Montant a lire. Second fichier « Paycenter Straumann Group ». Numero client 15123197.;A_PAYER
+2026-04-17;STRAUMANN;FACTURE;;9060082089;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 9060082089 creee le 17/04/2026, echeance 17/05/2026. Le nom du fichier annonce 98,34 mais LE MONTANT N EST PAS VISIBLE dans l extrait : a lire dans le PDF, jamais recopier depuis le nom. Numero client 15123197.;A_PAYER
+;GACD;FACTURE;;2402336461;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 2402336461, vue sur le coupon retour. ATTENTION, A UN CHIFFRE PRES de la 2402336462 deja au registre : ce sont DEUX factures distinctes. Date et montant a lire. Le nom du fichier annonce 629,25.;A_PAYER
+;GACD;FACTURE;;2402321857;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture 2402321857, vue sur le coupon retour. Date et montant a lire. Le nom du fichier annonce 28,76.;A_PAYER
+2026-06-05;OSSEO-SHOP;FACTURE;219.50;FA2026-008162;;RECU;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE AU REGISTRE LE 08/10/2026 en depouillant « Reglements Mai ». LUE : facture FA2026-008162 du 05/06/2026. Fils de suture resorbables Atramat PGC 25 : 3 x 36,58 = 109,75 et 2 x 36,58 = 73,17, soit 182,92 HT + 20 % = 219,50 TTC, ce qui recoupe le nom du fichier. Commande GIBGXCHMF. Adressee a assistante@implantologielege.com.;A_PAYER
+#
+# --- DEPOUILLEMENT DE « REGLEMENTS MAI », SUITE (08/10/2026) ---------------
+# UN SECOND DOUBLON, et il ne ressemble pas au premier : la facture NTJ
+# 20240268 est presente deux fois, et les deux fichiers font 32 829 octets —
+# identiques a l octet. Le doublon Made in Labs, lui, avait des tailles
+# differentes. Donc ni la taille identique ni la taille differente ne
+# tranchent : seul le CONTENU le fait.
+#
+# TROIS FACTURES STRAUMANN sous des noms qui m avaient fait conclure a tort.
+# « Paycenter Straumann Group » n est pas un bordereau de paiement : c est une
+# facture. J avais ecrit l inverse dans le depouillement, par deduction a
+# partir du nom. Encore la meme faute.
+#
+# ET UNE ANOMALIE A FAIRE EXPLIQUER : ces trois factures portent le NUMERO
+# CLIENT 15123197, alors que les factures Straumann deja au registre portent
+# 15133626. Deux comptes clients distincts chez le meme fournisseur. Cela
+# peut etre la SELARL et le praticien en nom propre, ou la SCM. A qualifier
+# avant d imputer : des factures sur un compte qui n est pas celui de la
+# SELARL ne sont pas forcement ses charges.
+#
+# GACD 2402336461 et 2402336462 sont DEUX factures distinctes, a un chiffre
+# pres. Lues sur les coupons retour.
+#
+# JE N AI INSCRIT AUCUN MONTANT que je n ai pas lu. « Straumann 98,34 »,
+# « GACD : 629,25 » et « GACD - 28,76 » portent un chiffre dans leur nom :
+# les lignes restent a A_VERIFIER jusqu a lecture du PDF. Le Canva a 12,00
+# qui valait 13,32 a deja coute cette lecon.
+#
+
+#
+# NTJ 20240268 : LE DOUBLON EST ALLE JUSQU AU PORTAIL. Les deux exemplaires
+# ont ete deposes. Ce n est donc plus un doublon de rangement mais un risque
+# de DOUBLE ENREGISTREMENT COMPTABLE. Trouve non pas en cherchant, mais parce
+# que coherence.py a refuse de laisser passer un etat qui contredisait le
+# cycle. C est exactement a cela que sert ce controle.
+#
