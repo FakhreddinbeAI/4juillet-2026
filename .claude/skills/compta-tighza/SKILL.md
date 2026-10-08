@@ -759,3 +759,38 @@ grille au-delà de `getMaxRows()`.
 **La leçon générale** : une mise en forme calculée sur l'état actuel des
 données est une dette. Elle doit porter sur la structure — une colonne, un
 type — pas sur un décompte.
+
+## Règle 26 — chercher par CONTENU, pas par titre
+
+Le 08/10/2026, en revérifiant les treize pièces « manquantes » du registre,
+**trois étaient dans le Drive depuis des mois.** Aucune recherche par titre ne
+pouvait les trouver :
+
+| Pièce | Le fichier qui la contient | Depuis |
+|---|---|---|
+| MADE IN LABS 35684 — 3 522,72 € | `id=35684 MIL ` *(sans extension, espace finale)* | 24/06/2026 |
+| ZFX R-2602.52453 — 253,99 € | `ZFX Lyon.pdf` | **07/03/2026** |
+| MUTUALEASE 020-FL-32158803 — 182,30 € | `CM-CIC LEASING SOLUTION 2026 04-06` | 08/06/2026 |
+
+J'écrivais de la ZFX : « *connue par la SEULE mise en demeure, la facture n'a
+pas été retrouvée* ». Elle était là depuis sept mois. Et la Mutualease portait
+« MONTANT À CONFIRMER » depuis le début : il est écrit dans le PDF.
+
+**La bonne recherche**, et elle coûte un seul appel :
+
+```
+search_files  fullText contains '<reference>' or fullText contains '<montant>'
+```
+
+Avec `snippetVerbosity: BRIEF`, Drive rend le texte OCR qu'il garde de chaque
+PDF — on identifie une pièce sans ouvrir un seul fichier. C'est ce qui a aussi
+dénoué les treize scans Brother le 06/10.
+
+**Le piège, nommé** : les fichiers déposés par Lucie ou exportés d'un espace
+client portent des noms d'export — `id=35684 MIL `, `Facture client - 5120388`,
+`FAK18_12_205622_18719137_...`. Le numéro de pièce y est absent ou noyé. **Le
+nom d'un fichier ne dit rien de son contenu** ; c'est l'inverse de la
+convention de nommage, qui s'applique à ce que *nous* produisons.
+
+**Et une réserve** : une facture de laboratoire détaille les travaux par
+patient nommé. On relève le numéro et le montant, jamais le contenu.
