@@ -685,3 +685,29 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # DEUX DES CINQ SONT DEJA AU PORTAIL (24515923, 24516144). Les trois autres
 # sont payees mais pas deposees : 24515266, 24515482, 24515704.
 #
+
+#
+# --- SUR QUOI REPOSENT LES 98 « DEPOSEES » (controle du 08/10/2026) -------
+# Le Dr a demande si j etais sur de ce qui est depose. Verification faite :
+#   70 pieces : la REFERENCE figure dans un nom de depot du portail.
+#   28 pieces : la reference n y figure pas, mais la note CITE le nom exact
+#               du depot et ce nom existe dans l historique. Ce sont les
+#               fichiers deposes sous un nom sans numero (« Cofica Bail
+#               Facture Loyer.pdf », « ORMCO Regle par chq le 13 03
+#               2026.pdf », les tickets de carburant, la relance Septodont).
+#               Preuve plus faible : elle repose sur mon identification au
+#               moment du depot, pas sur une concordance de numero.
+#    0 piece sans aucune preuve.
+#
+# ET UNE LECON SUR MA PROPRE VERIFICATION. Mon premier controle annoncait 15
+# references retrouvees sur 98 et 65 pieces sans preuve. C etait FAUX : je n
+# avais charge qu UN des deux fichiers d historique. historique_portail.txt
+# porte 1 233 noms, historique_portail_statuts.txt 579 autres. coherence.py
+# chargeait les deux depuis toujours, et c est pour cela qu il ne signalait
+# aucune divergence. J ai failli alarmer sur un bug a moi.
+#
+# REGLE : tout controle sur les depots charge LES DEUX fichiers. Un controle
+# ecrit a la hate pour repondre vite n a pas autorite sur un controle outille
+# qui tourne depuis des jours sans divergence. Quand les deux se contredisent,
+# c est le nouveau qu on suspecte d abord.
+#
