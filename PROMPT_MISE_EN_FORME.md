@@ -1,11 +1,20 @@
-# PROMPT CLAUDE IN CHROME — mise en forme du nouveau Sheet (08/10/2026)
+# PROMPT CLAUDE IN CHROME — mise en forme permanente du Sheet (08/10/2026)
 
 Feuille : **TGS 2026 — suivi des pieces (08-10)**
 `https://docs.google.com/spreadsheets/d/1pz_3DZsIIO9MrUJsTmzXO2cekN7ijnZlyLt1d2Ka9aU`
 
-**LA REGLE QUI COMPTE : on borne a A1:J173.** L'ancien Sheet ramait parce
-que j'avais pose huit regles sur des colonnes entieres de 1 000 lignes, dont
-une a formule sur 12 000 cellules. Jamais de colonne entiere ici.
+## CE QUI REND LA MISE EN FORME PERMANENTE
+
+Tout est pose **jusqu'a la ligne 1000**. Une ligne ajoutee en 174, en 300 ou
+en 999 recoit donc les couleurs, le format du montant et la case a cocher
+**par construction**, sans script et sans declencheur.
+
+C'est exactement ce que visait `format_permanent.gs`, et ce n'est pas
+l'etendue qui l'avait fait echouer : c'etait le declencheur `onChange` qui
+relancait `rendrePermanent()`, lequel reecrivait 999 cases et recreait le
+filtre — donc se redeclenchait lui-meme. **Ne reinstalle jamais ce
+declencheur.** Une comparaison `=$B2="A DEPOSER"` ne coute rien ; une boucle
+de declencheur coute tout.
 
 ## LE PROMPT
 
@@ -13,37 +22,51 @@ une a formule sur 12 000 cellules. Jamais de colonne entiere ici.
 Ouvre cette feuille Google Sheets :
 https://docs.google.com/spreadsheets/d/1pz_3DZsIIO9MrUJsTmzXO2cekN7ijnZlyLt1d2Ka9aU
 
-Les donnees vont de la ligne 2 a la ligne 173. Les colonnes sont :
-A Depose TGS (cases a cocher, deja en place) - B Action - C Cycle -
-D Etat - E Date - F Fournisseur - G Type - H Montant - I Reference -
-J Periode
+Colonnes : A Depose TGS (cases a cocher) - B Action - C Cycle - D Etat -
+E Date - F Fournisseur - G Type - H Montant - I Reference - J Periode
+Les donnees occupent les lignes 2 a 173. Les lignes 174 a 1000 sont vides.
 
-REGLE ABSOLUE : n'applique JAMAIS une mise en forme a une colonne entiere.
-Toujours la plage A2:J173, ou la colonne bornee a la ligne 173. Une regle
-posee sur 1000 lignes rend la feuille inutilisable, c'est deja arrive.
+TOUT CE QUI SUIT VA JUSQU'A LA LIGNE 1000, pas jusqu'a 173 : c'est ce qui
+fait qu'une ligne ajoutee plus tard sera traitee comme les autres.
+N'INSTALLE AUCUN SCRIPT ET AUCUN DECLENCHEUR.
 
-1. EN-TETE
-   Selectionne A1:J1. Mets en gras, fond gris fonce #434343, texte blanc,
-   centre. Puis Affichage > Figer > 1 ligne.
+1. FAIRE DESCENDRE CE QUI EST DEJA DEPOSE
+   Selectionne A2:J173. Donnees > Trier la plage > Options de tri avancees.
+   Coche "Les donnees ont une ligne d'en-tete" : NON (on a deja exclu la 1).
+   Trie par colonne A, de A a Z (donc FALSE avant TRUE),
+   puis ajoute un second critere : colonne B, de A a Z.
+   Resultat attendu : les 98 lignes cochees passent en bas, et le haut de la
+   feuille ne contient plus que ce qui reste a faire.
 
-2. LARGEURS
+2. EN-TETE
+   A1:J1 en gras, fond #434343, texte blanc, centre.
+   Affichage > Figer > 1 ligne.
+
+3. LARGEURS ET HAUTEUR
    A 90 - B 110 - C 120 - D 110 - E 95 - F 170 - G 110 - H 100 - I 190 -
-   J 200. Selectionne A1:J173 et mets le renvoi a la ligne sur "Couper"
-   (pas "Renvoyer a la ligne") pour que chaque ligne garde la meme hauteur.
+   J 200.
+   Selectionne A1:J1000 et mets le renvoi a la ligne sur "Couper", pour que
+   toutes les lignes gardent la meme hauteur.
 
-3. MONTANTS
-   Selectionne H2:H173. Format > Nombre > Personnalise, et saisis :
+4. MONTANTS
+   H2:H1000. Format > Nombre > Format personnalise, saisis :
    #,##0.00 €
    Aligne a droite.
 
-4. DATES ET REFERENCES
-   E2:E173 centre. I2:I173 en police Courier New taille 9, pour que les
-   numeros de facture soient lisibles. C2:D173 centre.
+5. LISIBILITE
+   E2:E1000 centre. C2:D1000 centre.
+   I2:I1000 en Courier New taille 9 (les numeros de facture).
 
-5. LES COULEURS - LE PLUS IMPORTANT
-   Selectionne A2:J173. Format > Mise en forme conditionnelle.
-   Cree SIX regles, chacune avec "La formule personnalisee est".
-   Chaque regle s'applique a la plage A2:J173 et colore TOUTE la ligne.
+6. CASES A COCHER SUR TOUTE LA ZONE
+   Selectionne A2:A1000. Insertion > Case a cocher.
+   Les cases deja presentes et leurs valeurs ne doivent PAS changer : si
+   l'outil te propose d'ecraser les valeurs existantes, refuse. Le but est
+   seulement que les lignes 174 a 1000 en aient une d'avance.
+
+7. LES COULEURS - LE PLUS IMPORTANT
+   Selectionne A2:J1000. Format > Mise en forme conditionnelle.
+   Cree SIX regles, chacune en "La formule personnalisee est", chacune
+   appliquee a la plage A2:J1000.
 
    Regle 1 : =$B2="A DEPOSER"
      fond #d9ead3  texte #274e13  gras
@@ -58,44 +81,48 @@ posee sur 1000 lignes rend la feuille inutilisable, c'est deja arrive.
    Regle 6 : =$B2="RIEN"
      fond blanc    texte #999999
 
-   Attention : ecris bien $B2 avec le dollar devant le B SEULEMENT.
-   Le $ devant la colonne et rien devant le 2 : c'est ce qui fait que la
-   regle colore la ligne entiere et se propage vers le bas.
+   Ecris bien $B2 : un dollar devant le B SEULEMENT, rien devant le 2.
+   C'est ce qui colore la ligne entiere et propage la regle vers le bas.
+   Mets "A DEPOSER" en premier et "RIEN" en dernier.
 
-   L'ordre compte : mets "A DEPOSER" en premier et "RIEN" en dernier.
+   Les lignes 174 a 1000 resteront blanches puisque leur colonne B est vide.
+   Des qu'on y ecrira une action, la couleur viendra toute seule.
 
-6. FILTRE
-   Selectionne A1:J173 puis Donnees > Creer un filtre.
-   Ne filtre rien, ne trie rien : laisse juste le filtre en place.
+8. FILTRE
+   Selectionne A1:J1000 puis Donnees > Creer un filtre.
+   Ne filtre rien et ne trie rien avec : laisse-le en place.
 
-7. VERIFICATION, et dis-moi le resultat
-   - combien de lignes sont vertes (A DEPOSER) : je dois en avoir 13
-   - combien sont rouges (A OBTENIR) : je dois en avoir 5
-   - combien sont bleues (LUCIE PAIE) : je dois en avoir 19
-   - combien sont orange (A TRIER) : je dois en avoir 28
-   - la derniere ligne de donnees est bien la 173
-   - aucune mise en forme ne depasse la ligne 173
+9. VERIFICATION - donne-moi ces chiffres
+   - lignes vertes (A DEPOSER) : je dois en avoir 13
+   - rouges (A OBTENIR) : 5
+   - bleues (LUCIE PAIE) : 19
+   - orange (A TRIER) : 25
+   - gris italique (HORS 2026) : 12
+   - blanches en gris clair (RIEN) : 98
+   Total 172. Les 98 doivent etre EN BAS, pas en haut.
+   - ecris le mot ESSAI en B174, dis-moi si la ligne se colore, puis EFFACE
+     ce mot. C'est le seul test qui prouve que la mise en forme est bien
+     permanente.
 
-Ne trie pas la feuille. Ne supprime aucune ligne. Ne touche pas aux cases
-a cocher de la colonne A. N'ajoute aucun script : tout se fait par les
-menus.
+Ne supprime aucune ligne. N'ajoute aucun script. Ne cree aucun declencheur.
 ```
 
-## POURQUOI LES COULEURS SONT SUR *ACTION* ET PLUS SUR *ETAT*
+## LE POINT FAIBLE QUE JE TE DIS QUAND MEME
 
-Avant, les couleurs suivaient la colonne Etat (RENOMME, RECU, MANQUANT...).
-Ca disait l'etat du FICHIER, pas ce qu'il y avait a faire. La colonne Action
-dit la seule chose qui t'interesse en ouvrant la feuille : vert tu deposes,
-rouge tu reclames, bleu c'est Lucie, orange c'est a trier, gris tu oublies.
+Le tri de l'etape 1 est alphabetique. Dans le bloc du haut, l'ordre sera
+donc : A DEPOSER, A OBTENIR, A TRIER, HORS 2026, LUCIE PAIE — avec
+« HORS 2026 » coince au milieu au lieu d'etre avant les lignes deposees.
 
-Si tu veux malgre tout les anciennes couleurs d'Etat en plus, dis-le-moi :
-ca fait quatorze regles au total et la feuille devient bavarde, mais c'est
-faisable.
+Je l'ai corrige a la source : la prochaine vue que je fabrique numerotera
+les actions (« 1 A DEPOSER », « 2 A OBTENIR », « 3 LUCIE PAIE »,
+« 4 A TRIER », « 5 HORS 2026 », « 6 RIEN »), et un simple tri A-Z redonnera
+alors l'ordre exact pour toujours. Il faudra juste rectifier les six
+formules ci-dessus en consequence. Je ne te le fais pas changer maintenant
+pour ne pas te faire refaire ce que tu viens de faire.
 
-## CE QUI RESTE A FAIRE ENSUITE
+## AU-DELA DE LA LIGNE 1000
 
-La colonne « Ouvrir » avec les liens Drive. J'en ai retrouve 86 sur 172 :
-63 en reconnaissant la reference dans le nom du fichier, 23 en depouillant
-« Reglements Mai » a la main. Les autres portent des noms qui ne contiennent
-aucune reference (« BONGERT », « Cofibail 06-07 2026 », « MIL 04-2026 »),
-donc il faut aller les chercher dossier par dossier. Je continue.
+Si un jour la feuille depasse 1000 lignes, Sheets ajoute des lignes HORS des
+plages ci-dessus et la mise en forme s'arretera de nouveau. A 172 pieces en
+dix mois d'exercice, c'est loin ; mais c'est la seule limite, et elle se
+leve en rejouant ce prompt avec 2000 a la place de 1000.

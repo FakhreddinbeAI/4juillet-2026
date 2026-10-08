@@ -12,10 +12,19 @@ def net(v):
     v = (v or '').strip()
     return '' if v.lower() in ('none', 'nan') else v
 
-ORDRE = {"ENVOYE_TGS": 0, "PAYE": 1, "A_PAYER": 2, "A_TRIER": 3,
-         "HORS_PERIMETRE": 4}
-P.sort(key=lambda p: (ORDRE.get(p['cycle'], 9), net(p['fournisseur']),
-                      net(p['date_piece'])))
+# CE QUI EST DEPOSE PASSE EN BAS. On ouvre la feuille pour savoir quoi
+# faire, pas pour relire ce qui est deja fait : l actionnable en premier,
+# le classe en dernier. Et l ACTION est prefixee d un chiffre, pour qu un
+# tri A-Z dans le Sheet redonne TOUJOURS cet ordre — sans le chiffre,
+# « HORS 2026 » se range entre « A TRIER » et « LUCIE PAIE », par accident
+# alphabetique.
+ORDRE = {"PAYE": 0, "A_PAYER": 1, "A_TRIER": 2, "HORS_PERIMETRE": 3,
+         "ENVOYE_TGS": 4}
+RANG = {"A DEPOSER": "1", "A OBTENIR": "2", "LUCIE PAIE": "3",
+        "A TRIER": "4", "HORS 2026": "5", "RIEN": "6"}
+# Le tri suit le RANG DE L ACTION et non le cycle : trier par cycle
+# entremelait « A DEPOSER » et « A OBTENIR », qui cohabitent dans PAYE.
+# C est l action qu on lit, c est donc elle qui ordonne.
 
 # La colonne « Nom de fichier » est retiree de la vue : elle se deduit
 # mecaniquement des autres et pesait 13 Ko a elle seule. Le registre la garde.
@@ -42,12 +51,15 @@ def action(p):
             "A_PAYER": "LUCIE PAIE", "A_TRIER": "A TRIER",
             "HORS_PERIMETRE": "HORS 2026"}.get(p['cycle'], "A VOIR")
 
+P.sort(key=lambda p: (RANG.get(action(p), "9"), net(p['fournisseur']),
+                      net(p['date_piece'])))
+
 w.writerow(["Depose TGS", "Action", "Cycle", "Etat", "Date", "Fournisseur",
             "Type", "Montant", "Reference", "Periode"])
 for p in P:
     w.writerow([
         "TRUE" if p['cycle'] == 'ENVOYE_TGS' else "FALSE",
-        action(p), net(p['cycle']), net(p['etat']), net(p['date_piece']),
+        RANG.get(action(p), "9") + " " + action(p), net(p['cycle']), net(p['etat']), net(p['date_piece']),
         net(p['fournisseur']), net(p['type']),
         net(p['montant']).replace('.', ','), net(p['reference']),
         net(p['periode']),
