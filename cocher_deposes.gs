@@ -49,17 +49,36 @@ function montant_(v) {
   return isNaN(n) ? null : n;
 }
 
-function cocherDeposes() {
-  var f = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-  var att = {1: "Depose TGS", 2: "Horodatage", 5: "Fournisseur",
-             7: "Montant", 8: "Reference"};
-  var e = f.getRange(1, 1, 1, 12).getValues()[0];
-  for (var c in att) {
-    if (String(e[c - 1]).trim() !== att[c]) {
-      throw new Error("ARRET colonne " + c + " : attendu '" + att[c]
-        + "', trouve '" + String(e[c - 1]).trim() + "'. RIEN ECRIT.");
+// L onglet est reconnu PAR SES EN-TETES et non par sa position. Le classeur
+// contient trois onglets et le premier s appelle « Untitled » : se fier au
+// rang, c est la meme faute que se fier au rang d une colonne, celle qui a
+// detruit cinq liens Drive le 06/10.
+var EN_TETE = ["Depose TGS", "Horodatage", "Etat", "Date", "Fournisseur",
+               "Type", "Montant", "Reference"];
+
+function onglet_() {
+  var fs = SpreadsheetApp.getActiveSpreadsheet().getSheets(), ok = [];
+  for (var i = 0; i < fs.length; i++) {
+    if (fs[i].getLastColumn() < 8) continue;
+    var e = fs[i].getRange(1, 1, 1, 8).getValues()[0], bon = true;
+    for (var c = 0; c < 8; c++) {
+      if (String(e[c]).trim() !== EN_TETE[c]) { bon = false; break; }
     }
+    if (bon) ok.push(fs[i]);
   }
+  if (ok.length === 0) {
+    throw new Error("ARRET : aucun onglet ne porte l en-tete attendue. "
+      + "RIEN ECRIT.");
+  }
+  if (ok.length > 1) {
+    throw new Error("ARRET : " + ok.length + " onglets portent la meme "
+      + "en-tete. Je ne devine pas lequel. RIEN ECRIT.");
+  }
+  return ok[0];
+}
+
+function cocherDeposes() {
+  var f = onglet_();
 
   var nb = f.getLastRow() - 1;
   if (nb < 1) throw new Error("Feuille vide. Rien ecrit.");
@@ -102,6 +121,7 @@ function cocherDeposes() {
     if (!vus[norm_(REFS[k])]) absents.push(REFS[k]);
   }
 
+  Logger.log("Onglet : " + f.getName());
   Logger.log("Cochees : " + coche + " / deja cochees : " + deja);
   Logger.log("Lignes du Sheet : " + nb);
   Logger.log("References attendues introuvables (" + absents.length + ") : "
