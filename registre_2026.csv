@@ -784,7 +784,7 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # et sans montant. Le libelle dit QUELS MOIS reclamer : c est la demande a
 # envoyer a ROTEC.
 #
-2026-01-21;ROTEC;FACTURE;;5111168;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas.;A_PAYER
+2026-01-21;ROTEC;FACTURE;;5111168;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. REGLEMENT GROUPE PROUVE : les libelles du releve nomment les periodes. 06/03 958,00 « 2025 + janv 2026 » ;PAYE
 2026-02-14;ROTEC;FACTURE;;5113053;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5113053 14 02 2026.pdf'.;ENVOYE_TGS
 2026-04-10;ROTEC;FACTURE;;5116617;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5116617 10 04 2026 1 .pdf'.;ENVOYE_TGS
 2026-04-18;ROTEC;FACTURE;;5117001;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5117001 18 04 2026.pdf'.;ENVOYE_TGS
@@ -792,9 +792,9 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 2026-05-14;ROTEC;FACTURE;;5118531;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5118531 14 05 2026.pdf'.;ENVOYE_TGS
 2026-06-05;ROTEC;FACTURE;;5119917;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5119917 05 06 2026.pdf'.;ENVOYE_TGS
 2026-06-13;ROTEC;FACTURE;;5120388;;DEPOSEE;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DEJA AU PORTAIL sous 'Facture client 5120388 13 06 2026.pdf'.;ENVOYE_TGS
-;ROTEC;FACTURE;;5113217;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DATE ABSENTE DU TITRE (« ROTEC- 5113217 - »), a lire.;A_PAYER
-;ROTEC;FACTURE;;5114472;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DATE ABSENTE DU TITRE (« ROTEC 5114472 »), a lire.;A_PAYER
-2026-09-02;ROTEC;FACTURE;;5124043;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. A la racine de « factures a regler », pas dans un sous-dossier de reglement : donc NON PAYEE a priori.;A_PAYER
+;ROTEC;FACTURE;;5113217;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DATE ABSENTE DU TITRE (« ROTEC- 5113217 - »), a lire. REGLEMENT GROUPE PROUVE : les libelles du releve nomment les periodes. 06/03 958,00 « 2025 + janv 2026 » ;PAYE
+;ROTEC;FACTURE;;5114472;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler > Reglements Mai; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. DATE ABSENTE DU TITRE (« ROTEC 5114472 »), a lire. REGLEMENT GROUPE PROUVE : les libelles du releve nomment les periodes. 06/03 958,00 « 2025 + janv 2026 » ;PAYE
+2026-09-02;ROTEC;FACTURE;;5124043;;A_VERIFIER;Drive partage > Lisa - Lucie : factures a regler; AJOUTEE LE 08/10/2026. Trouvee dans le Drive en preparant une reclamation a ROTEC — reclamation ANNULEE : les factures y etaient. MONTANT A LIRE dans le PDF, le titre ne le porte pas. A la racine de « factures a regler », pas dans un sous-dossier de reglement : donc NON PAYEE a priori. NON PAYEE : le dernier virement ROTEC du 18/09, 275,50, porte « Tighza 26/06 jusqu au 01/09 ». Cette facture est du 02/09, donc HORS de la periode reglee. Elle reste a payer, et c est la seule des quatre.;A_PAYER
 #
 # --- ROTEC : LA RECLAMATION QU IL NE FALLAIT PAS ENVOYER (08/10/2026) -----
 # Le Dr m a demande un prompt pour reclamer les factures ROTEC manquantes,
@@ -1012,4 +1012,27 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # DONNEES attachee a la cellule, et que setValues() n en pose pas. Ecrire un
 # booleen ne cree pas une case. Il faut reposer les cases sur la plage apres
 # tout ajout de lignes.
+#
+
+#
+# --- JE DISAIS A TORT QUE LES ROTEC DE LUCIE N ETAIENT PAS PAYEES ---------
+# Le Dr m a reprise d un « ba non ». Elle avait raison. Les libelles du
+# releve nomment les periodes reglees : « 2025 + janv 2026 » le 06/03,
+# « Rotec janvier a avril 2026 » le 12/05, « Rotec Mars a juin » le 23/06.
+# Trois des quatre ROTEC du dossier de Lucie tombent dans ces periodes :
+# 5111168, 5113217 et 5114522. Les laisser en LUCIE PAIE, c etait lui faire
+# payer deux fois.
+#
+# SEULE LA 5124043 DU 02/09 RESTE DUE : le virement du 18/09 couvre
+# « 26/06 jusqu au 01/09 », soit la veille de son emission.
+#
+# ET J AVAIS TORT SUR LE DEPOT AUSSI : la ROTEC 5121155 a bien ete deposee
+# le 06/10, dans nos lots. Les dix autres etaient au portail depuis avril
+# et juin, deposees par le cabinet.
+#
+# CE QUE CA DIT : un libelle de virement qui nomme une PERIODE est une
+# preuve de paiement a part entiere, differente du montant exact et de la
+# somme groupee. Mais elle est plus faible : sans les montants des factures,
+# je ne peux pas verifier au centime comme pour les cinq Bongert a 670,15.
+# Je l ecris comme telle plutot que de la faire passer pour une certitude.
 #
