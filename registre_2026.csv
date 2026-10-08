@@ -42,14 +42,14 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # Les factures sont emises le dernier jour du mois et envoyees le 1er ou 2 du
 # mois suivant. PIEGE : le fichier nomme "2026-07-01" dans le Drive est la
 # facture de JUIN. Toujours se fier a la periode.
-2026-07-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013852502;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.;A_TRIER
-2026-08-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0014124467;2026-08-01-au-2026-08-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. LIBELLE LCL : CB97Google Works.;A_TRIER
+2026-07-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013852502;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.;PAYE
+2026-08-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0014124467;2026-08-01-au-2026-08-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. LIBELLE LCL : CB97Google Works.;PAYE
 2026-01-31;GOOGLE-WORKSPACE;FACTURE;87.41;GCFRD0011667476;2026-01-01-au-2026-01-31;DEPOSEE;Mon Drive > Comptabilite > factures abonnements;Google Workspace Business Plus, 3 comptes. 72,84 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works. DEPOSEE SUR LE PORTAIL le 06/10/2026 a 15:39:25, categorie 'Je ne sais pas ou deposer ce document' / 'Equipe comptable', statut 'En cours de traitement'.;ENVOYE_TGS
-2026-02-28;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0011894244;2026-02-01-au-2026-02-28;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;A_TRIER
-2026-03-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012241282;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;A_TRIER
-2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;A_TRIER
-2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.;A_TRIER
-2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;A_TRIER
+2026-02-28;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0011894244;2026-02-01-au-2026-02-28;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;PAYE
+2026-03-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012241282;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;PAYE
+2026-04-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0012563912;2026-04-01-au-2026-04-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;PAYE
+2026-05-31;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013126604;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF le 25/09 : 75,90 HT + 15,18 TVA. LIBELLE LCL : CB97Google Works.;PAYE
+2026-06-30;GOOGLE-WORKSPACE;FACTURE;91.08;GCFRD0013433498;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > Comptabilite > factures abonnements;3 comptes, 75,90 HT + 20%. Montant LU dans le PDF. LIBELLE LCL : CB97Google Works.;PAYE
 2026-09-30;GOOGLE-WORKSPACE;FACTURE;105.48;GCFRD0014580910;2026-09-01-au-2026-09-30;DEPOSEE;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements & services;105,48 et NON 91,08 : 75,90 d abonnement 3 comptes PLUS 12,00 de renouvellement du domaine implantologielege.com le 24/09. Le domaine se renouvelle chaque septembre, donc ce mois-la coutera toujours 14,40 de plus. 87,90 HT + 17,58 TVA. LIBELLE LCL : CB97Google Works. DEPOSEE SUR LE PORTAIL le 06/10/2026 a 15:39:29, categorie 'Je ne sais pas ou deposer ce document' / 'Equipe comptable', statut 'En cours de traitement'.;ENVOYE_TGS
 #
 # --- ANTHROPIC — Max plan 5x, 108,00 EUR/mois (90,00 HT + 18,00 TVA) ---------
@@ -71,10 +71,10 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 2026-06-13;ANTHROPIC;FACTURE;108.00;HKTDOLB4-0006;2026-06-13-au-2026-07-13;DEPOSEE;Mon Drive > FACTURATION;Max 5x, 90,00 HT + 20%. Montant LU dans le PDF. Date et montant LUS dans le PDF le 05/10/2026, copie renommee dans FACTURATION. LIBELLE LCL : CB97ANTHROPIC* C puis CB97CLAUDE.AI SU. ETAT CORRIGE LE 06/10 par le controle de coherence : la piece est au portail sous le nom '2026 06 13 ANTHROPIC FACTURE 108 00 HKTDOLB4 0006 P2026 06 13 au 2026 07 13.pdf' mais son etat etait reste 'RENOMME'. Je n avais mis a jour que les pieces deposees de ma main ;ENVOYE_TGS
 #
 # --- ARGOAT — laboratoire de prothese, montant variable, TVA 0% (art 264-4-1) -
-2026-04-01;ARGOAT;FACTURE;45.00;ARG12031;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.;A_TRIER
-2026-06-01;ARGOAT;FACTURE;38.00;ARG12869;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.;A_TRIER
-2026-07-01;ARGOAT;FACTURE;32.00;ARG13312;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF.;A_TRIER
-2026-07-31;ARGOAT;FACTURE;45.00;ARG13747;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. Total des 4 = 160,00 = solde annonce par Argoat le 26/08.;A_TRIER
+2026-04-01;ARGOAT;FACTURE;45.00;ARG12031;2026-03-01-au-2026-03-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. NON PAYEE au 05/10/2026, etabli le 08/10 : le releve ne porte que DEUX virements Argoat sur l annee, 19,00 le 21/01 (libelle 'Arg 9364') et 64,00 le 06/03 (libelle 'Fac ARG11138') — deux references absentes du registre. Aucun debit ne correspond aux quatre factures 2026, qui totalisent 160,00. Piege ecarte : le cheque 8430653 du 29/01 fait exactement 160,00, mais les quatre factures sont emises d avril a juillet, donc il ne peut pas les payer. A REGLER — c est Lucie qui gere.;A_TRIER
+2026-06-01;ARGOAT;FACTURE;38.00;ARG12869;2026-05-01-au-2026-05-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. NON PAYEE au 05/10/2026, etabli le 08/10 : le releve ne porte que DEUX virements Argoat sur l annee, 19,00 le 21/01 (libelle 'Arg 9364') et 64,00 le 06/03 (libelle 'Fac ARG11138') — deux references absentes du registre. Aucun debit ne correspond aux quatre factures 2026, qui totalisent 160,00. Piege ecarte : le cheque 8430653 du 29/01 fait exactement 160,00, mais les quatre factures sont emises d avril a juillet, donc il ne peut pas les payer. A REGLER — c est Lucie qui gere.;A_TRIER
+2026-07-01;ARGOAT;FACTURE;32.00;ARG13312;2026-06-01-au-2026-06-30;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. NON PAYEE au 05/10/2026, etabli le 08/10 : le releve ne porte que DEUX virements Argoat sur l annee, 19,00 le 21/01 (libelle 'Arg 9364') et 64,00 le 06/03 (libelle 'Fac ARG11138') — deux references absentes du registre. Aucun debit ne correspond aux quatre factures 2026, qui totalisent 160,00. Piege ecarte : le cheque 8430653 du 29/01 fait exactement 160,00, mais les quatre factures sont emises d avril a juillet, donc il ne peut pas les payer. A REGLER — c est Lucie qui gere.;A_TRIER
+2026-07-31;ARGOAT;FACTURE;45.00;ARG13747;2026-07-01-au-2026-07-31;RENOMME;Mon Drive > FACTURATION;Montant lu dans le PDF. Total des 4 = 160,00 = solde annonce par Argoat le 26/08. NON PAYEE au 05/10/2026, etabli le 08/10 : le releve ne porte que DEUX virements Argoat sur l annee, 19,00 le 21/01 (libelle 'Arg 9364') et 64,00 le 06/03 (libelle 'Fac ARG11138') — deux references absentes du registre. Aucun debit ne correspond aux quatre factures 2026, qui totalisent 160,00. Piege ecarte : le cheque 8430653 du 29/01 fait exactement 160,00, mais les quatre factures sont emises d avril a juillet, donc il ne peut pas les payer. A REGLER — c est Lucie qui gere.;A_TRIER
 ;ARGOAT;FACTURE;;;2026-04-01-au-2026-04-30;A_VERIFIER;;TROU APPARENT : Argoat n a envoye que mars, mai, juin, juillet. Soit il n y a pas eu de travaux en avril, soit la facture manque. A confirmer aupres du labo.;A_TRIER
 #
 # --- MUTUALEASE / CM-CIC LEASING — contrat FT0801600, 182,30 EUR/trimestre ----
@@ -553,4 +553,30 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # encode la date, d autres encodent peut-etre la reference. Doctolib et Ionos
 # le font deja en clair. Les 39 pieces « a trier » meritent cette relecture
 # avant d etre declarees improuvables.
+#
+#
+# --- DEUX AUTRES ENCODAGES TROUVES LE 08/10/2026 ---------------------------
+# Le crible des 36 pieces « a trier » n a rien trouve DIRECTEMENT, mais en le
+# construisant j ai vu deux choses que je ne lisais pas :
+#
+# 1. GOOGLE WORKSPACE. Le libelle de la carte porte le debut de la PERIODE DE
+#    SERVICE : « CB97Google Works 01/03/26 » paie la facture du 28/02. Sept
+#    factures a 91,08 au centime deviennent appariables une par une, par le
+#    mois. Implemente comme troisieme preuve dans cycle_vie, fenetre de -5 a
+#    +10 jours, avec fournisseur ET montant concordants.
+#
+# 2. ARGOAT. Les virements portent la reference en clair : « Fac ARG11138 ».
+#    Le mecanisme existe donc chez eux aussi — simplement, aucun des deux
+#    virements de l annee ne correspond aux quatre factures du registre, ce
+#    qui PROUVE qu elles sont impayees.
+#
+# CE QUE LE CRIBLE A APPRIS DE PLUS UTILE : son premier jet annoncait 13
+# correspondances solides. Toutes fausses. Il exigeait « deux indices », mais
+# comptait « date AAAAMMJJ » et « date AAMMJJ » comme deux alors que la
+# seconde est contenue dans la premiere — un seul fait compte deux fois. Et
+# il appariait une facture Argoat a un prelevement MACSF sur une date
+# commune. Corrige : la forme courte ne compte plus, et un appariement par
+# date exige que le debit soit CELUI DU FOURNISSEUR.
+# Auto-test ajoute : le crible doit retrouver le cas Cofica pour lequel il a
+# ete ecrit. Un filtre qui ne trouve rien peut simplement etre casse.
 #

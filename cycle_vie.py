@@ -116,7 +116,40 @@ def paiement_prouve(p, par_montant, textes, montants_registre):
                     return d, ("date de la piece %s encodee dans le libelle, "
                                "et montant concordant" % d8)
 
-    # preuve 3 : montant unique d un cote comme de l autre
+    # preuve 3 : une DATE EN CLAIR dans le libelle, proche de celle de la
+    # piece, avec le bon fournisseur ET le bon montant. Decouverte le
+    # 08/10/2026 : « CB97Google Works 01/03/26 » paie la facture du 28/02 —
+    # le libelle porte le debut de la PERIODE DE SERVICE, soit le lendemain
+    # de l emission. Cela apparie les sept factures Google a 91,08 une par
+    # une, ce que le montant seul ne permettait pas.
+    # Fenetre etroite, de -5 a +10 jours : au-dela, deux mois se touchent et
+    # l appariement redevient arbitraire.
+    if len(d8) == 8 and m0:
+        import datetime
+        try:
+            dp = datetime.date(int(d8[:4]), int(d8[4:6]), int(d8[6:]))
+        except ValueError:
+            dp = None
+        mots = [x for x in re.split(r"[^a-z0-9]+", plat(p["fournisseur"]))
+                if len(x) >= 4]
+        if dp and mots:
+            for d in textes:
+                if d["montant"] != m0:
+                    continue
+                if not any(x in plat(d["libelle"]) for x in mots):
+                    continue
+                for jj, mm, aa in re.findall(r"(\d{2})/(\d{2})/(\d{2})",
+                                             d["libelle"]):
+                    try:
+                        dl = datetime.date(2000 + int(aa), int(mm), int(jj))
+                    except ValueError:
+                        continue
+                    if -5 <= (dl - dp).days <= 10:
+                        return d, ("date %s/%s/%s lue dans le libelle, a %d "
+                                   "jours de la piece, montant concordant"
+                                   % (jj, mm, aa, (dl - dp).days))
+
+    # preuve 4 : montant unique d un cote comme de l autre
     try:
         m = round(float(p["montant"]), 2)
     except (ValueError, KeyError, TypeError):
