@@ -842,3 +842,44 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 # A SUIVRE : le 18/09, debit de 8 316,00 pour une relance de 8 316,98.
 # Quatre-vingt-dix-huit centimes d ecart, a eclaircir.
 #
+2026-06-04;HENRY-SCHEIN;FACTURE;381.49;4287993;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-06-08;HENRY-SCHEIN;FACTURE;124.99;4293114;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-06-30;HENRY-SCHEIN;FACTURE;231.34;4317192;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-07-03;HENRY-SCHEIN;FACTURE;31.98;4320966;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-07-22;HENRY-SCHEIN;FACTURE;31.98;4336516;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-09-17;HENRY-SCHEIN;FACTURE;269.97;4377209;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026 en depouillant FACTURATION. Lue sur la RELANCE « DERNIER RAPPEL » Henry Schein du 05/10/2026, compte client 226502, qui liste six factures impayees pour 1 071,75 EUR. LA FACTURE ELLE-MEME N EST PAS AU DRIVE : seul le rappel l atteste.;A_TRIER
+2026-10-05;HENRY-SCHEIN;RELANCE;1071.75;compte-226502;;RENOMME;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026. DERNIER RAPPEL Henry Schein du 05/10/2026 : 1 071,75 EUR impayes sur six factures de juin a septembre 2026. FOURNISSEUR TOTALEMENT ABSENT DU REGISTRE jusqu ici, et absent aussi de l audit des debits puisque RIEN n a ete paye. Menace de procedure contentieuse. Les factures se telechargent sur www.henryschein.fr.;A_TRIER
+2026-04-18;HOSTINGER;FACTURE;;;;MANQUANT;Mon Drive > FACTURATION; AJOUTEE LE 08/10/2026. La facture 2025 (HCY-13424981 du 18/04/2025, 129,47 EUR) porte « Next Billing Date : Apr 18, 2026 ». Il existe donc une facture Hostinger 2026 d environ 129 EUR, que personne n a recuperee. Abonnement annuel Cloud Startup. ATTENTION : facture au nom de ftighza@gmail.com et non de la SELARL — a qualifier avant imputation.;A_TRIER
+#
+# --- DEPOUILLEMENT DE « FACTURATION » (08/10/2026) ------------------------
+# 33 fichiers, dont une vingtaine deja bien nommes. Seize renommes.
+#
+# LA TROUVAILLE : HENRY SCHEIN. Un « DERNIER RAPPEL » du 05/10/2026 reclame
+# 1 071,75 EUR sur six factures de juin a septembre 2026, avec menace de
+# procedure contentieuse. Ce fournisseur etait ABSENT DU REGISTRE, et il
+# etait aussi invisible pour audit_lcl.py — puisque rien n a ete paye, aucun
+# debit ne le trahissait. Un audit qui part des DEBITS ne voit jamais un
+# fournisseur qu on ne paie pas. C est la limite de ce controle, et elle
+# vient de couter un fournisseur entier.
+#
+# QUATRE DOUBLONS ARGOAT. Les quatre « Dr TIGHZA - Facture <mois> (1).pdf »
+# sont les memes ARG12031, ARG12869, ARG13312 et ARG13747 qui dorment deja,
+# correctement nommees, dans LE MEME DOSSIER. Le « (1) » du telechargement
+# etait le seul indice. Renommes avec le suffixe DOUBLON plutot que
+# supprimes : on ne supprime rien.
+#
+# HOSTINGER : la facture 2025 annonce « Next Billing Date Apr 18, 2026 ».
+# Un abonnement annuel de 129,47 EUR dont la facture 2026 n a jamais ete
+# recuperee. Facturee a ftighza@gmail.com, pas a la SELARL.
+#
+# DEUX FACTURES NOTRE ACCORD 2025 (mediation, 240,00 et 810,00) et une
+# facture APPLE 2025 (55,00), toutes HORS EXERCICE. Les Notre Accord sont
+# au nom personnel du Dr, pas de la SELARL.
+#
+# ET DEUX DOCUMENTS PATIENTS dans un dossier de factures fournisseurs : un
+# devis de mutuelle ROEDERER et une note d honoraires. Renommes en le
+# signalant, pas deplaces. Le brief est pourtant clair : aucune donnee
+# patient ne transite par la compta.
+#
+# RESTE NON IDENTIFIE : « 20260212133923.pdf », qui ne rend aucun texte.
+#
