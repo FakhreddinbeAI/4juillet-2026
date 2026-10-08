@@ -36,7 +36,7 @@ def court(emplacement):
 
 def main(reg, *hist):
     tous, par_chiffres = construire(list(hist))
-    groupes = defaultdict(list)
+    groupes, aobtenir = defaultdict(list), []
     for p in lignes(reg):
         etat = (p.get("etat") or "").strip().upper()
         if (etat.startswith("DEPOSEE") or etat.startswith("HORS")
@@ -46,6 +46,13 @@ def main(reg, *hist):
         if not ref or len("".join(c for c in ref if c.isdigit())) < 4:
             continue
         if cherche(ref, tous, par_chiffres):
+            continue
+        # Une piece MANQUANTE ne se depose pas : on ne l a pas. Elle se
+        # reclame. Les melanger produisait des lots contenant des fichiers
+        # inexistants — exactement ce qui a fait echouer la tentative du
+        # 06/10, quatre fichiers sur cinq introuvables.
+        if (p.get("etat") or "").strip().upper() == "MANQUANT":
+            aobtenir.append(p)
             continue
         groupes[p["fournisseur"]].append(p)
 
@@ -67,7 +74,19 @@ def main(reg, *hist):
         for p in sorted(ps, key=lambda x: -m(x)):
             print("    %-22s %9.2f  %-9s %s"
                   % (p["reference"][:22], m(p), p["etat"][:9], p["date_piece"]))
-    print("\n%d fournisseurs, %d pieces, %.2f EUR" % (len(groupes), n, total))
+    print("\n%d fournisseurs, %d pieces A DEPOSER, %.2f EUR"
+          % (len(groupes), n, total))
+    if aobtenir:
+        ta = sum(m(p) for p in aobtenir)
+        print("\n--- ET %d PIECES A OBTENIR, PAS A DEPOSER : %.2f EUR ---"
+              % (len(aobtenir), ta))
+        print("    On ne les a pas. Elles se reclament au fournisseur.")
+        for p in sorted(aobtenir, key=lambda x: -m(x)):
+            paye = " (paiement PROUVE au releve)" if (
+                p.get("cycle") or "").strip() == "PAYE" else ""
+            print("  %-16s %-22s %9.2f%s"
+                  % (p["fournisseur"], (p["reference"] or "(sans ref)")[:22],
+                     m(p), paye))
     return 0
 
 

@@ -85,7 +85,7 @@ def paiement_prouve(p, par_montant, textes, montants_registre):
     """
     Rend le debit qui paie CETTE piece, ou None. Deux preuves acceptees.
 
-    La seconde est volontairement etroite : le montant ne prouve que s il est
+    La troisieme est volontairement etroite : le montant ne prouve que s il est
     unique DES DEUX COTES. Si deux pieces du registre valent 1 353,76 et que
     dix debits valent 1 353,76, aucun appariement n est fonde — c est le piege
     Cofica, et il a deja produit un faux resultat ce matin.
@@ -97,7 +97,26 @@ def paiement_prouve(p, par_montant, textes, montants_registre):
             if ref in re.sub(r"\D", "", d["libelle"]):
                 return d, "reference %s lue dans le libelle" % ref
 
-    # preuve 2 : montant unique d un cote comme de l autre
+    # preuve 2 : la DATE DE LA PIECE encodee dans le libelle du debit.
+    # Decouverte le 08/10/2026 : chaque prelevement Cofica porte une
+    # REF.CLIENT de la forme BASDD<AAAAMMJJ> ou ces huit chiffres sont la date
+    # de la facture payee. Le montant seul ne prouvait rien — dix
+    # prelevements a 1 353,76 au centime — mais la date, si.
+    # On exige que le montant concorde AUSSI : une date commune sans le bon
+    # montant ne prouve pas qu un debit paie cette piece-la.
+    d8 = (p.get("date_piece") or "").replace("-", "")
+    if len(d8) == 8:
+        try:
+            m0 = round(float(p["montant"]), 2)
+        except (ValueError, KeyError, TypeError):
+            m0 = None
+        if m0:
+            for d in textes:
+                if d8 in re.sub(r"\D", "", d["libelle"]) and d["montant"] == m0:
+                    return d, ("date de la piece %s encodee dans le libelle, "
+                               "et montant concordant" % d8)
+
+    # preuve 3 : montant unique d un cote comme de l autre
     try:
         m = round(float(p["montant"]), 2)
     except (ValueError, KeyError, TypeError):
