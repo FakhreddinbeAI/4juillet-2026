@@ -883,3 +883,32 @@ date_piece;fournisseur;type;montant;reference;periode;etat;emplacement;note;cycl
 #
 # RESTE NON IDENTIFIE : « 20260212133923.pdf », qui ne rend aucun texte.
 #
+2026-01-02;GOOGLE-WORKSPACE;FACTURE;;GCFRD0011327141;2025-12-01-au-2025-12-31;A_VERIFIER;Compta Cabinet Tighza > 01 - Factures fournisseurs > 2026 > Abonnements; AJOUTEE LE 08/10/2026 en balayant le dossier Abonnements. Facture Google Workspace GCFRD0011327141 du 02/01/2026, donc la periode DECEMBRE 2025. Absente du registre, dont la serie Google commencait a GCFRD0011667476 du 31/01. Montant a lire. Relevant probablement de l exercice 2025 comme les trois autres pieces de decembre deja classees hors perimetre.;A_TRIER
+#
+# --- CANVA : LE DOUTE TRANCHE PAR LE RELEVE (08/10/2026) ------------------
+# J avais note qu il fallait verifier si Canva valait 12,00 ou 13,32. Les
+# libelles du LCL donnent la reponse complete :
+#   « Canva* 04784 07/02/26 | Sydney | EUR 12,00 | COM CHANGE 1,32E » -> 13,32
+# LA FACTURE EST DE 12,00 EUR. La banque debite 13,32 parce qu elle ajoute
+# 1,32 de COMMISSION DE CHANGE, Canva facturant depuis Sydney. Mon « 13,32 »
+# d hier etait le debit bancaire, pas la facture : le registre avait raison.
+#
+# Consequence comptable : 1,32 x 6 = 7,92 EUR de commission de change sur
+# l exercice. C est un FRAIS BANCAIRE, pas une charge Canva, et il ne figure
+# sur aucune facture fournisseur.
+#
+# LA LECON : un debit qui ne tombe pas juste n est pas forcement une facture
+# mal lue. La difference peut etre un frais que la banque ajoute. Avant de
+# corriger un montant, lire le libelle ENTIER — « COM CHANGE 1,32E » etait
+# ecrit noir sur blanc.
+#
+# --- CE QUE LE DOSSIER ABONNEMENTS A RENDU --------------------------------
+# 35 fichiers. Une facture Google inconnue, GCFRD0011327141 du 02/01/2026.
+# Et SIX RECUS Anthropic (2772-7566-6405, 2926-4766-2091, 2300-2300-4086,
+# 2303-3134-8621, 2292-2401-7658, 2469-0197-1178) qui doublent des factures
+# deja connues : ce ne sont pas des charges de plus, mais ils expliquent
+# pourquoi le portail peut recevoir deux pieces par mois pour Anthropic.
+#
+# Plusieurs factures Google existent en DOUBLE entre ce dossier et
+# FACTURATION : GCFRD0012563912, GCFRD0013126604, GCFRD0013433498.
+#
