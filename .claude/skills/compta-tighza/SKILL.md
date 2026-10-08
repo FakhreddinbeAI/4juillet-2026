@@ -726,3 +726,36 @@ Il compare trois sources — ce que je crois (le registre), ce que TGS a reçu
 dans l'historique, la note doit **nommer le dépôt entre apostrophes**, et le
 contrôle vérifie que ce nom existe vraiment. Une affirmation non vérifiable
 est signalée comme telle.
+
+## Règle 25 — la mise en forme du Sheet se pose sur les COLONNES, jamais sur les lignes
+
+Le 08/10/2026 le Dr signale que chaque ligne ajoutée au tableau sort nue :
+pas de case à cocher, pas de couleur d'état, pas de format sur le montant —
+et qu'il demande la correction à Chrome tous les jours.
+
+**La cause est dans mon propre script.** `tableau_tgs.gs` posait tout sur des
+plages bornées par le nombre de lignes du moment :
+
+```javascript
+var nb = nbLignes_(f);
+f.getRange(2, COL_DEPOSE, nb, 1).insertCheckboxes();
+.setRanges([f.getRange(2, COL_ETAT, nb, 1)])
+```
+
+Une ligne au-delà de `1 + nb` est hors plage. Le script était correct le jour
+où il a tourné, et faux le lendemain.
+
+**`format_permanent.gs` le corrige** : tout se pose de la ligne 2 à
+`getMaxRows()`, cases à cocher comprises sur les lignes vides — c'est ce qui
+fait qu'une ligne neuve en a une sans rien relancer. La règle conditionnelle
+`=$A2=TRUE` propage sa référence relative vers le bas toute seule.
+
+Le filtre aussi doit couvrir toute la feuille, sinon une ligne neuve sort des
+tris sans qu'on le voie.
+
+**Et un déclencheur `onChange`** rejoue la pose quand Sheets agrandit la
+grille au-delà de `getMaxRows()`.
+
+**La leçon générale** : une mise en forme calculée sur l'état actuel des
+données est une dette. Elle doit porter sur la structure — une colonne, un
+type — pas sur un décompte.
