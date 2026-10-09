@@ -202,6 +202,50 @@ def main(reg, lcl, *hist):
         pbs.append(("DEPOSE AU PORTAIL MAIS ABSENT DU REGISTRE", nom[:34],
                     "depot date de 2026 sans piece correspondante"))
 
+    # 4 ter. DOUBLON AVEC ET SANS NUMERO. Ajoute le 09/10/2026 : neuf factures
+    # RECEPT AI figuraient DEUX FOIS au registre — une ligne issue du relevé LCL,
+    # sans numero et datee du debit, et une ligne issue du classeur de
+    # l assistante, avec le numero et la date de facture. Le controle des
+    # doublons comparait des REFERENCES PROCHES : il ne compare rien quand un
+    # cote n a pas de reference du tout.
+    # LE FILTRE EST VOLONTAIREMENT SERRE. Un abonnement mensuel — Aries 990,00,
+    # Canva 12,00, Cofica 1 353,76 — repete le meme montant tous les mois sans
+    # etre un doublon. On n alerte donc que si le meme fournisseur porte le meme
+    # montant, le meme cycle, a MOINS DE HUIT JOURS d ecart, et qu une des deux
+    # lignes seulement a un numero. Sinon le controle crierait sur chaque
+    # abonnement du registre et ne serait plus lu.
+    from datetime import date as _date
+
+    def _j(v):
+        m = re.fullmatch(r"\s*(\d{4})-(\d{2})-(\d{2})\s*", v or "")
+        return _date(*map(int, m.groups())).toordinal() if m else None
+
+    paquets = defaultdict(list)
+    for p in P:
+        try:
+            m = round(float((p.get("montant") or "").strip() or 0), 2)
+        except ValueError:
+            continue
+        if m:
+            paquets[((p.get("fournisseur") or "").upper(), m,
+                     (p.get("cycle") or "").strip())].append(p)
+    for (f, m, _c), g in paquets.items():
+        avec = [p for p in g if (p.get("reference") or "").strip()]
+        sans = [p for p in g if not (p.get("reference") or "").strip()]
+        for s_ in sans:
+            js = _j(s_.get("date_piece"))
+            if js is None:
+                continue
+            for a in avec:
+                ja = _j(a.get("date_piece"))
+                if ja is not None and abs(ja - js) < 8:
+                    pbs.append(("DOUBLON PROBABLE, AVEC ET SANS NUMERO",
+                                "%s %.2f" % (f[:18], m),
+                                "ligne sans numero du %s contre %s du %s"
+                                % (s_.get("date_piece"), a.get("reference"),
+                                   a.get("date_piece"))))
+                    break
+
     # 5. defauts de STRUCTURE des fichiers sources. Celui-la vient d une
     # faute reelle : un « cat >> » sur un fichier sans retour a la ligne final
     # a COLLE la premiere ligne ajoutee sur la derniere existante, et le nom

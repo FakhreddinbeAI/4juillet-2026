@@ -6,7 +6,18 @@ import io, csv, sys
 L = [l for l in io.open('registre_2026.csv', encoding='utf-8')
      if l.strip() and not l.startswith('#')]
 r = list(csv.reader(L, delimiter=';')); h = r[0]
-P = [dict(zip(h, x)) for x in r[1:] if len(x) >= len(h)]
+# CHAMPS ATTENDUS : 10. Le 09/10/2026 une note que j ai ajoutee contenait un
+# POINT-VIRGULE — le separateur du registre — et le champ s est scinde : le
+# cycle de la piece NTJ 20240268 s est retrouve a contenir un bout de phrase,
+# et la vue affichait une action « A VOIR » inventee. Le filtre « len >= len(h) »
+# laissait passer la ligne au lieu de crier. On verifie l egalite, et on arrete
+# tout : une vue silencieusement fausse est pire qu une erreur.
+mauvaises = [i + 2 for i, x in enumerate(r[1:]) if len(x) != len(h)]
+if mauvaises:
+    raise SystemExit("registre_2026.csv : %d ligne(s) au mauvais nombre de "
+                     "champs, lignes %s. Un point-virgule dans une note ?"
+                     % (len(mauvaises), mauvaises[:10]))
+P = [dict(zip(h, x)) for x in r[1:]]
 
 def net(v):
     v = (v or '').strip()
@@ -20,8 +31,16 @@ def net(v):
 # alphabetique.
 ORDRE = {"PAYE": 0, "A_PAYER": 1, "A_TRIER": 2, "HORS_PERIMETRE": 3,
          "ENVOYE_TGS": 4}
-RANG = {"A DEPOSER": "1", "A OBTENIR": "2", "LUCIE PAIE": "3",
-        "A TRIER": "4", "HORS 2026": "5", "RIEN": "6"}
+# LE 09/10/2026 : deux changements.
+#   « A LOCALISER » est ajoute. Les pieces trouvees dans les classeurs de
+#   suivi (celui de l assistante, celui de Straumann) sont en etat
+#   A_VERIFIER : on SAIT que la facture existe, on n a pas le fichier. Ce
+#   n est pas « a trier », c est une chasse au fichier ou une reclamation
+#   au fournisseur. Les confondre, c est perdre 47 pieces dans le tas.
+#   « RIEN » devient « FAIT ». La feuille doit montrer ce qui est fait
+#   autant que ce qui reste : « RIEN » ne dit pas qu on a reussi.
+RANG = {"A DEPOSER": "1", "A OBTENIR": "2", "A LOCALISER": "3",
+        "LUCIE PAIE": "4", "A TRIER": "5", "HORS 2026": "6", "FAIT": "7"}
 # Le tri suit le RANG DE L ACTION et non le cycle : trier par cycle
 # entremelait « A DEPOSER » et « A OBTENIR », qui cohabitent dans PAYE.
 # C est l action qu on lit, c est donc elle qui ordonne.
@@ -45,11 +64,16 @@ w = csv.writer(out, lineterminator='\n')
 # 150 signes informe moins qu une consigne de trois mots. Le registre garde
 # tout ; la vue dit QUOI FAIRE.
 def action(p):
-    if net(p['etat']).upper().startswith('MANQUANT'):
+    e, c = net(p['etat']).upper(), p['cycle']
+    if e.startswith('MANQUANT'):
         return "A OBTENIR"
-    return {"ENVOYE_TGS": "RIEN", "PAYE": "A DEPOSER",
+    # l etat prime sur le cycle : une piece deja chez TGS est faite, meme si
+    # son fichier reste a retrouver de notre cote.
+    if e == 'A_VERIFIER' and c != 'ENVOYE_TGS':
+        return "A LOCALISER"
+    return {"ENVOYE_TGS": "FAIT", "PAYE": "A DEPOSER",
             "A_PAYER": "LUCIE PAIE", "A_TRIER": "A TRIER",
-            "HORS_PERIMETRE": "HORS 2026"}.get(p['cycle'], "A VOIR")
+            "HORS_PERIMETRE": "HORS 2026"}.get(c, "A VOIR")
 
 P.sort(key=lambda p: (RANG.get(action(p), "9"), net(p['fournisseur']),
                       net(p['date_piece'])))
