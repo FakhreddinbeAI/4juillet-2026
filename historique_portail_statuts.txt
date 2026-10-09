@@ -582,8 +582,9 @@ Invoice B93C3B79 2195.pdf | En cours de traitement | 06/10/2026
 2026 04 30 google workspace facture 91 08 gcfrd0012563912 p2026 04 01 au 2026 04 30.pdf | Depot OK | 09/10/2026
 2026 05 31 google workspace facture 91 08 gcfrd0013126604 p2026 05 01 au 2026 05 31.pdf | Depot OK | 09/10/2026
 2026 06 30 google workspace facture 91 08 gcfrd0013433498 p2026 06 01 au 2026 06 30.pdf | Depot OK | 09/10/2026
-2026 07 31 google workspace facture 91 08 gcfrd0013852502 p2026 07 01 au 2026 07 31.pdf | En cours de traitement | 09/10/2026
-2026 08 31 google workspace facture 91 08 gcfrd0014124467 p2026 08 01 au 2026 08 31.pdf | En cours de traitement | 09/10/2026
-2026 05 28 cofica facture 1353 76 750004781830 p2026 06 05 au 2026 07 04.pdf | En cours de traitement | 09/10/2026
-2026 03 16 mutualease facture 182 30 020 FL 32158803 p2026 04 01 au 2026 06 30.pdf | En cours de traitement | 09/10/2026
+2026 07 31 google workspace facture 91 08 gcfrd0013852502 p2026 07 01 au 2026 07 31.pdf | Depot OK | 09/10/2026
+2026 08 31 google workspace facture 91 08 gcfrd0014124467 p2026 08 01 au 2026 08 31.pdf | Depot OK | 09/10/2026
+2026 05 28 cofica facture 1353 76 750004781830 p2026 06 05 au 2026 07 04.pdf | Depot OK | 09/10/2026
+2026 03 16 mutualease facture 182 30 020 FL 32158803 p2026 04 01 au 2026 06 30.pdf | Depot OK | 09/10/2026
 2026 09 25 cofica facture 1353 76 750004848906 p2026 10 05 au 2026 11 04.pdf | Depot OK | 08/10/2026
+2026 03 31 BONGERT FACTURE 98 85 24515704.pdf | En cours de traitement | 09/10/2026

@@ -62,7 +62,7 @@ MIL 12 2025 V1 le 06 03 2026.pdf             # facture 34529 du 31/12/2025, 2 57
 # quatrieme vaudrait 197,53 pour atteindre 761,19 — a VERIFIER, ce n est pour
 # l instant qu une soustraction, pas une lecture.
 gacd virement 761 19 du 15 01 25 1 .pdf      # facture GACD 2402229511 du 24/11/2025, 56,98 EUR
-gacd virement 761 19 du 15 01 25 2 .pdf      # facture GACD illisible, montant a lire
+gacd virement 761 19 du 15 01 25 2 .pdf      # facture GACD 2402229909 du 04/12/2025, 197,53 EUR
 gacd virement 761 19 du 15 01 25 3 .pdf      # facture GACD 2402218061 du 03/11/2025, 380,57 EUR
 gacd virement 761 19 du 15 01 25 4 .pdf      # facture GACD 2402239719 du 08/12/2025, 126,11 EUR
 
