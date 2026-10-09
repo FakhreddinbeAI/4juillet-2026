@@ -107,3 +107,77 @@ Celle au **31/12/2026** se télécharge sur `macsf.fr`, identifiant **7904376**,
 Numéro de contrat à chercher sous **deux** formes — mes documents internes du
 25/09 écrivent `P15 001`, le Dr se souvient d'un `F0015`. L'attestation n'est
 pas dans le Drive, donc aucune pièce ici ne permet de trancher.
+
+---
+
+## 7. Straumann — réclamation des 9 pièces ⟵ *mise en attente le 09/10/2026 à la demande du Dr*
+
+**Le brouillon est écrit et attend dans Gmail.** De `contact@implantologielege.com`
+vers `commandes.fr@straumann.com`, objet « demande de duplicata — avoirs et
+facture manquants, compte 15123197 ». **Rien n'est envoyé.**
+
+### ATTENTION — le brouillon est incomplet
+
+Il a été rédigé **avant** qu'on découvre les numéros de retour. La liste des
+sept avoirs qu'il contient n'a que les dates. **Avant d'envoyer, remplacer cette
+liste par celle-ci :**
+
+```
+  9060011986 du 21/01/2026 — retour 65195207
+  9060034033 du 17/02/2026 — retour 65245062
+  9060059451 du 20/03/2026 — retour 65310237
+  9060063384 du 26/03/2026 — retour 65320684 ou 65321641
+  9060063944 du 26/03/2026 — retour 65320684 ou 65321641
+  9060084611 du 22/04/2026 — retour 65367071
+  9060102694 du 19/05/2026 — retour 65417162
+
+Les numéros de retour sont ceux de l'Historique des Retours de votre eShop. Pour
+les deux avoirs du 26/03/2026, deux lignes de retour existent à cette date sans
+que le numéro d'avoir y soit affiché : nous ne pouvons pas dire laquelle
+correspond à laquelle.
+```
+
+Sans cet ajout on écrit « nous ne trouvons pas » ; avec lui on donne à Straumann
+**l'identifiant qu'il peut suivre dans son propre système**. Ça change la nature
+de la demande.
+
+### Ce qui est réclamé, et pourquoi
+
+| | montant | pourquoi on y tient |
+|---|---|---|
+| 7 avoirs | −5 197,30 € annoncés | déposer leurs 7 factures **sans** eux gonflerait les charges 2026 de 5 197,30 € |
+| facture 9060125749 | 100,74 € | Straumann l'exige **deux fois par écrit** et ne la délivre pas |
+| avoir 9060200897 | −1 528,62 € | le plus gros de l'exercice, sans PDF, on ignore ce qu'il annule |
+
+**La règle qui en découle, déjà au registre :** chaque facture se dépose **avec
+son avoir, ou aucune des deux**. Jamais la facture seule.
+
+### Ne pas refaire les recherches : elles sont épuisées
+
+- **Paycenter** : les 8 avoirs y sont comme lignes, leur lien ouvre la facture
+  d'origine 9050178334, pas l'avoir.
+- **eShop, commandes de janvier à juin 2026** : absents.
+- **Piste « EXC »** : fausse. EXC est la « Référence du client » des commandes
+  déjà vues. EXC 2300813341 = commande 3038176486, qui ne porte que la facture
+  9060032068.
+- **Historique des Retours** : chaque avoir y a une ligne « RE Retours », mais
+  le lien ouvre le **bordereau de retour**, pas l'avoir.
+- **Le Drive**, par titre **et** par contenu : seul 9060040628 y était.
+
+### Pourquoi ça devrait marcher
+
+Le dossier `Duplicata Straumann (demande TGS)` du bureau contient une trentaine
+de pièces créées le **09/07/2026** — dont l'avoir 9060040628. Son nom dit
+« demande TGS » : **ces documents ont été obtenus par une réclamation
+précédente.** Straumann fournit des duplicata quand on les demande.
+
+### La règle apprise, à ne pas réapprendre
+
+La colonne « Réf. PDF » de la feuille *Suivi factures Straumann 2026* est
+**l'identifiant interne du document chez Straumann** — vérifié, 11 concordances
+sur 11, le portail nomme ses fichiers `0<identifiant>.pdf`.
+
+**Un avoir dont la Réf. PDF égale l'identifiant de sa facture d'origine n'a pas
+de PDF téléchargeable.** La colonne prédit la disponibilité : inutile de
+chercher, il faut réclamer. Je l'ai accusée trois fois d'être fausse, elle avait
+raison les trois fois.
