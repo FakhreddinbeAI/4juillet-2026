@@ -67,6 +67,17 @@ lui-même l'onglet « journal », c'est normal), ne touche pas aux couleurs.
 
 ---
 
+## Validé le 09/10/2026 à 12:40
+
+Deuxième actualisation, journal propre : 271 lignes, 0 effacée, 10 références à
+zéro de tête préservées, les six actions aux bons comptes, et **« Aucune case
+cochee a la main en dehors du registre »** — plus aucun bloc ATTENTION.
+
+Le canal de retour est donc fiable **dans les deux sens** : la prochaine fois
+qu'il crie, ce sera un vrai signal.
+
+---
+
 ## LE CYCLE, à partir de maintenant
 
 **Moi :** je mets le registre à jour, je lance `coherence.py`, je génère
