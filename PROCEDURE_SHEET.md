@@ -41,12 +41,21 @@ Nomme le projet « TGS - actualisation ». Enregistre.
 ETAPE 3 — exécute la fonction onOpen une fois, pour autoriser le script et poser le
 menu. Accepte les autorisations demandées (lecture du Drive, modification du classeur).
 
-ETAPE 4 — N'EXECUTE PAS « actualiser » aujourd'hui. Le fichier vue_tgs.csv n'est pas
-encore sur le Drive, et le script s'arrêtera proprement en disant qu'il ne le trouve
-pas. C'est le comportement attendu. Dis-moi simplement :
-  - que le code est bien en place et enregistré
+ETAPE 4 — teste-le. Le fichier vue_tgs.csv est déjà sur le Drive. Recharge la page du
+classeur, puis utilise le menu « TGS » > « Actualiser depuis le CSV ».
+
+Il doit réécrire les 271 lignes, les retrier, et afficher un compte rendu. Comme les
+données sont déjà les bonnes, rien ne doit changer visuellement — c'est voulu, c'est un
+test à blanc.
+
+Dis-moi :
+  - que le code est en place et enregistré
   - que le menu « TGS » apparaît dans la barre du classeur
-  - les autorisations que tu as dû accepter
+  - ce que le compte rendu affiche, recopié tel quel
+  - si les couleurs et les cases à cocher sont intactes après l'actualisation
+
+Ce qu'il doit annoncer : 271 lignes écrites, 0 ligne effacée, et la répartition
+12 / 45 / 10 / 37 / 13 / 154 pour les six actions.
 
 Ne modifie aucune donnée de la feuille, ne crée aucun onglet, ne touche pas à la mise
 en forme.
