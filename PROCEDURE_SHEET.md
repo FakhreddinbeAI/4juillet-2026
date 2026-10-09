@@ -32,7 +32,7 @@ Tu dois y installer un script Apps Script, une fois pour toutes.
 
 ETAPE 1 — récupère le code. Il est dans ce fichier de mon Drive, ouvre-le et copie-le
 EN ENTIER, sans rien résumer ni abréger :
-https://drive.google.com/file/d/1Fy-WExGFl8kftyWmOtRqzX2_iOyIj9yH/view
+https://drive.google.com/file/d/1TMMj6VRCsAKUYFF4Y_5_gxkHuBAgmzG7/view
 
 ETAPE 2 — dans le classeur, va dans Extensions > Apps Script. Si un code existe déjà
 dans le fichier Code.gs, REMPLACE-LE entièrement par celui que tu viens de copier.
@@ -109,9 +109,13 @@ jusqu'ici l'information n'allait que de moi vers toi.
 - **La dernière ligne de données est cherchée dans la colonne F, pas avec
   `getLastRow()`.** Les cases à cocher descendent jusqu'à la ligne 1000 :
   `getLastRow()` renvoyait 1000 et le script aurait annoncé 728 lignes effacées.
+- **La clé d'une ligne sans référence normalise le montant des deux côtés.**
+  Sinon la virgule du CSV ne correspond jamais au point de la cellule.
 - Syntaxe vérifiée avec `node --check`, conversion des montants testée sur huit
   cas, dont `1353,76`, `-123,99`, `0,00` et `120314,80` ; `derniereLigne` testée
-  sur quatre cas (271/1000, 0/1000, 1/1000, feuille d'une seule ligne).
+  sur quatre cas (271/1000, 0/1000, 1/1000, feuille d'une seule ligne) ; `cle`
+  sur dix cas, dont l'espace de milliers, les décimales nulles, un montant
+  négatif, un montant vide, et la non-confusion de `046` avec `46`.
 
 ---
 
@@ -130,5 +134,42 @@ Les autres références à zéro ont survécu — `020-FC-01179765`,
 `0440-1601-1250-4730-11` — parce que leurs tirets empêchent Sheets d'y voir un
 nombre. Le danger ne porte que sur les références **purement numériques**.
 
-**Réparé par la première actualisation**, et le journal le dira :
-« Colonne I forcee en texte : 10 reference(s) a zero de tete preservee(s) ».
+**Réparé par la première actualisation du 09/10 à 12:32**, journal à l'appui :
+« Colonne I forcee en texte : 10 reference(s) a zero de tete preservee(s) », et
+les dix lignes relues une à une — `046` à `055`, toutes cochées, toutes en
+« 7 FAIT ».
+
+---
+
+## Les 16 fausses alertes de la première actualisation
+
+La première actualisation a crié sur 16 lignes cochées « que le registre ne
+connaît pas du tout ». **Aucune donnée n'était perdue** — les totaux étaient
+inchangés (271 lignes, 154 cochées, mêmes sommes) et les 16 lignes sont toutes
+au CSV en « 7 FAIT ». Deux causes distinctes, les deux de mon fait.
+
+**Les dix LCL n'étaient PAS une fausse alerte.** La feuille portait vraiment
+`46`…`55`, qui ne sont des références de rien. L'alerte a correctement signalé
+les dégâts du zéro mangé. Elle ne reviendra pas : la feuille porte maintenant
+`046`…`055`, qui correspondent au registre.
+
+**Les six autres étaient une vraie fausse alerte, et c'était un défaut de la
+clé de comparaison.** Une ligne sans référence est identifiée par
+`fournisseur|montant`. Or le montant arrivait sous deux formes :
+
+| côté | valeur | clé construite |
+|---|---|---|
+| CSV | texte `109,15` | `PETRO-OUEST\|109,15` |
+| feuille | nombre `109.15` | `PETRO-OUEST\|109.15` |
+
+La virgule contre le point : elles ne pouvaient **jamais** correspondre. Les six
+lignes sans référence et cochées criaient donc à chaque passage. Corrigé en
+passant les deux côtés par `montant()` puis `toFixed(2)`.
+
+La septième ligne sans référence — SEPTODONT, relance du 27/08/2026 — n'a pas
+crié, et c'est ce qui a permis de prouver le diagnostic : **elle n'a pas de
+montant non plus**, donc sa clé valait `SEPTODONT|` des deux côtés et
+correspondait. 6 lignes sur 7, jamais 7 : l'écart confirmait la cause.
+
+**La comparaison des références n'a pas été affaiblie** pour faire taire
+l'alerte : `046` et `46` restent deux clés distinctes, testé explicitement.

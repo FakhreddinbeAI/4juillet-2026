@@ -85,6 +85,21 @@ function montant(txt) {
   return isNaN(n) ? t : n;
 }
 
+/** La cle d une ligne : sa reference, ou a defaut fournisseur + montant.
+ *  LE MONTANT DOIT ETRE RAMENE A LA MEME FORME DES DEUX COTES. Le CSV porte
+ *  « 109,15 » et la cellule porte le nombre 109.15 : compares tels quels, ils
+ *  ne peuvent jamais correspondre, et l alerte a crie sur six lignes
+ *  parfaitement en ordre. On passe donc les deux par montant() avant de
+ *  comparer. 22 lignes du registre n ont pas de reference, c est le cas normal
+ *  pour un ticket de carburant ou une course. */
+function cle(fournisseur, reference, mt) {
+  var r = String(reference == null ? '' : reference).trim();
+  if (r) return r;
+  var n = montant(mt);
+  return String(fournisseur == null ? '' : fournisseur).trim() + '|'
+         + (typeof n === 'number' ? n.toFixed(2) : String(n).trim());
+}
+
 function actualiser() {
   var classeur = SpreadsheetApp.getActive();
   var f = feuilleDeSuivi(classeur);
@@ -117,15 +132,13 @@ function actualiser() {
     var avant = f.getRange(2, 1, finAvant - 1, 10).getValues();
     var attendu = {};
     for (var k = 0; k < data.length; k++) {
-      var cle = String(data[k][8]).trim() || (String(data[k][5]).trim() + '|'
-                + String(data[k][7]).trim());
-      attendu[cle] = String(data[k][0]).trim().toUpperCase() === 'TRUE';
+      attendu[cle(data[k][5], data[k][8], data[k][7])] =
+        String(data[k][0]).trim().toUpperCase() === 'TRUE';
     }
     for (var r = 0; r < avant.length; r++) {
       var coche = avant[r][0] === true || String(avant[r][0]).toUpperCase() === 'TRUE';
       if (!coche) continue;
-      var c = String(avant[r][8]).trim() || (String(avant[r][5]).trim() + '|'
-              + String(avant[r][7]).trim());
+      var c = cle(avant[r][5], avant[r][8], avant[r][7]);
       // Deux cas, et les DEUX comptent. Ne retenir que le premier laissait
       // passer en silence celui qui m importe le plus.
       var decrit = String(avant[r][5]).trim() + ' ' + String(avant[r][8]).trim()
