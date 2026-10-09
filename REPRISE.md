@@ -1,4 +1,4 @@
-# Reprise — mardi 7 octobre 2026
+# Reprise — vendredi 9 octobre 2026, au soir
 
 *Point d'entrée du dossier. À lire en premier, avant toute action.*
 
@@ -26,24 +26,67 @@ python3 -I liste_depot.py registre_2026.csv \
 
 ---
 
-## État au soir du 6 octobre, vérifié
+## État au soir du 9 octobre, vérifié
 
-| | pièces |
-|---|---|
-| Envoyé à TGS | **95** |
-| Payé, en attente de dépôt | **1** |
-| À payer — Lucie gère | 8 |
-| À trier — paiement non prouvable | 39 |
-| Hors périmètre | 10 |
-| **Total au registre** | **153** |
+`coherence.py` : **293 pièces, aucune divergence.**
 
-**47 pièces déposées aujourd'hui** en huit lots : 5 Aries, 5 du lot 7,
-5 tickets de carburant, 5 pièces diverses, 27 abonnements.
+| action dans le Sheet | pièces | montant |
+|---|---|---|
+| 2 A OBTENIR | 20 | 1 233,11 € |
+| 3 A LOCALISER | 52 | 35 727,65 € |
+| 4 LUCIE PAIE | 14 | 7 160,70 € |
+| 5 A TRIER | 39 | 9 207,98 € |
+| 6 HORS 2026 | 14 | 24 446,98 € |
+| 7 FAIT — déposé chez TGS | **154** | 184 911,28 € |
 
-La seule pièce payée en attente est la **Mutualease `020-FL-32158803`** :
-son emplacement affirme un dépôt le 28/07 que l'historique ne confirme pas.
-C'est la dernière contradiction du dossier, laissée visible plutôt que
-tranchée.
+**Deux chiffres à ne pas mal lire.**
+
+« 2 A OBTENIR : 1 233,11 € » additionne 7 959,03 € de factures et −6 725,92 €
+d'avoirs à réclamer. **Cette case se lit en nombre de pièces, pas en euros.**
+
+« 6 HORS 2026 : 24 446,98 € » comprend la facture Straumann `9050178334` de
+18 906,72 € — pièce de septembre 2025, déjà déposée, révélée par le portail le
+09/10. Hors exercice, mais **deux de ses échéances tombent en janvier et
+février 2026** : ces règlements sont sur les relevés LCL et ne doivent pas
+passer pour le paiement d'une facture 2026.
+
+---
+
+## Ce que la journée du 9 octobre a changé
+
+**Le Sheet ne se recrée plus.** `actualiser.gs` est installé dans le Sheet du
+09/10 : je dépose `vue_tgs.csv` sur le Drive, un clic sur **TGS > Actualiser**
+le recopie. Procédure complète dans `PROCEDURE_SHEET.md`.
+
+**Attention, piège vérifié ce soir :** régénérer `vue_tgs.csv` en local ne met
+rien à jour. **Le dépôt sur le Drive est une étape distincte**, et tant qu'il
+n'est pas fait, un « Actualiser » fait *reculer* le Sheet. Toujours comparer la
+taille du fichier local et celle du fichier déposé avant de dire d'y aller.
+
+**L'étape 3 du Drive est rangée.** Les 75 fichiers à plat sont classés par
+année puis mois, la racine ne contient plus aucun fichier. Octobre à décembre
+sont vides, et c'est juste.
+
+**Un avoir porte un montant négatif.** Règle écrite dans l'en-tête du registre.
+Stockés positifs, neuf avoirs Straumann gonflaient les totaux de 14 852,32 €.
+
+**Chaque facture se dépose avec son avoir, ou aucune des deux.** Les sept
+factures Straumann dont l'avoir manque pèseraient 5 197,30 € de charges
+fictives si on les déposait seules.
+
+**Sept pièces marquées DEPOSEE ne sont pas dans l'étape 3** mais chez Lucie
+dans « Règlements Mai ». Écart au mode d'emploi, non corrigé : je ne peux pas
+déplacer un fichier du drive partagé, et c'est son dossier.
+
+**La réclamation Straumann est en attente**, brouillon Gmail non envoyé —
+entrée 7 de `A_VERIFIER_PLUS_TARD.md`. **Le brouillon est incomplet** : il lui
+manque les sept numéros de retour, le paragraphe à coller est dans le fichier.
+
+**Deux erreurs de méthode à ne pas refaire.** J'ai lancé `coherence.py` sans
+ses fichiers d'historique et conclu à 148 divergences : l'invocation correcte
+est écrite plus haut dans ce fichier, il suffisait de la lire. Et j'ai accusé
+trois fois la colonne « Réf. PDF » de la feuille Straumann d'être fausse — elle
+avait raison les trois fois.
 
 ---
 
