@@ -1,31 +1,3 @@
-# EN PRIORITÉ ABSOLUE — LE MESSAGE POUR LUCIE N'EST PAS ENVOYÉ
-
-**Demandé le jeudi 08/10/2026 au soir. À rappeler au Dr dès sa première
-sollicitation, quel qu'en soit le sujet.**
-
-Le message de consigne ROTEC pour Lucie est écrit mais **volontairement pas
-envoyé** : c'était un soir, Lucie est salariée, ce n'était pas le moment.
-
-Il est dans **`MESSAGE_LUCIE_ROTEC.md`**, à la racine. Le lui **redonner tel
-quel** dans la réponse — pas seulement signaler qu'il existe.
-
-L'essentiel : **ne plus rien régler à ROTEC** avant d'avoir le relevé de
-compte client **C012667**, à demander à `comptabilite@rotec.fr` ou au
-02 40 62 11 02. On a payé 5 673,51 € en quatre virements en 2026 mais on ne
-retrouve des factures que pour 2 196,51 €, et aucun virement ne correspond à
-un lot identifiable. Payer risque le double paiement, ne pas payer risque
-l'impayé. Seule la 5124043 du 02/09 est sûrement encore due.
-
-Un rappel automatique est aussi programmé pour le **vendredi 09/10/2026 à
-8h30** (trigger `trig_01JznHdyM2WwwrexbsrvCxfV`). Il visait d'abord lundi ;
-le Dr l'a avancé à vendredi matin, puisque le 08/10 était un jeudi et qu'il
-reste donc un jour ouvré. **Les deux existent exprès** : si elle écrit avant
-que le rappel se déclenche, ce fichier doit suffire.
-
-Une fois le rappel fait, supprimer ce bloc.
-
----
-
 # Reprise — mardi 7 octobre 2026
 
 *Point d'entrée du dossier. À lire en premier, avant toute action.*
