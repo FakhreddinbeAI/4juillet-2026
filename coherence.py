@@ -219,7 +219,27 @@ def main(reg, lcl, *hist):
 
     print("=== CONTROLE DE COHERENCE ===")
     print("%d pieces au registre, %d depots indexes, %d montants de debit "
-          "distincts.\n" % (len(P), len(tous), len(D)))
+          "distincts." % (len(P), len(tous), len(D)))
+
+    # LE 09/10/2026 : j ai ecrit dans l audit du drive que la Cofica
+    # 750004848906 etait rangee dans « 3 - DEPOSEES TGS » SANS AVOIR ETE
+    # DEPOSEE. C etait faux : elle avait ete deposee le 08/10/2026, « Depot OK ».
+    # Mon historique local s arretait au 06/10, et j ai pris cette absence pour
+    # une preuve de non-depot. Le mode d emploi du drive dit que l historique
+    # des depots fait foi — a condition qu il soit a jour.
+    # Donc l outil annonce desormais sa propre date d arret. Tout ce qui est
+    # poste apres cette date lui est invisible, et aucune affirmation du type
+    # « pas encore deposee » ne vaut au-dela.
+    dates = []
+    for d in tous.values():
+        m = re.match(r"\s*(\d{2})/(\d{2})/(\d{4})", d.get("date") or "")
+        if m:
+            dates.append((m.group(3), m.group(2), m.group(1)))
+    if dates:
+        a, mo, j = max(dates)
+        print("Historique arrete au %s/%s/%s : un depot posterieur est "
+              "INVISIBLE ici." % (j, mo, a))
+    print()
     if not pbs:
         print("*** AUCUNE DIVERGENCE. ***")
         return 0

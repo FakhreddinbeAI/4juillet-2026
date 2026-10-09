@@ -62,14 +62,29 @@ comme restant à payer des pièces qui sont déjà payées **et** déjà chez TG
 Je n'y touche pas : tu m'as dit que ce dossier est géré par Lucie et que je n'en retire
 rien. C'est la seule décision de cet audit qui t'appartient.
 
-### 4. Une pièce est descendue dans l'étape 3 sans être déposée
+### 4. ~~Une pièce est descendue dans l'étape 3 sans être déposée~~ — **CONSTAT FAUX**
 
-`2026-09-25_COFICA_FACTURE_1353.76_750004848906_P2026-10-05-au-2026-11-04.pdf`
-
-Elle est dans l'étape 3 alors qu'elle n'est pas au portail — elle fait partie du lot 2
-des dépôts en cours. Le mode d'emploi est explicite : « La pièce ne descend ici QUE
-quand elle est réellement sur le portail. C'est toute l'astuce. » Une pièce qui descend
-trop tôt casse la garantie pour toutes les autres : on ne peut plus se fier au dossier.
+> **Corrigé le 09/10/2026 à 10h30. Ce constat était une erreur de ma part.**
+>
+> J'avais écrit que
+> `2026-09-25_COFICA_FACTURE_1353.76_750004848906_P2026-10-05-au-2026-11-04.pdf`
+> se trouvait dans l'étape 3 sans avoir été déposée, et qu'il fallait la remonter à
+> l'étape 2. **Elle avait été déposée le 08/10/2026, statut « Dépôt OK », sous ce même
+> nom de fichier.** Elle était donc exactement à sa place, et le circuit était respecté.
+>
+> **Cause :** mon export de l'historique du portail s'arrête au **06/10/2026**. Le dépôt
+> du 08/10 lui est invisible. J'ai pris l'absence dans un fichier périmé pour une preuve
+> de non-dépôt — alors que le mode d'emploi dit précisément que c'est l'historique des
+> dépôts qui fait foi, ce qui suppose qu'il soit à jour.
+>
+> **Correction apportée à l'outil :** `coherence.py` affiche désormais à chaque
+> lancement la date d'arrêt de l'historique qu'il a lu —
+> `Historique arrete au JJ/MM/AAAA : un depot posterieur est INVISIBLE ici.` Aucune
+> affirmation du type « pas encore déposée » ne vaut au-delà de cette date.
+>
+> C'est le contrôle anti-doublon du prompt de dépôt qui a rattrapé l'erreur : Chrome a
+> cherché le numéro avant d'envoyer, l'a trouvé, et n'a pas redéposé. Sans cette étape A,
+> la pièce partait une seconde fois et créait une double écriture.
 
 ### 5. Sept doublons probables, anciens noms conservés à côté des nouveaux
 

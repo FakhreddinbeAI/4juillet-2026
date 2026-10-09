@@ -86,11 +86,21 @@ Si un déplacement échoue, dis lequel et pourquoi, et continue les autres.
 
 ---
 
-## PROMPT 2 — remonter la Cofica qui n'est pas déposée
+## PROMPT 2 — ANNULÉ, ne pas lancer
 
-À lancer **après** le prompt 1, et **seulement** si le dépôt du lot 2 des
-quinze pièces n'a pas encore été fait. Si la Cofica 750004848906 a été déposée
-entre-temps, elle est à sa place et il n'y a rien à faire.
+**Le 09/10/2026 à 10h30 : ce prompt n'a plus lieu d'être, et le constat qui le
+motivait était faux.**
+
+La Cofica `750004848906` **avait été déposée le 08/10/2026**, statut
+« Dépôt OK ». Elle était donc à sa juste place dans l'étape 3, et il n'y a rien
+à remonter. Mon export de l'historique du portail s'arrêtait au 06/10 et je
+n'avais pas vu ce dépôt : j'ai pris l'absence dans un fichier périmé pour une
+preuve de non-dépôt.
+
+Le texte est conservé ci-dessous pour mémoire. **Ne le lance pas.**
+
+<details>
+<summary>prompt annulé</summary>
 
 ```
 Tu es dans Google Drive, connecté au compte contact@implantologielege.com.
@@ -111,6 +121,8 @@ l'étape 2 du circuit, celle de ce qui est payé mais pas encore déposé.
 Ne déplace rien d'autre. Confirme-moi le déplacement, ou dis-moi pourquoi il
 a échoué.
 ```
+
+</details>
 
 ---
 
