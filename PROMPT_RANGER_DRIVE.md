@@ -161,6 +161,71 @@ lequel et pourquoi, et continue les autres.
 
 ---
 
+## FAIT le 09/10/2026 — vérifié par mes propres lectures du Drive
+
+Les 75 fichiers sont rangés. **La racine ne contient plus aucun fichier**, seuls
+les deux dossiers 2025 et 2026.
+
+| dossier | attendu | lu dans le Drive |
+|---|---|---|
+| 2026 / 01 - Janvier | 4 | **4** |
+| 2026 / 02 - Fevrier | 8 | **8** |
+| 2026 / 03 - Mars | 4 | **4** |
+| 2026 / 04 - Avril | 2 | **2** |
+| 2026 / 05 - Mai | 2 | **2** |
+| 2026 / 10, 11, 12 | 0 | **vides** |
+
+**Le risque que j'avais signalé ne s'est pas réalisé** : octobre à décembre sont
+vides, et chaque préfixe de nom correspond à son dossier. Aucun fichier mal
+classé. La méthode par tri de noms a tenu.
+
+### Quatre copies créées par erreur, mises à la corbeille
+
+Un clic a déclenché « Créer une copie » au lieu de « Déplacer » au bloc 2026-03.
+Quatre `Copie de …` sont restées à la racine. Vérifié avant de les supprimer :
+
+- les **quatre originaux sont dans `03 - Mars`**, identifiés par leur
+  **identifiant de fichier** — ce sont les ids relevés avant le rangement, donc
+  les fichiers ont bien été déplacés et non recopiés-supprimés
+- chaque copie pesait exactement le poids de son original
+- **aucune des quatre n'était citée au registre**
+
+Mises à la corbeille (réversible 30 jours). Les laisser aurait cassé la garantie
+du mode d'emploi — à la racine, tout est censé rester à déposer — et deux
+d'entre elles doublaient un COFICA et son `_DOUBLON` déjà signalé, de quoi
+fabriquer un faux doublon plus tard.
+
+### Le piège de la date, évité de justesse
+
+Deux pièces ont une `date_piece` en janvier 2026 mais un **fichier daté de
+décembre 2025**, parce que leur période couvre 2026 :
+
+- COFICA `750004695244` → fichier `2025-12-24_…`
+- MUTUALEASE `020-FL-31694851` → fichier `2025-12-15_…`
+
+Le rangement suit la date du fichier : elles sont dans **2025**. Si j'avais
+déduit l'emplacement de la `date_piece` au registre, j'aurais écrit deux
+emplacements faux. Vérifié par recherche dans le dossier 2025.
+
+### Ce que le rangement a révélé
+
+**Sept pièces marquées DEPOSEE ne sont pas dans l'étape 3.** Leur emplacement
+disait « 3 - DEPOSEES TGS ou Reglements Mai », sans trancher. Aucune n'avait de
+fichier à la racine : elles sont toutes dans « Règlements Mai », chez Lucie —
+GACD 2402298317 / 2402302237 / 2402323175 / 2402328280 / 2402336462, ARCADE
+8570251, SEPTODONT 90021319.
+
+C'est un écart au mode d'emploi, qui veut qu'une pièce déposée descende dans
+l'étape 3. **Non corrigé** : déplacer un fichier du drive partagé m'est refusé,
+et ce dossier est celui de Lucie. Le registre le dit maintenant explicitement au
+lieu de laisser un « ou ».
+
+Les 17 emplacements du registre sont à jour, `coherence.py` donne toujours
+**290 pièces, aucune divergence**, et la vue est inchangée au byte près — la
+colonne `emplacement` n'y figure pas, donc rien à redéposer.
+
+---
+
 ## Ce que ça donne quand c'est fait
 
 L'étape 3 redevient ce que le mode d'emploi veut qu'elle soit : un historique
