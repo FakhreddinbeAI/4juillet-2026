@@ -32,7 +32,7 @@ Tu dois y installer un script Apps Script, une fois pour toutes.
 
 ETAPE 1 — récupère le code. Il est dans ce fichier de mon Drive, ouvre-le et copie-le
 EN ENTIER, sans rien résumer ni abréger :
-https://drive.google.com/file/d/1GlJrQrISzBu2LyKZIADjV-_ABBMhPscg/view
+https://drive.google.com/file/d/1Fy-WExGFl8kftyWmOtRqzX2_iOyIj9yH/view
 
 ETAPE 2 — dans le classeur, va dans Extensions > Apps Script. Si un code existe déjà
 dans le fichier Code.gs, REMPLACE-LE entièrement par celui que tu viens de copier.
@@ -44,21 +44,25 @@ menu. Accepte les autorisations demandées (lecture du Drive, modification du cl
 ETAPE 4 — teste-le. Le fichier vue_tgs.csv est déjà sur le Drive. Recharge la page du
 classeur, puis utilise le menu « TGS » > « Actualiser depuis le CSV ».
 
-Il doit réécrire les 271 lignes, les retrier, et afficher un compte rendu. Comme les
-données sont déjà les bonnes, rien ne doit changer visuellement — c'est voulu, c'est un
-test à blanc.
+Il doit réécrire les 271 lignes et les retrier. Une chose DOIT changer, et c'est le but :
+les dix relevés LCL de la colonne I (Reference) affichent aujourd'hui 46, 47 … 55, et
+doivent redevenir 046, 047 … 055. Google les avait lus comme des nombres à l'import et
+leur avait mangé le zéro de tête. Le script force la colonne I en texte avant d'écrire.
 
 Dis-moi :
   - que le code est en place et enregistré
   - que le menu « TGS » apparaît dans la barre du classeur
   - ce que le compte rendu affiche, recopié tel quel
   - si les couleurs et les cases à cocher sont intactes après l'actualisation
+  - ce qu'affiche la colonne I sur les lignes dont le fournisseur est LCL-70666 :
+    filtre la colonne F sur LCL-70666, il doit y avoir dix lignes, et je veux les dix
+    valeurs de la colonne I recopiées telles quelles
 
-Ce qu'il doit annoncer : 271 lignes écrites, 0 ligne effacée, et la répartition
-12 / 45 / 10 / 37 / 13 / 154 pour les six actions.
+Ce qu'il doit annoncer : 271 lignes écrites, 0 ligne effacée, 10 références à zéro de
+tête préservées, et la répartition 12 / 45 / 10 / 37 / 13 / 154 pour les six actions.
 
-Ne modifie aucune donnée de la feuille, ne crée aucun onglet, ne touche pas à la mise
-en forme.
+Ne modifie aucune donnée de la feuille à la main, ne crée aucun onglet (le script crée
+lui-même l'onglet « journal », c'est normal), ne touche pas aux couleurs.
 ```
 
 ---
@@ -98,5 +102,33 @@ jusqu'ici l'information n'allait que de moi vers toi.
   sa dernière ligne décorative.
 - **Il refuse de travailler si le CSV ne commence pas par l'en-tête attendu**,
   plutôt que d'écrire n'importe quoi.
+- **Les formats sont imposés AVANT l'écriture, jamais après.** La colonne I
+  (Reference) est forcée en texte brut (`@`) et la colonne E en `yyyy-mm-dd`.
+  Dans l'autre ordre, Sheets réinterprète ce qu'on vient d'écrire et personne ne
+  s'en aperçoit — c'est ce qui a mangé le zéro de `046`.
+- **La dernière ligne de données est cherchée dans la colonne F, pas avec
+  `getLastRow()`.** Les cases à cocher descendent jusqu'à la ligne 1000 :
+  `getLastRow()` renvoyait 1000 et le script aurait annoncé 728 lignes effacées.
 - Syntaxe vérifiée avec `node --check`, conversion des montants testée sur huit
-  cas, dont `1353,76`, `-123,99`, `0,00` et `120314,80`.
+  cas, dont `1353,76`, `-123,99`, `0,00` et `120314,80` ; `derniereLigne` testée
+  sur quatre cas (271/1000, 0/1000, 1/1000, feuille d'une seule ligne).
+
+---
+
+## Le défaut du 09/10 — les dix relevés LCL
+
+À l'import du CSV, Google Sheets a lu la référence `046` comme **le nombre 46**
+et lui a mangé son zéro de tête. Dix lignes touchées : les relevés LCL **046 à
+055**, soit tout l'exercice de janvier à octobre.
+
+C'est la **même faute** que l'épisode `completerLCL`, où
+`("00" + "5113053").slice(-3)` avait produit `"053"` et écrasé la référence d'un
+vrai relevé. Deux fois le même piège : un identifiant à zéros de tête traité
+comme un nombre.
+
+Les autres références à zéro ont survécu — `020-FC-01179765`,
+`0440-1601-1250-4730-11` — parce que leurs tirets empêchent Sheets d'y voir un
+nombre. Le danger ne porte que sur les références **purement numériques**.
+
+**Réparé par la première actualisation**, et le journal le dira :
+« Colonne I forcee en texte : 10 reference(s) a zero de tete preservee(s) ».

@@ -62,6 +62,21 @@ function feuilleDeSuivi(classeur) {
   return trouvees[0];
 }
 
+/** La derniere ligne QUI PORTE UNE DONNEE, et non getLastRow().
+ *  Les cases a cocher sont posees jusqu a la ligne 1000 : getLastRow() renvoie
+ *  donc 1000 meme quand il n y a que 271 pieces, et on croirait avoir 728
+ *  lignes a effacer. On lit la colonne F (Fournisseur), qui n est jamais vide
+ *  sur une vraie ligne et ne porte aucune mise en forme anticipee. */
+function derniereLigne(f) {
+  var haut = f.getMaxRows();
+  if (haut < 2) return 1;
+  var col = f.getRange(2, 6, haut - 1, 1).getValues();
+  for (var i = col.length - 1; i >= 0; i--) {
+    if (String(col[i][0]).trim() !== '') return i + 2;
+  }
+  return 1;
+}
+
 function montant(txt) {
   var t = String(txt == null ? '' : txt).trim();
   if (!t) return '';
@@ -96,8 +111,8 @@ function actualiser() {
   // --- AVANT d ecrire : les coches posees a la main que le CSV ignore.
   // C est le canal de retour qui me manquait : quand elle coche une piece
   // que j ignore encore, je veux l apprendre, pas l effacer.
-  var finAvant = f.getLastRow();
-  var manuelles = [];
+  var finAvant = derniereLigne(f);
+  var manuelles = [], inconnues = [];
   if (finAvant > 1) {
     var avant = f.getRange(2, 1, finAvant - 1, 10).getValues();
     var attendu = {};
@@ -111,9 +126,16 @@ function actualiser() {
       if (!coche) continue;
       var c = String(avant[r][8]).trim() || (String(avant[r][5]).trim() + '|'
               + String(avant[r][7]).trim());
+      // Deux cas, et les DEUX comptent. Ne retenir que le premier laissait
+      // passer en silence celui qui m importe le plus.
+      var decrit = String(avant[r][5]).trim() + ' ' + String(avant[r][8]).trim()
+                   + ' ' + String(avant[r][7]).trim();
       if (attendu[c] === false) {
-        manuelles.push(String(avant[r][5]).trim() + ' ' + String(avant[r][8]).trim()
-                       + ' ' + String(avant[r][7]).trim());
+        // le registre connait la piece et la croit non deposee
+        manuelles.push(decrit);
+      } else if (attendu[c] === undefined) {
+        // le registre ne connait pas du tout cette ligne
+        inconnues.push(decrit);
       }
     }
   }
@@ -125,6 +147,24 @@ function actualiser() {
       l[1], l[2], l[3], l[4], l[5], l[6], montant(l[7]), l[8], l[9]
     ];
   });
+  // --- LES FORMATS AVANT LES VALEURS. Dans l autre ordre, Sheets reinterprete
+  // ce qu on vient d ecrire et on ne s en apercoit pas.
+  //   I (Reference) en texte brut : « 046 » avait ete lu comme le nombre 46 et
+  //   les dix releves LCL 046 a 055 avaient perdu leur zero de tete. C est la
+  //   meme faute que le « 053 » qui avait ecrase un vrai releve.
+  //   E (Date) en AAAA-MM-JJ : qu elle soit vue comme du texte ou comme une
+  //   vraie date, elle s affiche comme le registre l ecrit.
+  var basFormat = Math.min(1000, f.getMaxRows());
+  if (basFormat > 1) {
+    f.getRange(2, 9, basFormat - 1, 1).setNumberFormat('@');
+    f.getRange(2, 5, basFormat - 1, 1).setNumberFormat('yyyy-mm-dd');
+  }
+  var zeros = 0;
+  for (var z = 0; z < sortie.length; z++) {
+    var ref = String(sortie[z][8]);
+    if (/^0\d+$/.test(ref)) zeros++;
+  }
+
   if (sortie.length) {
     f.getRange(2, 1, sortie.length, 10).setValues(sortie);
   }
@@ -155,19 +195,28 @@ function actualiser() {
                'dd/MM/yyyy HH:mm'),
              'Lignes ecrites : ' + sortie.length,
              'Lignes effacees en fin de tableau : '
-               + Math.max(0, finAvant - sortie.length - 1), ''];
+               + Math.max(0, finAvant - sortie.length - 1),
+             'Colonne I forcee en texte : ' + zeros + ' reference(s) a zero de '
+               + 'tete preservee(s)', ''];
   Object.keys(par).sort().forEach(function (a) {
     txt.push('  ' + a + '  ' + par[a] + ' lignes  '
              + (somme[a] ? somme[a].toFixed(2) + ' EUR' : ''));
   });
   if (manuelles.length) {
     txt.push('', 'ATTENTION — ' + manuelles.length + ' case(s) cochee(s) a la '
-             + 'main que le registre ne connait pas. Elles viennent d etre '
-             + 'DECOCHEES par l actualisation. A signaler pour que le registre '
-             + 'les apprenne :');
+             + 'main sur des pieces que le registre croit NON deposees. Elles '
+             + 'viennent d etre DECOCHEES par l actualisation. A me signaler '
+             + 'pour que le registre les apprenne :');
     manuelles.forEach(function (m) { txt.push('  ' + m); });
   } else {
     txt.push('', 'Aucune case cochee a la main en dehors du registre.');
+  }
+  if (inconnues.length) {
+    txt.push('', 'ATTENTION — ' + inconnues.length + ' ligne(s) cochee(s) que le '
+             + 'registre ne connait PAS DU TOUT (ajoutee(s) a la main, ou reste(s) '
+             + 'd une vue plus ancienne). Elles viennent d etre ECRASEES. '
+             + 'A me signaler :');
+    inconnues.forEach(function (m) { txt.push('  ' + m); });
   }
 
   var j = classeur.getSheetByName('journal') || classeur.insertSheet('journal');
