@@ -1,0 +1,90 @@
+# =============================================================================
+# hors_perimetre_portail.txt
+#
+# Depots du portail TGS que le controle 4 bis de coherence.py doit IGNORER.
+#
+# POURQUOI CE FICHIER EXISTE
+# Le 09/10/2026, le controle 4 bis a ete elargi : il ne regardait que le NOM du
+# depot, et neuf pieces de l exercice 2026 lui avaient echappe parce qu elles
+# avaient ete deposees sous des noms sans date ni numero (« BONGERT 13 03
+# 2026.pdf », « MIL 01 2026 V1 le 06 03 2026.pdf », « GACd virement le 06 03
+# 2026.pdf »), plus les neuf factures Recept AI. 12 155,22 EUR de charges 2026
+# absentes du registre.
+#
+# Le critere ajoute est la DATE DE DEPOT : tout depot date d octobre a decembre
+# 2026 doit se rattacher a une piece du registre. Mais la campagne d octobre a
+# aussi servi a deposer des pieces de l exercice 2025, qui n ont rien a faire
+# dans un registre 2026. Sans cette liste, le controle les signalerait a chaque
+# lancement — et un controle qui crie tout le temps n est plus lu. C est
+# exactement ce qu il faut eviter : la seule valeur de coherence.py est que son
+# silence veuille dire quelque chose.
+#
+# REGLE D USAGE
+# On n ajoute une ligne ici qu APRES AVOIR OUVERT LE FICHIER et constate qu il
+# releve d un autre exercice. Jamais pour faire taire un signal qu on n a pas
+# compris. Le motif est obligatoire : il doit dire ce qu on a lu.
+#
+# Format : <nom du depot tel qu il apparait a l historique>  #  <motif>
+# =============================================================================
+
+# --- ROTEC, factures de l exercice 2025 ---
+# Lues le 09/10/2026 : toutes anterieures au 01/01/2026, elles relevent du
+# bilan 2025. Deposees en octobre 2026 dans le rattrapage.
+2025 10 15 ROTEC FACTURE 69 50 5105777.pdf   # facture du 15/10/2025, 69,50 EUR
+2025 10 15 ROTEC FACTURE 69 50 5105789.pdf   # facture du 15/10/2025, 69,50 EUR
+2025 10 17 ROTEC FACTURE 69 50 5105971.pdf   # facture du 17/10/2025, 69,50 EUR
+2025 11 14 ROTEC FACTURE 69 50 5107701.pdf   # facture du 14/11/2025, 69,50 EUR
+2025 12 04 ROTEC FACTURE 162 50 5109064.pdf  # facture du 04/12/2025, 162,50 EUR
+2025 12 08 ROTEC FACTURE 111 50 5109274.pdf  # facture du 08/12/2025, 111,50 EUR
+
+# --- SEPTODONT, exercice 2025 ---
+# ATTENTION : la facture 90005673 apparait TROIS fois a l historique du portail
+# (« Facture 90005673.pdf », « Facture 90005673 1 .pdf » et celle-ci). Risque de
+# TRIPLE ECRITURE comptable. A signaler a Mme DAHERON.
+90005673 SEPTODONT chq le 13 03 2026.pdf     # facture 90005673 du 02/12/2025, 187,40 EUR
+Septodont regle chq le 13 03 20265.pdf       # facture 90005971 du 03/12/2025, 103,32 EUR
+
+# --- BONGERT, exercice 2025 ---
+# Lue le 09/10/2026 : facture 24514307, livraison du 23/12/2025. Le fichier
+# s appelait « BONGERT 13/03/2026 » comme un autre, qui lui est de 2026
+# (24514532) et a bien ete ajoute au registre.
+BONGERT 13 03 2026 1 .pdf                    # facture 24514307 du 29/12/2025, 189,30 EUR
+
+# --- MADE IN LABS, exercice 2025 ---
+MIL 12 2025 V1 le 06 03 2026.pdf             # facture 34529 du 31/12/2025, 2 571,75 EUR
+
+# --- GACD, exercice 2025 ---
+# Les quatre fichiers nommes « gacd virement 761 19 » ne sont PAS quatre scans
+# d un justificatif de virement : ce sont QUATRE FACTURES DIFFERENTES, reglees
+# par un seul virement de 761,19 EUR. Lues le 09/10/2026. Trois sont lisibles
+# (2402218061 / 380,57 — 2402229511 / 56,98 — 2402239719 / 126,11), la
+# quatrieme est un scan sans texte. 380,57 + 56,98 + 126,11 = 563,66, donc la
+# quatrieme vaudrait 197,53 pour atteindre 761,19 — a VERIFIER, ce n est pour
+# l instant qu une soustraction, pas une lecture.
+gacd virement 761 19 du 15 01 25 1 .pdf      # facture GACD 2402229511 du 24/11/2025, 56,98 EUR
+gacd virement 761 19 du 15 01 25 2 .pdf      # facture GACD illisible, montant a lire
+gacd virement 761 19 du 15 01 25 3 .pdf      # facture GACD 2402218061 du 03/11/2025, 380,57 EUR
+gacd virement 761 19 du 15 01 25 4 .pdf      # facture GACD 2402239719 du 08/12/2025, 126,11 EUR
+
+# --- MUTUALEASE et OSSEO SHOP, exercice 2025 ---
+# Les « Copie de ... » sont les anciens noms, deposes a cote des fichiers
+# renommes. Contenu verifie identique le 09/10/2026.
+Copie de mutualease 06 2025.pdf              # facture 020-FL-30913751, location 01/07 au 30/09/2025
+Copie de mutualease11 25.pdf                 # facture 020-FW-00857485 du 12/11/2025, 60,00 EUR
+Copie de osseo shop 10 2025.pdf              # facture FA2025-006896 du 31/10/2025, 219,50 EUR
+
+# --- MACSF, periode 2025-2026 ---
+# Deux documents DIFFERENTS, pas deux copies : une attestation d assurance du
+# local et un echeancier de prelevements. Cotisation 331,74 EUR pour la periode
+# du 11/07/2025 au 10/07/2026. Le justificatif d une prime d assurance est
+# l attestation annuelle, pas une facture : cf. la frontiere posee dans
+# audit_lcl.py.
+Copie de macsf attestation assurance local 1 .pdf  # echeancier, contrat 7904376-79
+Copie de macsf attestation assurance local 2 .pdf  # attestation, contrat 7904376-79
+
+# --- Tableau de suivi interne, pas une piece comptable ---
+Compta suivi mensuel Decembre 1 .pdf         # tableau de suivi des reglements de decembre 2025
+
+# --- BREDENT, exercice 2025 ---
+BREDENT 115 90.pdf                           # facture 36969643 du 28/11/2025, 115,90 EUR
+bredent 115 90.pdf                           # facture 36969643 du 28/11/2025, 115,90 EUR

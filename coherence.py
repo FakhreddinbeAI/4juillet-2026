@@ -157,8 +157,38 @@ def main(reg, lcl, *hist):
             if len(norm(c)) >= 8:
                 cites_c.add(norm(c))
     d2026 = re.compile(r"^\s*2026[\s_-]?(0[1-9]|1[0-2])")
+    # LE 09/10/2026 : ce controle ne regardait que le NOM du depot, et neuf
+    # pieces de l exercice 2026 lui ont echappe — Bongert 24514532 et 24514784,
+    # Made in Labs 34755 et 34968, GACD 2402261254 et 2402275693, Cofica
+    # 750004695244, Mutualease 020-FL-31694851 — parce qu elles avaient ete
+    # deposees sous des noms sans date ni numero : « BONGERT 13 03 2026.pdf »,
+    # « MIL 01 2026 V1 le 06 03 2026.pdf », « GACd virement le 06 03 2026.pdf ».
+    # 10 936,22 EUR de charges 2026 absentes du registre.
+    # D ou le second critere : la DATE DE DEPOT. On ne l applique qu a la
+    # campagne en cours, sinon on reflagerait les centaines de pieces 2025
+    # deposees en 2026 pour le bilan precedent — et un controle qui crie tout
+    # le temps ne sert plus a rien.
+    campagne = re.compile(r"^\s*\d{2}/(1[0-2])/2026\s*$")
+    # Les pieces de l exercice 2025 deposees pendant la campagne d octobre
+    # n ont rien a faire dans un registre 2026. Sans cette liste le controle
+    # les signalerait a chaque lancement, et un controle qui crie tout le temps
+    # n est plus lu : la seule valeur de coherence.py est que son silence
+    # veuille dire quelque chose. On n y inscrit un depot qu APRES l avoir
+    # ouvert, avec le motif.
+    exclus = set()
+    try:
+        for l in open("hors_perimetre_portail.txt", encoding="utf-8"):
+            l = l.split("#")[0].strip()
+            if l:
+                exclus.add(norm(l))
+    except OSError:
+        pass
+
     for nom in tous:
-        if not d2026.match(nom):
+        if not (d2026.match(nom)
+                or campagne.match(tous[nom].get("date") or "")):
+            continue
+        if norm(nom) in exclus:
             continue
         z = norm(nom)
         if any(r in z for r in refs_c):

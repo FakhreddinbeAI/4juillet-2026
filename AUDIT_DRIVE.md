@@ -116,7 +116,136 @@ annotés. Ce dossier-là est propre.
 
 ---
 
-## Ce que je propose
+---
+
+# CE QUI A ETE FAIT LE 09/10/2026
+
+Décisions prises : A, B, C et D. Dossier de Lucie : on n'y touche pas.
+
+## Fait — 38 fichiers renommés dans l'étape 3
+
+Tous les fichiers de « 3 - DEPOSEES TGS » portent maintenant un nom au format
+du mode d'emploi. Un seul reste en `montant-a-lire` : un scan GACD sans couche
+texte, marqué `A-TRIER`.
+
+## Bloqué — le déplacement m'est refusé
+
+`update_file` avec un nouveau dossier parent répond
+`The caller does not have permission`, **sur tous les fichiers du drive
+partagé**, y compris une copie que je venais de créer moi-même. Le renommage
+passe, le déplacement non. A et B ne peuvent donc pas être faits par moi :
+ils sont dans `PROMPT_RANGER_DRIVE.md`, pour Claude in Chrome, qui agit avec
+les droits du compte.
+
+## Ce que C et D ont révélé
+
+### Neuf pièces de l'exercice 2026 déposées chez TGS et absentes du registre
+
+| date | fournisseur | montant | référence |
+|---|---|---:|---|
+| 15/01/2026 | BONGERT | 306,50 € | 24514532 |
+| 31/01/2026 | BONGERT | 158,85 € | 24514784 |
+| 31/01/2026 | MADE IN LABS | 3 390,29 € | 34755 |
+| 28/02/2026 | MADE IN LABS | 3 893,50 € | 34968 |
+| 16/02/2026 | NEOHM | 1 105,20 € | FR156786 |
+| 19/01/2026 | GACD | 414,29 € | 2402261254 |
+| 09/02/2026 | GACD | 131,53 € | 2402275693 |
+| 05/01/2026 | COFICA | 1 353,76 € | 750004695244 |
+| 01/01/2026 | MUTUALEASE | 182,30 € | 020-FL-31694851 |
+| | **total** | **10 936,22 €** | |
+
+### Neuf factures RECEPT AI, toutes manquantes
+
+Budgie S.A.S. / rcpt.ai, le répondeur IA. Facturation mensuelle le 16.
+Facture émise à la SELARL mais adressée à `ftighza@gmail.com`, ce qui l'a
+tenue hors du circuit du drive partagé.
+
+`B93C3B79-0271` 90,80 € · `0427` 100,25 € · `0626` 102,35 € · `0842` 105,85 € ·
+`1116` 121,25 € · `1384` 156,60 € · `1635` 172,35 € · `1909` 152,05 € ·
+`2195` 217,50 € — **1 219,00 €**.
+
+La première, 90,80 €, est exactement le montant cité en exemple d'erreur n° 1
+dans le mode d'emploi.
+
+**Total trouvé ce matin : 12 155,22 € de charges 2026 absentes du registre.**
+Le registre passe de 211 à 229 pièces, `coherence.py` ne sort aucune divergence.
+
+### Pourquoi mon contrôle les avait manquées
+
+Le contrôle 4 bis de `coherence.py` ne regardait que le **nom** du dépôt, et
+n'acceptait que les noms commençant par une date 2026. Ces pièces avaient été
+déposées sous leurs anciens noms : `BONGERT 13 03 2026.pdf`,
+`MIL 01 2026 V1 le 06 03 2026.pdf`, `GACd virement le 06 03 2026.pdf`. Aucune
+chance de les voir.
+
+Corrigé : le contrôle accepte maintenant un second critère, la **date de dépôt**,
+bornée à octobre-décembre 2026 pour ne pas remonter les centaines de pièces
+2025 déposées en 2026. Les 21 pièces 2025 légitimement absentes d'un registre
+2026 sont listées, avec leur motif et après lecture, dans
+`hors_perimetre_portail.txt`. Le contrôle a été testé en retirant une ligne de
+cette liste : il reparle, puis se taît quand on la remet.
+
+### Trois erreurs de ma part, corrigées
+
+1. **Les quatre « GACD PREUVE-DE-PAIEMENT 761.19 »** ne sont pas des preuves de
+   paiement. Ce sont **quatre factures GACD différentes** (380,57 € / 56,98 € /
+   126,11 € / une illisible), réglées par un seul virement de 761,19 €. Je les
+   avais prises pour trois scans du même justificatif et nommées `1-sur-3`,
+   `2-sur-3`, `3-sur-3`.
+
+2. **Les deux MACSF « exemplaire-1 » et « exemplaire-2 »** ne sont pas deux
+   copies : ce sont **deux documents distincts**, une attestation d'assurance du
+   local et un échéancier de prélèvements, cotisation 331,74 € pour la période
+   du 11/07/2025 au 10/07/2026.
+
+3. **La taille d'octets identique ne suffit pas** à repérer un doublon. Le
+   fichier `MADE IN LABS` est la facture 34968, la même que
+   `MIL- 02/2026 V1` — mais **362 553 octets contre 364 499**. Mon critère de
+   taille l'aurait laissée passer. C'est la lecture qui l'a trouvée.
+
+### Deux dépôts en double à signaler à Mme DAHERON
+
+- **Septodont 90005673** apparaît **trois fois** à l'historique du portail :
+  `Facture 90005673.pdf`, `Facture 90005673 1 .pdf` et
+  `90005673 SEPTODONT chq le 13 03 2026.pdf`. Risque de triple écriture.
+- **Cofica `cofica 12 2025.pdf`** apparaît **trois fois**, dont une en
+  « Dépôt OK » le 28/07/2026 et une « En cours » le 06/10/2026.
+
+S'ajoute au NTJ 20240268 déjà repéré, déposé deux fois.
+
+### Deux pistes ouvertes
+
+- **COFICA, même période facturée deux fois.** La facture 750004695244 (émise
+  le 24/12/2025) et la 750004820769 (émise le 29/07/2026) couvrent toutes deux
+  la période **05/01/2026 au 04/02/2026**, 1 353,76 € chacune. L'une est
+  probablement le duplicata de l'autre, mais les deux sont au portail.
+- **NEOHM scindée en deux.** `FR156786` fait 1 105,20 €, et le portail contient
+  `NEOHM facture 1sur 2 de 2210 4 regle le 11 12 2025`. Le mode d'emploi
+  signale exactement ce piège. Il faut vérifier si FR156786 est une moitié et
+  retrouver la seconde.
+
+### Un piège du mode d'emploi confirmé deux fois
+
+L'erreur n° 2 — « lire la date d'émission au lieu de la période couverte » — se
+vérifie sur deux pièces trouvées ce matin : la Cofica 750004695244 émise le
+24/12/2025 couvre janvier-février **2026**, et la Mutualease 020-FL-31694851
+émise le 15/12/2025 couvre **le premier trimestre 2026**. Les deux sont des
+charges de l'exercice 2026 bien qu'émises en 2025.
+
+### Conséquence du renommage à retenir
+
+Le mode d'emploi dit de renommer **au moment du dépôt, pas plus tard**. J'ai
+renommé 38 fichiers déjà déposés : le lien entre le fichier du drive et son
+entrée à l'historique du portail ne se fait donc plus par le nom. Pour chacune
+des neuf pièces ajoutées au registre, la note cite **le nom exact sous lequel
+elle a été déposée**, entre apostrophes simples — c'est la forme que
+`coherence.py` sait rattacher. Sans cela le contrôle les aurait déclarées
+« marquée déposée sans preuve », ce qu'il a d'ailleurs fait avant que je
+complète les notes.
+
+---
+
+## Ce que je proposais (A, B, C, D validés ; E refusé)
 
 Dans l'ordre, du plus sûr au plus discutable.
 
