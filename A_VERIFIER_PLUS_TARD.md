@@ -9,7 +9,31 @@ refaire le raisonnement.*
 
 ---
 
-## 1. ONCD — 462 € payés deux fois ? ⟵ *mis en attente le 06/10/2026 à la demande du Dr*
+## 1. ~~ONCD — 462 € payés deux fois ?~~ ⟵ **CLOS le 12/10/2026**
+
+> **Ce n'était pas un double paiement.** Il y a deux cotisations ordinales de
+> 462 € : une pour le praticien, une pour la société. L'appel société lu le
+> 12/10 l'écrit lui-même : *« les sociétés doivent s'acquitter d'une cotisation
+> entière. Le versement de celle-ci n'exonère pas chaque praticien membre de la
+> société d'exercice du règlement de sa cotisation personnelle qui doit être
+> réglée séparément. »*
+>
+> - **`266020689680`** — cotisation **SOCIÉTÉ**, SELARL TIGHZA, n° national
+>   `R044/226`, 26/01/2026, 462,00 €. Document en main, déposé.
+> - **`262785280708`** — cotisation du **PRATICIEN**, n° national `66298`.
+>   Relance du 23/07 et attestation de règlement du 06/08 en main.
+>
+> Les deux chèques de 462,00 € encaissés le **07/08/2026** (`CHQ. 8430662` et
+> `CHQ. 8430663`) sont donc un par cotisation — payées en retard, l'échéance
+> était le 31 mars.
+>
+> **Ce qui reste :** l'**appel à cotisation personnel de janvier** n'est pas au
+> dossier — entrée ajoutée au registre en MANQUANT, à télécharger depuis
+> `cotisation.ordre-chirurgiens-dentistes.fr` avec le n° d'appel `262785280708`.
+> Et, point mineur non résolu, le chèque `8430738` scanné et déposé au portail
+> le 06/02 n'apparaît nulle part au relevé LCL.
+
+*Ci-dessous, l'analyse du 06/10 telle qu'elle était écrite — conservée parce qu'elle montre ce que je croyais avant de lire les documents.*
 
 **Où regarder :** LCL en ligne, l'image des chèques **8430662** et **8430663**,
 tous deux débités le **07/08/2026** (relevé 54), 462,00 € chacun. Le nom du
