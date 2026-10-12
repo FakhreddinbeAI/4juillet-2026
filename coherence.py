@@ -71,7 +71,19 @@ def main(reg, lcl, *hist):
                % (etat, cherche(ref, tous, par_chiffres)[0][:46]))
         if etat == "DEPOSEE" and ref and not au_portail:
             # Acceptable SI la note nomme le depot et que ce nom existe.
-            cites = re.findall(r"'([^']{6,90})'", p.get("note") or "")
+            # Le 12/10/2026 ce test a crie sur neuf pieces reellement
+            # deposees : il ne lisait que les apostrophes droites, alors que
+            # les notes du dossier citent entre guillemets. Les deux formes
+            # sont desormais acceptees, MAIS la forme a guillemets exige une
+            # EXTENSION DE FICHIER. Sans cette exigence, n importe quel mot
+            # entre guillemets — « facture », « releve » — serait pris pour un
+            # nom de depot et attesterait n importe quoi par simple
+            # sous-chaine : le garde-fou se retournerait contre nous.
+            note = p.get("note") or ""
+            cites = re.findall(r"'([^']{6,90})'", note)
+            cites += re.findall(
+                r"«\s*([^»]{6,118}\.(?:pdf|jpg|jpeg|png))\s*»", note,
+                re.IGNORECASE)
             atteste = [c for c in cites
                        if any(c.lower() in n.lower() for n in tous)]
             if not atteste:
