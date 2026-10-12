@@ -181,3 +181,134 @@ sur 11, le portail nomme ses fichiers `0<identifiant>.pdf`.
 de PDF téléchargeable.** La colonne prédit la disponibilité : inutile de
 chercher, il faut réclamer. Je l'ai accusée trois fois d'être fausse, elle avait
 raison les trois fois.
+
+---
+
+## 8. CARCDSF — taxation d'office, pas un forfait ⟵ *trouvé le 12/10/2026 dans ftighza@gmail.com*
+
+**Le mail du 12/08/2026 n'a jamais été ouvert.** Objet : « nous n'avons pas reçu
+votre déclaration d'assiette sociale 2025 ». Le corps annonce que, à défaut de
+déclaration, les cotisations seront calculées fin août sur une **taxation
+d'office, assiette annuelle 240 300 €**, visa **art. R. 613-1-2 CSS**.
+
+### La concordance qui vaut preuve
+
+L'appel de cotisations du 25/09/2026, lu séparément dans son PDF, porte
+**240 300 €** comme assiette — deux fois : tranche 2 du régime de base
+(240 300 × 1,870 % = 4 494,00) et Prestation Complémentaire Vieillesse
+(240 300 × 0,725 % = 1 742,00). **Même nombre que l'avertissement d'août.** Les
+deux sources sont indépendantes : un mail jamais ouvert et un PDF téléchargé.
+
+**L'appel n'emploie pas le mot « taxation d'office ».** Il écrit « revenus 2025
+annualisés ou **forfaitaires** » et « Revenus 2025 : Non déclarés ». Le terme
+vient du mail d'août, le nombre des deux. C'est une concordance, pas une
+citation : à confirmer auprès de la caisse.
+
+### Pourquoi ça change tout
+
+Une taxation d'office est une sanction du défaut de déclaration, pas un calcul
+de cotisation. **Elle se régularise quand la déclaration est déposée**, et le
+trop-versé se restitue. Les 31 594,99 € restant dus — dont 10 531,66 € au
+**15/10/2026** — ne sont donc pas une dette de cotisations : c'est le prix de
+la déclaration manquante.
+
+### Ce qu'il faut faire, et dans quel ordre
+
+1. **Appeler la CARCDSF au 01 40 55 63 00** avec le n° adhérent **7322700** et
+   demander : s'agit-il d'une taxation d'office au titre de R. 613-1-2 ? Que
+   faut-il déposer pour la lever, et sous quel délai ? Un échéancier est-il
+   possible en attendant ?
+2. **Déposer la déclaration d'assiette sociale 2025** sur l'espace adhérent.
+   Elle dépend des revenus 2025, donc du bilan — c'est le même goulot que le
+   mail à TGS du 12/10.
+3. Ne pas attendre le 15/10 pour appeler : le prélèvement partira.
+
+### La chaîne, et ce qu'elle n'explique pas
+
+Trois mails se tiennent par la main dans cette boîte :
+
+| date | expéditeur | objet | état |
+|---|---|---|---|
+| 09/06/2026 | URSSAF | DSN erronée ou incomplète | lu |
+| 16/07/2026 | URSSAF | **Votre radiation du Tese** | **non lu** |
+| 12/08/2026 | CARCDSF | déclaration d'assiette 2025 non reçue | **non lu** |
+
+**Attention à ne pas souder cette chaîne trop vite.** La DSN et le Tese
+concernent la **paie de la salariée** ; la déclaration d'assiette CARCDSF
+concerne les **revenus du praticien**. Ce sont deux déclarations différentes,
+et la seconde dépend du bilan, pas de la DSN. La vraie chaîne est : bilan 2025
+non déposé → revenus 2025 non déclarés → assiette CARCDSF non déclarée →
+taxation d'office.
+
+**La radiation du Tese reste un problème à part entière**, et peut-être plus
+grave : si la paie passait par le Titre Emploi Service Entreprise, une
+radiation non vue depuis trois mois touche les bulletins, les cotisations et
+les déclarations de la salariée. **À traiter séparément, sans attendre le
+bilan.**
+
+### Une saisie, pas deux
+
+La notification de saisie à tiers détenteur du **21/09/2026** est de la
+**DGFiP, service des impôts des entreprises de Nantes**, pour **387,00 €** de
+cotisation foncière des entreprises 2025 (369,00 de droits + 18,00 de
+pénalités), tiers détenteur Crédit Lyonnais, réf SATD 100168509426. Lu dans le
+document le 12/10.
+
+**Elle n'a jamais été attribuée à la CARCDSF dans ce dossier.** La confusion
+vient de mon prompt Gmail : j'avais placé le paragraphe sur cette saisie sous
+un titre consacré à la CARCDSF, et la juxtaposition se lit comme une
+attribution. Le prompt était ambigu, le registre ne l'est pas. **Il y a une
+seule saisie connue.**
+
+## 9. Ce que la boîte ftighza n'est pas ⟵ *établi le 12/10/2026*
+
+**Ce n'est pas une boîte de facturation, c'est une boîte de réexpédition.**
+L'essentiel des factures arrive sur `cabinetdentairelege@orange.fr` et
+`assistante.drtighza@gmail.com`, qui les transfèrent ensuite.
+
+**Conséquence directe, et elle est économique :** Henry Schein (1 071,75 €,
+mise en demeure), Lixxbail (7 198 €, crédit-bail), Cofica (2 × 1 353,76 €) et
+Made in Labs (3 089,02 €) **ne sont pas dans cette boîte**, et aucune
+reformulation de requête ne les y fera apparaître. Cinq formulations ont été
+essayées pour Henry Schein, deux pour Lixxbail et Cofica : zéro.
+
+Ne pas relancer de recherche Gmail sur ftighza pour ces quatre-là. Les routes
+sont ailleurs :
+
+- **Rotec** a dématérialisé ses factures le **30/06/2026** — mail non lu du
+  même jour. Les dix pièces Rotec sont sur **leur portail**, pas dans un mail.
+  Chercher dans la boîte était perdu d'avance.
+- **Amazon** : 50 mails, **aucune pièce jointe**. Les factures sont sur le
+  compte Amazon.
+- **Henry Schein, Lixxbail, Cofica, Made in Labs** : portail ou papier, ou
+  l'une des deux autres boîtes.
+
+**Question ouverte, à trancher par Lisa :** `assistante.drtighza@gmail.com`
+n'est pas `assistante@implantologielege.com`. La règle « rien de ftighza ne va
+sur contact, secretaire ou assistante » nomme la seconde. Est-ce que la
+première tombe sous la même règle, et peut-on y chercher les factures ?
+
+## 10. Trois courriers non lus à traiter, indépendants du bilan ⟵ *12/10/2026*
+
+**ZFX — mise en demeure par huissier, arrivée le 12/10/2026, non lue.**
+`sabine@as-creances-recouvrement.fr`, dossier **ZFX LYON SAS / SELARL TIGHZA,
+réf 12783**, pièces `MISE EN DEMEURE LRAR.pdf` et `Envoi RIB etude.pdf`. Un
+premier envoi du même dossier date du **09/10/2026**, également non lu. Le
+registre ne connaît qu'une pièce ZFX, la facture `R-2602.52453` de 253,99 €
+déposée le 12/10 — **le montant réclamé est inconnu**. À ouvrir en premier :
+un cabinet de recouvrement qui envoie son RIB a dépassé le stade de la
+relance.
+
+**Cegid — relance du 08/10/2026, non lue**, `Relance_SELARLTIGHZA_081026.pdf`.
+Aucune pièce Cegid au registre.
+
+**Doctolib — facture `FRIN25-02861493` du 09/10/2026, non lue.** Doctolib
+facture par mail, c'est donc une pièce récupérable immédiatement.
+
+**Et une anomalie à qualifier :** une facture de **domiciliation
+parisienne** du 05/10/2026, pour un cabinet installé à Legé. Soit une
+prestation en ligne, soit une ligne qui n'a rien à faire sur la SELARL.
+
+**Signalé sans interprétation :** `geoffrey.angibaud@live.fr` envoie des devis
+Servident le 05/10/2026. C'est le confrère dont l'ORMCO de 1 348,66 € a été
+exclu du dossier le 06/10.
