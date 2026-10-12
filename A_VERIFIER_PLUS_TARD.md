@@ -283,10 +283,34 @@ sont ailleurs :
 - **Henry Schein, Lixxbail, Cofica, Made in Labs** : portail ou papier, ou
   l'une des deux autres boîtes.
 
-**Question ouverte, à trancher par Lisa :** `assistante.drtighza@gmail.com`
-n'est pas `assistante@implantologielege.com`. La règle « rien de ftighza ne va
-sur contact, secretaire ou assistante » nomme la seconde. Est-ce que la
-première tombe sous la même règle, et peut-on y chercher les factures ?
+**Question tranchée par Lisa le 12/10/2026, et la réponse ferme la route.**
+`assistante.drtighza@gmail.com` est à elle, la règle « rien de ftighza ne va
+sur contact, secretaire ou assistante » ne la vise pas, **la recherche y est
+donc autorisée**. Mais : *« je n'ai pas les codes et elle n'est plus
+utilisée »*.
+
+**Cette boîte est donc fermée en pratique — et c'est elle qui contient Henry
+Schein et Lixxbail, soit 8 270 € de pièces.** Ne pas la porter comme une
+piste ouverte dans les prompts à venir : elle ne s'ouvrira pas sans une
+récupération de compte Google.
+
+**La bonne route n'est pas celle-là, c'est le fournisseur.** Demander les
+duplicata est plus rapide et plus sûr qu'une récupération de compte dont le
+téléphone de secours a peut-être changé :
+
+- **Lixxbail** — espace client, et pour un crédit-bail c'est **le contrat
+  `EM002148431` et l'échéancier** qui comptent, pas les factures mensuelles.
+  C'est la pièce que TGS réclamera en premier.
+- **Henry Schein** — le contact est déjà forcé par la mise en demeure : la
+  même réponse peut réclamer les six factures (4287993, 4293114, 4317192,
+  4320966, 4336516, 4377209).
+- **Cofica** — espace client, les deux échéances du 25/02 et du 24/04.
+- **Made in Labs** — facture 35937, à demander au laboratoire.
+- **Rotec** — portail, depuis la dématérialisation du 30/06/2026.
+
+**Le précédent existe dans ce dossier et il a marché** : le dossier
+« Duplicata Straumann (demande TGS) » du bureau contient une trentaine de
+pièces obtenues le 09/07/2026 par une simple demande au fournisseur.
 
 ## 10. Trois courriers non lus à traiter, indépendants du bilan ⟵ *12/10/2026*
 
