@@ -1,4 +1,4 @@
-# Prompt de dépôt n° 2 — 21 pièces au portail TGS
+# Prompt de dépôt n° 2 — 24 pièces au portail TGS
 
 *Écrit le 12/10/2026 au soir, pour un dépôt le 13. La plateforme TGS était
 plantée ce soir.*
@@ -7,8 +7,8 @@ plantée ce soir.*
 
 ## À coller dans Chrome
 
-Tu dois déposer 21 justificatifs comptables sur le portail TGS France, pour
-l'exercice 2026 de la SELARL TIGHZA. **Quatorze d'entre eux ont été ouverts,
+Tu dois déposer 24 justificatifs comptables sur le portail TGS France, pour
+l'exercice 2026 de la SELARL TIGHZA. **Dix-sept d'entre eux ont été ouverts,
 lus et renommés hier soir** : leur nom porte la date, le fournisseur, le
 montant et le numéro, et ces valeurs viennent du document lui-même.
 
@@ -123,6 +123,31 @@ d'intérêts. La facture elle-même, `R-2602.52453`, est déjà au portail.
 
 ---
 
+## Lot D — trois pièces lues hier soir, dans `Téléchargements`
+
+| pièce | date | montant | fichier |
+|---|---|---|---|
+| Doctolib `FRIN25-02861493` | 08/10/2026 | 149,00 € | `2026-10-08_DOCTOLIB_FACTURE_149.00_FRIN25-02861493_P2026-10-01-au-2026-10-31.pdf` |
+| EXECOM, 2ᵉ relance | 08/10/2026 | 334,80 € | `2026-10-08_EXECOM_RELANCE-2_334.80_FA006127.pdf` |
+| ONCD, attestation | 06/08/2026 | 462,00 € | `2026-08-06_ONCD_ATTESTATION-REGLEMENT_462.00_262785280708.pdf` |
+
+**La relance EXECOM et l'attestation ONCD n'ont pas de numéro propre**, et c'est
+normal : aucune recherche par numéro ne les trouvera. Cherche-les par
+fournisseur + date + montant.
+
+> **Attention sur la relance EXECOM.** Elle porte le numéro de la facture
+> `FA006127`, qui est **déjà au portail**. Une recherche sur `FA006127` va donc
+> te renvoyer le dépôt de la facture — ce n'est pas un doublon de la relance.
+> Ce sont deux documents : la facture de juin, déjà déposée, et la relance
+> d'octobre qui dit qu'elle reste impayée. **Dépose la relance.**
+
+> **L'attestation ONCD porte le numéro d'appel `262785280708`**, qui est aussi
+> celui de la relance ONCD déjà déposée. Même piège, même réponse : ce sont
+> deux documents distincts, l'un réclame et l'autre prouve le paiement.
+> **Dépose l'attestation.**
+
+---
+
 ## Ce qu'il ne faut PAS déposer, même si tu le croises
 
 | pièce | raison |
@@ -131,10 +156,25 @@ d'intérêts. La facture elle-même, `R-2602.52453`, est déjà au portail.
 | `9060040628` Straumann −1 834,34 € | sa facture `9060032068` n'est pas en main |
 | `9060136144` Straumann −88,80 € | le fichier n'est que la page 2 sur 2, sans ventilation de TVA |
 | `2842-1119-2935` Anthropic 108,00 € | c'est le **reçu** ; la facture `HKTDOLB4-0007` est déjà au portail |
-| `ARG12869` Argoat 38,00 € | doublon probable de `argoat Mai .pdf` déposé le 24/06, **pas encore prouvé** |
+| `ARG12869` Argoat 38,00 € | doublon probable — **mais voir le test ci-dessous, il est à ta portée** |
 | `2825` note d'honoraires 232,00 € | contient le nom, la date de naissance d'une patiente mineure et son NIR |
 | toute pièce au compte **15133626** | c'est le compte du Dr Loiseau, pas le nôtre (le nôtre est 15123197) |
 | ORMCO de 1 348,66 € | concerne le Dr ANGIBAUD |
+
+> **Le test sur `ARG12869`, et pourquoi c'est le seul qui marche.** Il existe au
+> portail un dépôt nommé `argoat Mai .pdf`, du 24/06/2026. **Ouvre-le et lis le
+> numéro de facture imprimé en haut du document** — les factures Argoat le
+> portent en titre, sous la forme `FACTURE MAI 2026 NUMERO DE FACTURE: ARGxxxxx`.
+> Si c'est `ARG12869`, la pièce est déjà au portail : ne la dépose pas, dis-le-moi.
+> Si c'est un autre numéro, dépose `ARG12869` — son fichier est
+> `2026-06-01_ARGOAT_FACTURE_38.00_ARG12869_P2026-05-01-au-2026-05-31.pdf` dans
+> `Mon Drive > FACTURATION`.
+>
+> J'avais d'abord prescrit une comparaison des deux fichiers octet pour octet.
+> **Ce test est faux et je le retire :** le fichier `argoat - Mai` du dossier de
+> Lucie pèse 106 459 octets, le nôtre 108 826. Ce sont deux PDF différents de la
+> même facture, donc aucune comparaison binaire ne peut conclure. Seule la
+> lecture du numéro tranche.
 
 ---
 
@@ -144,33 +184,33 @@ d'intérêts. La facture elle-même, `R-2602.52453`, est déjà au portail.
 2. **Chaque pièce non déposée**, avec la raison.
 3. **La réponse sur les deux « Paycenter Straumann Group » du 24/06** : quels
    numéros de facture portent-ils ?
-4. **Le compteur de dépôts du portail avant et après.** Hier il est passé de
+4. **La réponse sur `argoat Mai .pdf` du 24/06** : quel numéro de facture porte
+   ce dépôt ? C'est la seule chose qui décide du sort d'`ARG12869`.
+5. **Le compteur de dépôts du portail avant et après.** Hier il est passé de
    1 377 à 1 429, soit 52 dépôts pour 40 pièces : douze de trop que je
    n'explique pas. Si l'écart se reproduit, je veux le savoir.
-5. **Ce qui t'a surpris**, même hors sujet.
+6. **Ce qui t'a surpris**, même hors sujet.
 
 ---
 
 ## Note pour moi, pas pour Chrome
 
-**Le registre est à 301 pièces, aucune divergence.** `vue_tgs.csv` est
-régénéré à 26 136 octets mais **pas encore déposé sur le Drive** : le faire
+**Le registre est à 305 pièces, aucune divergence.** `vue_tgs.csv` est
+régénéré à 26 475 octets mais **pas encore déposé sur le Drive** : le faire
 avant qu'elle clique sur *TGS > Actualiser*, sinon le Sheet recule.
 
-**Les quatre copies inutiles** créées dans `Mon Drive > Lucie` ce soir
-(ARCADE 8570444, GACD 2402280246, OSSEO FA2026-008162, STRAUMANN 9060024519)
-sont à supprimer : j'avais mal compris la consigne et le dépôt se fera depuis
-les originaux de Lucie. À confirmer avec elle avant de les mettre à la
-corbeille.
+**Les quatre copies inutiles** créées dans `Mon Drive > Lucie` ont été
+supprimées le 12/10 au soir. Le dépôt se fait depuis les originaux de Lucie.
 
-**Reste à ouvrir et renommer dans Téléchargements** : les neuf Argoat
-(`Dr TIGHZA - Facture Mars/Mai/Juin/Juillet` et leurs doublons `(1)` `(2)`),
-les deux ONCD (`ATT-` et `CAD-262785280708`), le Doctolib
-`FRIN25-02861493_A00399835_10082026.pdf`, le Cegid
-`Relance_SELARLTIGHZA_081026.pdf`, et `R260252453TIGHZA.pdf`. Plus les quatre
-GACD déjà déposées jamais relues — après ce qu'a donné `2402336462`, elles
-méritent le même contrôle.
+**Le dépouillement des téléchargements ftighza est terminé.** Dix-neuf GACD,
+neuf Argoat, deux ONCD, le Doctolib, l'EXECOM, la ZFX et la mise en demeure :
+tous ouverts, lus, renommés. Deux erreurs de registre trouvées (`2402336462`
+et `240235574`), cinq pièces GACD inconnues ajoutées, et l'audit des quatre
+GACD déjà déposées les a toutes confirmées conformes.
 
-**Deux fichiers de Téléchargements ne sont pas comptables** et ne doivent
+**Les fichiers nommés `_DOUBLON` ne doivent jamais partir** : treize en tout,
+neuf Argoat, quatre GACD déjà déposées et la ZFX jointe à la mise en demeure.
+
+**Deux fichiers de `Téléchargements` ne sont pas comptables** et ne doivent
 jamais partir chez TGS : `bonnin-tifany-1.pdf` et sa copie `(1)` portent un
-nom de patiente.
+nom de patiente. Le caducée ONCD non plus — il est nommé `NON-COMPTABLE`.
