@@ -360,3 +360,50 @@ prestation en ligne, soit une ligne qui n'a rien à faire sur la SELARL.
 **Signalé sans interprétation :** `geoffrey.angibaud@live.fr` envoie des devis
 Servident le 05/10/2026. C'est le confrère dont l'ORMCO de 1 348,66 € a été
 exclu du dossier le 06/10.
+
+---
+
+## 11. Les neuf dépôts muets du 24/06 — douze dépôts pour neuf noms ⟵ *13/10/2026*
+
+**Le fait.** Chrome a essayé d'ouvrir les neuf dépôts du 24/06/2026 dont le nom
+ne porte aucun numéro de facture. **Zéro sur neuf.** Les neuf renvoient la même
+erreur que les deux GACD : `HTTP 424`, « la récupération du document a échoué ».
+Aucun n'a de bouton « Voir ». Rien n'a été déposé, renommé ni modifié.
+
+**Et en listant, Chrome a vu que trois noms existent deux fois :**
+
+| nom du dépôt | occurrences |
+|---|---|
+| `NTJ 1 .pdf` | 2 (12:55–12:56) |
+| `NTJ Avril 2026 2 .pdf` | 2 (12:55–12:56) |
+| `MIL 04 2026 1 .pdf` | 2, dont une à 13:00 |
+
+**Les neuf noms correspondent donc à douze dépôts.**
+
+**Pourquoi ça m'importe, et pas seulement à TGS.** J'ai fermé les cinq pièces
+par leur fichier d'origine chez Lucie, et j'ai écrit dans chaque note que ce
+rattachement était *solide* **parce que** « le portail suffixe « 1 », « 2 » les
+homonymes, ce qu'on observe ». Deux dépôts portant la chaîne **identique**
+contredisent cette règle. Deux lectures possibles, et je ne sais pas trancher :
+
+1. le portail ne suffixe pas toujours — ma règle est fausse ;
+2. la liste affiche deux fois le même dépôt — **artefact d'affichage**. Chrome
+   en a déjà signalé un le 13/10 sur le filtre « gacd ».
+
+Le `DEPOSEE` des deux NTJ reste : un dépôt au moins existe sous ce nom. Mais il
+n'a plus que la correspondance de nom pour lui, et les notes le disent
+désormais. `ARG12869` et les deux Paycenter ne sont pas touchés — leurs noms
+n'apparaissent qu'une fois.
+
+**Ce qui reste ouvert, et pour qui.**
+
+- **Lucie seule peut fermer ça** : c'est elle qui a fait ces douze dépôts. La
+  question tient en une phrase — *« les NTJ et le MIL d'avril, tu les as
+  déposés deux fois ? »*
+- **Le 424 est à signaler à TGS.** Ce n'est pas une pièce manquante, c'est le
+  portail qui refuse de rendre ce qu'on lui a confié. Si les documents du 24/06
+  ne sont plus récupérables de leur côté, c'est leur problème avant d'être le
+  nôtre — et ça se dit avant le bilan, pas après.
+- **Je n'ai pas demandé les fichiers à TGS** et je n'ai pas attendu l'accord de
+  Lisa pour lire les sources de Lucie : j'ai pris cette piste seul. À dire tel
+  quel.
