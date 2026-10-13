@@ -76,7 +76,7 @@ déposer.
 
 ## Lot B — dossiers partagés de Lucie
 
-Cinq pièces, aux noms non normalisés : **ta règle est de ne pas renommer dans
+Six pièces, aux noms non normalisés : **ta règle est de ne pas renommer dans
 ces dossiers**, donc tu les déposes telles quelles.
 
 | n° | date | montant | fichier et dossier |
@@ -110,7 +110,7 @@ ces dossiers**, donc tu les déposes telles quelles.
 | n° | date | montant | fichier |
 |---|---|---|---|
 | B-33156 | 31/08/2026 | 389,00 € | `2026-08-31_ADF_INSCRIPTION-CONGRES_389.00_B-33156.pdf` — `Mon Drive > FACTURATION` |
-| 298,32 € | 09/10/2026 | — | `2026-10-09_AS-CREANCES-RECOUVREMENT_MISE-EN-DEMEURE_298.32_ZFX-dossier-12783.pdf` — `Téléchargements` |
+| ZFX, mise en demeure | 09/10/2026 | 298,32 € | `2026-10-09_AS-CREANCES-RECOUVREMENT_MISE-EN-DEMEURE_298.32_ZFX-dossier-12783.pdf` — `Téléchargements` |
 
 **L'ADF** n'est pas une facture mais une confirmation d'inscription au Congrès
 ADF, au nom de Lucie Menanteau, payée par la SELARL. Charge de formation
@@ -160,6 +160,8 @@ fournisseur + date + montant.
 | `2825` note d'honoraires 232,00 € | contient le nom, la date de naissance d'une patiente mineure et son NIR |
 | toute pièce au compte **15133626** | c'est le compte du Dr Loiseau, pas le nôtre (le nôtre est 15123197) |
 | ORMCO de 1 348,66 € | concerne le Dr ANGIBAUD |
+| les fichiers nommés `_DOUBLON` | treize en tout, leurs pièces sont déjà au portail |
+| `bonnin-tifany-1.pdf` et sa copie | nom de patiente — ne doit jamais partir chez TGS |
 
 > **Le test sur `ARG12869`, et pourquoi c'est le seul qui marche.** Il existe au
 > portail un dépôt nommé `argoat Mai .pdf`, du 24/06/2026. **Ouvre-le et lis le
