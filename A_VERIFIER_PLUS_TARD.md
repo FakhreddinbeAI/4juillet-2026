@@ -407,3 +407,33 @@ n'apparaissent qu'une fois.
 - **Je n'ai pas demandé les fichiers à TGS** et je n'ai pas attendu l'accord de
   Lisa pour lire les sources de Lucie : j'ai pris cette piste seul. À dire tel
   quel.
+
+### Les deux textes, écrits le 13/10/2026 et mis de côté par Lisa
+
+Parqués ici pour ne pas être réécrits. **Rien n'a été envoyé.**
+
+**À Florence Daheron (TGS) :**
+
+> Bonjour Florence,
+>
+> Sur votre portail, douze documents déposés le 24/06/2026 ne s'ouvrent plus :
+> le site répond « la récupération du document a échoué ». Les pièces sont bien
+> listées comme déposées, mais le fichier derrière n'est plus accessible, ni
+> pour nous ni, je suppose, pour vous.
+>
+> Pouvez-vous vérifier de votre côté que ces documents vous sont bien parvenus
+> et sont exploitables pour le bilan ? S'ils sont perdus, dites-le-nous : nous
+> avons les originaux et nous les redéposerons.
+
+La liste des neuf noms est dans le tableau de l'entrée 11 ci-dessus.
+
+**À Lucie :**
+
+> Lucie, petite question sur tes dépôts du 24 juin : les deux NTJ et le MIL
+> d'avril apparaissent deux fois sur le portail. Tu les as déposés en double, ou
+> c'est l'affichage qui déraille ? Je demande juste pour ne pas les compter deux
+> fois dans le registre.
+
+L'hypothèse de l'artefact d'affichage est laissée ouverte **parce qu'elle est
+crédible**, pas par politesse : Chrome en avait signalé un le même jour sur le
+filtre « gacd ».
