@@ -1,0 +1,1739 @@
+<title>Transmissions devis</title>
+<meta charset="utf-8">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* Layout : rail à gauche (les écrans), liste au centre, fiche dossier en tiroir à droite. Les couleurs d'état sont celles du classeur de Lisa (vert = fait, orange = prochaine action, gris = verrouillé, rouge = blocage). */
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --surface-2:#EDF0F4; --line:#D8DEE6; --line-2:#C5CDD8;
+  --ink:#17212B; --ink-2:#4B5665; --ink-3:#7A8594;
+  --accent:#2557A7; --accent-ink:#FFFFFF; --accent-soft:#E6EDF9; --accent-line:#B9CBEA;
+  --fait-bg:#D8EBD0; --fait-fg:#245217;
+  --todo-bg:#F8DEC1; --todo-fg:#7A3C00;
+  --lock-bg:#E6E7E9; --lock-fg:#5F6670;
+  --stop-bg:#F6CFCF; --stop-fg:#8A1414;
+  --wait-bg:#E2E8F3; --wait-fg:#2E4367;
+  --row-done:#EAF5E4; --row-closed:#ECEEF1;
+  --shadow:0 12px 32px rgba(23,33,43,.14);
+  --font-ui:'IBM Plex Sans',system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --r:10px; --r-s:6px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F141A; --surface:#171E27; --surface-2:#1F2833; --line:#2B3542; --line-2:#3A4655;
+    --ink:#E7ECF2; --ink-2:#AEB8C4; --ink-3:#7F8A98;
+    --accent:#7FA6E8; --accent-ink:#0F141A; --accent-soft:#1B2A45; --accent-line:#2F4A77;
+    --fait-bg:#1F3A1C; --fait-fg:#B9E2A8; --todo-bg:#4A2E12; --todo-fg:#F6C08E;
+    --lock-bg:#2A313A; --lock-fg:#B5BDC7; --stop-bg:#4A1D1D; --stop-fg:#F3A9A9;
+    --wait-bg:#1E2A3D; --wait-fg:#B7C7E6; --row-done:#1A2A19; --row-closed:#1A2028;
+    --shadow:0 12px 32px rgba(0,0,0,.55); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F141A; --surface:#171E27; --surface-2:#1F2833; --line:#2B3542; --line-2:#3A4655;
+  --ink:#E7ECF2; --ink-2:#AEB8C4; --ink-3:#7F8A98;
+  --accent:#7FA6E8; --accent-ink:#0F141A; --accent-soft:#1B2A45; --accent-line:#2F4A77;
+  --fait-bg:#1F3A1C; --fait-fg:#B9E2A8; --todo-bg:#4A2E12; --todo-fg:#F6C08E;
+  --lock-bg:#2A313A; --lock-fg:#B5BDC7; --stop-bg:#4A1D1D; --stop-fg:#F3A9A9;
+  --wait-bg:#1E2A3D; --wait-fg:#B7C7E6; --row-done:#1A2A19; --row-closed:#1A2028;
+  --shadow:0 12px 32px rgba(0,0,0,.55); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--font-ui);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.2}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+.small{font-size:12px}
+
+/* ===== Structure ===== */
+.app{display:grid;grid-template-columns:228px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);min-height:100%}
+.topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--surface);border-bottom:1px solid var(--line);padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:36px;height:36px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;letter-spacing:.02em;font-size:13px;flex:none}
+.brand-name{font-weight:600;font-size:15px}
+.brand-sub{font-size:12px;color:var(--ink-3)}
+.topbar-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ctl{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2)}
+select,input[type=text],input[type=number],input[type=date],input[type=search],textarea{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r-s);padding:6px 8px;color:var(--ink);min-width:0}
+input[type=number]{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:5px 12px;font-weight:500;color:var(--ink-2)}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.demo-chip{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);border:1px dashed var(--line-2);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.demo-chip.live{border-style:solid;border-color:transparent;background:var(--fait-bg);color:var(--fait-fg)}
+.demo-chip.wait{border-style:solid;border-color:transparent;background:var(--wait-bg);color:var(--wait-fg)}
+.demo-chip.stop{border-style:solid;border-color:transparent;background:var(--stop-bg);color:var(--stop-fg)}
+#lienClasseur,#lienAutre{color:var(--accent);text-decoration:none;font-size:12px;white-space:nowrap}
+#lienClasseur:hover,#lienAutre:hover{text-decoration:underline}
+
+.rail{display:flex;flex-direction:column;gap:2px;padding-block:14px;padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:10px;border-right:1px solid var(--line);background:var(--surface)}
+.rail button{display:flex;align-items:center;justify-content:space-between;gap:8px;border:0;background:transparent;text-align:left;padding:9px 12px;border-radius:8px;color:var(--ink-2);font-weight:500}
+.rail button[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.rail button:hover{background:var(--surface-2)}
+.rail .count{font-family:var(--font-mono);font-size:11px;background:var(--surface-2);border-radius:999px;padding:1px 7px;color:var(--ink-2)}
+.rail button[aria-current="page"] .count{background:var(--surface);color:var(--accent)}
+.rail-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:10px 12px 4px}
+
+.main{padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.page-head h1{font-size:22px;font-weight:600}
+.page-head p{margin:4px 0 0;color:var(--ink-2);max-width:62ch}
+
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding-block:6px;padding-right:max(12px,env(safe-area-inset-right,0px));position:sticky;top:0;z-index:15}
+  .rail button{white-space:nowrap;padding:7px 10px}
+  .rail-title{display:none}
+  .brand-sub{display:none}
+}
+
+/* ===== Composants ===== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.section{margin-bottom:22px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.section-head h2{font-size:15px;font-weight:600}
+.section-head .n{font-family:var(--font-mono);font-size:12px;color:var(--ink-3)}
+.empty{padding:18px;color:var(--ink-3);text-align:center;border:1px dashed var(--line-2);border-radius:var(--r)}
+
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:500;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;background:var(--surface-2);color:var(--ink-2)}
+.p-fait{background:var(--fait-bg);color:var(--fait-fg)}
+.p-todo{background:var(--todo-bg);color:var(--todo-fg)}
+.p-lock{background:var(--lock-bg);color:var(--lock-fg)}
+.p-stop{background:var(--stop-bg);color:var(--stop-fg)}
+.p-wait{background:var(--wait-bg);color:var(--wait-fg)}
+.p-accent{background:var(--accent-soft);color:var(--accent)}
+.pill.wrap{white-space:normal}
+
+.btn{border:1px solid var(--line-2);background:var(--surface);border-radius:8px;padding:7px 12px;font-weight:500;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08);background:var(--accent)}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--ink-2)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-sm{padding:4px 9px;font-size:12px;border-radius:7px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-lock{border-style:dashed;color:var(--lock-fg);background:var(--lock-bg);border-color:transparent}
+
+/* Lignes de liste (Ma journée) */
+.rows{display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1.3fr) minmax(0,1.6fr) auto;gap:12px;align-items:center;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);cursor:pointer}
+.row:hover{border-color:var(--accent-line)}
+.row.closed{background:var(--row-closed);color:var(--ink-3)}
+.row.done{background:var(--row-done)}
+.row .who{min-width:0}
+.row .who b{font-weight:600;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .who .id{font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.row .meta{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:12px;color:var(--ink-2)}
+.row .meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .state{display:flex;flex-wrap:wrap;gap:4px;min-width:0}
+.row .act{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.row .act .hint{font-size:11px;color:var(--ink-3);text-align:right;max-width:22ch}
+@media (max-width:1100px){
+  .row{grid-template-columns:minmax(0,1fr) auto}
+  .row .meta{grid-column:1/-1}
+  .row .state{grid-column:1/-1}
+}
+
+/* Tableau Dossiers */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:13px}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;background:var(--surface-2);position:sticky;top:0}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--accent-soft)}
+tr.closed td{color:var(--ink-3);background:var(--row-closed)}
+tr.done td{background:var(--row-done)}
+td.r,th.r{text-align:right}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.filters input[type=search]{min-width:220px;flex:1}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;min-width:0}
+.kpi .l{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.kpi .v{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:4px;line-height:1.1;overflow-wrap:anywhere}
+.kpi .s{font-size:12px;color:var(--ink-2);margin-top:4px}
+.kpi.alert .v{color:var(--stop-fg)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pad{padding:14px 16px}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 42px;align-items:center;gap:10px;font-size:13px}
+.bar .track{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden;margin-top:4px}
+.bar .fill{height:100%;background:var(--accent);border-radius:4px}
+.bar .lbl{display:flex;justify-content:space-between;gap:8px}
+.bar .lbl span:last-child{font-family:var(--font-mono);font-size:12px;color:var(--ink-2)}
+.alertlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.alertlist li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line)}
+.alertlist li:last-child{border-bottom:0}
+.alertlist li a{color:var(--accent);cursor:pointer;text-decoration:none;font-weight:500}
+
+/* Graphiques */
+.chart{width:100%;height:auto;display:block;font-family:var(--font-ui)}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .axis{fill:var(--ink-3);font-size:10px}
+.chart .b{fill:var(--accent)}
+.chart .b:hover{filter:brightness(1.12)}
+.chart .val{fill:var(--ink-2);font-size:10px;font-family:var(--font-mono)}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:6px;box-shadow:var(--shadow);white-space:nowrap}
+details.tableview summary{cursor:pointer;color:var(--accent);font-size:13px;margin-top:8px}
+details.tableview table{min-width:0}
+
+/* Tiroir (fiche dossier) */
+.scrim{position:fixed;inset:0;background:rgba(10,16,22,.42);z-index:30}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(680px,100%);background:var(--surface);box-shadow:var(--shadow);z-index:40;overflow-y:auto;padding-block:0 calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.drawer-head{position:sticky;top:0;background:var(--surface);padding-block:calc(14px + env(safe-area-inset-top,0px)) 12px;border-bottom:1px solid var(--line);z-index:2;margin:0 -16px;padding-left:16px;padding-right:16px}
+.drawer-head .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.drawer-head h2{font-size:19px;font-weight:600}
+.drawer-head .sub{font-size:12px;color:var(--ink-2);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.drawer-head .states{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.close{border:0;background:var(--surface-2);width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1;flex:none}
+.dsec{padding-block:18px 6px}
+.dsec h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.dsec h3 .pill{text-transform:none;letter-spacing:0}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;background:var(--lock-bg);color:var(--lock-fg)}
+.step.on .dot{background:var(--fait-bg);color:var(--fait-fg)}
+.step.next .dot{background:var(--todo-bg);color:var(--todo-fg)}
+.step .t{min-width:0}
+.step .t b{font-weight:500;display:block}
+.step .t .ts{font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.step .t .owner{font-size:11px;color:var(--ink-3);margin-left:6px;font-weight:400}
+.lockmsg{grid-column:2/-1;font-size:12px;color:var(--lock-fg);background:var(--lock-bg);border-radius:var(--r-s);padding:6px 9px;margin-top:-2px}
+.frise{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.frise label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-2);background:var(--surface-2);border-radius:var(--r-s);padding:8px}
+.frise label.past{outline:1px solid var(--fait-bg)}
+.frise label.soon{outline:1px solid var(--todo-bg)}
+.frise input{width:100%;font-family:var(--font-mono);font-size:12px;padding:4px 6px}
+.derived{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px}
+.derived div{background:var(--surface-2);border-radius:var(--r-s);padding:8px 10px;min-width:0}
+.derived .l{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.derived .v{font-weight:500;margin-top:2px;overflow-wrap:anywhere}
+.fin{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.etape{border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.etape h4{margin:0 0 8px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.kv{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:6px 10px;align-items:center;font-size:13px}
+.kv .k{color:var(--ink-2)}
+.kv input{width:100%}
+.kv .calc{font-family:var(--font-mono);text-align:right;font-variant-numeric:tabular-nums}
+.toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-2);border-radius:7px;padding:3px 8px;background:var(--surface);font-size:12px;justify-self:end}
+.toggle.on{background:var(--fait-bg);color:var(--fait-fg);border-color:transparent}
+.toggle.off{background:var(--todo-bg);color:var(--todo-fg);border-color:transparent}
+.journal{display:flex;flex-direction:column;gap:8px}
+.journal form{display:flex;gap:8px}
+.journal form input{flex:1}
+.note{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;padding:8px 10px;background:var(--surface-2);border-radius:var(--r-s);font-size:13px}
+.note .d{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+.note .w{font-weight:600}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;box-shadow:var(--shadow);z-index:70;max-width:min(92vw,560px);font-size:13px}
+.toast.stop{background:var(--stop-fg);color:#fff}
+
+/* Agenda réel & source de données */
+.demo-chip.live{border-style:solid;color:var(--fait-fg);background:var(--fait-bg);border-color:transparent}
+.demo-chip.busy{border-style:solid;color:var(--wait-fg);background:var(--wait-bg);border-color:transparent}
+.demo-chip.ko{border-style:solid;color:var(--stop-fg);background:var(--stop-bg);border-color:transparent}
+.banner{background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--ink);border-radius:var(--r);padding:10px 14px;font-size:13px;margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.banner.warn{background:var(--todo-bg);border-color:transparent;color:var(--todo-fg)}
+.banner.ko{background:var(--stop-bg);border-color:transparent;color:var(--stop-fg)}
+.prov{font-size:10px;letter-spacing:.03em;border-radius:999px;padding:1px 6px;background:var(--surface);color:var(--ink-3);border:1px solid var(--line);white-space:nowrap}
+.prov.ag{color:var(--accent);border-color:var(--accent-line)}
+.syncline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--ink-2);margin-bottom:12px}
+.syncline input{width:min(100%,320px);font-family:var(--font-mono);font-size:12px}
+.day{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 6px}
+.ev{display:grid;grid-template-columns:56px minmax(0,1.3fr) minmax(0,1.6fr) minmax(0,1.3fr);gap:10px;align-items:center;padding:8px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-s);font-size:13px;margin-bottom:4px}
+.ev .h{font-family:var(--font-mono);color:var(--ink-2)}
+.ev .t{color:var(--ink-2);font-size:12px;min-width:0;overflow-wrap:anywhere}
+.ev .s{display:flex;gap:4px;flex-wrap:wrap;min-width:0}
+.ev a{color:var(--accent);cursor:pointer;font-weight:500}
+@media (max-width:760px){.ev{grid-template-columns:56px minmax(0,1fr)} .ev > :nth-child(n+3){grid-column:2}}
+.evlist{margin-top:10px;display:flex;flex-direction:column;gap:4px}
+.evlist .ev{grid-template-columns:96px minmax(0,1.4fr) minmax(0,1.2fr)}
+.frise label .top{display:flex;justify-content:space-between;gap:6px;align-items:center;flex-wrap:wrap}
+.frise label .btn{align-self:flex-start}
+
+/* Créneaux & préparation Logos */
+.syncline input[type=time]{width:auto}
+.slots{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.slot{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--surface)}
+.slot b{font-weight:600;text-transform:capitalize}
+@media (max-width:560px){.slot{grid-template-columns:minmax(0,1fr) auto} .slot .btn{grid-column:1/-1;justify-self:start}}
+.logosbox{margin-top:12px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:var(--r);padding:12px}
+.logosbox h4{margin:0 0 8px;font-size:13px;font-weight:600}
+.logosbox textarea{width:100%;min-height:150px;font-family:var(--font-mono);font-size:12px;line-height:1.5;resize:vertical;background:var(--surface)}
+.logosbox .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.prov.lg{color:var(--wait-fg);border-color:transparent;background:var(--wait-bg)}
+
+/* Règles */
+.prose{max-width:72ch}
+.prose p{margin:0 0 10px;color:var(--ink-2)}
+.prose ol,.prose ul{margin:0 0 12px;padding-left:20px;color:var(--ink-2)}
+.prose li{margin-bottom:4px}
+.prose table{min-width:0;margin-bottom:12px}
+.prose td,.prose th{font-size:13px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.rule-note{font-size:12px;color:var(--ink-3);border-left:3px solid var(--accent-line);padding:4px 10px;margin:6px 0 12px}
+@media (prefers-reduced-motion:no-preference){
+  .drawer{animation:slidein .22s ease-out}
+  @keyframes slidein{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
+}
+</style>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">TD</span>
+      <div><div class="brand-name">Transmissions devis</div><div class="brand-sub">Un dossier, trois angles : Lisa · Marion · Lucie</div></div>
+    </div>
+    <div class="topbar-controls">
+      <label class="ctl">Filière
+        <select id="selFiliere"><option value="implanto">Implanto</option><option value="autres">Autres devis</option></select>
+      </label>
+      <div class="seg" id="segRole" role="tablist" aria-label="Je suis">
+        <button role="tab" data-role="Lisa">Lisa</button>
+        <button role="tab" data-role="Marion">Marion</button>
+        <button role="tab" data-role="Lucie">Lucie</button>
+        <button role="tab" data-role="Direction">Direction</button>
+      </div>
+      <span class="demo-chip" id="srcChip" title="Source des données">Démo · données anonymisées</span>
+      <a id="lienAutre" hidden target="_blank" rel="noopener" title="Ouvrir l'application de l'autre filière"></a>
+      <a id="lienClasseur" hidden target="_blank" rel="noopener" title="Ouvrir le classeur Google Sheets">Classeur ↗</a>
+      <button class="btn btn-ghost btn-sm" id="btnSync" title="Relire l'agenda et le classeur maintenant">Actualiser</button>
+      <button class="btn btn-ghost btn-sm" id="btnDemo" title="Basculer entre le classeur réel et les données de démonstration">Démo</button>
+      <button class="btn btn-ghost btn-sm" id="btnReset" title="Recharger les données d'exemple">Réinitialiser</button>
+    </div>
+  </header>
+  <nav class="rail" id="rail" aria-label="Écrans"></nav>
+  <main class="main" id="main"></main>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Fiche dossier"></aside>
+<div class="toast" id="toast" hidden></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+/* =====================================================================
+   1. UTILITAIRES
+   ===================================================================== */
+const MS = 864e5;
+const TODAY = (() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; })();
+const J = (n, h) => { const d = new Date(TODAY.getTime() + n * MS); if (h) { const [hh, mm] = h.split(':'); d.setHours(+hh, +mm, 0, 0); } return d; };
+const jours = (a, b) => Math.round((a - b) / MS);
+const fmtD = d => d ? d.toLocaleDateString('fr-FR') : '';
+const fmtDM = d => d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+const fmtDT = d => d ? fmtD(d) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
+const eur = n => typeof n === 'number' ? n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }) : (n == null ? '' : String(n));
+const N = v => typeof v === 'number' ? v : 0;
+const isNum = v => typeof v === 'number' && !isNaN(v);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const addMonths = (d, n) => { const x = new Date(d); x.setMonth(x.getMonth() + n); return x; };
+const toISO = d => d ? new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10) : '';
+const fromISO = s => { if (!s) return null; const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const $ = s => document.querySelector(s);
+
+/* =====================================================================
+   2. VOCABULAIRE DU CLASSEUR (onglet PARAMETRES)
+   ===================================================================== */
+const TYPES = [
+  { k: 'cbct', l: '🩻 CBCT' }, { k: 'consult', l: '💬 Consultation / plan de traitement' }, { k: 'chir', l: '🔧 Chirurgie / extraction' },
+  { k: 'pose', l: '🦷 Pose implant' }, { k: 'empreinte', l: '🧪 Empreinte' }, { k: 'pilier', l: '👑 Pilier + couronne' },
+  { k: 'prothese', l: '🦷 Prothèse' }, { k: 'controle', l: '✅ Contrôle / cicatrisation' }, { k: 'fin', l: '💰 Rendez-vous financier' }
+];
+const MODES = {
+  TP: '🏥 Tiers payant mutuelle — encaisser le reste à charge seul',
+  RAC0: '💳 RAC 0 — encaisser la part mutuelle, remboursée à coup sûr',
+  AUTO: '👤 Autonome — encaisser tout ce que la Sécu ne prend pas'
+};
+const ORGS = ['Santéclair', 'Viamedis', 'Itelis', 'Autonome'];
+const STATUTS = ['Remis', 'En attente', 'Accepté', 'Refusé', 'Abandonné'];
+const TYPES_DEVIS = { implanto: ['Implanto', 'Couronne sur implants', 'Plan de traitement complet', 'Prothèse amovible définitive'], autres: ['Couronne', 'Bridge', 'Prothèse partielle', 'Prothèse complète', 'Autre'] };
+const MATERIEL = { '': '—', a_commander: 'À commander', commande: 'Commandé', recu: 'Reçu', pret: 'Prêt' };
+const ETAPE_LBL = f => f === 'implanto' ? ['Étape 1 — implant', 'Étape 2 — pilier + couronne'] : ['Étape 1', 'Étape 2'];
+
+/* =====================================================================
+   3. LES RÈGLES — reprises telles quelles des formules du classeur
+   (la référence de la cellule d'origine est indiquée à chaque fois)
+   ===================================================================== */
+const R = {
+  // Lisa!T — Autorisation prise de RDV
+  autorisation: d => d.dd.v ? '🟠 AUTORISÉE' : '⚪ VERROUILLÉE',
+  // Lisa!Z — Facturation mutuelle (fait dès qu'un montant facturé existe)
+  factMut: d => (d.montantFacture == null || d.montantFacture === '') ? '☐ À faire' : '☑ Fait',
+  // Lisa!AD — Remboursement reçu
+  rembRecu: d => (d.montantRecu != null && d.montantRecu !== '') ? '☑ Fait' : ((d.rembAttendu != null && d.rembAttendu !== '') ? '☐ À faire' : '⛔ Bloqué'),
+  // Lisa!H — Prochaine action / alerte (cascade de priorités)
+  prochaineAction(d) {
+    if (d.statut === 'Refusé' || d.statut === 'Abandonné') return 'Dossier ' + d.statut.toLowerCase() + ' / à clôturer';
+    if (!d.dd.v) return 'Documents à déposer — aucun RDV autorisé';
+    if (!d.pr.v) return 'Premier RDV à programmer';
+    if (!d.pl.v) return 'Planification clinique à valider';
+    if (!d.pa.v) return 'Prise en charge à finaliser';
+    const z = R.factMut(d);
+    if (z === '⛔ Bloqué') return 'Paiement patient à enregistrer par Marion';
+    if (z !== '☑ Fait') return 'Facturation mutuelle à envoyer';
+    if (R.rembRecu(d) !== '☑ Fait') return 'Remboursement mutuelle à suivre';
+    return 'À jour';
+  },
+  // Lisa!Y — Responsable active
+  responsable(d) {
+    if (!d.dd.v) return 'Lisa';
+    if (!d.pr.v) return 'Marion';
+    if (!d.pl.v) return 'Lucie';
+    if (!d.pa.v) return 'Lisa';
+    const z = R.factMut(d);
+    if (z !== '☑ Fait') return z === '⛔ Bloqué' ? 'Marion' : 'Lisa';
+    if (R.rembRecu(d) !== '☑ Fait') return 'Lisa';
+    return 'Suivi RDV';
+  },
+  // Lisa!AL — ⚡ Rang Lisa (ordre de traitement de sa journée)
+  rang(d) {
+    if (R.responsable(d) !== 'Lisa') return '';
+    const h = R.prochaineAction(d).trim();
+    return ({
+      'Prise en charge à finaliser': '1 · PEC à finaliser',
+      'Documents à déposer — aucun RDV autorisé': '2 · Documents à déposer',
+      'Facturation mutuelle à envoyer': '3 · Facture mutuelle',
+      'Remboursement mutuelle à suivre': '4 · Remboursement à suivre',
+      'Dossier abandonné / à clôturer': '5 · À clôturer'
+    })[h] || '9 · libellé inconnu';
+  },
+  // Lisa!AO / AP — Échéance devis (+6 mois) et relance
+  echeance: d => d.dateDevis ? addMonths(d.dateDevis, 6) : null,
+  relance: d => (d.statut === 'En attente' && R.echeance(d) && R.echeance(d) < TODAY) ? '⚠️ Échéance dépassée' : '',
+  // Marion!E / F — Prochain RDV : la plus petite date ≥ aujourd'hui dans la frise
+  prochainRdv(d) {
+    let best = null;
+    for (const t of TYPES) { const x = d.rdv[t.k]; if (x && x >= TODAY && (!best || x < best.date)) best = { date: x, type: t.l, k: t.k }; }
+    return best;
+  },
+  // Marion!M / N — dates de pose, uniquement si passées
+  datePose: d => { const x = d.rdv[d.filiere === 'implanto' ? 'pose' : 'prothese']; return x && x < TODAY ? x : null; },
+  datePilier: d => { const x = d.rdv.pilier; return x && x < TODAY ? x : null; },
+  // Marion!R — Prochaine action / alerte (version récente, avec l'échelonnement)
+  actionMarion(d) {
+    if (d.ech.v) return "🟠 Demande d'échelonnement à transmettre à Lucie";
+    if (R.autorisation(d) === '⚪ VERROUILLÉE') return '⚪ En attente de Lisa — RDV verrouillé';
+    if (!d.pr.v) return '🟠 Premier RDV à prendre';
+    return 'À jour';
+  },
+  // Marion!T — Étape en cours (posée par le script dans le classeur ; libellés observés repris)
+  etapeClinique(d) {
+    if (d.type === 'Autre') return '🟠 Hors pipeline — suivi manuel';
+    const imp = d.filiere === 'implanto';
+    if (!d.pr.v) return imp ? '🟠 Premier RDV (CBCT) à prendre' : '🟠 RDV à prendre';
+    if (!d.pl.v) return '🟠 Planification à valider (Lucie)';
+    const pose = d.rdv[imp ? 'pose' : 'prothese'];
+    if (!pose) return imp ? '🟠 RDV de pose implantaire à programmer' : '🟠 RDV de pose à programmer';
+    if (pose >= TODAY) return '⏳ Pose prévue dans ' + jours(pose, TODAY) + ' j';
+    if (!imp) return '✅ Traitement clinique terminé — vérifier encaissement';
+    if (d.rdv.pilier && d.rdv.pilier < TODAY) return '✅ Traitement clinique terminé — vérifier encaissement';
+    const n = jours(TODAY, pose);
+    if (n < 90) return '⏳ Cicatrisation (J+' + n + '/~90)';
+    const nxt = [d.rdv.empreinte, d.rdv.pilier].filter(x => x && x >= TODAY).sort((a, b) => a - b)[0];
+    if (nxt) return '⏳ Pilier + couronne prévu dans ' + jours(nxt, TODAY) + ' j';
+    return '🟠 RDV empreinte / pilier+couronne à prendre';
+  },
+  // Lucie!E — File d'attente
+  fileAttente(d) {
+    const p = R.prochainRdv(d); if (!p) return '— pas de date';
+    const n = jours(p.date, TODAY);
+    if (n < 0) return '🔴 RETARD — ' + fmtDM(p.date);
+    if (n <= 7) return '⏰ ' + fmtDM(p.date) + ' — J-' + n;
+    return fmtD(p.date);
+  },
+  // Lucie!L — Alerte matériel (formule d'origine en #REF! : rétablie selon son intention)
+  alerteMateriel(d) {
+    if (d.cl.v) return '';
+    const p = R.prochainRdv(d);
+    if (p && jours(p.date, TODAY) <= 7 && d.materiel !== 'pret') return '🔴 URGENT : matériel non prêt';
+    return ({ a_commander: '🟠 Commande à passer', commande: '🟠 Réception à suivre', recu: '🟠 Préparer pour le RDV', pret: 'Prêt' })[d.materiel] || '';
+  },
+  // Règlements — modèle financier en deux étapes
+  isTP: d => /Tiers payant/.test(MODES[d.reg.mode] || ''),
+  secu(d) { const [a, b] = d.reg.e; return (isNum(d.montant) && isNum(a.pm) && isNum(a.rac) && isNum(b.pm) && isNum(b.rac)) ? Math.max(d.montant - a.pm - a.rac - b.pm - b.rac, 0) : 0; },
+  // Règlements!P / Q (et Marion!K / L) — À encaisser par étape
+  aEncaisser(d, i) {
+    const e = d.reg.e[i];
+    if (!isNum(e.pm) && !isNum(e.rac)) return null;
+    if (R.isTP(d)) return (i === 1 && d.reg.org === 'Santéclair') ? N(e.rac) + R.secu(d) : N(e.rac);
+    return N(e.pm) + N(e.rac);
+  },
+  // Règlements!O — Contrôle montants (étapes vs totaux saisis chez Lisa)
+  controle(d) {
+    const s = d.reg.e.reduce((a, e) => a + N(e.pm) + N(e.rac), 0);
+    const t = N(d.pecTotale) + N(d.rac);
+    if (s === 0) return '';
+    if (t === 0) return 'ℹ️ aucun total à comparer';
+    if (Math.abs(s - t) < 0.01) return '✅ ' + eur(s);
+    return '⚠️ écart ' + eur(s - t) + ' — étapes ' + eur(s) + ' / total ' + eur(t);
+  },
+  // Règlements!X / AE — Écart facturé / reçu
+  ecart(e) {
+    if (N(e.mFact) === 0) return '';
+    if (N(e.mRecu) === 0) return '⏳ en attente';
+    const x = N(e.mRecu) - N(e.mFact);
+    return Math.abs(x) < 0.01 ? '✅ conforme' : '⚠️ ' + eur(x);
+  },
+  // Règlements!AJ / AK — Date de l'acte, lue dans la frise
+  dateActe: (d, i) => i === 0 ? d.rdv[d.filiere === 'implanto' ? 'pose' : 'prothese'] : d.rdv.pilier,
+  // Règlements!G / I — PEC à envoyer (tiers payant) : échéance = acte − 15 j
+  pec(d, i) {
+    if (!R.isTP(d)) return '';
+    const a = R.dateActe(d, i); if (!a) return '';
+    const e = new Date(a.getTime() - 15 * MS);
+    if (d.reg.e[i].pecEnv) return '✅ envoyée';
+    if (TODAY > e) return '🔴 EN RETARD — ' + fmtDM(e);
+    if (TODAY >= new Date(e.getTime() - 7 * MS)) return '⏰ ' + fmtDM(e) + ' — J-' + jours(e, TODAY);
+    return fmtD(e);
+  },
+  // Règlements!AH — Facture à faire
+  factureAFaire: d => !d.reg.e[0].factEnv ? 0 : (!d.reg.e[1].factEnv ? 1 : -1),
+  // Règlements!AL — Prochaine facturation
+  prochaineFact(d) { const i = R.factureAFaire(d); return i < 0 ? null : (R.dateActe(d, i) || null); },
+  // Règlements!AM — ⚠️ Facturation
+  statutFact(d) {
+    if (R.factureAFaire(d) < 0) return '✅ Tout facturé';
+    const x = R.prochaineFact(d); if (!x) return '— acte pas encore daté';
+    const n = jours(x, TODAY);
+    if (n < 0) return '🔴 En retard — acte du ' + fmtDM(x);
+    if (n === 0) return "🟠 À facturer aujourd'hui";
+    return '⏳ Dans ' + n + ' j';
+  },
+  // Mise en forme conditionnelle de Lisa : ligne verte quand les six étapes Lisa sont faites
+  ligneTerminee: d => d.de.v && d.ds.v && d.dd.v && d.pa.v && R.factMut(d) === '☑ Fait' && R.rembRecu(d) === '☑ Fait'
+};
+
+/* Couleur d'un libellé : la convention du classeur (vert / orange / gris / rouge / attente) */
+function pcls(t) {
+  t = String(t || '');
+  if (!t) return 'pill';
+  if (/^(☑|✅)/.test(t) || t === 'À jour' || t === 'Prêt') return 'pill p-fait';
+  if (/^(🟠|☐|⏰)/.test(t)) return 'pill p-todo';
+  if (/^(⚪|—)/.test(t)) return 'pill p-lock';
+  if (/^(⛔|🔴|⚠️)/.test(t)) return 'pill p-stop';
+  if (/^(⏳|ℹ️)/.test(t)) return 'pill p-wait';
+  if (/aucun RDV|à clôturer/.test(t)) return 'pill p-stop';
+  if (/à programmer|à valider|à finaliser|à envoyer|à suivre/.test(t)) return 'pill p-todo';
+  return 'pill';
+}
+const pill = (t, extra) => t ? '<span class="' + pcls(t) + (extra ? ' ' + extra : '') + '" title="' + esc(t) + '">' + esc(t) + '</span>' : '';
+const pillRole = r => '<span class="pill ' + (r === 'Suivi RDV' ? '' : 'p-accent') + '">' + esc(r) + '</span>';
+
+/* =====================================================================
+   4. DONNÉES D'EXEMPLE (patients fictifs, proportions du classeur réel)
+   ===================================================================== */
+const ok = (n, h) => ({ v: true, ts: J(n, h || '10:12') });
+const no = () => ({ v: false, ts: null });
+const note = (n, h, who, t) => ({ d: J(n, h), who, t });
+function etape(o) { return Object.assign({ pm: null, rac: null, pecEnv: false, factEnv: false, dateFact: null, mFact: null, rembRecu: false, dateRemb: null, mRecu: null }, o || {}); }
+function mk(o) {
+  const d = Object.assign({
+    filiere: 'implanto', type: 'Implanto', statut: 'Accepté', pecTotale: null, rac: 0,
+    de: no(), ds: no(), dd: no(), pa: no(), pi: no(), pp: no(), cl: no(), pr: no(), ech: no(), pl: no(),
+    montantFacture: null, rembAttendu: null, montantRecu: null, montantProchainRdv: null,
+    rdv: {}, prov: {}, agenda: 'ok', agendaSheet: null, materiel: '', notes: [], rdvHeure: null, evts: [], conflits: [], propositions: {}, agendaLive: null
+  }, o);
+  if (!d.agendaSheet) d.agendaSheet = ({ ok: '✅ Synchro agenda', closed: '⛔ Dossier clôturé — synchro arrêtée', manual: '✋ À saisir à la main — aucun RDV trouvé dans l’agenda (nom différent ?)' })[d.agenda] || (String(d.agenda).startsWith('warn:') ? '⚠️ À vérifier — pas dans l’agenda : ' + String(d.agenda).slice(5) : '✅ Synchro agenda');
+  const reg = Object.assign({ mode: null, org: 'Autonome', e: [] }, o.reg || {});
+  reg.e = [etape(reg.e[0]), etape(reg.e[1])];
+  d.reg = reg;
+  return d;
+}
+function donneesExemple() {
+  return [
+    mk({ id: '90001-10001', patient: 'MOREAU Sylvie', logos: 90001, dateDevis: J(-150), montant: 1870, pecTotale: 1360, rac: 445.5,
+      de: ok(-79, '15:51'), ds: ok(-44, '09:47'), dd: ok(-44, '09:47'), pa: ok(-44, '09:48'), pr: ok(-44, '10:14'), pl: ok(-34, '09:48'), pi: ok(-34, '16:37'),
+      montantFacture: 1870, rembAttendu: 1360, montantProchainRdv: 400,
+      reg: { mode: 'TP', org: 'Santéclair', e: [{ pm: 600, rac: 460, pecEnv: true, factEnv: true, dateFact: J(-6), mFact: 700 }, { pm: 700, rac: 45.5 }] },
+      rdv: { consult: J(-87), pose: J(-34), prothese: J(-34), empreinte: J(60) }, rdvHeure: J(-34, '14:30'),
+      notes: [note(-16, '16:42', 'Lisa', 'Exemple : acte à régler par le patient, remboursement par la mutuelle ensuite'), note(-34, '16:37', 'Lisa', 'Exemple : en attente de la réponse de la mutuelle')] }),
+    mk({ id: '90002-10002', patient: 'BERNARD Luc', logos: 90002, type: 'Plan de traitement complet', dateDevis: J(-115), montant: 4850.05, pecTotale: 'autonome', rac: 4562.35,
+      de: ok(-79, '15:57'), ds: ok(-79, '15:57'), dd: ok(-79, '15:57'), pa: ok(-54, '11:11'), pr: ok(-54, '11:12'), pl: ok(-40, '11:09'),
+      montantFacture: 'autonome', rembAttendu: 0, montantRecu: 'NC', montantProchainRdv: 'facturation normale',
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 2440.25, pecEnv: true, factEnv: true, dateFact: J(-45), mFact: 2440.25, rembRecu: true, dateRemb: J(-45), mRecu: 2440.25 }, { pm: 0, rac: 2409.8, pecEnv: true }] },
+      rdv: { cbct: J(-80), pose: J(-45), empreinte: J(36) }, rdvHeure: J(-45, '14:30'), materiel: 'pret' }),
+    mk({ id: '90003-10003', patient: 'PETIT Camille', logos: 90003, dateDevis: J(-130), montant: 7580, pecTotale: 'autonome', rac: 7322,
+      de: ok(-79, '16:00'), ds: ok(-79, '16:00'), dd: ok(-54, '16:44'), pa: ok(-54, '16:44'), pr: ok(-54, '16:48'), pl: ok(-38, '18:51'), pi: ok(-38, '11:33'), pp: ok(-6, '11:40'),
+      montantFacture: 'autonome', rembAttendu: 0, montantRecu: 'NC', montantProchainRdv: 'facturation normale',
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 4100, pecEnv: true, factEnv: true, mFact: 4100, mRecu: 2100 }, { pm: 0, rac: 3222, pecEnv: true }] },
+      rdv: { consult: J(-129), chir: J(-6), empreinte: J(29), pilier: J(57) }, rdvHeure: J(-38, '09:30'), agenda: 'warn:Pilier + couronne ' + fmtDM(J(57)), materiel: 'commande',
+      notes: [note(-54, '16:48', 'Lisa', 'Exemple : RDV pris, questionnaire médical à remplir le jour J')] }),
+    mk({ id: '90004-10004', patient: 'ROUX Antoine', logos: 90004, type: 'Plan de traitement complet', dateDevis: J(-110), montant: 6178.36, pecTotale: 'autonome', rac: 5489.34,
+      de: ok(-79, '16:10'), ds: ok(-54, '16:50'), dd: ok(-54, '16:50'), pa: ok(-54, '16:51'), pr: ok(-54, '16:52'), pi: ok(-6, '11:42'), pp: ok(-6, '11:42'),
+      montantFacture: 'autonome', rembAttendu: 0, montantRecu: 'NC', montantProchainRdv: 'facturation normale',
+      reg: { mode: 'AUTO' }, rdv: { consult: J(-40), prothese: J(15) }, materiel: 'a_commander',
+      notes: [note(-40, '17:05', 'Lisa', 'Exemple : attendre la consultation du ' + fmtDM(J(-26)) + ' avant de programmer la pose'), note(-54, '16:52', 'Lisa', 'Exemple : RDV pris, consentement à faire signer le jour J')] }),
+    mk({ id: '90005-10005', patient: 'GARNIER Hélène', logos: 90005, dateDevis: J(-332), montant: 1970, pecTotale: 'harmonie (viamedis)', rac: 1905.5,
+      de: ok(-79, '16:10'), ds: ok(-79, '16:11'), dd: ok(-54, '16:54'), pa: ok(-40, '16:48'), pr: ok(-54, '16:55'), pl: ok(-40, '16:53'), pi: ok(-40, '16:50'), pp: ok(-40, '16:50'),
+      montantFacture: 750, rembAttendu: 750,
+      reg: { mode: 'TP', org: 'Viamedis', e: [{ pm: 750, rac: 1155.5, pecEnv: true }, { pm: 0, rac: 750, pecEnv: true }] },
+      rdv: { consult: J(-143), pose: J(-94), empreinte: J(-6), pilier: J(11) }, rdvHeure: J(-6, '10:00'), materiel: 'pret',
+      notes: [note(-40, '16:28', 'Lisa', 'Exemple : prévenir le patient quand le dossier mutuelle sera soldé'), note(-40, '11:51', 'Lisa', 'Exemple : prise en charge en retard, relance envoyée à la mutuelle'), note(-54, '17:00', 'Lisa', 'Exemple : prise en charge à préparer')] }),
+    mk({ id: '90006-10006', patient: 'FAURE Nicolas', logos: 90006, dateDevis: J(-136), montant: 1970, pecTotale: 'autonome', rac: 1862.5,
+      de: ok(-79, '16:12'), ds: ok(-89), dd: ok(-40, '12:01'), pr: ok(-40, '12:04'), pl: ok(-20, '09:15'),
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 1100 }, { pm: 0, rac: 762.5 }] }, rdv: { cbct: J(-83), pose: J(15) }, materiel: 'commande' }),
+    mk({ id: '90007-10007', patient: 'LAMBERT Julie', logos: 90007, dateDevis: J(-111), montant: 1970, statut: 'Abandonné', rac: 1905.5, de: ok(-79, '16:12'), agenda: 'closed' }),
+    mk({ id: '90008-10008', patient: 'ROUSSEAU Marc', logos: 90008, dateDevis: J(-115), montant: 3840, statut: 'En attente', rac: 3711, de: ok(-79, '16:12'),
+      notes: [note(-40, '12:45', 'Lisa', 'Exemple : dernière relance envoyée au patient')] }),
+    mk({ id: '90009-10009', patient: 'VINCENT Agnès', logos: 90009, dateDevis: J(-223), montant: 1870, pecTotale: 'sante clair', rac: 1805.5,
+      de: ok(-79, '16:13'), ds: ok(-40, '12:46'), dd: ok(-40, '12:46'), pa: ok(-40, '12:46'), pr: ok(-40, '13:03'), pl: ok(-40, '16:46'), pi: ok(-40, '16:47'), pp: ok(-40, '16:48'),
+      reg: { mode: 'TP', org: 'Santéclair', e: [{ pm: 1060, rac: 0, pecEnv: true, factEnv: true, dateFact: J(-90), mFact: 1060, rembRecu: true, dateRemb: J(-60), mRecu: 1060 }, { pm: 745.5, rac: 0, pecEnv: true }] },
+      rdv: { chir: J(-166), pose: J(-94), empreinte: J(-6), pilier: J(15) }, materiel: 'recu' }),
+    mk({ id: '90010-10010', patient: 'FONTAINE Pierre', logos: 90010, type: 'Plan de traitement complet', dateDevis: J(-143), montant: 6695, rac: 6513.95,
+      de: ok(-79, '16:14'), ds: ok(-40, '17:34'), dd: ok(-40, '17:34'), pa: ok(-40, '17:34'), pr: ok(-40, '17:37'), pl: ok(-40, '17:38'),
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 2613.95, pecEnv: true }, { pm: 0, rac: 3900 }] }, rdv: { consult: J(-87), pose: J(6), empreinte: J(96) }, materiel: 'recu',
+      notes: [note(-20, '15:08', 'Lisa', 'Exemple : prise en charge pilier + couronne à faire après le ' + fmtD(J(8)))] }),
+    mk({ id: '90011-10011', patient: 'CHEVALIER Anne', logos: 90011, dateDevis: J(-118), montant: 7930, statut: 'En attente', rac: 7736.5, de: ok(-79, '16:15') }),
+    mk({ id: '90012-10012', patient: 'GAUTHIER Isabelle', logos: 90012, type: 'Plan de traitement complet', dateDevis: J(-125), montant: 2253.25, statut: 'En attente', pecTotale: 880.05, rac: 1270,
+      de: ok(-79, '16:15'), pa: ok(-5, '15:13') }),
+    mk({ id: '90013-10013', patient: 'MASSON Olivier', logos: 90013, type: 'Plan de traitement complet', dateDevis: J(-200), montant: 12335, statut: 'En attente', rac: 11834, de: ok(-79, '16:16') }),
+    mk({ id: '90014-10014', patient: 'DUVAL Céline', logos: 90014, dateDevis: J(-139), montant: 1870, pecTotale: 0, rac: 1805.5,
+      de: ok(-100), ds: ok(-79, '16:21'), dd: ok(-34, '10:29'), pa: ok(-34, '10:29'), pr: ok(-34, '10:33'), pl: ok(-34, '10:33'), pi: ok(-34, '10:39'), pp: ok(-3, '11:14'),
+      reg: { mode: 'TP', org: 'Santéclair', e: [{ pm: 0, rac: 1060, pecEnv: true, factEnv: true, dateFact: J(-50), mFact: 0 }, { pm: 150.5, rac: 595, pecEnv: true }] },
+      rdv: { cbct: J(-139), consult: J(-117), pose: J(-60), pilier: J(9) }, materiel: 'pret',
+      notes: [note(-20, '15:15', 'Lisa', 'Exemple : prise en charge pilier + couronne à faire vers le ' + fmtDM(J(-3)))] }),
+    mk({ id: '90015-10015', patient: 'LEROUX Bruno', logos: 90015, dateDevis: J(-143), montant: 1870, pecTotale: 700, rac: 1105.5,
+      de: ok(-100), ds: ok(-79, '16:21'), dd: ok(-34, '11:09'), pa: ok(-34, '11:09'), pr: ok(-34, '11:10'), pi: ok(-34, '11:21'), pp: ok(-34, '11:21'),
+      montantFacture: 1570, rembAttendu: 700, montantRecu: 700, montantProchainRdv: 1170,
+      reg: { mode: 'TP', org: 'Santéclair', e: [{ pm: 700, rac: 1105.5, pecEnv: true, factEnv: true, dateFact: J(-117), mFact: 1570, rembRecu: true, dateRemb: J(-115), mRecu: 700 }, { pm: 0, rac: 0 }] },
+      rdv: { consult: J(-122), pose: J(-13), empreinte: J(-3) }, materiel: 'a_commander' }),
+    mk({ id: '90016-10016', patient: 'GIRAUD Martine', logos: 90016, dateDevis: J(-143), montant: 1870, pecTotale: 0, rac: 1805.5,
+      de: ok(-100), ds: ok(-79, '16:22'), dd: ok(-136), pa: ok(-38, '11:41'), pr: ok(-38, '11:43'), pl: ok(-38, '11:43'), pi: ok(-34, '12:02'), pp: ok(-34, '12:05'), cl: ok(-5, '15:35'),
+      montantFacture: 0, rembAttendu: 0, agenda: 'closed',
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 1060, pecEnv: true, factEnv: true, dateFact: J(-38), mFact: 1060, rembRecu: true, dateRemb: J(-30), mRecu: 1060 }, { pm: 0, rac: 745.5, pecEnv: true, factEnv: true, dateFact: J(-19), mFact: 745.5, rembRecu: true, dateRemb: J(-10), mRecu: 745.5 }] },
+      rdv: { consult: J(-131), chir: J(-119), pose: J(-38), pilier: J(-19), controle: J(-19) } }),
+    mk({ id: '90017-10017', patient: 'MERCIER Paul', logos: 90017, type: 'Couronne sur implants', dateDevis: J(-34), montant: 11770, rac: 11383,
+      de: ok(-33, '19:18'), ds: ok(-13, '09:00'), dd: ok(-13, '10:32'), pa: ok(-13, '10:32'), reg: { mode: 'AUTO' }, agenda: 'manual' }),
+    mk({ id: '90018-10018', patient: 'BLANCHARD Sophie', logos: 90018, dateDevis: J(-13), montant: 2000, pecTotale: 0, rac: 1935.5,
+      de: ok(-6, '15:26'), ds: ok(-6, '15:26'), dd: ok(-6, '15:26'), pa: ok(-6, '16:54'), reg: { mode: 'AUTO' } }),
+    mk({ id: '90019-10019', patient: 'GUERIN Yann', logos: 90019, type: 'Couronne sur implants', dateDevis: J(-34), montant: 1970, statut: 'Refusé', rac: 1905.5, de: ok(-33, '19:18'), cl: ok(-5, '17:31'), agenda: 'closed' }),
+    mk({ id: '90020-10020', patient: 'BOYER Nadia', logos: 90020, type: 'Plan de traitement complet', dateDevis: J(-13), montant: 4540.25, pecTotale: 0, rac: 4338.35,
+      de: ok(-3, '10:16'), ds: ok(-3, '10:16'), dd: ok(-3, '10:16'), pa: ok(-3, '10:17'), pr: ok(-3, '10:18'), pi: ok(-3, '10:18'), pp: ok(-3, '10:18'), ech: ok(-2, '09:40'),
+      montantFacture: 0, rembAttendu: 0, reg: { mode: 'AUTO', e: [{ pm: 0, rac: 2150.05 }, { pm: 0, rac: 2188.3 }] }, rdv: { chir: J(11), cbct: J(32) }, materiel: 'a_commander' }),
+    mk({ id: '90021-10021', patient: 'PERRIN Alain', logos: 90021, dateDevis: J(-13), montant: 2200, statut: 'En attente', rac: 2135.5 }),
+    mk({ id: '90022-10022', patient: 'CLEMENT Laure', logos: 90022, dateDevis: J(-45), montant: 1970, pecTotale: 1425.5, rac: 380,
+      de: ok(-44, '12:13'), ds: ok(-41), dd: ok(-40), pa: ok(-35, '15:03'), pr: ok(-35, '15:06'), pl: ok(-33, '09:30'), pi: ok(-35, '15:10'), pp: ok(-20, '09:00'),
+      montantFacture: 1060, rembAttendu: 1060, montantRecu: 1060,
+      reg: { mode: 'TP', org: 'Viamedis', e: [{ pm: 1060, rac: 0, pecEnv: true, factEnv: true, dateFact: J(-95), mFact: 1060, rembRecu: true, dateRemb: J(-70), mRecu: 1060 }, { pm: 365.5, rac: 380, pecEnv: true }] },
+      rdv: { pose: J(-100), empreinte: J(-10), pilier: J(-3), controle: J(25) }, materiel: 'pret' }),
+    mk({ id: '90023-10023', patient: 'NICOLAS Estelle', logos: 90023, dateDevis: J(-70), montant: 1870, pecTotale: 'autonome', rac: 1870,
+      de: ok(-60), ds: ok(-55), dd: ok(-50), pa: ok(-50), pr: ok(-49), pl: ok(-30),
+      reg: { mode: 'AUTO', e: [{ pm: 0, rac: 1060, pecEnv: true }, { pm: 0, rac: 810 }] }, rdv: { cbct: J(-48), pose: J(0), empreinte: J(90) }, materiel: 'pret' }),
+    /* ---- Filière « Autres devis » (second classeur) ---- */
+    mk({ filiere: 'autres', id: '90024-10024', patient: 'MORIN Gérard', logos: 90024, type: 'Couronne', dateDevis: J(-33), montant: 603.2, pecTotale: 114, rac: 489.2,
+      de: ok(-33, '19:16'), ds: ok(-31, '10:59'), dd: ok(-31, '11:06'), pa: ok(-17, '16:09'), reg: { mode: 'RAC0', e: [{ pm: 114, rac: 489.2 }, { pm: 0, rac: 0 }] } }),
+    mk({ filiere: 'autres', id: '90017-10025', patient: 'HENRY Franck', logos: 90017, type: 'Bridge', dateDevis: J(-34), montant: 9270, statut: 'En attente', rac: 9270, de: ok(-33, '19:18') }),
+    mk({ filiere: 'autres', id: '90025-10026', patient: 'ROGER Patricia', logos: 90025, type: 'Prothèse partielle', dateDevis: J(-41), montant: 6536.93, pecTotale: 425.7, rac: 6111.23,
+      de: ok(-38, '19:40'), ds: ok(-38, '19:40'), dd: ok(-38, '19:40'), pa: ok(-20), pr: ok(-15, '11:00'), reg: { mode: 'AUTO', e: [{ pm: 0, rac: 6111.23 }, { pm: 0, rac: 0 }] }, rdv: { prothese: J(10) }, materiel: 'commande' }),
+    mk({ filiere: 'autres', id: '90026-10027', patient: 'LEMAIRE Hugo', logos: 90026, type: 'Couronne', dateDevis: J(-129), montant: 1338.2, pecTotale: 385.08, rac: 953.12,
+      de: ok(-100), ds: ok(-79, '16:22'), dd: ok(-33, '11:14'), pa: ok(-33, '11:14'), pr: ok(-45), pl: ok(-40), montantFacture: 385.08, rembAttendu: 385.08, montantRecu: 385.08,
+      reg: { mode: 'RAC0', e: [{ pm: 385.08, rac: 953.12, pecEnv: true, factEnv: true, dateFact: J(-30), mFact: 385.08, rembRecu: true, dateRemb: J(-10), mRecu: 385.08 }, { pm: 0, rac: 0, pecEnv: true, factEnv: true }] },
+      rdv: { consult: J(-118), empreinte: J(-38), prothese: J(-38) }, materiel: 'pret' }),
+    mk({ filiere: 'autres', id: '90027-10028', patient: 'ADAM Christine', logos: 90027, type: 'Prothèse complète', dateDevis: J(-33), montant: 3271.2, pecTotale: 438.6, rac: 2832.6,
+      de: ok(-33, '19:16'), ds: ok(-31, '10:59'), dd: ok(-31, '11:00'), pa: ok(-25), pr: ok(-24, '09:12'), pl: ok(-20, '14:05'),
+      reg: { mode: 'TP', org: 'Itelis', e: [{ pm: 438.6, rac: 2832.6, pecEnv: true }, { pm: 0, rac: 0 }] }, rdv: { empreinte: J(-10), prothese: J(4) }, materiel: 'recu' }),
+    mk({ filiere: 'autres', id: '90028-10029', patient: 'PICARD Jean', logos: 90028, type: 'Autre', dateDevis: J(-110), montant: 9198.45, statut: 'En attente', rac: 9198.45, de: ok(-79, '16:17') }),
+    mk({ filiere: 'autres', id: '90029-10030', patient: 'LEGRAND Monique', logos: 90029, type: 'Prothèse partielle', dateDevis: J(-115), montant: 283.25, pecTotale: 38.7, rac: 244.55,
+      de: ok(-100), ds: ok(-79, '16:19'), dd: ok(-34, '10:24'), pa: ok(-34, '10:24'), pr: ok(-94), pl: ok(-94), cl: ok(-2, '10:10'), montantFacture: 38.7, rembAttendu: 38.7, montantRecu: 38.7, agenda: 'closed',
+      reg: { mode: 'RAC0', e: [{ pm: 38.7, rac: 244.55, pecEnv: true, factEnv: true, dateFact: J(-90), mFact: 38.7, rembRecu: true, dateRemb: J(-80), mRecu: 38.7 }, { pm: 0, rac: 0, pecEnv: true, factEnv: true }] },
+      rdv: { prothese: J(-94) } }),
+    mk({ filiere: 'autres', id: '90030-10031', patient: 'DUPONT Michel', logos: 90030, type: 'Couronne', dateDevis: J(-117), montant: 1030, pecTotale: 156, rac: 874,
+      de: ok(-100), ds: ok(-79, '16:18'), dd: ok(-34, '10:19'), pa: ok(-34, '10:19'), pr: ok(-19, '09:00'), pl: ok(-15),
+      reg: { mode: 'RAC0', e: [{ pm: 156, rac: 874, pecEnv: true }, { pm: 0, rac: 0 }] }, rdv: { prothese: J(12) }, materiel: 'a_commander' })
+  ];
+}
+
+/* =====================================================================
+   4b. TRANSPORT (Palier 1) — le classeur réel derrière l'application
+   Trois modes, choisis automatiquement :
+     · google.script.run : la page est servie par le script lié au classeur
+       (Apps Script → Déployer → Application web). C'est le mode de production :
+       accès par compte Google, pas de CORS.
+     · HTTP : page ouverte ailleurs, URL de l'API dans window.TD_CONFIG.apiUrl
+       ou dans le paramètre ?api=… (tests sur une copie du classeur uniquement).
+     · démo : ni l'un ni l'autre → les données anonymisées ci-dessus.
+   Le contrat (formes JSON, actions, codes d'erreur) est dans CONTRAT-API.md.
+   ===================================================================== */
+const CONFIG = Object.assign({ apiUrl: '' }, window.TD_CONFIG || {});
+try { const u = new URLSearchParams(location.search).get('api'); if (u) CONFIG.apiUrl = u; } catch (e) {}
+const Transport = {
+  mode() {
+    if (typeof google !== 'undefined' && google.script && google.script.run) return 'gas';
+    if (CONFIG.apiUrl) return 'http';
+    return 'demo';
+  },
+  gas(fn, arg) {
+    return new Promise((res, rej) => {
+      const r = google.script.run
+        .withSuccessHandler(x => { try { res(JSON.parse(x)); } catch (e) { rej(new Error('Réponse illisible du script')); } })
+        .withFailureHandler(e => rej(e instanceof Error ? e : new Error(String((e && e.message) || e))));
+      arg === undefined ? r[fn](null, state.filiere) : r[fn](JSON.stringify(arg), state.filiere);
+    });
+  },
+  async http(body) {
+    const url = body ? CONFIG.apiUrl : CONFIG.apiUrl + (CONFIG.apiUrl.includes('?') ? '&' : '?') + 'api=lire';
+    const r = await fetch(url, body
+      ? { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }
+      : { redirect: 'follow' });
+    const t = await r.text();
+    try { return JSON.parse(t); } catch (e) { throw new Error('Réponse inattendue de l\'API (connexion Google requise ?)'); }
+  },
+  lire() { return this.mode() === 'gas' ? this.gas('apiLire') : this.http(); },
+  ecrire(a) { return this.mode() === 'gas' ? this.gas('apiEcrire', a) : this.http(a); }
+};
+/* État de la connexion au classeur */
+const LIVE = { mode: 'demo', filiere: null, utilisateur: '', classeur: null, chargeLe: null, pont: false, autresUrl: null, filieres: null, anomalies: null, chargement: false, erreur: '', enCours: 0 };
+/* « yyyy-MM-ddTHH:mm:ss » (heure du classeur) → Date locale ; le reste inchangé */
+const deISO = s => {
+  if (s == null || s === '') return null;
+  if (typeof s !== 'string') return s;
+  const m = s.match(/^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2}))?)?$/);
+  return m ? new Date(+m[1], m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)) : s;
+};
+const agendaCode = t => { t = String(t || ''); if (!t) return ''; if (t.startsWith('✅')) return 'ok'; if (t.startsWith('⛔')) return 'closed'; if (t.startsWith('✋')) return 'manual'; if (t.startsWith('⚠️')) return 'warn:' + (t.split(' : ')[1] || t); return t; };
+/* Un dossier JSON de l'API → le modèle de l'application (même forme que donneesExemple) */
+function hydrater(j) {
+  const cb = x => ({ v: !!(x && x.v), ts: deISO(x && x.ts), etat: (x && x.etat) || '' });
+  const o = {
+    id: j.id, filiere: j.filiere || LIVE.filiere || 'implanto', patient: j.patient || '(sans nom)', logos: j.logos == null ? '' : j.logos, type: j.type || '', statut: j.statut || '',
+    dateDevis: deISO(j.dateDevis), montant: j.montant == null ? 0 : j.montant, pecTotale: j.pecTotale == null ? null : j.pecTotale, rac: j.rac == null ? 0 : j.rac,
+    montantFacture: j.montantFacture == null ? null : j.montantFacture, rembAttendu: j.rembAttendu == null ? null : j.rembAttendu, montantRecu: j.montantRecu == null ? null : j.montantRecu, montantProchainRdv: j.montantProchainRdv == null ? null : j.montantProchainRdv,
+    rdvHeure: deISO(j.rdvHeure), materiel: j.materiel || '', lucieAlerte: j.lucieAlerte || '', acteMarion: j.acteMarion || '',
+    agenda: agendaCode(j.agendaBrut), agendaSheet: j.agendaBrut || '— synchro agenda non renseignée', agendaBrut: j.agendaBrut || '',
+    notes: (j.notes || []).map(n => ({ d: deISO(n.d), who: n.who || '', t: n.t || '' })), notesBrut: j.notesBrut || null, notesDivergent: !!j.notesDivergent,
+    reg: j.reg || {}, calc: Object.assign({}, j.calc || {}), lignes: j.lignes || null, ids: j.ids || null
+  };
+  for (const k of ['de', 'ds', 'dd', 'pa', 'pi', 'pp', 'cl', 'pr', 'ech', 'pl']) o[k] = cb(j[k]);
+  const d = mk(o);   /* mêmes valeurs par défaut que les données d'exemple (prov, evts, conflits…) */
+  d.rdv = {}; for (const t of TYPES) { const x = deISO(j.rdv && j.rdv[t.k]); if (x) d.rdv[t.k] = x; }
+  d.reg.e.forEach(e => { e.dateFact = deISO(e.dateFact); e.dateRemb = deISO(e.dateRemb); });
+  for (const k of ['echeance', 'prochainRdvDate', 'prochaineFact', 'dateFact', 'dateRemb', 'datePose', 'datePilier', 'dateActe0', 'dateActe1', 'dateAFacturer']) d.calc[k] = deISO(d.calc[k]);
+  return d;
+}
+function remplacer(d) { const i = DATA.findIndex(x => x.id === d.id); if (i >= 0) DATA[i] = d; else DATA.push(d); if (typeof rapprocherDossier === 'function') rapprocherDossier(d); }
+/* Lecture complète du classeur (ou des données d'exemple en démo) */
+async function charger() {
+  if (Transport.mode() === 'demo') { LIVE.mode = 'demo'; DATA = donneesExemple(); render(); return; }
+  LIVE.mode = Transport.mode(); LIVE.chargement = true; LIVE.erreur = ''; render();
+  try {
+    const r = await Transport.lire();
+    if (!r || !r.ok) throw new Error((r && r.erreur) || 'réponse vide');
+    LIVE.filiere = r.filiere || 'implanto'; LIVE.utilisateur = r.utilisateur || ''; LIVE.classeur = r.classeur || null;
+    LIVE.pont = !!r.pont; LIVE.autresUrl = r.autresUrl || null; LIVE.filieres = r.filieres || null; LIVE.anomalies = r.anomalies || null; LIVE.chargeLe = new Date();
+    DATA = (r.dossiers || []).map(hydrater);
+    state.filiere = LIVE.filiere; state.forceDemo = false;
+    if (typeof rapprocher === 'function') rapprocher();
+    if (state.open && !byId(state.open)) state.open = null;
+  } catch (e) { LIVE.erreur = (e && e.message) || String(e); }
+  LIVE.chargement = false; render();
+}
+/* Une écriture : la cellule est déjà modifiée localement (optimisme) ; le classeur répond
+   avec le dossier relu, qui remplace la version locale. En cas de refus, on recharge. */
+async function envoyer(action, d) {
+  if (LIVE.mode === 'demo') return null;
+  action.auteur = signature();
+  LIVE.enCours++; renderTop();
+  let r = null;
+  try {
+    r = await Transport.ecrire(action);
+    if (r && r.dossier) remplacer(hydrater(r.dossier));
+    if (!r || !r.ok) { toast('⛔ ' + ((r && r.erreur) || 'Écriture refusée par le classeur'), true); if (!r || !r.dossier) await charger(); }
+    else if (r.pont && r.pont !== 'ok') toast(r.pont === 'inactif'
+      ? '⚠️ Cellule écrite, mais le pont vers le script de Lisa est inactif : pas d\'horodatage ni de journal.'
+      : '⚠️ Cellule écrite ; le script de Lisa a répondu : ' + r.pont.replace(/^erreur\s*:\s*/, ''), true);
+  } catch (e) { toast('⛔ Écriture impossible : ' + ((e && e.message) || e), true); await charger(); }
+  LIVE.enCours--; render();
+  return r;
+}
+
+/* =====================================================================
+   5. ÉTAT DE L'APPLICATION
+   ===================================================================== */
+let DATA = [];
+const state = { filiere: 'implanto', role: 'Lisa', view: 'journee', open: null, q: '', fStatut: '', fResp: '', fAuto: '', source: 'demo', forceDemo: false };
+try { Object.assign(state, JSON.parse(localStorage.getItem('td-prefs') || '{}')); } catch (e) {}
+state.open = null; state.source = 'demo';
+function savePrefs() { try { localStorage.setItem('td-prefs', JSON.stringify({ filiere: state.filiere, role: state.role, view: state.view, forceDemo: state.forceDemo })); } catch (e) {}
+}
+const dossiers = () => DATA.filter(d => d.filiere === state.filiere);
+const actifs = () => dossiers().filter(d => !d.cl.v);
+const byId = id => DATA.find(d => d.id === id);
+const signature = () => state.role === 'Direction' ? 'Fakhreddine' : state.role;
+
+/* =====================================================================
+   6. RENDU
+   ===================================================================== */
+const VIEWS = [
+  { k: 'journee', l: 'Ma journée' }, { k: 'dossiers', l: 'Dossiers' }, { k: 'agenda', l: 'Agenda' }, { k: 'facturer', l: 'À facturer' }, { k: 'tdb', l: 'Tableau de bord' }, { k: 'regles', l: 'Règles du jeu' }
+];
+function countFor(k) {
+  const A = actifs();
+  if (k === 'journee') {
+    if (state.role === 'Lisa') return A.filter(d => R.responsable(d) === 'Lisa').length;
+    if (state.role === 'Marion') return A.filter(d => R.actionMarion(d).startsWith('🟠') || R.etapeClinique(d).startsWith('🟠')).length;
+    if (state.role === 'Lucie') return A.filter(d => d.pr.v && !d.pl.v).length + A.filter(d => /^(🟠|🔴)/.test(R.alerteMateriel(d))).length;
+    return A.filter(d => R.prochaineAction(d) !== 'À jour').length;
+  }
+  if (k === 'dossiers') return dossiers().length;
+  if (k === 'agenda') return AG.upcoming7;
+  if (k === 'facturer') return A.filter(d => /^(🔴|🟠|⏳)/.test(R.statutFact(d))).length;
+  return null;
+}
+function renderRail() {
+  $('#rail').innerHTML = '<div class="rail-title">Écrans</div>' + VIEWS.map(v => {
+    const n = countFor(v.k);
+    return '<button data-view="' + v.k + '" ' + (state.view === v.k ? 'aria-current="page"' : '') + '>' + v.l + (n != null ? '<span class="count">' + n + '</span>' : '') + '</button>';
+  }).join('');
+}
+function renderTop() {
+  majChip();
+  $('#selFiliere').value = state.filiere;
+  majBarreApi();
+  document.querySelectorAll('#segRole button').forEach(b => b.setAttribute('aria-selected', b.dataset.role === state.role ? 'true' : 'false'));
+}
+/* Barre du haut quand le classeur est connecté par l'API (Palier 1) : prend le pas sur l'indicateur de source de la démo */
+function majBarreApi() {
+  const live = LIVE.mode !== 'demo';
+  const sel = $('#selFiliere');
+  /* Les deux classeurs derrière la même application : le menu reste actif et recharge l'autre classeur */
+  if (live && LIVE.filieres) { if (sel.disabled || sel.options.length < 2) { sel.disabled = false; sel.innerHTML = '<option value="implanto">Implanto</option><option value="autres">Autres devis</option>'; } sel.value = state.filiere; }
+  else if (live) { sel.disabled = true; sel.innerHTML = '<option>' + (LIVE.filiere === 'autres' ? 'Autres devis' : 'Implanto') + '</option>'; }
+  else if (sel.disabled) { sel.disabled = false; sel.innerHTML = '<option value="implanto">Implanto</option><option value="autres">Autres devis</option>'; sel.value = state.filiere; }
+  const lienAutre = $('#lienAutre'), lien = $('#lienClasseur');
+  if (lienAutre) { lienAutre.hidden = !(live && LIVE.autresUrl); if (LIVE.autresUrl) { lienAutre.href = LIVE.autresUrl; lienAutre.textContent = (LIVE.filiere === 'autres' ? 'Implanto' : 'Autres devis') + ' ↗'; } }
+  if (lien) { lien.hidden = !(live && LIVE.classeur && LIVE.classeur.url); if (LIVE.classeur && LIVE.classeur.url) lien.href = LIVE.classeur.url; }
+  ['btnSync', 'btnDemo'].forEach(id => { const b = $('#' + id); if (b) b.style.display = live ? 'none' : ''; });   /* .btn est display:inline-flex : l'attribut hidden ne suffit pas */
+  const reset = $('#btnReset');
+  reset.textContent = live ? 'Recharger' : 'Réinitialiser';
+  reset.title = live ? 'Relire le classeur' : 'Recharger les données d\'exemple';
+  if (!live) return;
+  const chip = $('#srcChip'); if (!chip) return;
+  if (LIVE.chargement) { chip.textContent = '⟳ Lecture du classeur…'; chip.className = 'demo-chip wait'; chip.title = ''; }
+  else if (LIVE.erreur) { chip.textContent = '⛔ Classeur inaccessible'; chip.className = 'demo-chip stop'; chip.title = LIVE.erreur; }
+  else {
+    chip.textContent = (LIVE.enCours ? '⟳ ' : '● ') + 'Classeur connecté · ' + DATA.length + ' dossiers' + (LIVE.pont ? '' : ' · pont inactif');
+    chip.className = 'demo-chip live';
+    chip.title = (LIVE.classeur ? LIVE.classeur.nom : '') + (LIVE.utilisateur ? ' · ' + LIVE.utilisateur : '') + (LIVE.chargeLe ? ' · lu à ' + LIVE.chargeLe.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '') + (LIVE.pont ? '' : ' · Pont.gs non branché : cocher et noter sont refusés par le classeur');
+  }
+}
+function render() {
+  renderTop(); renderRail();
+  const m = $('#main');
+  if (LIVE.mode !== 'demo' && !DATA.length) {
+    if (LIVE.chargement) { m.innerHTML = '<div class="empty" style="margin-top:40px">⟳ Lecture du classeur…</div>'; return; }
+    if (LIVE.erreur) { m.innerHTML = '<div class="page-head"><div><h1>Classeur inaccessible</h1><p>' + esc(LIVE.erreur) + '</p></div></div><button class="btn btn-primary" id="btnRetry">Réessayer</button>'; return; }
+  }
+  m.innerHTML = ({ journee: vJournee, dossiers: vDossiers, agenda: vAgenda, facturer: vFacturer, tdb: vTdb, regles: vRegles })[state.view]();
+  if (state.view === 'tdb' || (state.view === 'journee' && state.role === 'Direction')) bindCharts();
+  if (state.open) { renderDrawer(); if (state.anchor) { const el = document.getElementById(state.anchor); if (el) el.scrollIntoView({ block: 'start' }); state.anchor = null; } }
+}
+
+/* ---- Ligne de liste ---- */
+function rowHTML(d, opts) {
+  const o = Object.assign({ meta: [], states: [], action: '', hint: '' }, opts || {});
+  const cls = 'row' + (d.cl.v ? ' closed' : (R.ligneTerminee(d) ? ' done' : ''));
+  return '<div class="' + cls + '" data-open="' + esc(d.id) + '" role="button" tabindex="0">' +
+    '<div class="who"><b>' + esc(d.patient) + '</b><span class="id">' + esc(d.id) + ' · ' + esc(d.type) + ' · <span class="num">' + eur(d.montant) + '</span></span></div>' +
+    '<div class="meta">' + o.meta.map(x => '<span>' + x + '</span>').join('') + '</div>' +
+    '<div class="state">' + o.states.map(x => pill(x)).join('') + '</div>' +
+    '<div class="act">' + o.action + (o.hint ? '<span class="hint">' + o.hint + '</span>' : '') + '</div></div>';
+}
+function section(title, rows, n, emptyTxt) {
+  return '<section class="section"><div class="section-head"><h2>' + title + '</h2><span class="n">' + (n == null ? rows.length : n) + '</span></div>' +
+    (rows.length ? '<div class="rows">' + rows.join('') + '</div>' : '<div class="empty">' + (emptyTxt || 'Rien à traiter') + '</div>') + '</section>';
+}
+const actBtn = (id, field, label, primary) => '<button class="btn btn-sm ' + (primary ? 'btn-primary' : '') + '" data-act="' + field + '" data-id="' + esc(id) + '">' + label + '</button>';
+const openBtn = (id, label) => '<button class="btn btn-sm" data-openbtn="' + esc(id) + '">' + (label || 'Ouvrir') + '</button>';
+
+/* ---- MA JOURNÉE ---- */
+function vJournee() {
+  const A = actifs();
+  const head = (t, p) => '<div class="page-head"><div><h1>' + t + '</h1><p>' + p + '</p></div><span class="muted small">' + fmtD(TODAY) + ' · filière ' + (state.filiere === 'implanto' ? 'Implanto' : 'Autres devis') + '</span></div>';
+  if (state.role === 'Lisa') {
+    const mine = A.filter(d => R.responsable(d) === 'Lisa');
+    const groups = ['1 · PEC à finaliser', '2 · Documents à déposer', '3 · Facture mutuelle', '4 · Remboursement à suivre', '5 · À clôturer', '9 · libellé inconnu'];
+    let html = head('Ma journée · Lisa', 'Les dossiers dont tu es la responsable active, dans l\'ordre du rang. Un bouton par ligne : l\'action attendue. Les colonnes calculées se mettent à jour toutes seules.');
+    for (const g of groups) {
+      const rows = mine.filter(d => R.rang(d) === g).map(d => {
+        let action = '', hint = '';
+        if (g.startsWith('2')) {
+          const nxt = !d.de.v ? ['de', 'Documents envoyés'] : (!d.ds.v ? ['ds', 'Documents signés reçus'] : ['dd', 'Documents déposés au dossier']);
+          action = actBtn(d.id, nxt[0], '☑ ' + nxt[1], true);
+          hint = nxt[0] === 'dd' ? 'Débloque la prise de RDV chez Marion' : '';
+        } else if (g.startsWith('1')) action = actBtn(d.id, 'pa', '☑ Prise en charge analysée', true);
+        else if (g.startsWith('3')) { action = openBtn(d.id, 'Saisir la facture'); hint = R.statutFact(d); }
+        else if (g.startsWith('4')) { action = openBtn(d.id, 'Saisir le remboursement'); hint = 'Attendu : ' + eur(d.rembAttendu); }
+        else if (g.startsWith('5')) action = actBtn(d.id, 'cl', '☑ Clôturer le dossier', true);
+        else action = openBtn(d.id);
+        const meta = ['Devis du ' + fmtD(d.dateDevis) + ' · ' + esc(d.statut), R.relance(d) ? '' : 'Échéance ' + fmtD(R.echeance(d))].filter(Boolean);
+        const states = [R.prochaineAction(d), R.autorisation(d), R.relance(d)].filter(Boolean);
+        return rowHTML(d, { meta, states, action, hint });
+      });
+      if (rows.length || g.startsWith('2')) html += section(g, rows, null, 'Aucun dossier à ce rang');
+    }
+    const rel = A.filter(d => R.relance(d) && R.responsable(d) !== 'Lisa');
+    if (rel.length) html += section('⚠️ Relances devis (échéance + 6 mois dépassée)', rel.map(d => rowHTML(d, { meta: ['Devis du ' + fmtD(d.dateDevis)], states: [R.relance(d), d.statut], action: openBtn(d.id) })));
+    const fac = A.filter(d => /^(🔴|🟠)/.test(R.statutFact(d)));
+    html += section('🧾 Factures mutuelles du jour', fac.map(d => rowHTML(d, { meta: [ETAPE_LBL(d.filiere)[R.factureAFaire(d)], 'Organisme : ' + esc(d.reg.org)], states: [R.statutFact(d)], action: openBtn(d.id, 'Facturer') })), null, 'Aucune facture en retard ni à faire aujourd\'hui');
+    return html;
+  }
+  if (state.role === 'Marion') {
+    let html = head('Ma journée · Marion', 'Prendre les premiers rendez-vous autorisés, programmer les étapes cliniques, transmettre les demandes d\'échelonnement. Les dossiers verrouillés sont visibles mais ne se cochent pas.');
+    const metaM = d => { const p = R.prochainRdv(d); return [p ? 'Prochain RDV : ' + fmtD(p.date) + ' · ' + esc(p.type) : 'Aucun RDV à venir', 'À encaisser : ' + (R.aEncaisser(d, 0) == null ? '—' : eur(R.aEncaisser(d, 0))) + ' / ' + (R.aEncaisser(d, 1) == null ? '—' : eur(R.aEncaisser(d, 1)))]; };
+    const prem = A.filter(d => R.autorisation(d) === '🟠 AUTORISÉE' && !d.pr.v);
+    html += section('🟠 Premier RDV à prendre', prem.map(d => rowHTML(d, { meta: metaM(d), states: [R.autorisation(d), R.etapeClinique(d)], action: actBtn(d.id, 'pr', '☑ Premier RDV pris', true), hint: creneauCourt(d) || ('Montant à communiquer : ' + eur(d.rac)) })));
+    const ech = A.filter(d => d.ech.v);
+    if (ech.length) html += section("🟠 Demandes d'échelonnement à transmettre à Lucie", ech.map(d => rowHTML(d, { meta: metaM(d), states: [R.actionMarion(d)], action: actBtn(d.id, 'ech', 'Transmise ✓') })));
+    const prog = A.filter(d => d.pr.v && R.etapeClinique(d).startsWith('🟠') && !R.etapeClinique(d).includes('Lucie'));
+    html += section('🟠 Étape clinique : RDV à programmer', prog.map(d => rowHTML(d, { meta: metaM(d), states: [R.etapeClinique(d), MODES[d.reg.mode] ? MODES[d.reg.mode].split(' — ')[0] : '— à déterminer'], action: '<button class="btn btn-sm btn-primary" data-openbtn="' + esc(d.id) + '" data-anchor="prg">Préparer pour Logos</button>', hint: creneauCourt(d) })));
+    const enc = A.filter(d => d.pr.v && /^(⏳|✅)/.test(R.etapeClinique(d)) || (d.pr.v && R.etapeClinique(d).includes('Lucie')));
+    html += section('En cours (cicatrisation, planification, terminés)', enc.map(d => rowHTML(d, { meta: metaM(d), states: [R.etapeClinique(d), R.actionMarion(d)], action: openBtn(d.id) })));
+    const ver = A.filter(d => R.autorisation(d) === '⚪ VERROUILLÉE');
+    html += section('⚪ En attente de Lisa — RDV verrouillés', ver.map(d => rowHTML(d, { meta: ['Devis ' + esc(d.statut) + ' du ' + fmtD(d.dateDevis), 'Montant à communiquer : ' + eur(d.rac)], states: [R.actionMarion(d)], action: '<button class="btn btn-sm btn-lock" data-act="pr" data-id="' + esc(d.id) + '">⚪ Premier RDV pris</button>', hint: 'Refusé tant que les documents ne sont pas déposés' })));
+    return html;
+  }
+  if (state.role === 'Lucie') {
+    let html = head('Ma journée · Lucie', 'Valider la planification avec Fakhreddine dans l\'ordre de la file d\'attente, puis suivre le matériel de chaque rendez-vous.');
+    const sortF = (a, b) => { const pa = R.prochainRdv(a), pb = R.prochainRdv(b); return (pa ? pa.date : 9e15) - (pb ? pb.date : 9e15); };
+    const metaL = d => { const p = R.prochainRdv(d); return ['Acte prévu : ' + esc(d.type), p ? esc(p.type) + ' · ' + fmtD(p.date) : 'Pas de RDV daté dans la frise']; };
+    const plan = A.filter(d => d.pr.v && !d.pl.v).sort(sortF);
+    html += section('Planification à valider avec Fakhreddine', plan.map(d => rowHTML(d, { meta: metaL(d), states: [R.fileAttente(d), d.ech.v ? "🟠 Demande d'échelonnement (Marion)" : ''], action: actBtn(d.id, 'pl', '☑ Planification validée', true) })));
+    const mat = A.filter(d => d.pl.v && R.alerteMateriel(d) && R.alerteMateriel(d) !== 'Prêt').sort(sortF);
+    html += section('Matériel à préparer', mat.map(d => rowHTML(d, { meta: metaL(d), states: [R.fileAttente(d), R.alerteMateriel(d)], action: openBtn(d.id, 'Matériel') })), null, 'Tout le matériel des RDV planifiés est prêt');
+    const prets = A.filter(d => d.pl.v && R.alerteMateriel(d) === 'Prêt').sort(sortF);
+    html += section('Prêts', prets.map(d => rowHTML(d, { meta: metaL(d), states: [R.fileAttente(d), 'Prêt'], action: openBtn(d.id) })));
+    return html;
+  }
+  return head('Direction', 'La vue d\'ensemble du tableau de bord, calculée sur les mêmes règles que les trois journées.') + vTdbBody();
+}
+
+/* ---- DOSSIERS ---- */
+function vDossiers() {
+  const q = state.q.trim().toLowerCase();
+  let L = dossiers().filter(d => !q || d.patient.toLowerCase().includes(q) || d.id.toLowerCase().includes(q));
+  if (state.fStatut) L = L.filter(d => d.statut === state.fStatut);
+  if (state.fResp) L = L.filter(d => R.responsable(d) === state.fResp);
+  if (state.fAuto) L = L.filter(d => R.autorisation(d) === state.fAuto);
+  const opt = (v, cur, l) => '<option value="' + esc(v) + '"' + (v === cur ? ' selected' : '') + '>' + esc(l || v) + '</option>';
+  return '<div class="page-head"><div><h1>Dossiers</h1><p>Une ligne = un devis. Clique une ligne pour ouvrir la fiche complète : parcours, frise, règlements, journal.</p></div></div>' +
+    '<div class="filters"><input type="search" id="fq" placeholder="Patient ou ID dossier" value="' + esc(state.q) + '">' +
+    '<select id="fStatut"><option value="">Statut devis : tous</option>' + STATUTS.map(s => opt(s, state.fStatut)).join('') + '</select>' +
+    '<select id="fResp"><option value="">Responsable : toutes</option>' + ['Lisa', 'Marion', 'Lucie', 'Suivi RDV'].map(s => opt(s, state.fResp)).join('') + '</select>' +
+    '<select id="fAuto"><option value="">Autorisation : toutes</option>' + ['⚪ VERROUILLÉE', '🟠 AUTORISÉE'].map(s => opt(s, state.fAuto)).join('') + '</select>' +
+    '<span class="muted small">' + L.length + ' dossier' + (L.length > 1 ? 's' : '') + '</span></div>' +
+    '<div class="tablewrap"><table><thead><tr><th>Patient</th><th>Type</th><th class="r">Montant</th><th>Statut devis</th><th>Autorisation</th><th>Prochaine action</th><th>Responsable</th><th>Étape clinique</th><th>Facturation</th></tr></thead><tbody>' +
+    L.map(d => '<tr data-open="' + esc(d.id) + '" class="' + (d.cl.v ? 'closed' : (R.ligneTerminee(d) ? 'done' : '')) + '"><td><b>' + esc(d.patient) + '</b><br><span class="mono small muted">' + esc(d.id) + '</span></td><td>' + esc(d.type) + '</td><td class="r mono">' + eur(d.montant) + '</td><td>' + esc(d.statut) + '</td><td>' + pill(R.autorisation(d)) + '</td><td>' + pill(R.prochaineAction(d)) + '</td><td>' + pillRole(R.responsable(d)) + '</td><td>' + pill(R.etapeClinique(d)) + '</td><td>' + pill(R.statutFact(d)) + '</td></tr>').join('') +
+    '</tbody></table></div>';
+}
+
+/* ---- À FACTURER (onglet 🧾) ---- */
+function vFacturer() {
+  const A = actifs();
+  const L = A.filter(d => R.prochaineFact(d)).sort((a, b) => R.prochaineFact(a) - R.prochaineFact(b));
+  const n = s => A.filter(d => R.statutFact(d).startsWith(s)).length;
+  const sans = A.filter(d => R.statutFact(d).startsWith('—')).length;
+  return '<div class="page-head"><div><h1>🧾 À facturer aux mutuelles</h1><p>' + pill('🔴 ' + n('🔴') + ' en retard') + ' ' + pill('🟠 ' + n('🟠') + " aujourd'hui") + ' ' + pill('⏳ ' + n('⏳') + ' à venir') + ' <span class="muted small">· ' + sans + ' dossier(s) sans date d\'acte dans la frise (non affichés)</span></p></div></div>' +
+    (L.length ? '<div class="tablewrap"><table><thead><tr><th>Statut</th><th>Date de l\'acte</th><th>Patient</th><th>Étape à facturer</th><th class="r">Part mutuelle</th><th>Organisme</th><th></th></tr></thead><tbody>' +
+      L.map(d => { const i = R.factureAFaire(d); const e = d.reg.e[i]; return '<tr data-open="' + esc(d.id) + '"><td>' + pill(R.statutFact(d)) + '</td><td class="mono">' + fmtD(R.prochaineFact(d)) + '</td><td><b>' + esc(d.patient) + '</b></td><td>' + (i === 0 ? (state.filiere === 'implanto' ? '🦷 Implant' : 'Étape 1') : (state.filiere === 'implanto' ? '👑 Pilier + couronne' : 'Étape 2')) + '</td><td class="r mono">' + (e.pm == null ? '' : eur(e.pm)) + '</td><td>' + esc(d.reg.org) + '</td><td>' + openBtn(d.id, 'Ouvrir la fiche') + '</td></tr>'; }).join('') +
+      '</tbody></table></div>' : '<div class="empty">Aucune facture à préparer 🎉</div>');
+}
+
+/* ---- TABLEAU DE BORD ---- */
+function vTdb() { return '<div class="page-head"><div><h1>Tableau de bord</h1><p>Vue direction : devis, finances, charge d\'équipe, matériel. Mêmes formules que l\'onglet TABLEAU DE BORD du classeur.</p></div></div>' + vTdbBody(); }
+function kpi(l, v, s, alert) { return '<div class="kpi' + (alert ? ' alert' : '') + '"><div class="l">' + l + '</div><div class="v">' + v + '</div>' + (s ? '<div class="s">' + s + '</div>' : '') + '</div>'; }
+function pct(x) { return (x * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' %'; }
+function vTdbBody() {
+  const D = dossiers(); const A = actifs();
+  const sum = (arr, f) => arr.reduce((a, d) => a + N(f(d)), 0);
+  const nb = D.length, acc = D.filter(d => d.statut === 'Accepté'), att = D.filter(d => d.statut === 'En attente'), ref = D.filter(d => d.statut === 'Refusé');
+  const montant = sum(D, d => d.montant), montantAcc = sum(acc, d => d.montant), reste = sum(D, d => d.rac);
+  const facture = sum(D, d => d.montantFacture), recu = sum(D, d => d.montantRecu), attendu = sum(D, d => d.rembAttendu);
+  const retard = D.filter(d => R.statutFact(d).startsWith('🔴')).length;
+  const sous30 = D.filter(d => { const x = R.prochaineFact(d); return x && x >= TODAY && jours(x, TODAY) <= 30; }).length;
+  const urg = D.filter(d => /Bloqué/.test(R.prochaineAction(d))).length + retard;
+  const aLisa = D.filter(d => R.responsable(d) === 'Lisa').length, aMarion = D.filter(d => R.responsable(d) === 'Marion').length + D.filter(d => R.actionMarion(d).startsWith('🟠')).length, aLucie = D.filter(d => R.responsable(d) === 'Lucie').length + D.filter(d => R.alerteMateriel(d).startsWith('🟠')).length;
+  const verr = D.filter(d => R.autorisation(d) === '⚪ VERROUILLÉE').length, aJour = D.filter(d => R.prochaineAction(d) === 'À jour').length, matUrg = D.filter(d => R.alerteMateriel(d).startsWith('🔴')).length;
+  const steps = [['Documents envoyés', d => d.de.v], ['Documents signés', d => d.ds.v], ['Déposés au dossier', d => d.dd.v], ['PEC analysée', d => d.pa.v], ['Facturation mutuelle', d => R.factMut(d) === '☑ Fait'], ['Remboursement reçu', d => R.rembRecu(d) === '☑ Fait']];
+  const types = {}; D.forEach(d => types[d.type] = (types[d.type] || 0) + 1);
+  const typesArr = Object.entries(types).sort((a, b) => b[1] - a[1]);
+  const mat = [['À commander', 'Commande à passer'], ['À réceptionner', 'Réception à suivre'], ['À préparer', 'Préparer'], ['Prêt', 'Prêt'], ['Urgent', '🔴']].map(([l, k]) => [l, D.filter(d => R.alerteMateriel(d).includes(k)).length]);
+  const bloques = D.filter(d => /Bloqué/.test(R.prochaineAction(d))), matU = D.filter(d => R.alerteMateriel(d).startsWith('🔴')), sansRdv = D.filter(d => R.autorisation(d) === '🟠 AUTORISÉE' && !d.pr.v && !d.cl.v);
+  const bars = arr => '<div class="bars">' + arr.map(([l, n, tot]) => '<div class="bar"><div><div class="lbl"><span>' + esc(l) + '</span></div><div class="track"><div class="fill" style="width:' + (tot ? Math.round(n / tot * 100) : 0) + '%"></div></div></div><span class="mono small num" style="text-align:right">' + n + '</span></div>').join('') + '</div>';
+  const lst = (arr, empty) => arr.length ? '<ul class="alertlist">' + arr.map(d => '<li><a data-open="' + esc(d.id) + '">' + esc(d.patient) + '</a><span class="small muted">' + esc(d.id) + '</span></li>').join('') + '</ul>' : '<p class="muted">' + empty + '</p>';
+  return '<section class="section"><div class="section-head"><h2>Vue direction</h2></div><div class="kpis">' +
+    kpi('Dossiers', nb, acc.length + ' acceptés · ' + att.length + ' en attente · ' + ref.length + ' refusé' + (ref.length > 1 ? 's' : '')) + kpi('Montant devis', eur(montant), 'panier moyen ' + eur(nb ? montant / nb : 0)) + kpi('Taux d\'acceptation', pct(nb ? acc.length / nb : 0), pct(montant ? montantAcc / montant : 0) + ' en euros') + kpi('Reste patient', eur(reste)) + kpi('Attente mutuelle', eur(attendu - recu), 'attendu − reçu') + kpi('Urgences', urg, 'bloqués + factures en retard', urg > 0) +
+    '</div></section>' +
+    '<section class="section"><div class="section-head"><h2>Finances &amp; recouvrement</h2></div><div class="kpis">' +
+    kpi('Reste à charge total', eur(reste)) + kpi('🔴 Factures en retard', retard, '', retard > 0) + kpi('⏳ À facturer sous 30 j', sous30) + kpi('Facturé mutuelles', eur(facture)) + kpi('Reçu mutuelles', eur(recu)) + kpi('Taux de recouvrement', pct(facture ? recu / facture : 0)) +
+    '</div></section>' +
+    '<section class="section"><div class="section-head"><h2>Équipe &amp; avancement opérationnel</h2></div><div class="kpis">' +
+    kpi('Actions Lisa', aLisa) + kpi('Actions Marion', aMarion) + kpi('Actions Lucie', aLucie) + kpi('Dossiers à jour', aJour) + kpi('RDV verrouillés', verr) + kpi('Matériel urgent', matUrg, '', matUrg > 0) +
+    '</div></section>' +
+    '<section class="section grid3">' +
+    '<div class="card pad"><div class="section-head"><h2>Étapes Lisa (faites)</h2></div>' + bars(steps.map(([l, f]) => [l, D.filter(f).length, nb])) + '</div>' +
+    '<div class="card pad"><div class="section-head"><h2>Répartition par traitement</h2></div>' + bars(typesArr.map(([l, n]) => [l, n, nb])) + '</div>' +
+    '<div class="card pad"><div class="section-head"><h2>Matériel</h2></div>' + bars(mat.map(([l, n]) => [l, n, nb])) + '</div>' +
+    '</section>' +
+    '<section class="section"><div class="section-head"><h2>Évolution mensuelle</h2><span class="n">12 derniers mois · date du devis</span></div><div class="grid2">' + chartsHTML(D) + '</div></section>' +
+    '<section class="section"><div class="section-head"><h2>Alertes à traiter</h2></div><div class="grid3">' +
+    '<div class="card pad"><div class="section-head"><h2>Dossiers bloqués</h2></div>' + lst(bloques, 'Aucun dossier bloqué') + '</div>' +
+    '<div class="card pad"><div class="section-head"><h2>Matériel urgent</h2></div>' + lst(matU, 'Aucune urgence matériel') + '</div>' +
+    '<div class="card pad"><div class="section-head"><h2>RDV autorisé sans premier RDV</h2></div>' + lst(sansRdv, 'Aucun dossier') + '</div>' +
+    '</div></section>';
+}
+/* Graphiques mensuels : une série par graphique (une couleur, pas de légende nécessaire), infobulle au survol, tableau en dessous */
+function moisData(D) {
+  const out = [];
+  for (let i = 11; i >= 0; i--) {
+    const m0 = new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1), m1 = new Date(m0.getFullYear(), m0.getMonth() + 1, 1);
+    const inM = D.filter(d => d.dateDevis && d.dateDevis >= m0 && d.dateDevis < m1), acc = inM.filter(d => d.statut === 'Accepté');
+    out.push({ l: m0.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' }), n: inM.length, na: acc.length, m: inM.reduce((a, d) => a + N(d.montant), 0), ma: acc.reduce((a, d) => a + N(d.montant), 0) });
+  }
+  return out;
+}
+function barChart(rows, key, fmt, title) {
+  const W = 560, H = 190, padL = 44, padB = 26, padT = 14, iw = W - padL - 8, ih = H - padT - padB;
+  const max = Math.max(1, ...rows.map(r => r[key]));
+  const nice = Math.pow(10, Math.floor(Math.log10(max))); const top = Math.ceil(max / nice) * nice;
+  const y = v => padT + ih - v / top * ih; const bw = iw / rows.length;
+  let s = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(title) + '">';
+  for (let g = 0; g <= 2; g++) { const v = top * g / 2; s += '<line class="grid" x1="' + padL + '" x2="' + (W - 8) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text class="axis" x="' + (padL - 6) + '" y="' + (y(v) + 3) + '" text-anchor="end">' + fmt(v, true) + '</text>'; }
+  rows.forEach((r, i) => {
+    const x = padL + i * bw + 3, w = Math.max(2, bw - 6), v = r[key], h = Math.max(v > 0 ? 2 : 0, ih - (y(v) - padT));
+    s += '<rect class="b" x="' + x + '" y="' + (padT + ih - h) + '" width="' + w + '" height="' + h + '" rx="3" data-tip="' + esc(r.l + ' : ' + fmt(v)) + '"/>';
+    if (v > 0 && v === max) s += '<text class="val" x="' + (x + w / 2) + '" y="' + (padT + ih - h - 4) + '" text-anchor="middle">' + fmt(v) + '</text>';
+    s += '<text class="axis" x="' + (x + w / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(r.l.replace(' 2', ' ').slice(0, 7)) + '</text>';
+  });
+  return s + '</svg>';
+}
+function chartsHTML(D) {
+  const rows = moisData(D);
+  const fN = v => String(Math.round(v)); const fE = (v, axis) => axis ? (v >= 1000 ? Math.round(v / 1000) + ' k€' : Math.round(v) + ' €') : eur(v);
+  const table = '<details class="tableview"><summary>Voir le tableau (Mois · Dossiers · Acceptés · Montant devis · Montant accepté)</summary><div class="tablewrap" style="margin-top:8px"><table><thead><tr><th>Mois</th><th class="r">Dossiers</th><th class="r">Acceptés</th><th class="r">Montant devis</th><th class="r">Montant accepté</th></tr></thead><tbody>' + rows.map(r => '<tr><td>' + esc(r.l) + '</td><td class="r mono">' + r.n + '</td><td class="r mono">' + r.na + '</td><td class="r mono">' + eur(r.m) + '</td><td class="r mono">' + eur(r.ma) + '</td></tr>').join('') + '</tbody></table></div></details>';
+  return '<div class="card pad"><div class="section-head"><h2>Dossiers créés par mois</h2></div>' + barChart(rows, 'n', fN, 'Dossiers créés par mois') + '</div>' +
+    '<div class="card pad"><div class="section-head"><h2>Montant accepté par mois</h2></div>' + barChart(rows, 'ma', fE, 'Montant accepté par mois') + '</div>' +
+    '<div style="grid-column:1/-1">' + table + '</div>';
+}
+function bindCharts() {
+  const tip = $('#tip');
+  document.querySelectorAll('.chart rect[data-tip]').forEach(r => {
+    r.addEventListener('mousemove', e => { tip.textContent = r.dataset.tip; tip.hidden = false; tip.style.left = (e.clientX + 12) + 'px'; tip.style.top = (e.clientY - 28) + 'px'; });
+    r.addEventListener('mouseleave', () => tip.hidden = true);
+  });
+}
+
+/* ---- RÈGLES DU JEU (le mode d'emploi, rendu lisible) ---- */
+function vRegles() {
+  const E = ETAPE_LBL(state.filiere);
+  return '<div class="page-head"><div><h1>Règles du jeu</h1><p>Le mode d\'emploi du classeur, tel quel. Rien n\'a été modifié dans le raisonnement : seule la présentation change.</p></div></div>' +
+    '<div class="grid2">' +
+    '<div class="card pad prose"><h2 style="font-size:15px;margin-bottom:10px">Qui fait quoi, et le signal de passage</h2>' +
+    '<table><thead><tr><th>Intervenante</th><th>Ce qu\'elle valide</th><th>Signal de passage</th></tr></thead><tbody>' +
+    '<tr><td><b>Lisa</b></td><td>Documents envoyés · signés reçus · <b>déposés au dossier patient</b> · prise en charge analysée · PEC demandées · facturation · remboursement · clôture</td><td>Documents déposés ⇒ Marion peut agir</td></tr>' +
+    '<tr><td><b>Marion</b></td><td>Premier RDV pris · demande d\'échelonnement</td><td>Premier RDV pris ⇒ Lucie planifie</td></tr>' +
+    '<tr><td><b>Lucie</b></td><td>Planification validée avec Fakhreddine · matériel</td><td>Matériel prêt ⇒ la séance peut avoir lieu</td></tr></tbody></table>' +
+    '<h2 style="font-size:15px;margin:14px 0 8px">Les trois codes d\'autorisation</h2><div class="legend">' + pill('⚪ VERROUILLÉE') + pill('🟠 AUTORISÉE') + pill('🟢 ACCORDÉE') + '</div>' +
+    '<ul><li><b>⚪ VERROUILLÉE</b> : Lisa n\'a pas encore déposé les documents. Aucun RDV. Le bouton « Premier RDV pris » refuse et explique pourquoi.</li><li><b>🟠 AUTORISÉE</b> : documents déposés. Marion peut prendre le RDV et encaisser.</li><li><b>🟢 ACCORDÉE</b> : montant encaissé renseigné, Lisa peut facturer la mutuelle. <span class="muted">(défini dans PARAMETRES ; plus calculé par formule depuis le réalignement du 25/08, conservé ici tel quel)</span></li></ul>' +
+    '</div>' +
+    '<div class="card pad prose"><h2 style="font-size:15px;margin-bottom:10px">Prochaine action : la cascade (colonne H de Lisa)</h2><p>Première condition vraie, de haut en bas. C\'est elle qui remplit « Ma journée ».</p><ol>' +
+    '<li>Devis refusé ou abandonné → <i>Dossier … / à clôturer</i></li><li>Documents non déposés → <i>Documents à déposer — aucun RDV autorisé</i></li><li>Premier RDV non pris → <i>Premier RDV à programmer</i></li><li>Planification non validée → <i>Planification clinique à valider</i></li><li>Prise en charge non analysée → <i>Prise en charge à finaliser</i></li><li>Facturation bloquée → <i>Paiement patient à enregistrer par Marion</i></li><li>Facturation non faite → <i>Facturation mutuelle à envoyer</i></li><li>Remboursement non reçu → <i>Remboursement mutuelle à suivre</i></li><li>Sinon → <i>À jour</i></li></ol>' +
+    '<p>La <b>responsable active</b> suit la même cascade (Lisa → Marion → Lucie → Lisa → …) et le <b>rang Lisa</b> ordonne sa journée : 1 PEC à finaliser · 2 Documents à déposer · 3 Facture mutuelle · 4 Remboursement à suivre · 5 À clôturer · 9 libellé inconnu (détecteur d\'anomalie).</p></div>' +
+    '<div class="card pad prose"><h2 style="font-size:15px;margin-bottom:10px">Le modèle financier en deux étapes (Règlements)</h2>' +
+    '<table><thead><tr><th>Mode de facturation</th><th>Ce que Marion encaisse</th></tr></thead><tbody>' +
+    '<tr><td>' + esc(MODES.TP) + '</td><td>le reste à charge seul</td></tr><tr><td>' + esc(MODES.RAC0) + '</td><td>part mutuelle + reste à charge</td></tr><tr><td>' + esc(MODES.AUTO) + '</td><td>part mutuelle + reste à charge</td></tr></tbody></table>' +
+    '<ul><li>' + E[0] + ' puis ' + E[1] + ' : chaque étape porte sa part mutuelle, son reste à charge, sa PEC, sa facture et son remboursement.</li><li><b>Santéclair</b> en étape 2 : on ajoute la part Sécu (montant devis − les quatre parts saisies).</li><li><b>Contrôle montants</b> : étape 1 + étape 2 doit égaler PEC totale + reste à charge saisis chez Lisa.</li><li><b>PEC</b> (tiers payant) : à envoyer 15 jours avant l\'acte, alerte ⏰ à J-7, 🔴 ensuite.</li><li><b>Facturation</b> : la date de l\'acte vient de la frise. — acte pas encore daté · ⏳ Dans n j · 🟠 aujourd\'hui · 🔴 en retard · ✅ tout facturé.</li></ul></div>' +
+    '<div class="card pad prose"><h2 style="font-size:15px;margin-bottom:10px">La frise et l\'étape clinique</h2>' +
+    '<p>Une colonne par type de rendez-vous, une date par cellule. Un RDV annulé s\'efface. Le prochain RDV est la plus petite date à venir ; une pose est « faite » quand sa date est passée.</p>' +
+    '<div class="legend">' + ['🟠 Premier RDV (CBCT) à prendre', '🟠 Planification à valider (Lucie)', '🟠 RDV de pose implantaire à programmer', '⏳ Cicatrisation (J+n/~90)', '🟠 RDV empreinte / pilier+couronne à prendre', '✅ Traitement clinique terminé — vérifier encaissement'].map(x => pill(x)).join('') + '</div>' +
+    '<div class="rule-note">Deux libellés intermédiaires n\'existaient pas encore dans le classeur et sont proposés ici : « ⏳ Pose prévue dans n j » (déjà utilisé dans le classeur Autres devis) et « ⏳ Pilier + couronne prévu dans n j ». À valider avec Lisa.</div>' +
+    '<div class="rule-note">L\'alerte matériel de Lucie (colonne L) est en #REF! dans le classeur depuis la ligne 259 ; elle est rétablie ici selon l\'intention de la formule d\'origine : 🔴 URGENT si le RDV est à 7 jours ou moins et que le matériel n\'est pas prêt, sinon Commande à passer → Réception à suivre → Préparer pour le RDV → Prêt.</div>' +
+    '<h2 style="font-size:15px;margin:14px 0 8px">Le journal partagé</h2><p>Une phrase tapée sur une ligne devient « ' + fmtD(TODAY) + ' 11:04 · Lisa — relancée pour signature », empilée au-dessus de l\'historique, visible par les trois.</p>' +
+    '<h2 style="font-size:15px;margin:14px 0 8px">Légende des couleurs</h2><div class="legend">' + pill('☑ Fait') + pill('🟠 Prochaine action') + pill('⚪ Étape verrouillée ou ultérieure') + pill('⛔ Blocage ou urgence') + pill('⏳ En attente') + '</div></div>' +
+    '<div class="card pad prose"><h2 style="font-size:15px;margin-bottom:10px">La synchro agenda (toutes les heures, comme le classeur)</h2>' +
+    '<p>L’« Agenda Logos » est l’agenda Google du cabinet : Logos y pousse chaque rendez-vous avec le nom du patient en titre, une ligne « Type : … » en description et la salle en lieu. L’agenda est la référence, la frise se vérifie contre lui.</p>' +
+    '<ol><li>On ne garde que les événements qui ressemblent à un rendez-vous patient : une heure précise et une ligne « Type : » ou une salle. Les journées entières et les fermetures sont ignorées.</li>' +
+    '<li>Le patient est retrouvé par son nom (sans accents ni tirets). En cas de doute, Marion indique une fois « cet événement, c’est ce dossier » : l’alias est mémorisé.</li>' +
+    '<li>Le type d’acte Logos est rangé dans une colonne de la frise par un dictionnaire ; un type inconnu reste « à classer » et n’est jamais rangé en silence.</li>' +
+    '<li>Statuts et règles repris du script AGENDA_SYNC.gs de Lisa : ✅ Synchro agenda · ⚠️ À vérifier (une date à venir de la frise qui n’est plus dans l’agenda : signalée, jamais effacée) · ✋ À saisir à la main (aucun rendez-vous trouvé, ou même nom qu’un autre dossier ouvert) · ⛔ dossier clôturé, devis refusé ou abandonné : plus jamais touché.</li>' +
+    '<li>Cellule vide → la date du prochain rendez-vous à venir, sinon du dernier passé (fenêtre : 180 jours en arrière, 365 en avant). Une date à venir différente de l’agenda est mise à jour (rendez-vous déplacé) avec une ligne au journal. Une date passée n’est jamais touchée : si l’agenda en montre une autre, la frise le signale et propose « Prendre la date de l’agenda », décision humaine.</li><li><b>Créneaux</b> : la plateforme prépare, Marion valide dans Logos. L’étape clinique dit quel rendez-vous programmer et à partir de quand (PEC 15 jours avant l’acte en tiers payant, empreinte 90 jours après la pose, pilier 15 jours après l’empreinte) ; les créneaux libres sont cherchés dans l’agenda réel, sur les horaires d’ouverture, un par jour, puis « Préparer pour Logos » produit le texte à saisir. Rien n’est réservé automatiquement, ni dans Logos ni dans l’agenda.</li></ol>' +
+    '<div class="rule-note">La page ne lit que la date, l’heure, le nom, le type et la salle de chaque événement : les téléphones et emails présents dans l’agenda ne sont ni affichés ni conservés. Les alias et le dictionnaire sont, pour l’instant, mémorisés dans le navigateur de chacune ; ils seront partagés dans l’application.</div></div>' +
+    carteVerification() +
+    '</div>';
+}
+/* Classeur connecté par l'API : les règles reprogrammées ici donnent-elles le même résultat que les formules de Lisa ? */
+function carteVerification() {
+  if (LIVE.mode === 'demo') return '';
+  const regles = [
+    ['Autorisation (Lisa!T)', d => R.autorisation(d), d => d.calc.autorisation],
+    ['Prochaine action (Lisa!H)', d => R.prochaineAction(d), d => d.calc.prochaineAction],
+    ['Responsable active (Lisa!Y)', d => R.responsable(d), d => d.calc.responsable],
+    ['Rang Lisa (Lisa!AL)', d => R.rang(d), d => d.calc.rang],
+    ['Prochaine action Marion (Marion!R)', d => R.actionMarion(d), d => d.calc.actionMarion],
+    ['Facturation (Règlements!AM)', d => R.statutFact(d), d => d.calc.statutFact]
+  ];
+  const A = dossiers(); const diff = [];
+  for (const [l, fa, fs] of regles) for (const d of A) { const a = String(fa(d) || '').trim(), s = String((d.calc && fs(d)) || '').trim(); if (a !== s) diff.push({ l, d, a, s }); }
+  const anomalies = LIVE.anomalies ? Object.entries(LIVE.anomalies).filter(([, v]) => Array.isArray(v) ? v.length : Object.keys(v || {}).length) : [];
+  return '<div class="card pad prose" style="grid-column:1/-1;max-width:none"><h2 style="font-size:15px;margin-bottom:10px">Vérification du portage des règles <span class="muted small" style="font-weight:400">(classeur connecté)</span></h2>' +
+    '<p>' + (diff.length
+      ? diff.length + ' écart' + (diff.length > 1 ? 's' : '') + ' entre ce que l\'application calcule et ce que le classeur affiche, sur ' + A.length + ' dossiers. Chaque écart est soit une formule que l\'application reproduit mal, soit une cellule du classeur qui a divergé de sa formule : à regarder avec Lisa, rien n\'est modifié.'
+      : 'Sur ' + A.length + ' dossiers, les règles reprogrammées donnent exactement le même résultat que les formules du classeur.') + '</p>' +
+    (diff.length ? '<div class="tablewrap"><table><thead><tr><th>Règle</th><th>Dossier</th><th>Application</th><th>Classeur</th></tr></thead><tbody>' +
+      diff.slice(0, 60).map(x => '<tr data-open="' + esc(x.d.id) + '"><td>' + esc(x.l) + '</td><td><b>' + esc(x.d.patient) + '</b><br><span class="mono small muted">' + esc(x.d.id) + '</span></td><td>' + (x.a ? pill(x.a, 'wrap') : '<span class="muted">—</span>') + '</td><td>' + (x.s ? pill(x.s, 'wrap') : '<span class="muted">—</span>') + '</td></tr>').join('') +
+      '</tbody></table></div>' + (diff.length > 60 ? '<p class="small muted">… et ' + (diff.length - 60) + ' autres.</p>' : '') : '') +
+    (anomalies.length ? '<p style="margin-top:10px"><b>Structure du classeur</b> : ' + anomalies.map(([k, v]) => esc(k) + ' → ' + esc(Array.isArray(v) ? v.join(', ') : JSON.stringify(v))).join(' · ') + '</p>' : '') +
+    '</div>';
+}
+
+/* ---- FICHE DOSSIER (tiroir) ---- */
+function renderDrawer() {
+  const d = byId(state.open); if (!d) { closeDrawer(); return; }
+  const dr = $('#drawer'); dr.hidden = false; $('#scrim').hidden = false;
+  const E = ETAPE_LBL(d.filiere);
+  const owner = who => '<span class="owner">' + who + '</span>';
+  const stepRow = (idx, field, label, who, extra) => {
+    const c = d[field]; const locked = field === 'pr' && R.autorisation(d) === '⚪ VERROUILLÉE';
+    const next = !c.v && !locked && isNext(d, field);
+    return '<div class="step ' + (c.v ? 'on' : (next ? 'next' : '')) + '"><span class="dot">' + (c.v ? '✓' : idx) + '</span><div class="t"><b>' + label + owner(who) + '</b><span class="ts">' + (c.v ? 'Horodatage ' + fmtDT(c.ts) : (extra || '')) + '</span></div>' +
+      (locked ? '<button class="btn btn-sm btn-lock" data-act="pr" data-id="' + esc(d.id) + '">⚪ Premier RDV pris</button>' : '<button class="btn btn-sm ' + (c.v ? '' : (next ? 'btn-primary' : '')) + '" data-act="' + field + '" data-id="' + esc(d.id) + '">' + (c.v ? 'Décocher' : '☑ ' + (field === 'cl' ? 'Clôturer' : 'Fait')) + '</button>') +
+      (locked ? '<div class="lockmsg">⛔ Refusé : Lisa n\'a pas encore déposé les documents signés au dossier patient. Le RDV reste verrouillé. Ce n\'est pas un bug.</div>' : '') + '</div>';
+  };
+  const calcRow = (idx, label, who, value, inputHTML) => '<div class="step ' + (value.startsWith('☑') ? 'on' : (value.startsWith('☐') ? 'next' : '')) + '"><span class="dot">' + (value.startsWith('☑') ? '✓' : idx) + '</span><div class="t"><b>' + label + owner(who) + '</b><span class="ts">calculée : ' + esc(value) + '</span></div><div>' + inputHTML + '</div></div>';
+  const numIn = (field, val, ph) => { const txt = !isNum(val) && val != null && val !== '' ? String(val) : ''; return '<input type="number" step="0.01" style="width:120px" data-num="' + field + '" data-id="' + esc(d.id) + '" value="' + (isNum(val) ? val : '') + '" placeholder="' + esc(txt || ph || '€') + '" title="' + esc(txt ? 'Le classeur contient le texte « ' + txt + ' » ; saisir un nombre le remplacera' : field) + '">'; };
+  const p = R.prochainRdv(d);
+  const agenda = agendaTexte(d);
+  const agendaClasseur = (d.agendaLive && d.agendaSheet && d.agendaLive !== d.agendaSheet) ? '<span class="small muted" style="text-transform:none;letter-spacing:0">classeur : ' + esc(d.agendaSheet) + '</span>' : '';
+  const etapeCard = (i) => {
+    const e = d.reg.e[i]; const enc = R.aEncaisser(d, i); const acte = R.dateActe(d, i);
+    const tg = (f, on, lOn, lOff) => '<button class="toggle ' + (on ? 'on' : 'off') + '" data-tg="' + f + '" data-et="' + i + '" data-id="' + esc(d.id) + '">' + (on ? lOn : lOff) + '</button>';
+    const ein = (f, v) => '<input type="number" step="0.01" data-enum="' + f + '" data-et="' + i + '" data-id="' + esc(d.id) + '" value="' + (isNum(v) ? v : '') + '" placeholder="€">';
+    const din = (f, v) => '<input type="date" data-edate="' + f + '" data-et="' + i + '" data-id="' + esc(d.id) + '" value="' + toISO(v) + '">';
+    return '<div class="etape"><h4>' + E[i] + pill(acte ? 'Acte le ' + fmtD(acte) : '— acte pas encore daté') + '</h4><div class="kv">' +
+      '<span class="k">Part mutuelle</span>' + ein('pm', e.pm) + '<span class="k">Reste à charge</span>' + ein('rac', e.rac) +
+      '<span class="k">À encaisser (calculé)</span><span class="calc">' + (enc == null ? '—' : eur(enc)) + '</span>' +
+      (R.isTP(d) ? '<span class="k">PEC ' + pill(R.pec(d, i)) + '</span>' + tg('pecEnv', e.pecEnv, '☑ envoyée', '☐ à envoyer') : '') +
+      '<span class="k">Facture envoyée</span>' + tg('factEnv', e.factEnv, '☑ Fait', '☐ À faire') +
+      '<span class="k">Date · montant facturé</span><span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:end">' + din('dateFact', e.dateFact) + ein('mFact', e.mFact) + '</span>' +
+      '<span class="k">Remboursement reçu</span>' + tg('rembRecu', e.rembRecu, '☑ Fait', '☐ À faire') +
+      '<span class="k">Date · montant reçu</span><span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:end">' + din('dateRemb', e.dateRemb) + ein('mRecu', e.mRecu) + '</span>' +
+      '<span class="k">Écart facturé / reçu</span><span class="calc">' + pill(R.ecart(e)) + '</span>' +
+      '</div></div>';
+  };
+  dr.innerHTML =
+    '<div class="drawer-head"><div class="top"><div><h2>' + esc(d.patient) + '</h2><div class="sub"><span class="mono">' + esc(d.id) + '</span><span>ID Logos ' + esc(d.logos) + '</span><span>' + esc(d.type) + '</span><span class="mono">' + eur(d.montant) + '</span><span>devis du ' + fmtD(d.dateDevis) + '</span>' +
+    '<label class="ctl">Statut <select data-statut="' + esc(d.id) + '">' + STATUTS.map(s => '<option' + (s === d.statut ? ' selected' : '') + '>' + s + '</option>').join('') + '</select></label></div>' +
+    '<div class="states">' + pill(R.autorisation(d)) + pillRole('Responsable : ' + R.responsable(d)) + pill(R.prochaineAction(d)) + (R.rang(d) ? pill(R.rang(d), 'p-accent') : '') + pill(R.relance(d)) + (d.cl.v ? pill('☑ Clôturé le ' + fmtD(d.cl.ts), 'p-lock') : '') + '</div></div>' +
+    '<button class="close" data-close aria-label="Fermer">×</button></div></div>' +
+    (state.source === 'sheet' ? '<div class="banner" style="margin-top:12px">Lecture seule du classeur : ce que tu coches ou saisis ici est un essai local, rien n’est encore écrit dans le classeur (c’est l’objet du palier 1).</div>' : '') +
+
+    '<div class="dsec"><h3>Parcours administratif <span class="small" style="text-transform:none;letter-spacing:0">Échéance devis ' + fmtD(R.echeance(d)) + '</span></h3><div class="steps">' +
+    stepRow(1, 'de', 'Documents envoyés', 'Lisa') + stepRow(2, 'ds', 'Documents signés reçus', 'Lisa') + stepRow(3, 'dd', 'Documents déposés au dossier patient', 'Lisa', 'uniquement après versement réel dans Logos — débloque le RDV') +
+    stepRow(4, 'pr', 'Premier RDV pris', 'Marion') + stepRow(5, 'pl', 'Planification validée avec Fakhreddine', 'Lucie') + stepRow(6, 'pa', 'Prise en charge analysée', 'Lisa') +
+    stepRow(7, 'pi', 'PEC ' + (d.filiere === 'implanto' ? 'implant' : 'étape 1') + ' demandée', 'Lisa') + stepRow(8, 'pp', 'PEC ' + (d.filiere === 'implanto' ? 'pilier + couronne' : 'étape 2') + ' demandée', 'Lisa') +
+    calcRow(9, 'Facturation mutuelle', 'Lisa', R.factMut(d), '<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:end">' + numIn('montantFacture', d.montantFacture, 'facturé €') + numIn('rembAttendu', d.rembAttendu, 'attendu €') + '</div>') +
+    calcRow(10, 'Remboursement reçu', 'Lisa', R.rembRecu(d), numIn('montantRecu', d.montantRecu, 'reçu €')) +
+    stepRow(11, 'cl', 'Dossier clôturé', 'Lisa') +
+    '</div><div class="derived"><div><div class="l">PEC mutuelle totale</div><div class="v">' + numIn('pecTotale', d.pecTotale, 'ou texte') + '</div></div><div><div class="l">Reste à charge total</div><div class="v">' + numIn('rac', d.rac) + '</div></div><div><div class="l">Montant prochain RDV</div><div class="v">' + numIn('montantProchainRdv', d.montantProchainRdv) + '</div></div></div></div>' +
+
+    '<div class="dsec"><h3>Côté Marion · rendez-vous <span>' + pill(R.actionMarion(d)) + '</span></h3><div class="derived">' +
+    '<div><div class="l">Prochain RDV</div><div class="v">' + (p ? fmtD(p.date) + ' · ' + esc(p.type) : '—') + '</div></div><div><div class="l">Étape en cours' + (d.calc && d.calc.etapeClinique && d.calc.etapeClinique !== R.etapeClinique(d) ? ' <span title="Valeur posée par le script dans le classeur. L\'application calculerait : ' + esc(R.etapeClinique(d)) + '">(classeur)</span>' : '') + '</div><div class="v">' + pill((d.calc && d.calc.etapeClinique) || R.etapeClinique(d), 'wrap') + '</div></div>' +
+    '<div><div class="l">À encaisser ' + (d.filiere === 'implanto' ? 'implant' : 'étape 1') + '</div><div class="v mono">' + (R.aEncaisser(d, 0) == null ? '—' : eur(R.aEncaisser(d, 0))) + '</div></div><div><div class="l">À encaisser ' + (d.filiere === 'implanto' ? 'pilier + couronne' : 'étape 2') + '</div><div class="v mono">' + (R.aEncaisser(d, 1) == null ? '—' : eur(R.aEncaisser(d, 1))) + '</div></div>' +
+    '<div><div class="l">Montant à communiquer (RAC total)</div><div class="v mono">' + eur(d.rac) + '</div></div><div><div class="l">Demande d\'échelonnement</div><div class="v"><button class="toggle ' + (d.ech.v ? 'on' : '') + '" data-act="ech" data-id="' + esc(d.id) + '">' + (d.ech.v ? '☑ Demandée' + (d.ech.ts ? ' le ' + fmtD(d.ech.ts) : '') : '☐ Non demandée') + '</button></div></div>' +
+    '</div></div>' +
+
+    blocProgrammer(d) +
+    '<div class="dsec"><h3>Frise clinique (Suivi RDV) <span style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">' + pill(agenda, 'wrap') + agendaClasseur + '</span></h3><div class="frise">' +
+    TYPES.map(t => { const v = d.rdv[t.k]; const cls = v ? (v < TODAY ? 'past' : (jours(v, TODAY) <= 7 ? 'soon' : '')) : ''; const prov = v ? (d.prov[t.k] === 'agenda' ? '<span class="prov ag" title="Date lue dans l’agenda">📅 agenda</span>' : (d.prov[t.k] === 'logos' ? '<span class="prov lg" title="Saisi dans Logos depuis la plateforme, en attente de la prochaine lecture de l’agenda">🕐 Logos</span>' : '<span class="prov" title="Date saisie dans la frise">✍️ frise</span>')) : ''; const prop = d.propositions && d.propositions[t.k] ? '<button type="button" class="btn btn-sm" data-prendre="' + t.k + '" data-id="' + esc(d.id) + '" title="Aligner la frise sur l’agenda">Prendre le ' + fmtDM(d.propositions[t.k]) + ' (agenda)</button>' : ''; return '<label class="' + cls + '"><span class="top"><span>' + esc(t.l) + '</span>' + prov + '</span><input type="date" data-rdv="' + t.k + '" data-id="' + esc(d.id) + '" value="' + toISO(v) + '">' + prop + '</label>'; }).join('') +
+    '</div>' + listeEvts(d) + '<div class="derived"><div><div class="l">Date pose ' + (d.filiere === 'implanto' ? 'implantaire' : '') + '</div><div class="v">' + (R.datePose(d) ? fmtD(R.datePose(d)) : '—') + '</div></div><div><div class="l">Date pose pilier + couronne</div><div class="v">' + (R.datePilier(d) ? fmtD(R.datePilier(d)) : '—') + '</div></div><div><div class="l">File d\'attente Lucie</div><div class="v">' + pill(R.fileAttente(d)) + '</div></div></div></div>' +
+
+    '<div class="dsec"><h3>Côté Lucie · planification &amp; matériel <span>' + pill(R.alerteMateriel(d)) + '</span></h3><div class="derived">' +
+    '<div><div class="l">Planification</div><div class="v">' + (d.pl.v ? '☑ validée le ' + fmtDT(d.pl.ts) : '☐ à valider avec Fakhreddine') + '</div></div>' +
+    '<div><div class="l">Matériel</div><div class="v"><select data-mat="' + esc(d.id) + '">' + Object.entries(MATERIEL).map(([k, l]) => '<option value="' + k + '"' + (k === (d.materiel || '') ? ' selected' : '') + '>' + l + '</option>').join('') + '</select>' + (d.lucieAlerte && !d.materiel ? '<div class="small muted" style="margin-top:4px">Classeur : ' + esc(d.lucieAlerte) + '</div>' : '') + '</div></div>' +
+    '<div><div class="l">Acte prévu</div><div class="v">' + esc(d.type) + '</div></div></div></div>' +
+
+    '<div class="dsec"><h3>Règlements <span>' + pill(R.statutFact(d)) + '</span></h3>' +
+    '<div class="derived" style="margin:0 0 10px"><div><div class="l">Mode de facturation</div><div class="v"><select data-mode="' + esc(d.id) + '"><option value="">— à déterminer</option>' + Object.entries(MODES).map(([k, l]) => '<option value="' + k + '"' + (k === d.reg.mode ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></div></div>' +
+    '<div><div class="l">Organisme tiers payant</div><div class="v"><select data-org="' + esc(d.id) + '">' + ORGS.map(o => '<option' + (o === d.reg.org ? ' selected' : '') + '>' + o + '</option>').join('') + '</select></div></div>' +
+    '<div><div class="l">Contrôle montants</div><div class="v">' + pill(R.controle(d), 'wrap') + '</div></div></div>' +
+    '<div class="fin">' + etapeCard(0) + etapeCard(1) + '</div></div>' +
+
+    '<div class="dsec"><h3>Journal partagé <span class="small" style="text-transform:none;letter-spacing:0">visible par Lisa, Marion et Lucie</span></h3><div class="journal">' +
+    '<form data-note="' + esc(d.id) + '"><input type="text" id="noteInput" placeholder="Une phrase, sans date : le journal la date et la signe (' + esc(signature()) + ')" autocomplete="off"><button class="btn btn-primary" type="submit">Ajouter</button></form>' +
+    (d.notesDivergent ? '<p class="small" style="color:var(--stop-fg);margin:0">⚠️ Dans le classeur, les trois colonnes « Notes libres » de ce dossier ne portent pas le même texte (à vérifier avec notes_verifierCoherence()). Affichage : la colonne de Lisa.</p>' : '') +
+    (d.notes.length ? d.notes.map(n => '<div class="note"><span class="d">' + (n.d ? fmtDT(n.d) : '—') + '</span><span>' + (n.who ? '<span class="w">' + esc(n.who) + '</span> — ' : '') + esc(n.t) + '</span></div>').join('') : '<p class="muted small">Aucune note pour ce dossier.</p>') +
+    '</div></div>';
+}
+function isNext(d, field) {
+  const order = ['de', 'ds', 'dd', 'pr', 'pl', 'pa'];
+  const i = order.indexOf(field);
+  if (i < 0) return false;
+  return order.slice(0, i).every(f => d[f].v);
+}
+function closeDrawer() { state.open = null; $('#drawer').hidden = true; $('#scrim').hidden = true; }
+
+/* =====================================================================
+   7. ACTIONS (ce que le script Apps Script fait dans le classeur)
+   ===================================================================== */
+let toastT;
+function toast(msg, stop) { if (state.source === 'sheet' && !stop && /^(☑|Décoché|Note ajoutée)/.test(msg)) msg += ' · essai local, non enregistré dans le classeur'; const t = $('#toast'); t.textContent = msg; t.className = 'toast' + (stop ? ' stop' : ''); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 4200); }
+function cocher(d, field) {
+  const c = d[field];
+  if (field === 'pr' && !c.v && R.autorisation(d) === '⚪ VERROUILLÉE') {
+    toast('⛔ Refusé : le dossier de ' + d.patient + ' est ⚪ VERROUILLÉE. Lisa n\'a pas encore déposé les documents signés au dossier patient.', true);
+    return;
+  }
+  const nv = !c.v;
+  c.v = nv; c.ts = nv ? new Date() : null;   /* mise à jour optimiste ; le classeur renvoie l'horodatage réel */
+  if (LIVE.mode === 'demo') {
+    toast(nv ? '☑ ' + libelle(field) + ' · ' + d.patient + ' · horodaté ' + fmtDT(c.ts) : 'Décoché : ' + libelle(field) + ' · ' + d.patient);
+    if (field === 'dd' && nv) toast('☑ Documents déposés · ' + d.patient + ' → 🟠 AUTORISÉE : Marion peut prendre le RDV');
+    return;
+  }
+  envoyer({ action: 'cocher', id: d.id, champ: field, valeur: nv }, d).then(r => {
+    if (!r || !r.ok) return;
+    const x = byId(d.id), cc = x && x[field];
+    if (field === 'dd' && nv && x && R.autorisation(x) === '🟠 AUTORISÉE') toast('☑ Documents déposés · ' + d.patient + ' → 🟠 AUTORISÉE : Marion peut prendre le RDV' + (cc && cc.ts ? ' · horodaté ' + fmtDT(cc.ts) : ''));
+    else toast(nv ? '☑ ' + libelle(field) + ' · ' + d.patient + (cc && cc.ts ? ' · horodaté ' + fmtDT(cc.ts) + ' par le classeur' : '') : 'Décoché : ' + libelle(field) + ' · ' + d.patient);
+  });
+}
+function libelle(f) { return ({ de: 'Documents envoyés', ds: 'Documents signés reçus', dd: 'Documents déposés au dossier patient', pa: 'Prise en charge analysée', pi: 'PEC implant demandée', pp: 'PEC pilier + couronne demandée', cl: 'Dossier clôturé', pr: 'Premier RDV pris', ech: 'Demande d\'échelonnement', pl: 'Planification validée avec Fakhreddine' })[f] || f; }
+function ajouterNote(d, texte) {
+  texte = texte.trim(); if (!texte) return;
+  if (LIVE.mode === 'demo') {
+    d.notes.unshift({ d: new Date(), who: signature(), t: texte });
+    toast('Note ajoutée et recopiée sur les trois onglets · ' + d.patient);
+    return;
+  }
+  toast('Envoi de la note au classeur…');
+  envoyer({ action: 'note', id: d.id, texte }, d).then(r => { if (r && r.ok) toast('Note ajoutée au journal · ' + d.patient + (r.pont === 'ok' ? ' · datée, signée et recopiée sur les trois onglets par le script' : '')); });
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-act],[data-openbtn],[data-open],[data-close],[data-view],[data-role],[data-tg],[data-prendre],[data-autoriser],[data-sync],[data-preparer],[data-copier],[data-saisi],#btnReset,#btnRetry,#btnSync,#btnDemo,#scrim');
+  if (!t) return;
+  if (t.id === 'scrim' || t.hasAttribute('data-close')) { closeDrawer(); return; }
+  if (t.id === 'btnRetry' || (t.id === 'btnReset' && LIVE.mode !== 'demo')) { charger(); return; }
+  if (t.id === 'btnReset') { if (state.source === 'sheet') { chargerClasseur(false); } else { DATA = donneesExemple(); closeDrawer(); rapprocher(); render(); toast('Données d\'exemple rechargées'); } return; }
+  if (t.id === 'btnSync' || t.hasAttribute('data-sync')) { actualiser(); return; }
+  if (t.id === 'btnDemo') { basculerDemo(); return; }
+  if (t.dataset.autoriser) { autoriserAgenda(); return; }
+  if (t.dataset.prendre) { e.stopPropagation(); prendreDateAgenda(byId(t.dataset.id), t.dataset.prendre); return; }
+  if (t.dataset.view) { state.view = t.dataset.view; savePrefs(); render(); return; }
+  if (t.dataset.role) { state.role = t.dataset.role; savePrefs(); render(); return; }
+  if (t.dataset.preparer != null) { e.stopPropagation(); preparerLogos(byId(t.dataset.id), +t.dataset.preparer); return; }
+  if (t.dataset.copier != null) { e.stopPropagation(); copierLogos(byId(t.dataset.id)); return; }
+  if (t.dataset.saisi != null) { e.stopPropagation(); marquerSaisi(byId(t.dataset.id)); return; }
+  if (t.dataset.act) { e.stopPropagation(); cocher(byId(t.dataset.id), t.dataset.act); render(); return; }
+  if (t.dataset.tg) {
+    e.stopPropagation();
+    const d = byId(t.dataset.id); const et = d.reg.e[+t.dataset.et]; const f = t.dataset.tg;
+    et[f] = !et[f];
+    /* En démo, l'application pose la date du jour ; connectée au classeur, c'est le classeur (ou Lisa) qui décide. */
+    if (LIVE.mode === 'demo') { if (f === 'factEnv' && et.factEnv && !et.dateFact) et.dateFact = new Date(); if (f === 'rembRecu' && et.rembRecu && !et.dateRemb) et.dateRemb = new Date(); }
+    render();
+    envoyer({ action: 'etape', id: d.id, etape: +t.dataset.et, champ: f, valeur: et[f] }, d);
+    return;
+  }
+  if (t.dataset.openbtn) { e.stopPropagation(); state.open = t.dataset.openbtn; state.anchor = t.dataset.anchor || null; render(); return; }
+  if (t.dataset.open) { state.open = t.dataset.open; render(); return; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && state.open) closeDrawer();
+  if (e.key === 'Enter' && e.target.matches('.row[data-open]')) { state.open = e.target.dataset.open; render(); }
+});
+document.addEventListener('submit', e => {
+  const f = e.target.closest('form[data-note]'); if (!f) return;
+  e.preventDefault(); const inp = f.querySelector('input'); ajouterNote(byId(f.dataset.note), inp.value); render();
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.dataset.prg) { const d0 = byId(t.dataset.id); if (d0) { const st = PRG[d0.id] = PRG[d0.id] || {}; st[t.dataset.prg] = t.dataset.prg === 'duree' ? +t.value : t.value; delete st.choix; render(); } return; }
+  if (t.dataset.horaire) { const [n, i] = t.dataset.horaire.split('-'); PLAN.horaires[n] = PLAN.horaires[n] || ['', '']; PLAN.horaires[n][+i] = t.value; savPlan(); render(); return; }
+  if (t.dataset.pause) { PLAN.pause[+t.dataset.pause] = t.value; savPlan(); render(); return; }
+  if (t.id === 'selFiliere') { if (LIVE.mode !== 'demo') { if (LIVE.filieres && t.value !== state.filiere && !LIVE.chargement) { state.filiere = t.value; closeDrawer(); savePrefs(); charger(); } else renderTop(); return; } state.filiere = t.value; closeDrawer(); savePrefs(); render(); return; }
+  if (t.id === 'fStatut') { state.fStatut = t.value; render(); return; }
+  if (t.id === 'fResp') { state.fResp = t.value; render(); return; }
+  if (t.id === 'fAuto') { state.fAuto = t.value; render(); return; }
+  if (t.dataset.alias != null) { if (t.value) AG.alias[t.dataset.alias] = t.value; else delete AG.alias[t.dataset.alias]; savAlias(); rapprocher(); render(); return; }
+  if (t.dataset.typemap != null) { if (t.value) AG.types[t.dataset.typemap] = t.value; else delete AG.types[t.dataset.typemap]; savAlias(); rapprocher(); render(); return; }
+  if (t.dataset.calid != null) { AG.calId = t.value.trim() || AG.calId; savAlias(); lancerAgenda(); render(); return; }
+  /* Chaque saisie : modification locale immédiate, rendu, puis écriture dans le classeur si l'API est connectée (Palier 1). */
+  const d = t.dataset.id ? byId(t.dataset.id) : null;
+  if (t.dataset.statut) { const x = byId(t.dataset.statut); x.statut = t.value; render(); envoyer({ action: 'saisir', id: x.id, champ: 'statut', valeur: t.value }, x); return; }
+  if (t.dataset.mat) { const x = byId(t.dataset.mat); x.materiel = t.value; render(); envoyer({ action: 'saisir', id: x.id, champ: 'materiel', valeur: t.value || null }, x); return; }
+  if (t.dataset.mode) { const x = byId(t.dataset.mode); x.reg.mode = t.value || null; render(); envoyer({ action: 'reglement', id: x.id, champ: 'mode', valeur: t.value || null }, x); return; }
+  if (t.dataset.org) { const x = byId(t.dataset.org); x.reg.org = t.value; render(); envoyer({ action: 'reglement', id: x.id, champ: 'org', valeur: t.value }, x); return; }
+  if (!d) return;
+  if (t.dataset.rdv) { const x = fromISO(t.value); if (x) { d.rdv[t.dataset.rdv] = x; d.prov[t.dataset.rdv] = 'saisie'; } else { delete d.rdv[t.dataset.rdv]; delete d.prov[t.dataset.rdv]; } rapprocherDossier(d); render(); envoyer({ action: 'rdv', id: d.id, type: t.dataset.rdv, date: t.value || null }, d); return; }
+  if (t.dataset.num) { const v = t.value === '' ? null : parseFloat(t.value); d[t.dataset.num] = v; render(); envoyer({ action: 'saisir', id: d.id, champ: t.dataset.num, valeur: v }, d); return; }
+  if (t.dataset.enum) { const v = t.value === '' ? null : parseFloat(t.value); d.reg.e[+t.dataset.et][t.dataset.enum] = v; render(); envoyer({ action: 'etape', id: d.id, etape: +t.dataset.et, champ: t.dataset.enum, valeur: v }, d); return; }
+  if (t.dataset.edate) { d.reg.e[+t.dataset.et][t.dataset.edate] = fromISO(t.value); render(); envoyer({ action: 'etape', id: d.id, etape: +t.dataset.et, champ: t.dataset.edate, valeur: t.value || null }, d); return; }
+});
+document.addEventListener('input', e => { if (e.target.id === 'fq') { state.q = e.target.value; const pos = e.target.selectionStart; render(); const el = $('#fq'); if (el) { el.focus(); el.setSelectionRange(pos, pos); } } });
+
+/* =====================================================================
+   8. DONNÉES RÉELLES — le vrai agenda (connecteur Google Agenda du spectateur,
+   relu toutes les heures) et le classeur (connecteur Google Drive, lecture seule)
+   ===================================================================== */
+const SRV_CAL = 'Google Calendar', SRV_DRIVE = 'Google Drive';
+const FICHIERS = { implanto: '1ZNutOD1xstRfXWslXduR4OGusxcW2Eq05iynA6juXYU', autres: '1kQyAve0QEr4tou_xGV6d6UG3zwvRL7dE5DQ-yiKYZ1k' };
+const UNE_HEURE = 3600000;
+const AG = { mcp: null, dispo: false, calId: 'contact@implantologielege.com', events: [], tampon: [], brut: 0, partiel: false, lastSync: null, prochaine: null, etat: 'init', erreur: null,
+  aClasser: [], nonRapproches: [], upcoming7: null, unsub: null, sheet: { etat: 'init', erreur: null, lastSync: null, autresKo: false }, alias: {}, types: {} };
+try { AG.alias = JSON.parse(localStorage.getItem('td-alias') || '{}'); AG.types = JSON.parse(localStorage.getItem('td-types') || '{}'); AG.calId = localStorage.getItem('td-cal') || AG.calId; } catch (e) {}
+function savAlias() { try { localStorage.setItem('td-alias', JSON.stringify(AG.alias)); localStorage.setItem('td-types', JSON.stringify(AG.types)); localStorage.setItem('td-cal', AG.calId); } catch (e) {} }
+
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[-'’.,]/g, ' ').replace(/\s+/g, ' ').trim();
+const memeJour = (a, b) => !!(a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate());
+/* Dictionnaire « type d'acte Logos » → colonne de la frise (ordre = priorité). Éditable depuis l'écran Agenda. */
+/* Dictionnaire repris tel quel d'AGENDA_SYNC.gs (le script de Lisa), motifs sur le type Logos sans accents ni majuscules */
+const DICO = [
+  ['cbct', /CONE ?BEAM|CBCT/], ['consult', /RETOUR DEVIS|PLAN DE T|PRE ?OPERATOIRE/], ['chir', /EXTRACTION|CHIRURGIE|GREFFE|SINUS/], ['pose', /POSE ?\d* ?IMPLANT/],
+  ['empreinte', /^EMP/], ['pilier', /PROTHESE ?\/ ?IMPLANT/], ['prothese', /^POSE PF/], ['controle', /DECOUVERTURE|CONTROLE OI|DEPOSE FILS/]
+];
+const DICO_AUTRES = [['prothese', /PROTHESE ADJOINTE|PLAQUE AMOVIBLE|ESSAYAGE|ESSAI/]];
+function classer(typeLogos, filiere) { const t = norm(typeLogos); if (!t) return 'a_classer'; if (AG.types[t]) return AG.types[t]; const liste = filiere === 'autres' ? DICO.concat(DICO_AUTRES) : DICO; for (const [k, re] of liste) if (re.test(t)) return k; return 'a_classer'; }
+const IGNORE = /^(FERME|GE|CONGE|CONGES|VACANCES|ZONE RESERVEE|REUNION|FORMATION|PAUSE|DEJEUNER)$/;
+/* Un événement Google → un rendez-vous patient (ou null). On ne garde ni téléphone ni email. */
+function lireEvenement(ev) {
+  if (!ev || ev.status === 'cancelled') return null;
+  const st = ev.start || {}; if (!st.dateTime) return null;
+  const desc = String(ev.description || ''), loc = String(ev.location || ''), titre = String(ev.summary || '').trim();
+  const mType = desc.match(/Type\s*:\s*([^\r\n]+)/i);
+  const type = mType ? mType[1].trim() : loc.replace(/\s*\(S\.?\s*\d+\)\s*$/i, '').trim();
+  const salle = (loc.match(/\((S\.?\s*\d+)\)/i) || [])[1] || '';
+  if (!mType && !salle) return null;
+  if (/ZONE RESERVEE/.test(norm(type))) return null;
+  const nom = titre.replace(/\[[^\]]*\]/g, '').replace(/\s+/g, ' ').trim();
+  if (!nom || IGNORE.test(norm(nom))) return null;
+  const annotations = (titre.match(/\[([^\]]*)\]/g) || []).map(x => x.slice(1, -1).trim()).filter(Boolean);
+  const d = new Date(st.dateTime); if (isNaN(d)) return null;
+  return { id: ev.id, date: d, jour: new Date(d.getFullYear(), d.getMonth(), d.getDate()), nom, nomN: norm(nom), type, salle, annotations, lien: ev.htmlLink || '', k: 'a_classer', dossiers: [], mode: '' };
+}
+function fenetre() { const iso = x => x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0') + 'T00:00:00'; return { startTime: iso(J(-180)), endTime: iso(J(365)) }; }
+function argsAgenda(pageToken) { const f = fenetre(); const a = { calendarId: AG.calId, startTime: f.startTime, endTime: f.endTime, orderBy: 'startTime', pageSize: 250 }; if (pageToken) a.pageToken = pageToken; return a; }
+
+async function demarrerSynchro() {
+  let mcp = null;
+  try { mcp = (window.claude && typeof window.claude.use === 'function') ? await window.claude.use('mcp') : null; } catch (e) { mcp = null; }
+  AG.mcp = mcp; AG.dispo = !!mcp; AG.viaApi = false;
+  if (!mcp) {
+    if (typeof Transport !== 'undefined' && Transport.mode() !== 'demo') { AG.viaApi = true; AG.dispo = true; AG.sheet.etat = 'api'; lancerAgendaApi(); setInterval(lancerAgendaApi, UNE_HEURE); return; }
+    AG.etat = 'absent'; AG.sheet.etat = 'absent'; majChip(); if (state.view === 'agenda') render(); return;
+  }
+  if (!state.forceDemo) chargerClasseur(false);
+  lancerAgenda();
+  setInterval(() => { if (!state.forceDemo && state.source === 'sheet') chargerClasseur(true); }, UNE_HEURE);
+}
+/* Hors claude.ai : l'agenda est servi par l'API Apps Script (apiAgenda côté google.script.run, ?api=agenda côté HTTP) */
+async function lancerAgendaApi() {
+  AG.etat = AG.events.length ? AG.etat : 'chargement'; majChip();
+  try {
+    let r;
+    if (Transport.mode() === 'gas') r = await Transport.gas('apiAgenda');
+    else { const u = CONFIG.apiUrl + (CONFIG.apiUrl.includes('?') ? '&' : '?') + 'api=agenda'; const resp = await fetch(u, { redirect: 'follow' }); const t = await resp.text(); try { r = JSON.parse(t); } catch (e) { throw new Error('Réponse inattendue de l’API agenda'); } }
+    if (!r || !r.ok) throw new Error((r && r.erreur) || 'réponse vide');
+    AG.tampon = r.events || []; AG.partiel = !!r.partiel;
+    finirSynchro(r.storedAt ? new Date(r.storedAt).getTime() : Date.now());
+  } catch (e) { surErreurAgenda({ code: 'api', message: (e && e.message) || String(e) }); }
+}
+function lancerAgenda() {
+  if (AG.viaApi) { lancerAgendaApi(); return; }
+  if (!AG.mcp) return;
+  if (AG.unsub) { try { AG.unsub(); } catch (e) {} AG.unsub = null; }
+  AG.etat = AG.events.length ? AG.etat : 'chargement'; majChip();
+  AG.unsub = AG.mcp.watchTool(SRV_CAL, 'list_events', argsAgenda(), ev => {
+    if (ev.type === 'error') { surErreurAgenda(ev.error); return; }
+    const r = ev.result || {}; const storedAt = (r.cache && r.cache.storedAt) ? r.cache.storedAt : Date.now();
+    traiterPage(r.payload, storedAt, true);
+  }, { refetchInterval: UNE_HEURE, cache: { staleTime: 300000, gcTime: 86400000 } });
+}
+async function traiterPage(payload, storedAt, premiere) {
+  let p = payload; if (typeof p === 'string') { try { p = JSON.parse(p); } catch (e) { p = {}; } }
+  p = p || {};
+  if (premiere) { AG.tampon = []; AG.partiel = false; }
+  AG.tampon.push(...(p.events || []));
+  if (p.nextPageToken && AG.tampon.length < 8000) {
+    try { const r2 = await AG.mcp.callTool(SRV_CAL, 'list_events', argsAgenda(p.nextPageToken), { cache: { staleTime: 300000 } }); await traiterPage(r2.payload, storedAt, false); return; }
+    catch (e) { AG.partiel = true; }
+  }
+  finirSynchro(storedAt);
+}
+function finirSynchro(storedAt) {
+  AG.brut = AG.tampon.length;
+  AG.events = AG.tampon.map(lireEvenement).filter(Boolean);
+  AG.occupes = AG.tampon.filter(e => e && e.status !== 'cancelled' && e.start && e.start.dateTime && e.end && e.end.dateTime).map(e => ({ s: new Date(e.start.dateTime), e: new Date(e.end.dateTime) })).filter(x => !isNaN(x.s) && !isNaN(x.e));
+  AG.fermes = new Set(); AG.tampon.forEach(e => { if (!(e && e.start && e.start.date) || !/FERME|CONGE|VACANCES|FERIE|ABSENT|PONT/.test(norm(e.summary))) return; const a = fromISO(e.start.date), b = e.end && e.end.date ? fromISO(e.end.date) : null; if (!a) return; for (let x = a; x < (b || new Date(a.getTime() + MS)); x = new Date(x.getTime() + MS)) AG.fermes.add(fmtD(x)); });
+  AG.lastSync = new Date(storedAt); AG.prochaine = new Date(storedAt + UNE_HEURE); AG.etat = 'ok'; AG.erreur = null;
+  rapprocher(); majChip(); render();
+}
+function surErreurAgenda(err) {
+  const code = (err && err.code) || 'upstream_error'; AG.erreur = err || { code };
+  if (['needs_reauth', 'server_not_connected', 'blocked_by_policy', 'approval_required', 'not_in_manifest', 'not_granted', 'capability_disabled', 'capability_removed', 'selection_required', 'consent_required'].includes(code)) { AG.events = []; AG.etat = 'refuse'; rapprocher(); }
+  else AG.etat = AG.events.length ? 'perime' : 'erreur';
+  majChip(); if (state.view === 'agenda' || state.open) render();
+}
+async function autoriserAgenda() {
+  if (AG.viaApi) { lancerAgendaApi(); return; }
+  if (!AG.mcp) return;
+  try { const r = await AG.mcp.callTool(SRV_CAL, 'list_events', argsAgenda(), { cache: { staleTime: 300000 } }); await traiterPage(r.payload, (r.cache && r.cache.storedAt) || Date.now(), true); }
+  catch (e) { surErreurAgenda(e); }
+}
+function actualiser() {
+  if (AG.viaApi) { toast('Relecture de l’agenda…'); lancerAgendaApi(); return; }
+  if (!AG.mcp) { toast('Le vrai agenda et le classeur ne sont lisibles que dans claude.ai, avec les connecteurs Google Agenda et Google Drive.'); return; }
+  toast('Relecture de l’agenda et du classeur…');
+  AG.mcp.invalidate(SRV_CAL, 'list_events').catch(() => {}).then(() => { if (AG.etat === 'refuse' || AG.etat === 'erreur') autoriserAgenda(); });
+  if (!state.forceDemo) chargerClasseur(true);
+}
+function basculerDemo() {
+  state.forceDemo = !state.forceDemo; savePrefs();
+  if (state.forceDemo) { DATA = donneesExemple(); state.source = 'demo'; closeDrawer(); rapprocher(); render(); toast('Données de démonstration (patients fictifs)'); }
+  else if (AG.mcp) chargerClasseur(false);
+  else toast('Le classeur réel n’est lisible que dans claude.ai.');
+}
+function messageErreur(code, srv) {
+  return ({
+    needs_reauth: 'Reconnecte le connecteur ' + srv + ' dans claude.ai → Paramètres → Connecteurs.',
+    server_not_connected: 'Ajoute le connecteur ' + srv + ' dans claude.ai → Paramètres → Connecteurs, avec le compte Google qui voit l’agenda du cabinet.',
+    selection_required: 'Plusieurs connecteurs ' + srv + ' : choisis-en un quand claude.ai le demande.',
+    not_in_manifest: 'L’accès à ' + srv + ' a été refusé pour cette page : autorise-le dans le menu Autorisations de l’artifact.',
+    blocked_by_policy: 'L’organisation bloque ' + srv + ' pour cette page.',
+    approval_required: 'La lecture de ' + srv + ' attend ton autorisation.',
+    consent_required: 'La lecture de ' + srv + ' attend ton autorisation.',
+    not_granted: 'Les connecteurs ne sont pas disponibles dans cette vue.',
+    capability_disabled: 'Les connecteurs ne sont pas disponibles dans cette vue.'
+  })[code] || ('Lecture de ' + srv + ' impossible (' + code + ').');
+}
+
+/* ---- Rapprochement agenda ↔ dossiers (les règles de Lisa) ---- */
+function rapprocher() {
+  const D = DATA;
+  const parNom = {}, parFamille = {};
+  D.forEach(d => { const k = norm(d.patient); (parNom[k] = parNom[k] || []).push(d); const f = k.split(' ')[0]; (parFamille[f] = parFamille[f] || []).push(d); d.evts = []; });
+  const nonR = {}, aCl = {};
+  for (const e of AG.events) {
+    e.k = classer(e.type, state.filiere); e.dossiers = []; e.mode = ''; e.homonyme = false;
+    if (e.k === 'a_classer') { const key = norm(e.type); (aCl[key] = aCl[key] || { type: e.type, key, n: 0 }).n++; }
+    const al = AG.alias[e.nomN];
+    if (al === '__ignore') { e.mode = 'ignore'; continue; }
+    let cibles = null;
+    if (al) { const d = byId(al); if (d) { cibles = [d]; e.mode = 'alias'; } }
+    if (!cibles && parNom[e.nomN]) { cibles = parNom[e.nomN]; e.mode = 'nom'; }
+    if (!cibles) { const parts = e.nomN.split(' '); const fam = parFamille[parts[0]]; if (fam && parts[1]) { const c = fam.filter(d => { const q = norm(d.patient).split(' '); return q[1] && q[1][0] === parts[1][0]; }); if (c.length) { cibles = c; e.mode = 'partiel'; } } }
+    if (!cibles) { (nonR[e.nomN] = nonR[e.nomN] || { nom: e.nom, nomN: e.nomN, n: 0, prochain: null }).n++; const x = nonR[e.nomN]; if (e.date >= TODAY && (!x.prochain || e.date < x.prochain)) x.prochain = e.date; continue; }
+    const termine = d => d.cl.v || d.statut === 'Refusé' || d.statut === 'Abandonné';
+    const ouverts = cibles.filter(d => !termine(d));
+    if (ouverts.length > 1 && e.mode !== 'alias') { e.homonyme = true; ouverts.forEach(d => { d.homonyme = true; }); }
+    e.dossiers = (ouverts.length ? ouverts : cibles).map(d => d.id);
+    e.dossiers.forEach(id => { const d = byId(id); if (d) d.evts.push(e); });
+  }
+  AG.nonRapproches = Object.values(nonR).sort((a, b) => b.n - a.n);
+  AG.aClasser = Object.values(aCl).filter(x => AG.types[x.key] !== 'ignore').sort((a, b) => b.n - a.n);
+  D.forEach(appliquerAgenda);
+  const j7 = J(7); AG.upcoming7 = (AG.etat === 'ok' || AG.etat === 'perime') ? AG.events.filter(e => e.date >= TODAY && e.date < j7 && e.mode !== 'ignore').length : null;
+}
+function rapprocherDossier(d) { if (AG.etat === 'ok' || AG.etat === 'perime') appliquerAgenda(d); }
+/* Règles d'AGENDA_SYNC.gs (script de Lisa) : jamais d'écrasement d'une date passée ; cellule vide → prochain RDV à venir, sinon dernier passé ;
+   date À VENIR différente de l'agenda → mise à jour (RDV déplacé) ; date à venir disparue de l'agenda → signalée, pas effacée ;
+   homonymes → ignorés et signalés ; dossier terminé (clôturé, refusé, abandonné) → plus jamais touché. */
+function appliquerAgenda(d) {
+  d.conflits = []; d.propositions = {};
+  if (AG.etat !== 'ok' && AG.etat !== 'perime') { d.agendaLive = null; return; }
+  if (d.cl.v) { d.agendaLive = '⛔ Dossier clôturé — synchro arrêtée'; return; }
+  if (d.statut === 'Refusé' || d.statut === 'Abandonné') { d.agendaLive = '⛔ Devis ' + d.statut.toLowerCase() + ' — synchro arrêtée'; return; }
+  if (d.homonyme) { d.agendaLive = '✋ À saisir à la main — même nom qu’un autre dossier'; return; }
+  if (!d.evts.length) { d.agendaLive = '✋ À saisir à la main — aucun RDV trouvé dans l’agenda (nom différent ?)'; return; }
+  const parType = {}; d.evts.forEach(e => { if (e.k !== 'a_classer' && e.k !== 'ignore') (parType[e.k] = parType[e.k] || []).push(e); });
+  for (const t of TYPES) {
+    const evs = parType[t.k], cur = d.rdv[t.k];
+    if (!evs) {
+      if (cur && cur >= TODAY) d.conflits.push({ k: t.k, l: t.l, frise: cur, agenda: null, attente: d.prov[t.k] === 'logos' });
+      continue;
+    }
+    const futurs = evs.filter(e => e.date >= TODAY).sort((a, b) => a.date - b.date), passes = evs.filter(e => e.date < TODAY).sort((a, b) => b.date - a.date);
+    const choix = futurs[0] || passes[0];
+    if (!cur) { d.rdv[t.k] = choix.jour; d.prov[t.k] = 'agenda'; }
+    else if (evs.some(e => memeJour(e.jour, cur))) { d.prov[t.k] = 'agenda'; }
+    else if (cur >= TODAY && futurs.length) { d.notes.unshift({ d: new Date(), who: 'Agenda', t: t.l + ' : ' + fmtD(cur) + ' → ' + fmtD(futurs[0].jour) + ' (RDV déplacé)' }); d.rdv[t.k] = futurs[0].jour; d.prov[t.k] = 'agenda'; }
+    else if (cur >= TODAY) d.conflits.push({ k: t.k, l: t.l, frise: cur, agenda: null, attente: d.prov[t.k] === 'logos' });
+    else if (choix.date < TODAY) { d.conflits.push({ k: t.k, l: t.l, frise: cur, agenda: choix.jour }); d.propositions[t.k] = choix.jour; }
+  }
+  const court = x => x.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' });
+  const vrais = d.conflits.filter(c => !c.attente), attente = d.conflits.filter(c => c.attente);
+  d.agendaLive = vrais.length ? '⚠️ À vérifier — pas dans l’agenda : ' + vrais.map(c => c.l.replace(/^\S+\s/, '') + ' ' + court(c.frise)).join(', ') : (attente.length ? '⏳ Saisi dans Logos, en attente de l’agenda : ' + attente.map(c => c.l.replace(/^\S+\s/, '') + ' ' + court(c.frise)).join(', ') : '✅ Synchro agenda');
+}
+function prendreDateAgenda(d, k) {
+  if (!d || !d.propositions || !d.propositions[k]) return;
+  const t = TYPES.find(x => x.k === k); const avant = d.rdv[k];
+  d.rdv[k] = d.propositions[k]; d.prov[k] = 'agenda';
+  d.notes.unshift({ d: new Date(), who: signature(), t: (t ? t.l : k) + ' : frise alignée sur l’agenda (' + fmtD(avant) + ' → ' + fmtD(d.rdv[k]) + ')' });
+  appliquerAgenda(d); render(); toast('Date alignée sur l’agenda · ' + d.patient);
+}
+const agendaTexte = d => d.agendaLive || d.agendaSheet || '';
+function listeEvts(d) {
+  if (!d.evts || !d.evts.length) return '';
+  const evs = d.evts.slice().sort((a, b) => a.date - b.date);
+  return '<div class="evlist"><div class="day">Rendez-vous lus dans l’agenda</div>' + evs.map(e => { const t = TYPES.find(x => x.k === e.k); return '<div class="ev"><span class="h">' + fmtD(e.date) + ' ' + e.date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + '</span><span class="t">' + esc(e.type) + (e.salle ? ' · ' + esc(e.salle) : '') + (e.annotations.length ? ' · [' + esc(e.annotations.join(', ')) + ']' : '') + '</span><span class="s">' + (t ? pill(t.l, 'p-accent') : pill('🟠 Type à classer')) + '</span></div>'; }).join('') + '</div>';
+}
+
+/* ---- Classeur (lecture seule) ---- */
+function b64ToAB(b64) { const bin = atob(b64); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
+async function chargerClasseur(silencieux) {
+  if (!AG.mcp) return;
+  if (typeof XLSX === 'undefined') { AG.sheet.etat = 'sanslib'; majChip(); return; }
+  AG.sheet.etat = 'chargement'; majChip();
+  const lire = async id => { const r = await AG.mcp.callTool(SRV_DRIVE, 'download_file_content', { fileId: id, exportMimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }, { cache: { staleTime: 300000, refresh: !!silencieux } }); let p = r.payload; if (typeof p === 'string') { try { p = JSON.parse(p); } catch (e) {} } return p && p.content; };
+  const res = await Promise.allSettled(Object.entries(FICHIERS).map(async ([fil, id]) => [fil, await lire(id)]));
+  const imp = res[0];
+  if (imp.status !== 'fulfilled' || !imp.value[1]) { AG.sheet.etat = 'erreur'; AG.sheet.erreur = imp.status === 'rejected' ? imp.reason : { code: 'tool_error', message: 'contenu vide' }; majChip(); if (state.view === 'agenda') render(); return; }
+  try {
+    const nouveaux = lireClasseur(imp.value[1], 'implanto');
+    AG.sheet.autresKo = !(res[1].status === 'fulfilled' && res[1].value[1]);
+    if (!AG.sheet.autresKo) nouveaux.push(...lireClasseur(res[1].value[1], 'autres'));
+    const ouvert = state.open; DATA = nouveaux; state.source = 'sheet'; AG.sheet.etat = 'ok'; AG.sheet.erreur = null; AG.sheet.lastSync = new Date();
+    if (ouvert && !byId(ouvert)) closeDrawer();
+    rapprocher(); majChip(); render();
+    if (!silencieux) toast('Classeur lu : ' + nouveaux.length + ' dossiers (lecture seule)');
+  } catch (e) { AG.sheet.etat = 'erreur'; AG.sheet.erreur = { code: 'parse', message: String(e && e.message || e) }; majChip(); if (state.view === 'agenda') render(); }
+}
+function lireNotes(txt) {
+  if (!txt || typeof txt !== 'string') return [];
+  return txt.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => { const m = l.match(/^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})\s*·\s*([^—]+?)\s*—\s*(.*)$/); return m ? { d: new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]), who: m[6].trim(), t: m[7] } : { d: null, who: '', t: l }; });
+}
+/* Colonnes du classeur (voir ANALYSE-transmissions-devis.md §3) : Lisa A..AP, Marion A..U, Lucie A..N, Règlements A..AM, Suivi RDV A..L */
+function lireClasseur(b64, filiere) {
+  const wb = XLSX.read(b64ToAB(b64), { type: 'array', cellDates: true });
+  const feuille = n => { const ws = wb.Sheets[n]; return ws ? XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: null }) : []; };
+  const L = feuille('Lisa'), M = feuille('Marion'), U = feuille('Lucie'), G = feuille('Règlements'), S = feuille('Suivi RDV');
+  const estFait = v => typeof v === 'string' && v.indexOf('Fait') >= 0;
+  const date = v => (v instanceof Date && !isNaN(v)) ? v : ((typeof v === 'number' && v > 20000 && v < 80000) ? new Date(Math.round((v - 25569) * MS)) : null);
+  const jour = v => { const x = date(v); return x ? new Date(x.getFullYear(), x.getMonth(), x.getDate()) : null; };
+  const num = v => typeof v === 'number' ? v : ((v == null || v === '') ? null : v);
+  const cb = (v, ts) => ({ v: estFait(v), ts: estFait(v) ? date(ts) : null });
+  const parId = (rows, col) => { const m = {}; rows.slice(3).forEach(r => { const id = r && r[col]; if (id != null && String(id).trim()) m[String(id).trim()] = r; }); return m; };
+  const mM = parId(M, 1), mU = parId(U, 1), mG = parId(G, 0), mS = parId(S, 0);
+  const out = [];
+  for (const r of L.slice(3)) {
+    const id = (r && r[0] != null) ? String(r[0]).trim() : ''; if (!id || !r[1]) continue;
+    const m = mM[id] || [], u = mU[id] || [], g = mG[id] || [], s = mS[id] || [];
+    const modeTxt = String(g[5] || ''); const mode = /Tiers payant/i.test(modeTxt) ? 'TP' : (/RAC 0/i.test(modeTxt) ? 'RAC0' : (/Autonome/i.test(modeTxt) ? 'AUTO' : null));
+    const rdv = {}; TYPES.forEach((t, i) => { const x = jour(s[2 + i]); if (x) rdv[t.k] = x; });
+    out.push(mk({ filiere, id, patient: String(r[1]).trim(), logos: r[2] == null ? '' : String(r[2]).replace(/\.0$/, ''), type: r[3] || '', dateDevis: date(r[4]) || TODAY, montant: typeof r[5] === 'number' ? r[5] : 0, statut: r[6] || '',
+      de: cb(r[9], r[10]), ds: cb(r[11], r[12]), dd: cb(r[13], r[14]), pa: cb(r[15], r[16]), pecTotale: num(r[17]), rac: typeof r[18] === 'number' ? r[18] : 0,
+      pr: cb(m[14] != null ? m[14] : r[20], m[15] != null ? m[15] : r[21]), pl: cb(u[8] != null ? u[8] : r[22], u[9] != null ? u[9] : r[23]),
+      montantFacture: num(r[27]), rembAttendu: num(r[28]), montantRecu: num(r[31]), montantProchainRdv: num(r[32]), pi: cb(r[33], r[34]), pp: cb(r[35], r[36]), cl: cb(r[38], r[39]),
+      ech: cb(m[18], null), rdvHeure: date(m[7]),
+      reg: { mode, org: g[32] || 'Autonome', e: [
+        { pm: num(g[10]), rac: num(g[11]), pecEnv: estFait(g[7]), factEnv: estFait(g[17]), dateFact: date(g[18]), mFact: num(g[19]), rembRecu: estFait(g[20]), dateRemb: date(g[21]), mRecu: num(g[22]) },
+        { pm: num(g[12]), rac: num(g[13]), pecEnv: estFait(g[9]), factEnv: estFait(g[24]), dateFact: date(g[25]), mFact: num(g[26]), rembRecu: estFait(g[27]), dateRemb: date(g[28]), mRecu: num(g[29]) } ] },
+      rdv, agendaSheet: s[11] || '', notes: lireNotes(r[8]), materiel: '' }));
+  }
+  return out;
+}
+
+/* ---- Indicateur de source (barre du haut) ---- */
+function majChip() {
+  const c = $('#srcChip'); if (!c) return;
+  const hh = x => x ? x.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
+  let txt, cls = 'demo-chip', title;
+  if (state.source === 'sheet') { txt = 'Classeur réel · ' + DATA.length + ' dossiers'; cls += ' live'; title = 'Classeur lu à ' + hh(AG.sheet.lastSync) + (AG.sheet.autresKo ? ' · le classeur Autres devis n’a pas pu être lu' : ''); }
+  else { txt = 'Démo · données anonymisées'; title = AG.sheet.etat === 'chargement' ? 'Lecture du classeur en cours…' : (AG.sheet.etat === 'erreur' ? 'Classeur illisible : ' + ((AG.sheet.erreur || {}).code || '') : 'Patients fictifs'); if (AG.sheet.etat === 'chargement') cls += ' busy'; }
+  const ag = { ok: 'agenda synchro ' + hh(AG.lastSync), perime: 'agenda (ancien) ' + hh(AG.lastSync), chargement: 'agenda…', refuse: 'agenda non autorisé', erreur: 'agenda en erreur', absent: (AG.viaApi ? 'agenda…' : 'agenda hors claude.ai'), init: '' }[AG.etat] || '';
+  c.textContent = txt + (ag ? ' · ' + ag : ''); c.className = cls + (AG.etat === 'refuse' || AG.etat === 'erreur' ? ' ko' : ''); c.title = title || '';
+  const bd = $('#btnDemo'); if (bd) bd.textContent = state.forceDemo || state.source === 'demo' ? (AG.dispo ? 'Classeur' : 'Démo') : 'Démo';
+}
+
+/* ---- Écran Agenda ---- */
+function vAgenda() {
+  const code = (AG.erreur && AG.erreur.code) || '';
+  let bandeau = '';
+  if (!AG.dispo) bandeau = '<div class="banner warn">Le vrai agenda n’est lisible que lorsque la maquette est ouverte dans claude.ai, avec le connecteur Google Agenda d’un compte qui voit l’agenda du cabinet. Ici, les dossiers affichés sont des données de démonstration.</div>';
+  else if (AG.etat === 'refuse') bandeau = '<div class="banner warn">' + esc(messageErreur(code, SRV_CAL)) + ((code === 'approval_required' || code === 'consent_required') ? ' <button class="btn btn-sm" data-autoriser="cal">Autoriser l’accès à l’agenda</button>' : '') + '</div>';
+  else if (AG.etat === 'erreur') bandeau = '<div class="banner ko">Impossible de lire l’agenda pour l’instant' + (AG.viaApi ? ' par l’API du classeur' : ' (' + esc(code || 'erreur') + ')') + '. ' + esc((AG.erreur && AG.erreur.message) || '') + ' <button class="btn btn-sm" data-sync>Réessayer</button></div>';
+  else if (AG.etat === 'perime') bandeau = '<div class="banner warn">La dernière lecture a échoué (' + esc(code) + ') ; les rendez-vous affichés datent de ' + fmtDT(AG.lastSync) + '.</div>';
+  else if (AG.etat === 'chargement' || AG.etat === 'init') bandeau = '<div class="banner">Lecture de l’agenda en cours…</div>';
+  if (AG.dispo && AG.sheet.etat === 'erreur') bandeau += '<div class="banner warn">' + esc(messageErreur((AG.sheet.erreur || {}).code, SRV_DRIVE)) + ' Les dossiers affichés sont ceux de la démonstration.</div>';
+  const sync = AG.lastSync ? 'Dernière lecture ' + fmtDT(AG.lastSync) + ' · prochaine vers ' + AG.prochaine.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : '';
+  const evs = AG.events.filter(e => e.mode !== 'ignore');
+  const rapp = evs.filter(e => e.dossiers.length).length, nonR = AG.nonRapproches.reduce((a, x) => a + x.n, 0);
+  const ecarts = dossiers().filter(d => d.conflits && d.conflits.length);
+  const j14 = J(14); const prochains = evs.filter(e => e.date >= TODAY && e.date < j14).sort((a, b) => a.date - b.date);
+  const parJour = {}; prochains.forEach(e => { const k = fmtD(e.jour); (parJour[k] = parJour[k] || { jour: e.jour, l: [] }).l.push(e); });
+  const optsDossiers = '<option value="">— choisir le dossier —</option><option value="__ignore">Ignorer (pas un patient suivi)</option>' + DATA.slice().sort((a, b) => a.patient.localeCompare(b.patient, 'fr')).map(d => '<option value="' + esc(d.id) + '">' + esc(d.patient) + ' · ' + esc(d.id) + (d.cl.v ? ' (clôturé)' : '') + '</option>').join('');
+  const optsTypes = '<option value="">— colonne de la frise —</option><option value="ignore">Ignorer (pas une étape de la frise)</option>' + TYPES.map(t => '<option value="' + t.k + '">' + esc(t.l) + '</option>').join('');
+  const lienDossiers = e => e.dossiers.length ? e.dossiers.map(id => { const d = byId(id); return d ? '<a data-open="' + esc(id) + '">' + esc(d.patient) + '</a> <span class="mono small muted">' + esc(id) + '</span>' : ''; }).join('<br>') : '<span class="muted">non rapproché</span>';
+  return '<div class="page-head"><div><h1>Agenda</h1><p>Le vrai agenda du cabinet, lu toutes les heures comme dans le classeur, rapproché des dossiers avec les règles de Lisa. L’agenda est la référence ; la frise se vérifie contre lui.</p></div></div>' + bandeau +
+    '<div class="syncline"><span>' + esc(sync) + '</span><button class="btn btn-sm" data-sync>Actualiser maintenant</button>' + (AG.viaApi ? '<span class="muted">agenda du cabinet, servi par l’API du classeur</span>' : '<label class="ctl">Agenda lu <input type="text" data-calid value="' + esc(AG.calId) + '" title="Identifiant de l’agenda Google (adresse du compte ou identifiant d’agenda partagé)"></label>') + '<span class="muted">fenêtre : ' + fmtD(J(-180)) + ' → ' + fmtD(J(365)) + ', comme le script</span></div>' +
+    blocAProgrammer() + blocHoraires() + '<section class="section"><div class="kpis">' + kpi('Événements lus', AG.brut + (AG.partiel ? ' +' : ''), AG.partiel ? 'lecture partielle' : '') + kpi('Rendez-vous patients', evs.length) + kpi('Rapprochés', rapp) + kpi('Non rapprochés', nonR, '', nonR > 0) + kpi('Types à classer', AG.aClasser.length, '', AG.aClasser.length > 0) + kpi('Écarts frise / agenda', ecarts.length, 'filière ' + (state.filiere === 'implanto' ? 'Implanto' : 'Autres devis'), ecarts.length > 0) + '</div></section>' +
+    (AG.nonRapproches.length ? '<section class="section"><div class="section-head"><h2>✋ Patients de l’agenda sans dossier reconnu</h2><span class="n">' + AG.nonRapproches.length + '</span></div><div class="tablewrap"><table><thead><tr><th>Nom dans l’agenda</th><th class="r">RDV</th><th>Prochain</th><th>Dossier correspondant</th></tr></thead><tbody>' + AG.nonRapproches.map(x => '<tr><td><b>' + esc(x.nom) + '</b></td><td class="r mono">' + x.n + '</td><td class="mono">' + (x.prochain ? fmtD(x.prochain) : '—') + '</td><td><select data-alias="' + esc(x.nomN) + '">' + optsDossiers + '</select></td></tr>').join('') + '</tbody></table></div></section>' : '') +
+    (AG.aClasser.length ? '<section class="section"><div class="section-head"><h2>🟠 Types d’acte Logos à classer dans la frise</h2><span class="n">' + AG.aClasser.length + '</span></div><div class="tablewrap"><table><thead><tr><th>Type Logos</th><th class="r">RDV</th><th>Colonne de la frise</th></tr></thead><tbody>' + AG.aClasser.map(x => '<tr><td><b>' + esc(x.type) + '</b></td><td class="r mono">' + x.n + '</td><td><select data-typemap="' + esc(x.key) + '">' + optsTypes + '</select></td></tr>').join('') + '</tbody></table></div></section>' : '') +
+    (ecarts.length ? '<section class="section"><div class="section-head"><h2>⚠️ Écarts entre la frise et l’agenda</h2><span class="n">' + ecarts.length + '</span></div><div class="tablewrap"><table><thead><tr><th>Patient</th><th>Étape</th><th>Frise</th><th>Agenda</th><th></th></tr></thead><tbody>' + ecarts.flatMap(d => d.conflits.map(c => '<tr data-open="' + esc(d.id) + '"><td><b>' + esc(d.patient) + '</b></td><td>' + esc(c.l) + '</td><td class="mono">' + fmtD(c.frise) + '</td><td class="mono">' + (c.agenda ? fmtD(c.agenda) : '<span class="muted">aucun RDV</span>') + '</td><td>' + (c.agenda ? '<button class="btn btn-sm" data-prendre="' + c.k + '" data-id="' + esc(d.id) + '">Prendre la date de l’agenda</button>' : openBtn(d.id, 'Vérifier')) + '</td></tr>')).join('') + '</tbody></table></div></section>' : '') +
+    '<section class="section"><div class="section-head"><h2>Prochains rendez-vous · 14 jours</h2><span class="n">' + prochains.length + '</span></div>' +
+    (prochains.length ? Object.values(parJour).map(g => '<div class="day">' + g.jour.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) + '</div>' + g.l.map(e => { const t = TYPES.find(x => x.k === e.k); return '<div class="ev"><span class="h">' + e.date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + '</span><span><b>' + esc(e.nom) + '</b>' + (e.annotations.length ? ' <span class="small muted">[' + esc(e.annotations.join(', ')) + ']</span>' : '') + (e.mode === 'partiel' ? ' <span class="prov" title="Rapproché sur le nom de famille et l’initiale">≈ nom partiel</span>' : (e.mode === 'alias' ? ' <span class="prov" title="Alias défini par l’équipe">alias</span>' : '')) + '</span><span class="t">' + esc(e.type) + (e.salle ? ' · ' + esc(e.salle) : '') + '</span><span class="s">' + (t ? pill(t.l, 'p-accent') : pill('🟠 Type à classer')) + '<span class="small">' + lienDossiers(e) + '</span></span></div>'; }).join('')).join('') : '<div class="empty">' + (AG.etat === 'ok' ? 'Aucun rendez-vous patient dans les 14 prochains jours' : 'En attente de l’agenda') + '</div>') + '</section>';
+}
+
+/* =====================================================================
+   9. CRÉNEAUX — la plateforme prépare, Marion valide dans Logos (deux écrans)
+   Aucune réservation automatique : ni dans Logos, ni dans l'agenda.
+   ===================================================================== */
+const PLAN = { horaires: { 1: ['09:00', '19:00'], 2: ['09:00', '18:00'], 3: ['', ''], 4: ['09:00', '18:30'], 5: ['09:00', '13:00'], 6: ['', ''] }, pause: ['13:00', '14:00'], pas: 10, horizon: 90 };
+try { const sv = JSON.parse(localStorage.getItem('td-plan') || 'null'); if (sv && sv.horaires) { PLAN.horaires = sv.horaires; PLAN.pause = sv.pause || PLAN.pause; } } catch (e) {}
+function savPlan() { try { localStorage.setItem('td-plan', JSON.stringify({ horaires: PLAN.horaires, pause: PLAN.pause })); } catch (e) {} }
+/* Durées par défaut (médianes lues sur deux semaines d'agenda réel) */
+const DUREES = { cbct: 15, consult: 20, chir: 30, pose: 60, empreinte: 30, pilier: 30, prothese: 20, controle: 15, fin: 20 };
+const PRG = {};   /* choix en cours par dossier : type, durée, préférence, date mini, créneau retenu */
+const hhmm = d => d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+const sansEmoji = l => l.replace(/^\S+\s/, '');
+
+/* Quel rendez-vous programmer pour ce dossier, et à partir de quand : l'étape clinique + les règles du classeur */
+function aProgrammer(d) {
+  if (d.cl.v || d.statut === 'Refusé' || d.statut === 'Abandonné') return null;
+  const imp = d.filiere === 'implanto', et = R.etapeClinique(d), demain = J(1);
+  const plusTard = (...ds) => new Date(Math.max(...ds.filter(Boolean).map(x => x.getTime())));
+  let k = null, apartir = demain, motif = '', alertes = [];
+  if (et.startsWith('🟠 Premier RDV') || et === '🟠 RDV à prendre') {
+    if (R.autorisation(d) !== '🟠 AUTORISÉE') return { bloque: '⚪ Verrouillé : documents non déposés' };
+    k = imp ? 'cbct' : 'consult'; motif = 'Premier rendez-vous';
+  } else if (et.includes('Planification à valider')) return { bloque: '🟠 En attente de la planification avec Fakhreddine (Lucie)' };
+  else if (et.includes('pose implantaire à programmer') || et === '🟠 RDV de pose à programmer') {
+    k = imp ? 'pose' : 'prothese'; motif = imp ? 'Pose implantaire' : 'Pose';
+    if (R.isTP(d) && !d.reg.e[0].pecEnv) { apartir = J(15); alertes.push('PEC à envoyer 15 jours avant l’acte (tiers payant) : au plus tôt le ' + fmtD(apartir)); }
+    if (d.materiel && d.materiel !== 'pret') alertes.push('Matériel : ' + MATERIEL[d.materiel]);
+  } else if (et.startsWith('⏳ Cicatrisation')) {
+    k = 'empreinte'; motif = 'Empreinte après cicatrisation'; const pose = R.datePose(d);
+    apartir = plusTard(demain, pose ? new Date(pose.getTime() + 90 * MS) : demain); alertes.push('Cicatrisation : 90 jours après la pose du ' + fmtD(pose));
+  } else if (et.includes('empreinte / pilier+couronne')) {
+    if (d.rdv.empreinte && d.rdv.empreinte < TODAY) {
+      k = 'pilier'; motif = 'Pilier + couronne'; apartir = plusTard(demain, new Date(d.rdv.empreinte.getTime() + 15 * MS)); alertes.push('Laboratoire : 15 jours après l’empreinte du ' + fmtD(d.rdv.empreinte));
+      if (R.isTP(d) && !d.reg.e[1].pecEnv) { apartir = plusTard(apartir, J(15)); alertes.push('PEC pilier + couronne à envoyer 15 jours avant l’acte'); }
+    } else { k = 'empreinte'; motif = 'Empreinte'; }
+  } else return null;
+  const t = TYPES.find(x => x.k === k);
+  return { k, l: t.l, duree: DUREES[k] || 20, apartir, motif, alertes };
+}
+/* Créneaux libres : horaires d'ouverture moins la pause moins tout ce qui occupe l'agenda, un créneau par jour */
+function creneaux(prog, opts) {
+  const o = Object.assign({ duree: prog.duree, apartir: prog.apartir, pref: 'indifferent', n: 3 }, opts || {});
+  const hm = x => { if (!x) return null; const [h, m] = String(x).split(':').map(Number); return h * 60 + (m || 0); };
+  const occ = AG.occupes || [], out = [];
+  for (let i = 0; i <= PLAN.horizon && out.length < o.n; i++) {
+    const jour = new Date(o.apartir.getFullYear(), o.apartir.getMonth(), o.apartir.getDate() + i);
+    if (jour <= TODAY) continue;
+    const h = PLAN.horaires[jour.getDay()]; if (!h || !h[0] || !h[1]) continue;
+    if (AG.fermes && AG.fermes.has(fmtD(jour))) continue;
+    const a0 = hm(h[0]), b0 = hm(h[1]); let fenetres = [[a0, b0]];
+    const p0 = hm(PLAN.pause[0]), p1 = hm(PLAN.pause[1]);
+    if (p0 != null && p1 != null && p1 > p0) fenetres = [[a0, Math.min(p0, b0)], [Math.max(p1, a0), b0]];
+    const fin = new Date(jour.getTime() + MS);
+    const busy = occ.filter(x => x.s < fin && x.e > jour).map(x => [Math.max(0, (x.s - jour) / 60000), Math.min(1440, (x.e - jour) / 60000)]).sort((x, y) => x[0] - y[0]);
+    let trouve = null;
+    for (const [a, b] of fenetres) {
+      if (b - a < o.duree) continue;
+      let t = Math.ceil(a / PLAN.pas) * PLAN.pas;
+      while (t + o.duree <= b) {
+        if (o.pref === 'matin' && t >= 13 * 60) break;
+        if (o.pref === 'apresmidi' && t < 13 * 60) { t = 13 * 60; continue; }
+        const c = busy.find(([s, e]) => s < t + o.duree && e > t);
+        if (!c) { trouve = t; break; }
+        t = Math.ceil(c[1] / PLAN.pas) * PLAN.pas;
+      }
+      if (trouve != null) break;
+    }
+    if (trouve != null) { const debut = new Date(jour.getTime() + trouve * 60000); out.push({ debut, fin: new Date(debut.getTime() + o.duree * 60000), jour }); }
+  }
+  return out;
+}
+/* Le libellé Logos le plus fréquent pour une colonne de la frise (lu dans l'agenda) */
+function libelleLogos(k) { const c = {}; (AG.events || []).forEach(e => { if (e.k === k && e.type) c[e.type] = (c[e.type] || 0) + 1; }); const best = Object.entries(c).sort((a, b) => b[1] - a[1])[0]; return best ? best[0] : ''; }
+function optionsProgrammation(d) {
+  const prog = aProgrammer(d); if (!prog || prog.bloque) return { prog };
+  const st = PRG[d.id] || {};
+  const k = st.k || prog.k, duree = st.duree || prog.duree, pref = st.pref || 'indifferent';
+  const demande = st.apartir ? fromISO(st.apartir) : null; const apartir = demande && demande > prog.apartir ? demande : prog.apartir;
+  const slots = creneaux(prog, { duree, pref, apartir });
+  return { prog, k, duree, pref, apartir, slots, choix: st.choix || null };
+}
+function creneauCourt(d) {
+  const o = optionsProgrammation(d); if (!o.prog) return ''; if (o.prog.bloque) return o.prog.bloque;
+  const s = o.slots[0]; if (!s) return 'Aucun créneau libre sous ' + PLAN.horizon + ' jours';
+  return 'Créneau proposé : ' + s.debut.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' }) + ' ' + hhmm(s.debut) + ' · ' + sansEmoji(TYPES.find(t => t.k === o.k).l);
+}
+function texteLogos(d, o) {
+  const t = TYPES.find(x => x.k === o.k), lg = libelleLogos(o.k);
+  return ['Patient : ' + d.patient + (d.logos ? ' (ID Logos ' + d.logos + ')' : ''),
+    'Acte : ' + (lg ? lg + ' (' + sansEmoji(t.l) + ')' : sansEmoji(t.l)),
+    'Durée : ' + o.duree + ' min',
+    'Créneau : ' + o.choix.debut.toLocaleDateString('fr-FR', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' }) + ' de ' + hhmm(o.choix.debut) + ' à ' + hhmm(o.choix.fin),
+    'Dossier : ' + d.id + ' · ' + d.type + (d.reg.mode ? ' · ' + MODES[d.reg.mode].split(' — ')[0] : ''),
+    'À encaisser : ' + (R.aEncaisser(d, 0) == null ? '—' : eur(R.aEncaisser(d, 0))) + (R.aEncaisser(d, 1) == null ? '' : ' / ' + eur(R.aEncaisser(d, 1))),
+    'Préparé le ' + fmtDT(new Date()) + ' par ' + signature() + ' · Transmissions devis'].join('\n');
+}
+function blocProgrammer(d) {
+  const o = optionsProgrammation(d);
+  const tete = '<div class="dsec" id="prg"><h3>Programmer le prochain rendez-vous';
+  if (!o.prog) return tete + '</h3><p class="muted small">Rien à programmer à cette étape : ' + esc(R.etapeClinique(d)) + '.</p></div>';
+  if (o.prog.bloque) return tete + '</h3>' + pill(o.prog.bloque, 'wrap') + '</div>';
+  const avert = (!AG.dispo || !(AG.etat === 'ok' || AG.etat === 'perime')) ? '<div class="banner warn">Agenda non lu : les créneaux ne tiennent compte que des horaires d’ouverture.</div>' : '';
+  const sel = (nom, opts, val) => '<select data-prg="' + nom + '" data-id="' + esc(d.id) + '">' + opts.map(([v, l]) => '<option value="' + v + '"' + (String(v) === String(val) ? ' selected' : '') + '>' + l + '</option>').join('') + '</select>';
+  return tete + ' <span>' + pill('🗓️ ' + o.prog.motif, 'p-accent') + '</span></h3>' + avert +
+    '<div class="derived" style="margin:0 0 10px">' +
+    '<div><div class="l">Rendez-vous</div><div class="v">' + sel('k', TYPES.map(t => [t.k, esc(t.l)]), o.k) + '</div></div>' +
+    '<div><div class="l">Durée</div><div class="v">' + sel('duree', [10, 15, 20, 30, 40, 45, 60, 90, 120].map(x => [x, x + ' min']), o.duree) + '</div></div>' +
+    '<div><div class="l">Au plus tôt</div><div class="v"><input type="date" data-prg="apartir" data-id="' + esc(d.id) + '" value="' + toISO(o.apartir) + '" min="' + toISO(o.prog.apartir) + '"></div></div>' +
+    '<div><div class="l">Préférence</div><div class="v">' + sel('pref', [['indifferent', 'Indifférent'], ['matin', 'Matin'], ['apresmidi', 'Après-midi']], o.pref) + '</div></div></div>' +
+    (o.prog.alertes.length ? '<p class="small" style="color:var(--todo-fg);margin:0 0 6px">' + o.prog.alertes.map(esc).join(' · ') + '</p>' : '') +
+    (o.slots.length ? '<div class="slots">' + o.slots.map((s, i) => '<div class="slot"><b>' + s.debut.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) + '</b><span class="mono">' + hhmm(s.debut) + ' → ' + hhmm(s.fin) + '</span><button type="button" class="btn btn-sm ' + (o.choix && o.choix.debut.getTime() === s.debut.getTime() ? '' : 'btn-primary') + '" data-preparer="' + i + '" data-id="' + esc(d.id) + '">' + (o.choix && o.choix.debut.getTime() === s.debut.getTime() ? 'Retenu' : 'Préparer pour Logos') + '</button></div>').join('') + '</div>' : '<div class="empty">Aucun créneau libre dans les ' + PLAN.horizon + ' prochains jours avec ces contraintes</div>') +
+    (o.choix ? '<div class="logosbox"><h4>À saisir dans Logos (écran 2)</h4><textarea id="txtLogos" readonly>' + esc(texteLogos(d, o)) + '</textarea><div class="acts"><button type="button" class="btn btn-primary" data-copier data-id="' + esc(d.id) + '">Copier</button><button type="button" class="btn" data-saisi data-id="' + esc(d.id) + '">C’est saisi dans Logos ✓</button><span class="small muted">La frise notera la date avec la mention 🕐 Logos ; la prochaine lecture de l’agenda la confirmera.</span></div></div>' : '') +
+    '</div>';
+}
+function preparerLogos(d, i) {
+  if (!d) return; const o = optionsProgrammation(d); const s = o.slots && o.slots[i]; if (!s) return;
+  const st = PRG[d.id] = PRG[d.id] || {}; st.k = o.k; st.duree = o.duree; st.pref = o.pref; st.choix = s;
+  state.open = d.id; state.anchor = 'prg'; render();
+}
+async function copierLogos(d) {
+  const o = optionsProgrammation(d); if (!o.choix) return;
+  const txt = texteLogos(d, o);
+  try { await navigator.clipboard.writeText(txt); toast('Copié : à coller dans Logos · ' + d.patient); }
+  catch (e) { const ta = document.getElementById('txtLogos'); if (ta) { ta.focus(); ta.select(); } toast('Texte sélectionné : Cmd/Ctrl + C pour le copier'); }
+}
+function marquerSaisi(d) {
+  const o = optionsProgrammation(d); if (!o.choix) return;
+  const t = TYPES.find(x => x.k === o.k); const jour = o.choix.jour;
+  d.rdv[o.k] = jour; d.prov[o.k] = 'logos';
+  const texte = 'Programmé dans Logos : ' + sansEmoji(t.l) + ' le ' + fmtD(jour) + ' à ' + hhmm(o.choix.debut) + ' (créneau proposé par la plateforme)';
+  d.notes.unshift({ d: new Date(), who: signature(), t: texte });
+  delete PRG[d.id];
+  rapprocherDossier(d); render();
+  if (typeof envoyer === 'function') { envoyer({ action: 'rdv', id: d.id, type: o.k, date: toISO(jour) }, d); envoyer({ action: 'note', id: d.id, texte }, d); }
+  toast('☑ ' + sansEmoji(t.l) + ' noté le ' + fmtD(jour) + ' · ' + d.patient + ' · l’agenda le confirmera à sa prochaine lecture');
+}
+/* Écran Agenda : la file des rendez-vous à programmer, et les horaires */
+function blocAProgrammer() {
+  const L = actifs().map(d => ({ d, o: optionsProgrammation(d) })).filter(x => x.o.prog && !x.o.prog.bloque).sort((a, b) => a.o.apartir - b.o.apartir);
+  const bl = actifs().map(d => ({ d, o: optionsProgrammation(d) })).filter(x => x.o.prog && x.o.prog.bloque);
+  return '<section class="section"><div class="section-head"><h2>🗓️ Rendez-vous à programmer dans Logos</h2><span class="n">' + L.length + (bl.length ? ' · ' + bl.length + ' en attente' : '') + '</span></div>' +
+    (L.length ? '<div class="tablewrap"><table><thead><tr><th>Patient</th><th>Rendez-vous</th><th>Au plus tôt</th><th>Premier créneau libre</th><th></th></tr></thead><tbody>' +
+      L.map(({ d, o }) => { const s = o.slots[0]; return '<tr data-open="' + esc(d.id) + '"><td><b>' + esc(d.patient) + '</b><br><span class="mono small muted">' + esc(d.id) + '</span></td><td>' + pill(TYPES.find(t => t.k === o.k).l, 'p-accent') + '<br><span class="small muted">' + esc(o.prog.motif) + ' · ' + o.duree + ' min</span></td><td class="mono">' + fmtD(o.apartir) + '</td><td>' + (s ? '<b>' + s.debut.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b> <span class="mono">' + hhmm(s.debut) + '</span>' : '<span class="muted">aucun sous ' + PLAN.horizon + ' j</span>') + '</td><td><button class="btn btn-sm btn-primary" data-openbtn="' + esc(d.id) + '" data-anchor="prg">Préparer pour Logos</button></td></tr>'; }).join('') +
+      '</tbody></table></div>' : '<div class="empty">Rien à programmer pour la filière ' + (state.filiere === 'implanto' ? 'Implanto' : 'Autres devis') + '</div>') + '</section>';
+}
+function blocHoraires() {
+  const jours = [[1, 'lun'], [2, 'mar'], [3, 'mer'], [4, 'jeu'], [5, 'ven'], [6, 'sam']];
+  return '<details class="tableview" style="margin:-6px 0 18px"><summary>Horaires d’ouverture utilisés pour les créneaux (à confirmer avec Marion)</summary><div class="syncline" style="margin-top:8px">' +
+    jours.map(([n, l]) => { const h = PLAN.horaires[n] || ['', '']; return '<label class="ctl">' + l + ' <input type="time" data-horaire="' + n + '-0" value="' + (h[0] || '') + '"> → <input type="time" data-horaire="' + n + '-1" value="' + (h[1] || '') + '"></label>'; }).join('') +
+    '<label class="ctl">pause <input type="time" data-pause="0" value="' + (PLAN.pause[0] || '') + '"> → <input type="time" data-pause="1" value="' + (PLAN.pause[1] || '') + '"></label><span class="muted">vide = fermé · valeurs lues sur deux semaines d’agenda, une seule salle</span></div></details>';
+}
+
+charger();        /* Palier 1 : classeur via l'API si disponible, sinon données d'exemple (synchrone) */
+demarrerSynchro();
+</script>
