@@ -134,8 +134,18 @@ Ordre proposé : ① → ② d'abord (supprime la double saisie Logos / La Frais
 Arrêt de la séquence dès que le devis est **signé** (→ passage chez Lisa), refusé, ou que le patient a répondu.
 Versions antérieures trouvées et **remplacées** par cette séquence : cahier des charges La Fraise (J+7 / J+21 / J+28), modèle v2 du 31/08 (J+10 / J+30, Drive 12rO0bxapMx_fODZgvDZWw40qw17NNYh7), skill HubSpot de mai (J+7 / J+14 / J+30). À reprendre du modèle v2 : pas de prénom sauf certitude, une relance par patient (pas par devis), dédoublonnage des adresses, ligne « STOP », pas de relance si le patient a écrit.
 
-### Copilot : règle de version
+### Copilot : règle de version et copie de référence
 **On garde la copie la plus récente du Copilot** (la plus travaillée) ; les autres deviennent des archives.
+
+Inventaire du 21/10/2026 (métadonnées seulement) : **une seule vraie copie du code source**, la plus récente.
+- **Référence** : projet `suivi-devis` sauvegardé depuis « Mon ordinateur portable / Desktop » — https://drive.google.com/drive/folders/1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw (historique `.git` inclus, dernières modifications 17-18/10/2026).
+  - `src/automation/santeclair/` : dpec-driver.ts (+ test), run.ts, session.ts, playwright-page.ts, connect.ts
+  - `src/automation/portails/` : types.ts, registre.ts (contrat commun des pilotes de portail)
+  - `src/domain/coverage/santeclair/` : ccam-mapping.ts, prepare-dossier.ts, grille-tarifaire.ts, insurers.ts, families.ts (+ tests)
+  - Interface : `app/plans/[id]/copilote-portail-panel.tsx`, `dpec-preview.tsx` ; route `app/api/plans/[id]/copilote-dpec/route.ts`
+- **Pas des copies** : les 3 dossiers « copilote-dpec » du 18/10 07:35 sont dans `.next/` = sortie de compilation Next.js du même projet (à ignorer).
+- **Archives** : skill « copilote-portail-supervise » (sauvegarde Claude du 21/07, version de session.ts ancienne) ; « copilote-local » = projet Python de tri d'e-mails, sans lien ; dossiers « suivi-devis » de mai 2026 (HubSpot, plus anciens, sans code copilote).
+- Le code lui-même tourne sur le PC portable (Desktop\\suivi-devis) ; le Drive n'en est qu'une sauvegarde synchronisée.
 
 ## 7. JOURNAL DES DÉCISIONS (à compléter à chaque session, ne jamais effacer)
 
@@ -147,4 +157,4 @@ Versions antérieures trouvées et **remplacées** par cette séquence : cahier 
 | 21/10/2026 | 3 modules autonomes qui communiquent (Cockpit, Transmissions, Copilot), fusion à terme | Chaque outil marche seul en attendant l'interface unique |
 | 21/10/2026 | Passage Cockpit → Lisa à la **signature** du devis | Lisa ne travaille que des dossiers engagés |
 | 21/10/2026 | Séquence J0 / J7 / J15 / J30 (ci-dessus), relances autonomes dans le Cockpit | Décision du Dr |
-| 21/10/2026 | Copilot : la copie la plus récente fait foi | Décision du Dr |
+| 21/10/2026 | Copilot : la copie la plus récente fait foi = `suivi-devis` du PC portable (Drive 1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw) | Décision du Dr ; seule vraie copie du code, modifiée le 18/10 |
