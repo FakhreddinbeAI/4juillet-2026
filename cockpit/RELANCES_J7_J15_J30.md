@@ -1,11 +1,12 @@
 # Cockpit Devis — textes des relances J7 / J15 / J30
 
-Version 2 du 21/10/2026, **à relire et valider par le Dr avant tout envoi réel**.
+Version 3 du 21/10/2026 (mixte des versions 1 et 2), **à relire et valider par le Dr avant tout envoi réel**.
 J0 (envoi du devis + explications + documents) est déjà codé dans le Cockpit (`ecran_courrier_`).
 
-**Principe (Dr, 21/10/2026)** : chaque relance a un seul but, **faire signer le devis**. Elle commence par
-« Avez-vous pensé à signer votre devis ? » et **redonne toutes les informations** : le patient n'a rien à
-chercher (devis et documents rejoints, montants, comment signer et renvoyer).
+**Principe** : chaque relance rappelle de **signer le devis** et **redonne toutes les informations** (devis
+rejoint, montants, comment signer) pour que le patient n'ait rien à chercher — version 2. Chaque étape garde
+son angle propre — version 1 : J7 les questions, J15 la mutuelle et les papiers, J30 la décision
+(continuer / attendre / s'appeler), sans pression.
 
 ## Bloc commun « Votre devis en un coup d'œil » (inséré dans les 3 relances)
 
@@ -23,7 +24,7 @@ POUR SIGNER (2 minutes)
 3. Renvoyez-le en réponse à ce message (une photo lisible suffit),
    ou déposez-le au cabinet.
 
-Les pièces jointes : votre devis[, le questionnaire médical][ et le consentement].
+Pièces jointes : votre devis[, le questionnaire médical][ et le consentement].
 ```
 
 Pièces jointes de chaque relance : **le devis + les documents J0 encore manquants** (mêmes fichiers qu'à J0).
@@ -40,21 +41,27 @@ sans adresse ; 8 h–20 h, jamais le dimanche ; chaque envoi noté au journal et
 
 ---
 
-## J7 — Rappel de signature + questions
+## J7 — Tout est clair ? Pensez à signer
 
-**Objet :** Avez-vous pensé à signer votre devis n° [N° DEVIS] ?
+**Objet :** Votre devis n° [N° DEVIS] — avez-vous des questions ?
 
 ```
 [Bonjour…]
 
-Avez-vous pensé à signer votre devis ? Nous vous le renvoyons ci-joint, avec tous
-les éléments, pour que vous n'ayez rien à rechercher.
+Il y a une semaine, nous vous avons adressé votre devis n° [N° DEVIS] ainsi que les
+explications sur le traitement proposé par le Dr Tighza.
+
+Nous voulions nous assurer que tout est clair pour vous. Si un point mérite d'être
+repris — le déroulement des séances, le calendrier, le coût ou les remboursements —
+répondez simplement à ce message ou appelez-nous : nous prendrons le temps de vous
+l'expliquer.
+
+Et si tout vous convient, avez-vous pensé à signer votre devis ? Nous vous le
+renvoyons ci-joint, avec l'essentiel, pour que vous n'ayez rien à rechercher.
 
 [BLOC COMMUN]
 
-Si un point vous retient avant de signer — le déroulement des séances, le
-calendrier, le coût — répondez simplement à ce message ou appelez-nous au
-02 40 26 36 00 : nous prendrons le temps de vous expliquer.
+Rien ne presse : votre devis reste valable jusqu'au [DATE DE VALIDITÉ].
 
 Bien cordialement,
 
@@ -64,25 +71,37 @@ L'équipe du Cabinet d'Implantologie de Legé
 Pour ne plus recevoir ce type de message, répondez « STOP ».
 ```
 
+**Pourquoi.** On ouvre par les questions (trois portes concrètes), puis on rappelle la signature avec tout
+sous la main. « Rien ne presse » retire la pression à une semaine.
+
 ---
 
-## J15 — Rappel de signature + mutuelle et papiers
+## J15 — Signature, mutuelle et papiers
 
-**Objet :** Votre devis n° [N° DEVIS] — signature et mutuelle
+**Objet :** Votre devis n° [N° DEVIS] — signature, mutuelle et documents
 
 ```
 [Bonjour…]
 
-Nous n'avons pas encore reçu votre devis signé. Peut-être attendez-vous la réponse
-de votre mutuelle ? Voici de quoi tout finaliser, sans rien rechercher.
+Nous n'avons pas encore reçu votre devis signé. C'est souvent la mutuelle ou un
+document qui retarde les choses : voici de quoi tout finaliser, sans rien
+rechercher.
 
 [BLOC COMMUN]
 
 VOTRE MUTUELLE
-• Vous avez sa réponse ? Envoyez-nous-la avec le devis signé : nous calculerons
-  votre reste à charge définitif.
+• Vous avez sa réponse de prise en charge ? Envoyez-la-nous avec le devis signé :
+  nous calculerons votre reste à charge définitif.
 • Vous ne l'avez pas encore sollicitée ? Nous pouvons faire la demande pour vous :
-  il nous suffit d'une photo de votre carte de mutuelle.
+  il nous suffit d'une photo lisible de votre carte de mutuelle.
+
+VOS DOCUMENTS
+Avec le devis signé, merci de nous retourner le questionnaire médical et le
+consentement joints, complétés et signés. Le questionnaire est confidentiel et
+réservé à votre praticien.
+
+Vous pouvez tout nous envoyer en réponse à ce message (photo ou scan), ou le
+déposer au cabinet.
 
 Bien cordialement,
 
@@ -92,27 +111,37 @@ L'équipe du Cabinet d'Implantologie de Legé
 Pour ne plus recevoir ce type de message, répondez « STOP ».
 ```
 
+**Pourquoi.** À deux semaines, ce qui bloque est rarement la décision : c'est la mutuelle ou un papier.
+Proposer de faire la demande de prise en charge à la place du patient lève le frein le plus fréquent (et
+alimente le Copilot portails).
+
 ---
 
-## J30 — Dernier rappel : signer, attendre ou s'appeler
+## J30 — Signer, attendre ou s'appeler
 
-**Objet :** Votre devis n° [N° DEVIS] — dernier rappel avant mise en attente
+**Objet :** Votre devis n° [N° DEVIS] — comment souhaitez-vous poursuivre ?
 
 ```
 [Bonjour…]
 
-Votre devis n° [N° DEVIS] n'est pas encore signé. Nous vous le renvoyons une
-dernière fois, avec tous les éléments.
+Votre devis n° [N° DEVIS] du [DATE DEVIS] n'est pas encore signé, et nous voulions
+savoir comment vous souhaitez poursuivre. Nous vous le renvoyons une dernière fois,
+avec tous les éléments.
 
 [BLOC COMMUN]
 
-Si vous n'êtes pas prêt à signer, répondez simplement par un mot :
-• « ATTENTE » : nous mettons votre dossier en attente, sans autre relance ;
-• « APPEL » : vous préférez en parler de vive voix, nous vous appelons.
+Vous pouvez aussi nous répondre par un seul mot :
+• « CONTINUER » : vous souhaitez lancer le traitement, nous vous recontactons pour
+  organiser la suite ;
+• « ATTENTE » : vous préférez mettre votre dossier en attente pour le moment, nous
+  ne vous relancerons plus ;
+• « APPEL » : vous aimeriez en parler de vive voix, nous vous appelons.
 
 Si le projet n'est plus d'actualité, c'est parfaitement entendu : vous n'avez rien
-à nous répondre. Passé le [DATE DE VALIDITÉ], un nouveau bilan sera nécessaire,
-car votre situation dentaire aura pu évoluer.
+à nous répondre.
+
+À savoir : passé le [DATE DE VALIDITÉ], un nouveau bilan sera nécessaire, car votre
+situation dentaire aura pu évoluer.
 
 Bien cordialement,
 
@@ -120,8 +149,13 @@ L'équipe du Cabinet d'Implantologie de Legé
 1 rue de Chambord, 44650 Legé — 02 40 26 36 00
 ```
 
+**Pourquoi.** Le devis signé reste la voie la plus simple (tout est joint) ; les trois mots-réponses
+rendent la décision facile pour ceux qui hésitent. « Vous n'avez rien à répondre » autorise le silence, ce
+qui fait paradoxalement répondre les indécis. L'échéance est une raison clinique, pas administrative.
+
 **Après J30 : plus aucun envoi automatique.**
 - Devis signé reçu → bouton « Devis signé reçu » → le dossier part chez Lisa.
+- « CONTINUER » → action « Appeler pour organiser le traitement » pour l'équipe.
 - « ATTENTE » → statut « En attente », plus de relance.
 - « APPEL » → tâche « Appeler le patient » dans le Cockpit (et le brief du matin).
 - Pas de réponse → le dossier reste visible dans « À décider » ; l'équipe tranche.
@@ -130,9 +164,9 @@ L'équipe du Cabinet d'Implantologie de Legé
 
 ## Versions WhatsApp (envoi manuel par l'équipe, bouton dans le Cockpit)
 
-- **J7** : « Bonjour, c'est le Cabinet d'Implantologie de Legé. Avez-vous pensé à signer votre devis n° [N° DEVIS] ? Nous vous l'avons renvoyé par mail avec toutes les infos. Une question ? Nous sommes là. »
+- **J7** : « Bonjour, c'est le Cabinet d'Implantologie de Legé. Tout est clair sur votre devis n° [N° DEVIS] ? Si une question vous retient, nous sommes là. Et si tout vous convient, pensez à le signer : nous vous l'avons renvoyé par mail avec toutes les infos. »
 - **J15** : « Bonjour, c'est le Cabinet d'Implantologie de Legé. Votre devis n° [N° DEVIS] n'est pas encore signé : attendez-vous votre mutuelle ? Nous pouvons faire la demande pour vous avec une photo de votre carte. »
-- **J30** : « Bonjour, c'est le Cabinet d'Implantologie de Legé. Dernier rappel pour votre devis n° [N° DEVIS] : vous signez, on met en attente, ou vous préférez qu'on vous appelle ? »
+- **J30** : « Bonjour, c'est le Cabinet d'Implantologie de Legé. Pour votre devis n° [N° DEVIS] : on lance le traitement, on met en attente, ou vous préférez qu'on vous appelle ? »
 
 ---
 
@@ -141,5 +175,5 @@ L'équipe du Cabinet d'Implantologie de Legé
 1. Signature : « L'équipe du Cabinet d'Implantologie de Legé ».
 2. Chaque relance renvoie **le devis + les documents J0 manquants** en pièces jointes.
 3. J15 : proposer de faire la demande de prise en charge à la place du patient.
-4. J30 : mots-réponses ATTENTE / APPEL (le script les reconnaît dans les réponses).
+4. J30 : mots-réponses CONTINUER / ATTENTE / APPEL (le script les reconnaît dans les réponses).
 5. Délais comptés depuis la **date d'envoi du devis** (J0).

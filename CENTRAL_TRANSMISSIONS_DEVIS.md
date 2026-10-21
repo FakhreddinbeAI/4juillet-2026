@@ -158,4 +158,5 @@ Inventaire du 21/10/2026 (métadonnées seulement) : **une seule vraie copie du 
 | 21/10/2026 | Passage Cockpit → Lisa à la **signature** du devis | Lisa ne travaille que des dossiers engagés |
 | 21/10/2026 | Séquence J0 / J7 / J15 / J30 (ci-dessus), relances autonomes dans le Cockpit | Décision du Dr |
 | 21/10/2026 | Chaque relance J7/J15/J30 vise la signature : « Avez-vous pensé à signer votre devis ? » + récapitulatif complet et devis rejoint | Le patient n'a rien à chercher ; à chaque relance on remet toutes les infos |
+| 21/10/2026 | Relances v3 = mixte : rappel de signature + récapitulatif (v2) ET angle propre à chaque étape (v1 : questions / mutuelle et papiers / CONTINUER-ATTENTE-APPEL) | Choix du Dr |
 | 21/10/2026 | Copilot : la copie la plus récente fait foi = `suivi-devis` du PC portable (Drive 1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw) | Décision du Dr ; seule vraie copie du code, modifiée le 18/10 |
