@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b2a41;--navy2:#2c4060;--or:#b8954a;--ivoire:#faf7f0;--ligne:#e4ddcc;--gris:#6b7280;--rouge:#b42318;--vert:#18794e;--fond:#f3efe6}
+*{box-sizing:border-box}
+body{margin:0;font-family:Outfit,Arial,sans-serif;background:var(--fond);color:var(--navy);font-size:14px}
+header{background:var(--navy);color:#fff;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header h1{font-size:17px;margin:0;font-weight:600;letter-spacing:.3px}
+header h1 span{color:var(--or)}
+#mode{background:var(--or);color:var(--navy);border-radius:4px;padding:2px 8px;font-size:12px;font-weight:600}
+#mode:empty{display:none}
+#q{margin-left:auto;padding:7px 10px;border-radius:6px;border:0;width:320px;max-width:100%;font:inherit}
+nav{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;background:var(--ivoire);border-bottom:1px solid var(--ligne)}
+.chip{border:1px solid var(--ligne);background:#fff;border-radius:16px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;color:var(--navy)}
+.chip b{color:var(--gris);font-weight:500;margin-left:3px}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chip.on b{color:var(--or)}
+.chip.alerte{border-color:#e7b3ad}
+main{display:grid;grid-template-columns:380px 1fr;height:calc(100vh - 100px)}
+#liste{overflow-y:auto;border-right:1px solid var(--ligne);background:var(--ivoire)}
+.carte{padding:11px 14px;border-bottom:1px solid var(--ligne);cursor:pointer;background:#fff}
+.carte:hover{background:#fbf8f1}
+.carte.sel{border-left:4px solid var(--or);padding-left:10px;background:#fbf8f1}
+.carte .l1{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.carte .l2{color:var(--gris);font-size:12.5px;margin-top:2px}
+.carte .l3{font-size:12.5px;margin-top:5px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{border-radius:4px;padding:1px 6px;font-size:11.5px;background:#eef1f6;color:var(--navy2)}
+.tag.ok{background:#e3f4ea;color:var(--vert)}
+.tag.ko{background:#fdecea;color:var(--rouge)}
+.tag.or{background:#f6efdd;color:#7a5d1e}
+#fiche{overflow-y:auto;padding:18px 22px 40px}
+.vide{color:var(--gris);text-align:center;margin-top:80px}
+.entete{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.entete h2{margin:0;font-size:21px}
+.entete .sous{color:var(--gris);margin-top:3px}
+.barre{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+button.btn,a.btn{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:6px;padding:7px 12px;font:inherit;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.btn.plein{background:var(--navy);color:#fff}
+.btn.or{background:var(--or);border-color:var(--or);color:var(--navy)}
+.btn.wa{border-color:#1f8f4e;color:#1f8f4e}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.petit{padding:4px 9px;font-size:12.5px}
+.bloc{background:#fff;border:1px solid var(--ligne);border-radius:8px;padding:14px 16px;margin-top:14px}
+.bloc h3{margin:0 0 10px;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--navy2);display:flex;justify-content:space-between;align-items:center}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px 14px}
+label{display:block;font-size:12px;color:var(--gris);margin-bottom:3px}
+input,select{width:100%;padding:7px 8px;border:1px solid var(--ligne);border-radius:5px;font:inherit;background:#fff;color:var(--navy)}
+input.modif,select.modif{border-color:var(--or);background:#fffaf0}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.chiffre{background:var(--ivoire);border-radius:6px;padding:8px 10px}
+.chiffre div:first-child{font-size:12px;color:var(--gris)}
+.chiffre div:last-child{font-size:16px;font-weight:600;margin-top:2px}
+.chiffre.fort{background:var(--navy);color:#fff}
+.chiffre.fort div:first-child{color:#c9d2e0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:500;color:var(--gris);font-size:12px;border-bottom:1px solid var(--ligne);padding:6px 6px}
+td{border-bottom:1px solid #f0ebdf;padding:6px 6px;vertical-align:top}
+td.n,th.n{text-align:right;white-space:nowrap}
+td input{width:90px;text-align:right;padding:4px 6px}
+.alerte{background:#fdecea;color:var(--rouge);border-radius:6px;padding:8px 12px;margin-top:12px}
+.journal div{padding:5px 0;border-bottom:1px dashed var(--ligne);font-size:12.5px}
+.journal span{color:var(--gris)}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:#fff;padding:10px 16px;border-radius:6px;transition:.25s;opacity:0;max-width:90vw}
+#toast.show{transform:translateX(-50%);opacity:1}
+#toast.err{background:var(--rouge)}
+#retour{display:none}
+.charge{opacity:.5;pointer-events:none}
+@media (max-width:820px){
+  main{grid-template-columns:1fr;height:auto}
+  #fiche{display:none;padding:14px 16px 40px}
+  body.vue-fiche #liste{display:none}
+  body.vue-fiche #fiche{display:block}
+  #retour{display:inline-flex;margin-bottom:10px}
+  #q{min-width:0;width:100%}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cockpit <span>Devis</span></h1>
+  <span id="mode"></span>
+  <input id="q" placeholder="Rechercher un nom ou un n° de devis">
+</header>
+<nav id="chips"></nav>
+<main>
+  <section id="liste"><p class="vide">Chargement…</p></section>
+  <section id="fiche"><p class="vide">Sélectionner un dossier dans la liste</p></section>
+</main>
+<div id="toast"></div>
+
+<script>
+var PLANS = [], CFG = {}, FILTRE = 'Dossier à traiter', COURANT = null, FICHE = null;
+var ALERTE = '⚠ À compléter', TOUS = 'Tous';
+
+function $(s) { return document.querySelector(s); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function eur(n) { if (n === '' || n == null || isNaN(Number(n))) return '—'; return Number(n).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }); }
+function toast(t, err) { var d = $('#toast'); d.textContent = t; d.className = err ? 'err show' : 'show'; clearTimeout(toast.t); toast.t = setTimeout(function () { d.className = ''; }, err ? 6000 : 2600); }
+function appel(fn, args, ok) {
+  document.body.classList.add('charge');
+  var r = google.script.run.withSuccessHandler(function (x) { document.body.classList.remove('charge'); ok(x); })
+    .withFailureHandler(function (e) { document.body.classList.remove('charge'); toast('Erreur : ' + (e.message || e), true); });
+  r[fn].apply(r, args);
+}
+
+/* ---------- liste ---------- */
+function charger(ouvrir) {
+  appel('ecran_liste', [], function (r) {
+    PLANS = r.plans; CFG = r.cfg;
+    $('#mode').textContent = CFG.mode === 'REEL' ? '' : 'MODE TEST · envois vers ' + CFG.testDest;
+    chips(); liste();
+    if (ouvrir) ouvrirFiche(ouvrir);
+  });
+}
+function compte(s) {
+  if (s === TOUS) return PLANS.length;
+  return PLANS.filter(function (p) { return s === ALERTE ? !!p.alerte : p.statut === s; }).length;
+}
+function chips() {
+  var noms = [ALERTE].concat(CFG.statuts).concat([TOUS]);
+  $('#chips').innerHTML = noms.map(function (s) {
+    var n = compte(s);
+    if (!n && s !== FILTRE && s !== TOUS && s !== 'Dossier à traiter') return '';
+    return '<button class="chip' + (s === FILTRE ? ' on' : '') + (s === ALERTE ? ' alerte' : '') + '" data-s="' + esc(s) + '">' + esc(s) + '<b>' + n + '</b></button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.chip'), function (b) {
+    b.onclick = function () { FILTRE = b.getAttribute('data-s'); chips(); liste(); };
+  });
+}
+function liste() {
+  var q = $('#q').value.trim().toLowerCase();
+  var l = PLANS.filter(function (p) {
+    if (q) return (p.nom + ' ' + p.id).toLowerCase().indexOf(q) >= 0;
+    if (FILTRE === TOUS) return true;
+    if (FILTRE === ALERTE) return !!p.alerte;
+    return p.statut === FILTRE;
+  });
+  if (!l.length) { $('#liste').innerHTML = '<p class="vide">Aucun dossier ici.</p>'; return; }
+  $('#liste').innerHTML = l.map(function (p) {
+    var tags = '';
+    if (p.alerte) tags += '<span class="tag ko">' + esc(p.alerte) + '</span>';
+    if (p.valide && p.statut === 'Dossier à traiter') tags += '<span class="tag ok">validé</span>';
+    if (p.pec && p.pec !== 'À demander') tags += '<span class="tag or">PEC ' + esc(p.pec) + '</span>';
+    if (p.envoi) tags += '<span class="tag">envoyé ' + esc(p.envoi) + '</span>';
+    return '<div class="carte' + (p.id === COURANT ? ' sel' : '') + '" data-id="' + esc(p.id) + '">' +
+      '<div class="l1"><span>' + esc(p.nom) + '</span><span>' + eur(p.montant) + '</span></div>' +
+      '<div class="l2">' + esc(p.id) + ' · ' + esc(p.type) + ' · ' + esc(p.date) + (FILTRE === TOUS || q ? ' · ' + esc(p.statut) : '') + '</div>' +
+      '<div class="l3"><span class="tag">' + esc(p.action || '—') + '</span>' + tags + '</div></div>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.carte'), function (c) {
+    c.onclick = function () { ouvrirFiche(c.getAttribute('data-id')); };
+  });
+}
+
+/* ---------- fiche ---------- */
+function ouvrirFiche(id) {
+  COURANT = id; liste();
+  document.body.classList.add('vue-fiche');
+  appel('ecran_fiche', [id], afficher);
+}
+function rafraichir(f) { afficher(f); charger(); }
+
+function champ(nom, val, type, options) {
+  var id = 'f_' + nom.replace(/\W/g, '_');
+  var h = '<div><label for="' + id + '">' + esc(nom) + '</label>';
+  if (options) {
+    h += '<select id="' + id + '" data-champ="' + esc(nom) + '" data-orig="' + esc(val) + '"><option value=""></option>' +
+      options.map(function (o) { return '<option' + (o === val ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+  } else {
+    h += '<input id="' + id + '" type="' + (type || 'text') + '" data-champ="' + esc(nom) + '" data-orig="' + esc(val) + '" value="' + esc(val) + '">';
+  }
+  return h + '</div>';
+}
+function chiffre(t, v, fort) { return '<div class="chiffre' + (fort ? ' fort' : '') + '"><div>' + t + '</div><div>' + v + '</div></div>'; }
+
+function afficher(f) {
+  FICHE = f;
+  var p = f.plan, id = p['ID dossier'], h = '';
+  var peutEnvoyer = p['Validé pour envoi'] === true && !!p['E-mail'];
+  h += '<button class="btn petit" id="retour">← Liste</button>';
+  h += '<div class="entete"><div><h2>' + esc(p['Nom complet patient']) + '</h2>' +
+       '<div class="sous">Devis ' + esc(id) + ' · ' + esc(p['Type de devis / traitement']) + ' · du ' + esc(p['Date devis']) +
+       ' · valable jusqu\'au ' + esc(p['Validité']) + '</div>' +
+       '<div class="sous">' + esc(p['Description']) + '</div></div>' +
+       '<div style="min-width:240px"><label>Statut</label><div style="display:flex;gap:6px"><select id="statut">' +
+       CFG.statuts.map(function (s) { return '<option' + (s === p['Statut'] ? ' selected' : '') + '>' + esc(s) + '</option>'; }).join('') +
+       '</select><button class="btn petit" id="appStatut">OK</button></div>' +
+       '<input id="motif" placeholder="Motif du refus (obligatoire)" style="margin-top:6px;display:none"></div></div>';
+
+  if (p['Contrôle lecture'] !== 'OK') h += '<div class="alerte">Lecture du devis à vérifier : ' + esc(p['Alertes lecture']) + '</div>';
+  if (p._manque.length) h += '<div class="alerte">Manque ' + esc(p._manque.join(' et ')) + ' : à compléter ci-dessous (et dans Logos).</div>';
+
+  h += '<div class="barre">' +
+       (p['Validé pour envoi'] === true
+         ? '<button class="btn" id="devalider">Retirer la validation</button>'
+         : '<button class="btn plein" id="valider">✓ Valider pour envoi</button>') +
+       '<button class="btn or" id="envoyer"' + (peutEnvoyer ? '' : ' disabled title="Valider le devis et renseigner l\'e-mail d\'abord"') + '>✉ ' + (p['Date d\'envoi'] ? 'Renvoyer' : 'Envoyer') + ' le devis</button>' +
+       (p['WhatsApp'] ? '<a class="btn wa" id="wa" target="_blank" href="' + esc(lienWA(p)) + '">WhatsApp</a>' : '') +
+       (p['PDF du devis'] ? '<a class="btn" target="_blank" href="' + esc(p['PDF du devis']) + '">Devis PDF</a>' : '') +
+       '<button class="btn" id="docs">Documents J0</button>' +
+       (p['Signé le'] ? '' : '<button class="btn plein" id="signe">✍ Devis signé reçu</button>') +
+       '<button class="btn" id="apercuRelance">Prochaine relance</button>' +
+       (p['Dossier Drive'] ? '<a class="btn" target="_blank" href="' + esc(p['Dossier Drive']) + '">Dossier Drive</a>' : '') +
+       '</div><div id="listeDocs"></div>';
+
+  h += '<div class="bloc"><h3>Montants</h3><div class="chiffres">' +
+       chiffre('Montant du devis', eur(p['Montant devis'])) + chiffre('Base Sécu', eur(p['Base Sécu'])) +
+       chiffre('Remb. Assurance Maladie', eur(p['Remb. AMO'])) + chiffre('Reste à charge avant mutuelle', eur(p['Reste à charge avant mutuelle'])) +
+       chiffre('Remb. mutuelle accordé', p['Remb. mutuelle (AMC)'] === '' ? '—' : eur(p['Remb. mutuelle (AMC)'])) +
+       chiffre('Reste à charge patient', eur(p['Reste à charge total']), true) + '</div></div>';
+
+  h += '<div class="bloc" id="bContact"><h3>Patient <button class="btn petit plein" data-save="bContact">Enregistrer</button></h3><div class="grille">' +
+       champ('Prénom', p['Prénom']) + champ('E-mail', p['E-mail'], 'email') + champ('Téléphone', p['Téléphone'], 'tel') + '</div></div>';
+
+  h += '<div class="bloc" id="bActes"><h3>Actes <button class="btn petit plein" id="saveAmc">Enregistrer la prise en charge</button></h3><div style="overflow-x:auto"><table><tr>' +
+       '<th>Dent</th><th>Code</th><th>Acte</th><th>Matériau / panier</th><th class="n">Honoraires</th><th class="n">Remb. AMO</th><th class="n">Reste à charge</th><th class="n">Mutuelle accordé</th><th class="n">Reste final</th></tr>' +
+       f.actes.map(function (a) {
+         var mp = [a['Matériau (libellé)'], a['Panier (libellé)']].filter(String).join(' · ');
+         return '<tr><td>' + esc(a['Dent']) + '</td><td>' + esc(a['Code']) + '</td><td>' + esc(a['Libellé']) + '</td><td>' + esc(mp) + '</td>' +
+           '<td class="n">' + eur(a['Honoraires']) + '</td><td class="n">' + eur(a['Remb. AMO']) + '</td><td class="n">' + eur(a['Reste à charge']) + '</td>' +
+           '<td class="n"><input data-ligne="' + a._ligne + '" data-orig="' + esc(a['Remb. AMC accordé']) + '" value="' + esc(a['Remb. AMC accordé']) + '" inputmode="decimal"></td>' +
+           '<td class="n">' + eur(a['Reste à charge final']) + '</td></tr>';
+       }).join('') + '</table></div></div>';
+
+  h += '<div class="bloc" id="bPec"><h3>Prise en charge mutuelle <button class="btn petit plein" data-save="bPec">Enregistrer</button></h3><div class="grille">' +
+       champ('Statut PEC', p['Statut PEC'], null, CFG.statutsPEC) + champ('Plateforme PEC', p['Plateforme PEC'], null, CFG.plateformes) +
+       champ('Organisme complémentaire', p['Organisme complémentaire']) + champ('N° adhérent', p['N° adhérent']) +
+       champ('N° contrat', p['N° contrat']) + champ('Réf. dossier PEC', p['Réf. dossier PEC']) +
+       champ('Date demande PEC', p['Date demande PEC']) + champ('Date réponse PEC', p['Date réponse PEC']) +
+       '</div><div class="sous" style="color:var(--gris);font-size:12px;margin-top:10px">Praticien RPPS ' + esc(p['RPPS praticien']) +
+       ' · ADELI ' + esc(p['ADELI praticien']) + ' · Fabrication : ' + esc(p['Lieu de fabrication'] || '—') +
+       ' · Sous-traitance : ' + esc(p['Sous-traitance'] || '—') + (p['Lieu sous-traitance'] ? ' (' + esc(p['Lieu sous-traitance']) + ')' : '') + '</div></div>';
+
+  h += '<div class="bloc" id="bSuivi"><h3>Suivi <button class="btn petit plein" data-save="bSuivi">Enregistrer</button></h3><div class="chiffres">' +
+       chiffre('Envoyé le', esc(p['Date d\'envoi'] || '—')) + chiffre('Ouvertures', esc(p['Nb d\'ouvertures'] || 0)) +
+       chiffre('Relance J7', esc(p['Relance 1'] || '—')) + chiffre('Relance J15', esc(p['Relance 2'] || '—')) + chiffre('Relance J30', esc(p['Relance 3'] || '—')) +
+       chiffre('Réponse patient', esc(p['Réponse patient'] || '—')) + chiffre('Signé le', esc(p['Signé le'] || '—')) + chiffre('Chez Lisa', esc(p['Synchro classeur'] || '—')) +
+       '</div><div class="grille" style="margin-top:10px">' + champ('Pièces reçues', p['Pièces reçues']) + '</div></div>';
+
+  h += '<div class="bloc"><h3>Historique</h3><div class="journal">' +
+       (f.journal.length ? f.journal.map(function (j) { return '<div><span>' + esc(j.quand) + ' · ' + esc(j.acteur) + '</span> — <b>' + esc(j.action) + '</b> ' + esc(j.detail) + '</div>'; }).join('') : '<div>—</div>') +
+       '</div></div>';
+
+  $('#fiche').innerHTML = h;
+  brancher(id);
+}
+
+function lienWA(p) {
+  var t = 'Bonjour ' + (p['Prénom'] || '') + ', ici le Cabinet d\'Implantologie de Legé. ' +
+    (p['Date d\'envoi'] ? 'Nous vous avons envoyé votre devis par e-mail (' + p['E-mail'] + '). ' : '') +
+    'N\'hésitez pas à nous répondre ici si vous avez des questions.';
+  return p['WhatsApp'] + '?text=' + encodeURIComponent(t);
+}
+
+function brancher(id) {
+  $('#retour').onclick = function () { document.body.classList.remove('vue-fiche'); COURANT = null; liste(); };
+  var st = $('#statut');
+  st.onchange = function () { $('#motif').style.display = st.value === 'Décliné' ? 'block' : 'none'; };
+  $('#appStatut').onclick = function () { appel('ecran_statut', [id, st.value, $('#motif').value], function (f) { toast('Statut mis à jour'); rafraichir(f); }); };
+  if ($('#valider')) $('#valider').onclick = function () { appel('ecran_valider', [id, true], function (f) { toast('Validé pour envoi'); rafraichir(f); }); };
+  if ($('#devalider')) $('#devalider').onclick = function () { appel('ecran_valider', [id, false], function (f) { toast('Validation retirée'); rafraichir(f); }); };
+  $('#envoyer').onclick = function () {
+    var dest = CFG.mode === 'REEL' ? FICHE.plan['E-mail'] : CFG.testDest + ' (mode test)';
+    var b = $('#envoyer');
+    if (!b.getAttribute('data-ok')) {   // 1er clic : demande de confirmation dans le bouton (pas de fenêtre)
+      b.setAttribute('data-ok', '1'); b.textContent = 'Confirmer l\'envoi à ' + dest + ' ?';
+      setTimeout(function () { if (b.isConnected) { b.removeAttribute('data-ok'); b.textContent = '✉ Envoyer le devis'; } }, 6000);
+      return;
+    }
+    appel('ecran_envoyer', [id], function (f) { toast('Devis envoyé à ' + dest); rafraichir(f); });
+  };
+  $('#docs').onclick = function () {
+    $('#listeDocs').innerHTML = '<div class="bloc">Préparation des documents…</div>';
+    appel('ecran_apercuDocs', [id], function (l) {
+      $('#listeDocs').innerHTML = '<div class="bloc"><h3>Documents joints au mail J0</h3><ul style="margin:0;padding-left:18px">' +
+        '<li>Devis Logos</li>' + l.map(function (d) { return '<li><a target="_blank" href="' + esc(d.url) + '">' + esc(d.titre) + '</a></li>'; }).join('') + '</ul></div>';
+    });
+  };
+  if ($('#signe')) $('#signe').onclick = function () {
+    var b = $('#signe');
+    if (!b.getAttribute('data-ok')) {   // 1er clic : confirmation dans le bouton
+      b.setAttribute('data-ok', '1'); b.textContent = 'Confirmer : devis signé reçu ?';
+      setTimeout(function () { if (b.isConnected) { b.removeAttribute('data-ok'); b.textContent = '✍ Devis signé reçu'; } }, 6000);
+      return;
+    }
+    appel('ecran_signe', [id], function (f) { toast('Devis signé : relances arrêtées · ' + (f.plan['Synchro classeur'] || '')); rafraichir(f); });
+  };
+  $('#apercuRelance').onclick = function () {
+    $('#listeDocs').innerHTML = '<div class="bloc">Calcul de la prochaine relance…</div>';
+    appel('ecran_apercuRelance', [id], function (r) {
+      $('#listeDocs').innerHTML = '<div class="bloc"><h3>' + esc(r.info) + '</h3>' + (r.etape
+        ? '<div class="sous"><b>Objet :</b> ' + esc(r.sujet) + '</div><pre style="white-space:pre-wrap;font-family:inherit;margin:8px 0 0">' + esc(r.texte) + '</pre>'
+        : '') + '</div>';
+    });
+  };
+  if ($('#wa')) $('#wa').addEventListener('click', function () { google.script.run.ecran_noter(id, 'WhatsApp ouvert', ''); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-champ]'), function (i) {
+    i.addEventListener('input', function () { i.classList.toggle('modif', i.value !== i.getAttribute('data-orig')); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-save]'), function (b) {
+    b.onclick = function () {
+      var champs = {}, n = 0;
+      Array.prototype.forEach.call(document.querySelectorAll('#' + b.getAttribute('data-save') + ' [data-champ]'), function (i) {
+        if (i.value !== i.getAttribute('data-orig')) { champs[i.getAttribute('data-champ')] = i.value; n++; }
+      });
+      if (!n) { toast('Rien à enregistrer'); return; }
+      appel('ecran_maj', [id, champs], function (f) { toast('Enregistré'); rafraichir(f); });
+    };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('#bActes input'), function (i) {
+    i.addEventListener('input', function () { i.classList.toggle('modif', i.value !== i.getAttribute('data-orig')); });
+  });
+  $('#saveAmc').onclick = function () {
+    var v = {}, n = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('#bActes input'), function (i) {
+      if (i.value !== i.getAttribute('data-orig')) { v[i.getAttribute('data-ligne')] = i.value; n++; }
+    });
+    if (!n) { toast('Rien à enregistrer'); return; }
+    appel('ecran_amc', [id, v], function (f) { toast('Prise en charge enregistrée'); rafraichir(f); });
+  };
+}
+
+$('#q').addEventListener('input', liste);
+charger();
+</script>
+</body>
+</html>
