@@ -121,3 +121,30 @@ Ordre proposé : ① → ② d'abord (supprime la double saisie Logos / La Frais
 ### Décisions du 21/10/2026
 - **① → ② : un dossier passe chez Lisa quand le patient a SIGNÉ le devis** (colonne « Signé le » du Cockpit renseignée).
 - Le Cockpit doit faire les **relances patient tout seul**. Constat sur le code du 19/10 : ce n'est **pas encore le cas** — les colonnes « Relance 1 / Relance 2 » existent mais rien ne les remplit ; « Signé le » n'est modifiable ni à l'écran ni par un statut ; le suivi de lecture (« Nb d'ouvertures ») n'existe pas (le mail part avec pièces jointes, sans lien de suivi ; le « Jeton patient » est prévu pour une future page patient). Envois toujours en MODE TEST (propriété `MODE_ENVOI`).
+
+### Séquence patient du Cockpit (décision du Dr, 21/10/2026) — RÉFÉRENCE
+
+| Jour | Message | But |
+|---|---|---|
+| **J0** | Envoi du devis + explications du traitement + documents (questionnaire, consentement) | Déjà codé dans le Cockpit (`ecran_envoyer`, mail J0) |
+| **J7** | « Tout est OK ? Avez-vous des questions ? » | Lever les doutes sur le traitement |
+| **J15** | Point **mutuelle et papiers** : retour de la mutuelle reçu ? documents complets ? | Débloquer la prise en charge et les pièces |
+| **J30** | « On continue, on met le dossier en attente, ou vous préférez un appel ? » | Faire décider le patient sans pression ; « appel » → tâche pour l'équipe |
+
+Arrêt de la séquence dès que le devis est **signé** (→ passage chez Lisa), refusé, ou que le patient a répondu.
+Versions antérieures trouvées et **remplacées** par cette séquence : cahier des charges La Fraise (J+7 / J+21 / J+28), modèle v2 du 31/08 (J+10 / J+30, Drive 12rO0bxapMx_fODZgvDZWw40qw17NNYh7), skill HubSpot de mai (J+7 / J+14 / J+30). À reprendre du modèle v2 : pas de prénom sauf certitude, une relance par patient (pas par devis), dédoublonnage des adresses, ligne « STOP », pas de relance si le patient a écrit.
+
+### Copilot : règle de version
+**On garde la copie la plus récente du Copilot** (la plus travaillée) ; les autres deviennent des archives.
+
+## 7. JOURNAL DES DÉCISIONS (à compléter à chaque session, ne jamais effacer)
+
+| Date | Décision | Raison |
+|---|---|---|
+| 20/10/2026 | App Transmissions servie par Apps Script (plus par Claude) | L'équipe l'ouvre sur tablette sans compte Claude ni connecteurs |
+| 21/10/2026 | Une seule app pour Implanto + Autres devis (menu Filière), version 4 | Une seule icône, une seule URL |
+| 21/10/2026 | Rien n'est supprimé sans décision du Dr ; on archive | Travail éclaté sur plusieurs PC et sessions |
+| 21/10/2026 | 3 modules autonomes qui communiquent (Cockpit, Transmissions, Copilot), fusion à terme | Chaque outil marche seul en attendant l'interface unique |
+| 21/10/2026 | Passage Cockpit → Lisa à la **signature** du devis | Lisa ne travaille que des dossiers engagés |
+| 21/10/2026 | Séquence J0 / J7 / J15 / J30 (ci-dessus), relances autonomes dans le Cockpit | Décision du Dr |
+| 21/10/2026 | Copilot : la copie la plus récente fait foi | Décision du Dr |
