@@ -157,4 +157,5 @@ Inventaire du 21/10/2026 (métadonnées seulement) : **une seule vraie copie du 
 | 21/10/2026 | 3 modules autonomes qui communiquent (Cockpit, Transmissions, Copilot), fusion à terme | Chaque outil marche seul en attendant l'interface unique |
 | 21/10/2026 | Passage Cockpit → Lisa à la **signature** du devis | Lisa ne travaille que des dossiers engagés |
 | 21/10/2026 | Séquence J0 / J7 / J15 / J30 (ci-dessus), relances autonomes dans le Cockpit | Décision du Dr |
+| 21/10/2026 | Chaque relance J7/J15/J30 vise la signature : « Avez-vous pensé à signer votre devis ? » + récapitulatif complet et devis rejoint | Le patient n'a rien à chercher ; à chaque relance on remet toutes les infos |
 | 21/10/2026 | Copilot : la copie la plus récente fait foi = `suivi-devis` du PC portable (Drive 1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw) | Décision du Dr ; seule vraie copie du code, modifiée le 18/10 |
