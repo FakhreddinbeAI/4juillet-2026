@@ -80,3 +80,40 @@ Non mis à la corbeille (droits) : « Script Transmissions devis (TEST Lilas) »
 1. Toute modification de l'app part de `apps-script/transmissions-devis-unique/` dans ce dépôt, puis est collée dans le script et redéployée (Gérer les déploiements → ✏️ → Nouvelle version). L'URL ne change jamais.
 2. Une nouvelle session Claude commence par lire ce fichier.
 3. Rien n'est supprimé : on déplace en « Archives » ici.
+
+## 6. ARCHITECTURE — 3 modules autonomes qui se parlent (décision du 21/10/2026)
+
+À terme : une seule interface. En attendant : chaque module marche seul et échange avec son voisin.
+
+```
+ Logos (PDF devis)
+      │
+      ▼
+ ① COCKPIT DEVIS ──────────────── PEC à demander ───────────────▶ ③ COPILOT PORTAILS MUTUELLES
+   lit le devis, envoie au patient,  ◀──── Accordé / Refusé + montant ────  remplit le portail (Santéclair/FFL),
+   suit lecture / signature            (« Statut PEC », « Remb. AMC accordé »)  s'arrête avant « Valider »
+      │
+      │ devis accepté / signé  (colonnes ★ = mêmes en-têtes que l'onglet Lisa)
+      ▼
+ ② TRANSMISSIONS DEVIS (app tablettes : Lisa · Marion · Lucie · Règlements)
+```
+
+Clé commune aux 3 modules : **ID dossier** (format Logos `NNNNN-NNNNN`). Bus d'échange : les classeurs Google (pas d'API entre modules tant qu'ils sont séparés).
+
+| Liaison | Sens | État | Ce qu'il manque |
+|---|---|---|---|
+| ① → ② | Cockpit → classeur de Lisa | codée, **désactivée** (`synchroClasseur: false`) | choisir le classeur selon la filière (Implanto / Autres devis : aujourd'hui seul Implanto est configuré), définir le déclencheur (devis signé ? accepté ?), ne jamais écraser une ligne déjà travaillée par Lisa |
+| ① → ③ | Cockpit → Copilot | **préparée côté Cockpit** (bloc DPEC dans « Plans » ; n° Sécu et date de naissance jamais stockés, relus dans le PDF par `cockpit_identiteDPEC_`) | le Copilot lit aujourd'hui sa propre base (`treatment_plans`, `plan_details`) : lui ajouter une lecture des dossiers « Statut PEC = À demander » du Cockpit |
+| ③ → ① | Copilot → Cockpit | à faire | relire « Accordé / Refusé / Facturé » sur le portail et l'écrire dans « Statut PEC » + « Remb. AMC accordé » |
+| ① → ② (PEC) | Cockpit → Lisa | à faire | reporter le résultat PEC dans les colonnes PEC / montants mutuelle de Lisa |
+
+Contraintes :
+- Le Copilot tourne **en local** sur le PC du cabinet (Playwright piloté sur un Chrome connecté au portail ; aucun mot de passe stocké ; validation finale toujours humaine). Il ne peut pas devenir une page Apps Script : dans l'interface unique, ce sera un « agent de poste » déclenché depuis l'interface via une file d'attente dans le classeur.
+- Cockpit et Transmissions sont tous deux en Apps Script + Google Sheets : leur fusion en une seule webapp à onglets est la voie la plus courte vers l'interface unique.
+
+Copilot portails mutuelles — où il est :
+- Spec : `spec_copilote_dpec_santeclair.md` (Drive 1zHCWxHh9lZEKVRWBKkIQIdWMjOzmKFMS)
+- Code TypeScript (pilotes `portails/types.ts`, `registre.ts`, `dpec-driver.ts`, `ccam-mapping.ts`, `prepare-dossier.ts`, panneau `copilote-portail-panel.tsx`) : **plusieurs copies dans Drive** (3 dossiers « copilote-dpec », « copilote-local », skill « copilote-portail-supervise » + zip du 14/07). La copie de référence reste à désigner.
+- Skill réutilisable : installé sur le PC Windows (`C:\Users\conta\.claude\skills\copilote-portail-supervise\`).
+
+Ordre proposé : ① → ② d'abord (supprime la double saisie Logos / La Fraise / Lisa), puis ① ↔ ③, puis la fusion Cockpit + Transmissions en une interface.
