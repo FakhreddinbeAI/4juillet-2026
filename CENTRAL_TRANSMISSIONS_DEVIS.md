@@ -117,3 +117,7 @@ Copilot portails mutuelles — où il est :
 - Skill réutilisable : installé sur le PC Windows (`C:\Users\conta\.claude\skills\copilote-portail-supervise\`).
 
 Ordre proposé : ① → ② d'abord (supprime la double saisie Logos / La Fraise / Lisa), puis ① ↔ ③, puis la fusion Cockpit + Transmissions en une interface.
+
+### Décisions du 21/10/2026
+- **① → ② : un dossier passe chez Lisa quand le patient a SIGNÉ le devis** (colonne « Signé le » du Cockpit renseignée).
+- Le Cockpit doit faire les **relances patient tout seul**. Constat sur le code du 19/10 : ce n'est **pas encore le cas** — les colonnes « Relance 1 / Relance 2 » existent mais rien ne les remplit ; « Signé le » n'est modifiable ni à l'écran ni par un statut ; le suivi de lecture (« Nb d'ouvertures ») n'existe pas (le mail part avec pièces jointes, sans lien de suivi ; le « Jeton patient » est prévu pour une future page patient). Envois toujours en MODE TEST (propriété `MODE_ENVOI`).
