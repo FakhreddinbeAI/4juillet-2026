@@ -3,6 +3,11 @@
 Mis à jour le 21/10/2026. Une seule source de vérité : ce fichier.
 Règle : rien n'est supprimé sans décision du Dr ; les anciennes versions restent, rangées en « Archives ».
 
+Dossier Drive central : https://drive.google.com/drive/folders/1oF-vCpKCETquNntVw2EExozzECkAYRS8
+(document « 00 — LIRE D'ABORD — Point central » : https://docs.google.com/document/d/14LBLJqdbDckxFTz1O_OzOtPVUeFiLX_v6SCZQ-5PYII/edit)
+
+Circuit : Logos (devis PDF) → **Cockpit Devis** (lecture, envoi patient, suivi, PEC) → synchro étape 7 (désactivée) → **Transmissions devis** (Lisa · Marion · Lucie · Règlements).
+
 ## 1. EN SERVICE (la seule chose que l'équipe utilise)
 
 | Quoi | Où |
@@ -16,6 +21,16 @@ Règle : rien n'est supprimé sans décision du Dr ; les anciennes versions rest
 | Agenda lu par l'app | contact@implantologielege.com |
 
 Lien `/dev` (AKfycbwDsImte…/dev) : lien de test du script, réservé à l'éditeur. **Jamais sur les tablettes.**
+
+## 1 bis. EN CONSTRUCTION — Cockpit Devis (remplaçant de La Fraise)
+
+| Quoi | Où |
+|---|---|
+| Classeur « Cockpit Devis — base » (Plans, Actes, Journal, Paramètres) | https://docs.google.com/spreadsheets/d/1tVIQjL4USDXWTTUfK29HcOaIK4CdUDwDVz8gorFMYfA/edit |
+| Script « Cockpit Devis » (Code.gs + Ecran.html, webapp « Moi uniquement ») | https://script.google.com/d/1wT_L8riYMbn7rd6VSDjHWuH98P_k6XHOcJiqAqm8Ym4IDDHps4snTe37/edit |
+| Dossier Drive « Cockpit Devis » | https://drive.google.com/drive/folders/15GyL2riQCbtMj6wPxp-Yp8aT-IxLUSDI — Devis entrants, Dossiers patients, Devis illisibles, Modèles patients |
+
+État au 19/10/2026 (journal) : étape 1 faite — lecture des devis Logos OK (3 dossiers : 1 fictif + 2 réels du 15/10, « Dossier à traiter »), envoi au patient testé en MODE TEST seulement (pièces jointes : devis + questionnaire médical + consentement), WhatsApp testé, PEC mutuelle saisie à la main. Synchro vers le classeur Implanto : présente mais désactivée (`synchroClasseur: false`, étape 7). 5 sous-dossiers « 99999-00001 — FICTIF » en double dans Dossiers patients (tests répétés) ; seul 1VVxsoNZEXew6EFVg0Be-aAgmzXsA_xcT est référencé par la base. Le PDF de test de ce dossier fictif (16UI0shgx73d-JvoZuI9MKVQTEJo2kAhq) est à la corbeille depuis le 21/10 : à restaurer.
 
 ## 2. ARCHIVES (gardées, ne plus utiliser au quotidien)
 
