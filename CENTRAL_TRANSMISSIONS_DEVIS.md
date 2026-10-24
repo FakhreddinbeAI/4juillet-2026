@@ -163,6 +163,7 @@ Inventaire du 21/10/2026 (métadonnées seulement) : **une seule vraie copie du 
 | 24/10/2026 | Cockpit installé (déploiement « Sans titre » v3), MODE_ENVOI absent = TEST, SYNCHRO_LISA = TEST, déclencheur relance_tourner 9 h | Rapport Claude in Chrome du 24/10 |
 | 24/10/2026 | Relances de test notées « TEST jj/mm/aaaa », ignorées en REEL ; Gmail en lecture seule (gmail.readonly) | Ne pas fausser les vrais dossiers ; l'accès complet accordé n'était pas nécessaire |
 | 24/10/2026 | Passage chez Lisa reste en TEST : la recopie de Lisa (`lisaAutoPropager`) est un déclencheur installable « lors d'une modification », qui ne réagit pas aux écritures par script | Vérifié en lecture seule dans le projet de Lisa (6 déclencheurs) |
+| 24/10/2026 | Option A : nouveau fichier `COCKPIT_PONT.gs` (même fichier dans les projets de Lisa Implanto et Autres devis) + déclencheur 15 min qui rejoue `lisaAutoPropager` sans événement ; aucun des 43 / 33 fichiers de Lisa modifié ; synchro Règlements bloquée s'il y a un trou en Règlements!A | `lisaAutoPropager` exige un événement de saisie ; `reglements_synchroniser` écraserait des lignes en cas de trou |
 | 21/10/2026 | Copilot : la copie la plus récente fait foi = `suivi-devis` du PC portable (Drive 1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw) | Décision du Dr ; seule vraie copie du code, modifiée le 18/10 |
 
 ### Points ouverts au 24/10/2026
