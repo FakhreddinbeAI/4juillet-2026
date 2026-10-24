@@ -60,3 +60,42 @@ Faux classeur de 8 dossiers : J7 à J+8, J15 à J+16, J30 à J+31 ; 2e devis du 
 expiré ignoré ; dossier signé ignoré ; réponse « APPEL » reconnue (action « Appeler le patient ») et la citation
 du message précédent ignorée ; 2e passage le même jour : aucun envoi ; « Devis signé reçu » en TEST : ligne
 cible annoncée dans le journal, rien écrit. **Non testé : l'exécution réelle dans Google** (Gmail, Drive, envoi).
+
+
+---
+
+# Mise à jour du 24/10/2026 — après le rapport d'installation
+
+Corrections :
+1. **Relances de test marquées** : en MODE TEST la date est notée « TEST jj/mm/aaaa » dans « Relance 1/2/3 » ;
+   en REEL ces cases ne comptent pas, un vrai dossier testé n'est donc jamais « déjà relancé ».
+2. **Gmail en lecture seule** : lecture des réponses par l'API Gmail (service avancé), autorisation
+   `gmail.readonly` au lieu de `https://mail.google.com/` (accès complet). Le manifeste `appsscript.json`
+   liste désormais les autorisations exactes.
+3. **Date de l'aperçu** : calcul en jours de calendrier (plus d'effet du passage à l'heure d'hiver) et
+   report au lundi si l'échéance tombe un dimanche.
+4. Adresse du patient nettoyée (espaces, majuscules) avant l'envoi.
+
+## Texte à coller à Claude in Chrome
+
+```
+Compte contact@implantologielege.com uniquement.
+
+1. https://myaccount.google.com/permissions (compte contact@) : trouve l'accès de l'application
+   « Cockpit Devis » (ou « Projet sans titre » lié au script Cockpit) et clique « Supprimer l'accès ».
+   Note dans ton rapport le nom exact de l'accès supprimé. Ne touche à aucun autre accès.
+2. Ouvre https://script.google.com/d/1wT_L8riYMbn7rd6VSDjHWuH98P_k6XHOcJiqAqm8Ym4IDDHps4snTe37/edit
+   Paramètres du projet → coche « Afficher le fichier manifeste appsscript.json dans l'éditeur ».
+3. Remplace intégralement par la version GitHub (« Copy raw file »), puis vérifie par empreinte SHA-256 :
+   appsscript.json ← https://github.com/fakhreddinbeai/4juillet-2026/blob/ccr-f742e5aa-rukpap/apps-script/cockpit-devis/appsscript.json
+   Relances.gs     ← https://github.com/fakhreddinbeai/4juillet-2026/blob/ccr-f742e5aa-rukpap/apps-script/cockpit-devis/Relances.gs
+   (Code.gs et Ecran.html ne changent pas : vérifie seulement leur empreinte.) Enregistre.
+   Dans « Services » à gauche, « Gmail » doit apparaître (ajouté par le manifeste).
+4. Exécute relance_installer. L'écran d'autorisation Google doit maintenant indiquer
+   « Consulter vos e-mails et vos paramètres » (lecture seule) et NON « lire, rédiger, envoyer et
+   supprimer ». Je valide moi-même. Fais une capture des autorisations demandées pour le rapport.
+5. Exécute relance_test puis relance_testTextes. Journaux dans le rapport.
+6. Déployer → Gérer les déploiements → « Sans titre » → ✏️ → Nouvelle version → Déployer.
+7. Écran Cockpit, dossier 99999-00001 → « Prochaine relance » : la date doit être le 26/10/2026.
+8. Rapport : empreintes, accès supprimé, autorisations demandées, journaux, version du déploiement.
+```

@@ -12,7 +12,9 @@
  * relance_test()          simulation : affiche ce qui partirait aujourd'hui, n'envoie rien, n'écrit rien
  * relance_supprimerDeclencheur()
  *
- * Envois : comme le J0, MODE_ENVOI = 'TEST' (défaut) → tout part vers DEST_TEST, jamais au patient.
+ * Envois : comme le J0, MODE_ENVOI = 'TEST' (défaut) → tout part vers DEST_TEST, jamais au patient ;
+ *          la date est alors notée « TEST jj/mm/aaaa » et ne compte plus une fois MODE_ENVOI = 'REEL'.
+ * Réponses : API Gmail en lecture seule (service avancé « Gmail », autorisation gmail.readonly).
  * Passage chez Lisa : propriété SYNCHRO_LISA = 'OFF' (défaut, rien) | 'TEST' (journal seulement) | 'ON' (écrit).
  */
 
@@ -106,7 +108,7 @@ function relance_passage_(simulation) {
       if (!envoi) return;
       if (validite && validite < aujourdhui) { rapport.push(o['ID dossier'] + ' : devis expiré, pas de relance'); return; }
       var jours = Math.round((aujourdhui - relance_jour_(envoi)) / 864e5), etape = null;
-      RELANCE_CFG.etapes.forEach(function (e) { if (jours >= e.jours && !o[e.colonne]) etape = e; });
+      RELANCE_CFG.etapes.forEach(function (e) { if (jours >= e.jours && !relance_faite_(o[e.colonne])) etape = e; });
       if (!etape) return;
       if (vus[cle] || relance_recente_(lignes, cle, aujourdhui)) { rapport.push(o['ID dossier'] + ' : ' + etape.cle + ' reportée (une relance par patient)'); return; }
       vus[cle] = true;
@@ -127,7 +129,7 @@ function relance_recente_(lignes, cle, aujourdhui) {
   return lignes.some(function (L) {
     if (relance_adresse_(L.o['E-mail']) !== cle) return false;
     return RELANCE_CFG.etapes.some(function (e) {
-      var d = relance_lireDate_(L.o[e.colonne]);
+      var d = relance_faite_(L.o[e.colonne]) ? relance_lireDate_(L.o[e.colonne]) : null;
       return d && (aujourdhui - relance_jour_(d)) / 864e5 < RELANCE_CFG.delaiEntreRelancesJours;
     });
   });
@@ -136,12 +138,13 @@ function relance_recente_(lignes, cle, aujourdhui) {
 /* ============================ ENVOI ============================ */
 
 function relance_envoyer_(ss, sh, H, L, etape) {
-  var o = L.o, m = ecran_mode_(), dest = m.mode === 'REEL' ? o['E-mail'] : m.testDest;
+  var o = L.o, m = ecran_mode_(), dest = m.mode === 'REEL' ? relance_adresse_(o['E-mail']) : m.testDest;
   var pieces = relance_pieces_(o);
   var c = relance_courrier_(o, etape.cle, pieces.documentsJ0);
   MailApp.sendEmail({ to: dest, subject: (m.mode === 'REEL' ? '' : '[TEST → ' + o['E-mail'] + '] ') + c.sujet,
                       body: c.texte, htmlBody: c.html, name: CABINET.nom, attachments: pieces.blobs });
-  var auj = Utilities.formatDate(new Date(), COCKPIT_CFG.fuseau, 'dd/MM/yyyy');
+  // En mode TEST la date est préfixée « TEST » : ces relances ne comptent plus une fois passé en REEL.
+  var auj = (m.mode === 'REEL' ? '' : 'TEST ') + Utilities.formatDate(new Date(), COCKPIT_CFG.fuseau, 'dd/MM/yyyy');
   sh.getRange(L.r, H.indexOf(etape.colonne) + 1).setNumberFormat('@').setValue(auj);
   o[etape.colonne] = auj;
   cockpit_journal_(ss, o['ID dossier'], 'système', 'Relance ' + etape.cle, 'à ' + dest +
@@ -244,24 +247,49 @@ function relance_titresDocs_(o) {
 
 /* ============================ RÉPONSES DES PATIENTS (Gmail, lecture seule) ============================ */
 
-/** Dernier message reçu du patient depuis l'envoi du devis, ou null. */
+/**
+ * Dernier message reçu du patient depuis l'envoi du devis, ou null.
+ * API Gmail (service avancé « Gmail ») avec l'autorisation gmail.readonly : lecture seule, rien n'est
+ * modifié ni supprimé dans la boîte.
+ */
 function relance_reponse_(o) {
   var mail = relance_adresse_(o['E-mail']), envoi = relance_lireDate_(o['Date d\'envoi']);
   if (!mail || !envoi) return null;
   var apres = Utilities.formatDate(envoi, COCKPIT_CFG.fuseau, 'yyyy/MM/dd');
-  var fils = GmailApp.search('from:' + mail + ' after:' + apres + ' -in:spam -in:trash', 0, 10), dernier = null;
-  fils.forEach(function (f) {
-    f.getMessages().forEach(function (msg) {
-      if (relance_adresse_(msg.getFrom().replace(/^.*</, '').replace(/>.*$/, '')) !== mail) return;
-      if (msg.getDate() < envoi) return;
-      if (!dernier || msg.getDate() > dernier.getDate()) dernier = msg;
-    });
+  var liste = Gmail.Users.Messages.list('me', { q: 'from:' + mail + ' after:' + apres + ' -in:spam -in:trash', maxResults: 10 });
+  var dernier = null;
+  (liste.messages || []).forEach(function (x) {
+    var msg = Gmail.Users.Messages.get('me', x.id, { format: 'full' });
+    var de = relance_entete_(msg, 'From').replace(/^.*</, '').replace(/>.*$/, '');
+    var quand = new Date(Number(msg.internalDate));
+    if (relance_adresse_(de) !== mail || quand < envoi) return;
+    if (!dernier || quand > dernier.date) dernier = { date: quand, msg: msg };
   });
   if (!dernier) return null;
-  var corps = String(dernier.getPlainBody() || '').split(/\n\s*(?:Le .{0,80}a écrit|On .{0,80}wrote|-----|De :|From:)/)[0];
+  var corps = relance_texteMessage_(dernier.msg.payload).split(/\n\s*(?:Le .{0,80}a écrit|On .{0,80}wrote|-----|De :|From:)/)[0];
   var mot = (corps.toUpperCase().match(/\b(CONTINUER|ATTENTE|APPEL|STOP)\b/) || [])[1];
-  return { type: mot ? RELANCE_CFG.motsReponse[mot] : 'Lue', date: dernier.getDate(), lien: dernier.getThread().getPermalink() };
+  return { type: mot ? RELANCE_CFG.motsReponse[mot] : 'Lue', date: dernier.date,
+           lien: 'https://mail.google.com/mail/u/0/#all/' + dernier.msg.threadId };
 }
+
+function relance_entete_(msg, nom) {
+  var h = ((msg.payload || {}).headers || []).filter(function (x) { return String(x.name).toLowerCase() === nom.toLowerCase(); })[0];
+  return h ? String(h.value) : '';
+}
+
+/** Texte brut d'un message de l'API Gmail : première partie text/plain, sinon text/html sans balises. */
+function relance_texteMessage_(part) {
+  var trouve = { plain: '', html: '' };
+  (function parcourir(p) {
+    if (!p) return;
+    var data = p.body && p.body.data;
+    if (data && p.mimeType === 'text/plain' && !trouve.plain) trouve.plain = relance_b64_(data);
+    if (data && p.mimeType === 'text/html' && !trouve.html) trouve.html = relance_b64_(data);
+    (p.parts || []).forEach(parcourir);
+  })(part);
+  return trouve.plain || trouve.html.replace(/<br\s*\/?>|<\/p>/gi, '\n').replace(/<[^>]+>/g, ' ');
+}
+function relance_b64_(s) { return Utilities.newBlob(Utilities.base64DecodeWebSafe(s)).getDataAsString('UTF-8'); }
 
 function relance_appliquerReponse_(ss, sh, H, L, rep) {
   var o = L.o, quand = Utilities.formatDate(rep.date, COCKPIT_CFG.fuseau, 'dd/MM/yyyy');
@@ -366,9 +394,10 @@ function ecran_apercuRelance(id) {
   var envoi = relance_lireDate_(o['Date d\'envoi']);
   if (!envoi) return { etape: '', info: 'Pas de relance tant que le devis n\'est pas envoyé.' };
   var suite = null;
-  RELANCE_CFG.etapes.forEach(function (e) { if (!suite && !o[e.colonne]) suite = e; });
+  RELANCE_CFG.etapes.forEach(function (e) { if (!suite && !relance_faite_(o[e.colonne])) suite = e; });
   if (!suite) return { etape: '', info: 'Les trois relances sont parties : plus d\'envoi automatique.' };
-  var date = new Date(relance_jour_(envoi).getTime() + suite.jours * 864e5);
+  var date = relance_plusJours_(envoi, suite.jours);   // en jours de calendrier (heure d'hiver / d'été sans effet)
+  if (Utilities.formatDate(date, COCKPIT_CFG.fuseau, 'u') === '7') date = relance_plusJours_(date, 1);   // pas d'envoi le dimanche
   var c = relance_courrier_(o, suite.cle);
   return { etape: suite.cle, date: Utilities.formatDate(date, COCKPIT_CFG.fuseau, 'dd/MM/yyyy'), sujet: c.sujet, texte: c.texte,
            info: 'Prochaine relance : ' + suite.cle + ' le ' + Utilities.formatDate(date, COCKPIT_CFG.fuseau, 'dd/MM/yyyy') + ' (à partir de 8 h, hors dimanche).' };
@@ -383,6 +412,14 @@ function relance_testTextes() {
 /* ============================ OUTILS ============================ */
 
 function relance_adresse_(s) { return String(s || '').trim().toLowerCase(); }
+
+/** Une case « Relance n » compte comme envoyée : en REEL, seules les dates sans « TEST » ; en TEST, toutes. */
+function relance_faite_(v) {
+  v = String(v || '').trim();
+  if (!v) return false;
+  return !(/^TEST/i.test(v) && ecran_mode_().mode === 'REEL');
+}
+function relance_plusJours_(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
 
 /** « dd/MM/yyyy » (texte) ou Date → Date à minuit ; sinon null. */
 function relance_lireDate_(v) {

@@ -160,4 +160,12 @@ Inventaire du 21/10/2026 (métadonnées seulement) : **une seule vraie copie du 
 | 21/10/2026 | Chaque relance J7/J15/J30 vise la signature : « Avez-vous pensé à signer votre devis ? » + récapitulatif complet et devis rejoint | Le patient n'a rien à chercher ; à chaque relance on remet toutes les infos |
 | 21/10/2026 | Relances v3 = mixte : rappel de signature + récapitulatif (v2) ET angle propre à chaque étape (v1 : questions / mutuelle et papiers / CONTINUER-ATTENTE-APPEL) | Choix du Dr |
 | 21/10/2026 | Cockpit : relances J7/J15/J30 + « Devis signé reçu » codés (`apps-script/cockpit-devis/`), en MODE TEST ; passage chez Lisa en SYNCHRO_LISA = TEST tant que la recopie LISA_AUTO n'est pas vérifiée | Un onEdit ne se déclenche pas sur une écriture par script |
+| 24/10/2026 | Cockpit installé (déploiement « Sans titre » v3), MODE_ENVOI absent = TEST, SYNCHRO_LISA = TEST, déclencheur relance_tourner 9 h | Rapport Claude in Chrome du 24/10 |
+| 24/10/2026 | Relances de test notées « TEST jj/mm/aaaa », ignorées en REEL ; Gmail en lecture seule (gmail.readonly) | Ne pas fausser les vrais dossiers ; l'accès complet accordé n'était pas nécessaire |
+| 24/10/2026 | Passage chez Lisa reste en TEST : la recopie de Lisa (`lisaAutoPropager`) est un déclencheur installable « lors d'une modification », qui ne réagit pas aux écritures par script | Vérifié en lecture seule dans le projet de Lisa (6 déclencheurs) |
 | 21/10/2026 | Copilot : la copie la plus récente fait foi = `suivi-devis` du PC portable (Drive 1a6-hcu8DWF42oay0XhN6hwXt0wvvYFjw) | Décision du Dr ; seule vraie copie du code, modifiée le 18/10 |
+
+### Points ouverts au 24/10/2026
+- **Recopie chez Lisa** : `lisaAutoPropager` (déclencheur « lors d'une modification ») lance `insererDossiersManquants()`, `reglements_synchroniser()`, `fiab_autoReparer()` ; ligne nouvelle = ID de Lisa!A absent de Marion!B ou Règlements!A ; garde-fou : B et D remplis. Une ligne écrite par le Cockpit ne déclenche rien. Décision à prendre par le Dr.
+- **Ingestion automatique** du Cockpit (`cockpit_ingerer` toutes les 5 min) : non installée.
+- **Lecteur de devis** : sur le devis fictif, « Céramo-céramique · Libre » est rattaché au Cone beam au lieu de la couronne (matériau / panier lus sur la mauvaise ligne). À corriger dans `lecteur_lire`.
