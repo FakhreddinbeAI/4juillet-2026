@@ -118,7 +118,7 @@ Les décisions et les suivis sont écrits dans le classeur « Questionnaires imp
 
 ## À améliorer dans le formulaire (5 minutes, sans toucher au code)
 
-Les points 1 à 4 sont regroupés, étape par étape, dans **`PROMPT_CHROME_FORMULAIRE.md`**, à lancer avec Claude in Chrome depuis ton ordinateur. Le module gère déjà le résultat : réponses partielles après un STOP, pathologies en cases à cocher.
+Les points 1 à 4 sont faits par le script **`formulaire_implanto.gs`**, à lancer avec **`PROMPT_LOCAL_FORMULAIRE.md`** depuis une session Claude locale. Seul le passage des pathologies en cases à cocher reste un clic à la main. Le module gère déjà le résultat : réponses partielles après un STOP, pathologies en cases à cocher.
 
 1. **Faire vraiment s'arrêter les STOP.** Pour les questions dent manquante, implant et âge : **⋮ → Aller à la section en fonction de la réponse**. Envoyer le « NON » vers une section finale « Merci — prenez RDV chez votre dentiste ».
 2. **Pathologies en cases à cocher.** Aujourd'hui, la question est à choix unique : un patient qui a deux pathologies ne peut en déclarer qu'une. Le module gère déjà les cases à cocher.

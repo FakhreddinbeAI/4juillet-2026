@@ -1,5 +1,7 @@
 # PROMPT CLAUDE IN CHROME — formulaire de pré-consultation implanto (26/10/2026)
 
+> **Remplacé par `PROMPT_LOCAL_FORMULAIRE.md`** : Claude in Chrome n'est pas arrivé à piloter l'éditeur Google Forms. Les mêmes corrections passent désormais par le script `formulaire_implanto.gs`.
+
 ## Pourquoi
 
 Voici ce qu'a montré le tri des 143 réponses par le module Questionnaires du Hub :
