@@ -185,7 +185,8 @@ function relance_courrier_(o, cle, piecesTitres) {
   var docs = piecesTitres || relance_titresDocs_(o);
   var bloc = function () {
     h('Votre devis en un coup d\'œil');
-    li(['Devis n° ' + n + ' du ' + (o['Date devis'] || '—') + (o['Description'] ? ' — ' + o['Description'] : ''),
+    var traitement = relance_libelleTraitement_(o['Type de devis / traitement']);   // en clair, pas le libellé brut de Logos
+    li(['Devis n° ' + n + ' du ' + (o['Date devis'] || '—') + (traitement ? ' — ' + traitement : ''),
         'Montant total : ' + ecran_eur_(o['Montant devis']),
         'Remboursement Assurance Maladie : ' + ecran_eur_(o['Remb. AMO']),
         rac, 'Valable jusqu\'au : ' + validite]);
@@ -410,6 +411,13 @@ function relance_testTextes() {
 }
 
 /* ============================ OUTILS ============================ */
+
+/** Type du devis (colonne « Type de devis / traitement ») en mots compris par un patient ; '' si inconnu. */
+function relance_libelleTraitement_(type) {
+  return ({ 'Implanto': 'Implantologie', 'Couronne sur implants': 'Couronne sur implant', 'Plan de traitement complet': 'Plan de traitement complet',
+            'Couronne': 'Couronne', 'Bridge': 'Bridge', 'Prothèse partielle': 'Prothèse amovible partielle',
+            'Prothèse complète': 'Prothèse amovible complète', 'Prothèse amovible définitive': 'Prothèse amovible' })[String(type || '').trim()] || '';
+}
 
 function relance_adresse_(s) { return String(s || '').trim().toLowerCase(); }
 
