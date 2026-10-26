@@ -60,7 +60,8 @@ const QX = {
   // Avis du Dr : section 2 du formulaire. actif: false = la question ne déclenche plus l'avis.
   // « sauf » = réponses qui ne déclenchent rien ; tout le reste (texte libre compris) déclenche.
   AVIS: [
-    { col: 'pathologies', actif: true, sauf: /^\s*aucune\b/i, motif: 'Pathologie déclarée' },
+    // « Aucune » seule ; en cases à cocher, « Aucune de ces pathologies, Cancer… » déclenche bien l'avis
+    { col: 'pathologies', actif: true, sauf: /^\s*aucune( de ces pathologies)?\s*\.?\s*$/i, motif: 'Pathologie déclarée' },
     { col: 'medicaments', actif: true, sauf: /^\s*(non|aucun|aucune|rien|n[ée]ant|pas de|0)\b|^[\s.\-]*$/i, motif: 'Médicaments déclarés' },
     { col: 'tabac',       actif: true, sauf: /^\s*non\b/i,    motif: 'Tabac déclaré' }
   ],
