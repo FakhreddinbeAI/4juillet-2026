@@ -33,14 +33,18 @@ contact@, Drive.*
 |---|---|---|
 | 27/10 (J+8) | expéditeurs Google, « HDS », « Google Cloud », « SELARL TIGHZA » | Rien de Google. Seulement des mails automatiques (sécurité, conditions, factures) |
 
-Un appel de Google sur le portable ne laisse aucune trace ici : à signaler s'il
-a eu lieu.
+**Téléphone (27/10)** : aucun appel décroché, aucun message laissé. Le
+Dr Tighza ne répond pas aux numéros inconnus. Or le formulaire commercial
+annonce un rappel par un commercial. **Ce canal est donc probablement perdu** :
+si Google a appelé, l'appel n'a pas abouti.
 
-## Prochaine étape : relance le 2 novembre (J+14)
+## Prochaine étape : ticket écrit à l'assistance, sans attendre le 2/11
 
-Sans réponse au 2/11, on passe par l'assistance de la console d'administration
-(admin.google.com > Aide > Contacter l'assistance). Texte prêt à coller,
-moins de 1 000 caractères :
+Le rappel téléphonique ne passe pas : on bascule sur un canal écrit qui donne
+un numéro de dossier. C'est l'assistance de la console d'administration
+(admin.google.com > Aide > Contacter l'assistance), à ouvrir avec le compte
+administrateur. Le contrôle du 2/11 reste en place comme filet. Texte prêt à
+coller, moins de 1 000 caractères :
 
 > SELARL TIGHZA, cabinet dentaire (domaine implantologielege.com), Google
 > Workspace Business Plus, 3 licences. Nous hébergeons des données de santé à
@@ -51,8 +55,9 @@ moins de 1 000 caractères :
 > envoyée le 19/10/2026 via le formulaire commercial Google Cloud, sans réponse
 > à ce jour. Merci de nous indiquer la procédure pour signer l'avenant HDS pour
 > une organisation de moins de 20 utilisateurs, et de confirmer si Google Apps
-> Script entre dans le périmètre du certificat HDS. Contact :
-> contact@implantologielege.com.
+> Script entre dans le périmètre du certificat HDS. Merci de répondre par
+> écrit à contact@implantologielege.com (pas de rappel téléphonique possible
+> pendant les consultations).
 
 ## Ce qui reste côté cabinet (hors Google)
 
