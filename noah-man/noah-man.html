@@ -232,6 +232,34 @@ legend{padding:0;margin-bottom:10px}
   .preview-wrap canvas{width:170px;height:170px}
 }
 
+/* ---------- Duel à deux tablettes ---------- */
+.duel-hud{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.duel-pl{display:flex;flex-direction:column;gap:5px;min-width:0}
+.duel-pl.opp{align-items:flex-end;text-align:right}
+.duel-pl .who{font-weight:700;font-size:16px;line-height:1.1;overflow-wrap:anywhere}
+.duel-pl .pts{font-family:var(--font-arcade);font-size:clamp(13px,3.6vw,18px);font-variant-numeric:tabular-nums;color:var(--ink)}
+.duel-pl .hearts{display:flex;gap:4px;min-height:14px}
+.duel-pl .hearts i{width:14px;height:14px;border-radius:50%;background:conic-gradient(from 60deg,transparent 0 60deg,var(--c) 60deg 360deg)}
+.duel-vs{font-family:var(--font-arcade);font-size:12px;color:var(--muted)}
+.duel-status{margin:0;font-size:16px;max-width:36ch;text-wrap:balance}
+.duel-status.warn{color:var(--pink);font-weight:600}
+.duel-me{width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px;border-radius:18px;background:var(--bg-raise);border:1px solid var(--line)}
+.duel-me .field{align-items:center}
+.duel-me .text-input{text-align:center;max-width:240px}
+.duel-team{margin:0;font-size:15px;color:var(--muted);text-wrap:balance}
+.duel-team b{font-weight:600}
+.dot-c{display:inline-block;width:14px;height:14px;border-radius:50%;background:conic-gradient(from 60deg,transparent 0 60deg,var(--c) 60deg 360deg);margin-right:6px;vertical-align:-2px}
+.duel-list{width:100%;display:flex;flex-direction:column;gap:10px}
+.duel-peer{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--bg-raise-2);border:2px solid var(--line);text-align:left}
+.duel-peer.invite{border-color:var(--pac)}
+.duel-peer .pic{flex:none;width:30px;height:30px;border-radius:50%;background:conic-gradient(from 60deg,transparent 0 60deg,var(--c) 60deg 360deg)}
+.duel-peer .txt{flex:1;min-width:0;display:flex;flex-direction:column}
+.duel-peer .txt b{font-size:18px;overflow-wrap:anywhere}
+.duel-peer .txt small{font-size:14px;color:var(--muted)}
+.duel-peer .btn{font-size:16px;padding:11px 18px}
+.duel-empty{margin:0;padding:14px;border-radius:16px;border:2px dashed var(--line);color:var(--muted);font-size:15px;text-wrap:balance}
+.duel-scores{margin:0;font-family:var(--font-arcade);font-size:clamp(13px,4vw,18px);line-height:1.8}
+
 .toast{
   position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;
   width:max-content;max-width:calc(100% - 32px);padding:12px 20px;border-radius:18px;
@@ -245,6 +273,11 @@ legend{padding:0;margin-bottom:10px}
     <div class="hud-block"><span class="hud-label">SCORE</span><span class="hud-val" id="score">0</span></div>
     <div class="hud-block mid"><span class="hud-label">RECORD</span><span class="hud-val hi" id="hi">0</span></div>
     <div class="hud-block end"><span class="hud-label" id="lvl">NIVEAU 1</span><div class="lives" id="lives" role="img" aria-label="Vies"></div></div>
+    <div class="duel-hud" id="duel-hud" hidden>
+      <div class="duel-pl"><span class="who" id="dh-me-name">Toi</span><span class="pts" id="dh-me-pts">0</span><div class="hearts" id="dh-me-lives" role="img"></div></div>
+      <span class="duel-vs">VS</span>
+      <div class="duel-pl opp"><span class="who" id="dh-op-name">…</span><span class="pts" id="dh-op-pts">0</span><div class="hearts" id="dh-op-lives" role="img"></div></div>
+    </div>
   </header>
 
   <main class="stage" id="stage">
@@ -262,6 +295,7 @@ legend{padding:0;margin-bottom:10px}
         <div class="seg big" role="radiogroup" aria-label="Mode de jeu">
           <label><input type="radio" name="mode" value="classique" id="mode-classique"><span>Classique</span></label>
           <label><input type="radio" name="mode" value="bataille" id="mode-bataille"><span>Bataille</span></label>
+          <label><input type="radio" name="mode" value="duel" id="mode-duel"><span>Duel à 2</span></label>
         </div>
         <p class="mode-desc" id="mode-desc"></p>
         <div class="actions">
@@ -274,7 +308,7 @@ legend{padding:0;margin-bottom:10px}
           <label><input type="radio" name="diff" value="expert" id="diff-expert"><span>Expert</span></label>
         </div>
         <div class="team-block">
-          <p class="mini-label">Contre toi</p>
+          <p class="mini-label" id="team-label">Contre toi</p>
           <div class="team-names" id="team-names"></div>
         </div>
         <div class="team-block" id="ally-block">
@@ -294,6 +328,35 @@ legend{padding:0;margin-bottom:10px}
           <button class="btn btn-primary" id="btn-resume" type="button" data-autofocus>Reprendre</button>
           <button class="btn" id="btn-restart" type="button">Recommencer</button>
           <button class="btn" id="btn-quit" type="button">Menu</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="duel-screen" aria-labelledby="duel-title" hidden>
+      <div class="screen-inner">
+        <h2 class="big-title" id="duel-title">DUEL À 2</h2>
+        <p class="duel-status" id="duel-status" role="status">Connexion…</p>
+        <div class="duel-me">
+          <div class="field">
+            <label for="duel-name">Ton prénom</label>
+            <input class="text-input" id="duel-name" type="text" maxlength="12" placeholder="Ex. : Inès" spellcheck="false" autocomplete="off">
+          </div>
+          <div class="chips" id="duel-colors" role="radiogroup" aria-label="Ta couleur"></div>
+          <p class="duel-team" id="duel-team"></p>
+        </div>
+        <div class="duel-list" id="duel-list"></div>
+        <div class="actions"><button class="btn" id="duel-back" type="button">Retour</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="duel-over" aria-labelledby="duel-over-title" hidden>
+      <div class="screen-inner">
+        <h2 class="big-title" id="duel-over-title">FIN</h2>
+        <p class="duel-scores" id="duel-scores"></p>
+        <p class="record-note" id="duel-over-note"></p>
+        <div class="actions">
+          <button class="btn btn-primary" id="duel-again" type="button" data-autofocus>Revanche</button>
+          <button class="btn" id="duel-quit" type="button">Quitter</button>
         </div>
       </div>
     </section>
@@ -503,7 +566,11 @@ const ITEM_BY_ID = Object.fromEntries(ITEMS.map(i => [i.id, i]));
    Sauvegarde (sur cet appareil seulement)
    ===================================================================== */
 const STORE_KEY = 'noah-man.v1';
-const save = { custom: [], team: DEFAULT_TEAM.slice(), allies: DEFAULT_ALLIES.slice(), hi: 0, diff: 'normal', mode: 'classique', muted: false };
+const save = { custom: [], team: DEFAULT_TEAM.slice(), allies: DEFAULT_ALLIES.slice(), hi: 0, diff: 'normal', mode: 'classique', muted: false, player: { n: '', c: '#ffd23f' } };
+const PAC_COLORS = [['#ffd23f', 'Jaune'], ['#ff5fae', 'Rose'], ['#4dff9a', 'Vert'], ['#27e8ff', 'Bleu'], ['#ffa53d', 'Orange']];
+const PAC_HEX = new Set(PAC_COLORS.map(c => c[0]));
+const validColor = c => (PAC_HEX.has(c) ? c : PAC_COLORS[0][0]);
+const cleanName = n => String(n == null ? '' : n).replace(/[\u0000-\u001f\u007f-\u009f­​-‏‪-‮⁠-⁯﻿]/g, '').slice(0, 12).trim();
 
 function cleanGhost(o) {
   if (!o || typeof o !== 'object') return null;
@@ -534,7 +601,8 @@ function applySave(s) {
   if (Array.isArray(s.allies)) save.allies = s.allies.filter(id => typeof id === 'string');
   if (Number.isFinite(s.hi)) save.hi = Math.max(0, Math.floor(s.hi));
   if (DIFFS[s.diff]) save.diff = s.diff;
-  if (s.mode === 'classique' || s.mode === 'bataille') save.mode = s.mode;
+  if (s.mode === 'classique' || s.mode === 'bataille' || s.mode === 'duel') save.mode = s.mode;
+  if (s.player && typeof s.player === 'object') save.player = { n: cleanName(s.player.n), c: validColor(s.player.c) };
   save.muted = !!s.muted;
   fixTeam();
 }
@@ -1956,6 +2024,1093 @@ function updateMysteryBtn() {
 const spinIds = ITEMS.map(i => i.id);
 
 /* =====================================================================
+   Duel à deux tablettes (capacité « room » de Claude)
+   La tablette qui lance le défi fait tourner la partie et partage l'état
+   environ 30 fois par seconde ; l'autre envoie seulement ses commandes.
+   ===================================================================== */
+const DUEL_STARTS = [[9.5, 23.5, 1], [18.5, 23.5, 3]];
+const DUEL_RELEASE = [1, 1.6, 4, 4.6, 7, 7.6];
+const GST = ['house', 'leaving', 'active', 'eaten', 'entering'];
+const DUEL_DESC = {
+  bouclier: 'Invincible : fonce dans les fantômes adverses !',
+  pastille: 'Les fantômes adverses ont peur. Mange-les !',
+  renfort: 'Un fantôme de plus dans ton équipe !',
+  gel: 'Les fantômes adverses sont gelés. Casse-les !',
+  eclair: 'Ton adversaire et ses fantômes rétrécissent !',
+  turbo: 'Tu fonces à toute vitesse !',
+  aimant: 'Il attrape les pastilles autour de toi.',
+  fusee: 'Trois fusées foncent sur l’équipe adverse.',
+  banane: 'Un piège glissant pour ton adversaire.',
+  teleport: 'Hop ! Te voilà à l’abri.',
+  fruits: 'Des fruits bonus partout !',
+};
+const EV_KINDS = new Set(['pop', 'brs', 'snd', 'item']);
+const SOUNDS = { power: 'power', eat: 'eatGhost', bam: 'bam', fruit: 'fruit', box: 'box', zap: 'zap', rocket: 'rocket', death: 'death', roulette: 'roulette', clear: 'clear' };
+const HEX6 = /^#[0-9a-f]{6}$/i;
+
+const net = { room: null, tried: null, game: null, gameOff: [], lobbyOff: null, myPeer: null, other: null, role: null, joinT: 0 };
+const lobby = { st: 'idle', inv: null, rm: null, acc: null };
+const duel = {
+  active: false, role: null, me: 0, sim: null, view: null, pl: null, gdefs: null,
+  lastSObj: null, lastStateAt: 0, lastSend: 0, evCount: 0, evSeen: -1,
+  parts: [], pops: [], disp: new Map(), frameNo: 0,
+  inW: null, myst: 0, again: 0, lastM: null, lastA: null,
+  prevPh: '', goT: 0, hud: '', mkey: '', quitArm: 0,
+};
+let DS = null;   // partie en cours, lue par les fonctions de décision des fantômes
+
+function getRoom() {
+  if (!net.tried) {
+    net.tried = (async () => {
+      try { return window.claude && typeof window.claude.use === 'function' ? await window.claude.use('room') : null; }
+      catch (e) { return null; }
+    })().then(r => (net.room = r));
+  }
+  return net.tried;
+}
+const myName = () => cleanName(save.player.n) || 'Joueur';
+const myColor = () => validColor(save.player.c);
+function myDuelTeam() {
+  const byId = new Map(allDefs().map(d => [d.id, d]));
+  return [...new Set(save.allies.concat(save.team))].map(id => byId.get(id)).filter(Boolean).slice(0, 3);
+}
+const compactDef = d => [d.name, d.color, d.brain, d.power, d.acc, d.speed];
+function expandDef(a) {
+  if (!Array.isArray(a)) return null;
+  const d = cleanGhost({ id: 'duel', name: cleanName(a[0]), color: a[1], brain: a[2], power: a[3], acc: a[4], speed: a[5] });
+  d.kind = 'duel';
+  return d;
+}
+function hexA(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+
+/* ---------- Simulation (tourne sur la tablette qui a lancé le défi) ---------- */
+function duelNewSim(gdefs, players) {
+  const lives = DIFFS[save.diff].lives;
+  const S = {
+    tick: 0, ph: 'ready', timer: 3.4, time: 0, gdefs, pl: players,
+    pacs: [], ghosts: [], dots: new Uint8Array(COLS * ROWS), dotsLeft: 0, dotsEaten: 0,
+    fr: [0, 0], fz: [0, 0], sk: [0, 0], combo: [0, 0], mode: 'scatter', mph: 0, modeT: 7,
+    boxes: [], boxT: 3, fruits: [], bananas: [], rockets: [], puddles: [], ev: [], winner: -1, gid: 0,
+  };
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    const ch = MAZE[r][c];
+    if (ch === '.' || ch === 'o') { S.dots[r * COLS + c] = ch === 'o' ? 2 : 1; S.dotsLeft++; }
+  }
+  for (let i = 0; i < 2; i++) {
+    const [x, y, dir] = DUEL_STARTS[i];
+    S.pacs.push({ x, y, dir, want: null, moving: true, mouth: 0, lives, score: 0, charges: 1, roul: null, shield: 0, turbo: 0, shrink: 0, stun: 0, inv: 0, dying: 0, ice: false, sticky: false });
+  }
+  const t0 = [], t1 = [];
+  gdefs.forEach((g, k) => (g.o === 0 ? t0 : t1).push(k));
+  const order = [];
+  for (let k = 0; k < 3; k++) { if (t0[k] != null) order.push(t0[k]); if (t1[k] != null) order.push(t1[k]); }
+  order.forEach((di, k) => {
+    const g = duelGhost(S, di);
+    g.x = 12 + (4 * k) / Math.max(1, order.length - 1); g.y = HOUSE_Y; g.st = 'house'; g.dir = k % 2 ? 2 : 0;
+    g.rel = DUEL_RELEASE[k] || 8 + k;
+    S.ghosts.push(g);
+  });
+  return S;
+}
+function duelGhost(S, di) {
+  const id = S.gid++;
+  return {
+    id, idx: id, di, o: S.gdefs[di].o, def: S.gdefs[di].d, x: DOOR_X, y: DOOR_Y, dir: 1, st: 'active',
+    fright: false, reverse: false, bob: Math.random() * 6, alpha: 1, boost: 1, tpWarn: false,
+    pt: Math.random() * 2, nextTp: 5 + Math.random() * 4, nextDrop: 1.5, rel: 0, ttl: 0,
+  };
+}
+function dEv(S, e) { e.i = duel.evCount++; e.at = S.time; S.ev.push(e); duelHandleEvent(e); }
+
+function duelStep(S, dt) {
+  DS = S;
+  if (S.ph === 'ready') { S.timer -= dt; if (S.timer <= 0) { S.ph = 'play'; S.timer = 0; } return; }
+  if (S.ph !== 'play') return;
+  S.time += dt; S.tick++;
+  for (let o = 0; o < 2; o++) {
+    if (S.fr[o] > 0) { S.fr[o] -= dt; if (S.fr[o] <= 0) { S.fr[o] = 0; for (const g of S.ghosts) if (g.o === o) g.fright = false; } }
+    S.fz[o] = Math.max(0, S.fz[o] - dt); S.sk[o] = Math.max(0, S.sk[o] - dt);
+  }
+  duelMode(S, dt);
+  for (let i = 0; i < 2; i++) duelPacTimers(S, i, dt);
+  if (S.ph !== 'play') return;
+  for (const g of S.ghosts) duelPower(S, g, dt);
+  for (let i = 0; i < 2; i++) duelPac(S, i, dt);
+  if (S.ph !== 'play') return;
+  duelCollide(S);
+  for (const g of S.ghosts) duelGhostMove(S, g, dt);
+  duelRockets(S, dt);
+  duelCollide(S);
+  duelItems(S, dt);
+  S.ev = S.ev.filter(e => S.time - e.at < 1.2);
+}
+function duelMode(S, dt) {
+  const sched = [7, 20, 7, 20, 5, 20, 5];
+  S.modeT -= dt;
+  let changed = false;
+  while (S.modeT <= 0) {
+    S.mph++; changed = true;
+    if (S.mph >= sched.length) { S.mode = 'chase'; S.modeT = Infinity; }
+    else { S.mode = S.mph % 2 === 0 ? 'scatter' : 'chase'; S.modeT += sched[S.mph]; }
+  }
+  if (changed) for (const g of S.ghosts) if (g.st === 'active') g.reverse = true;
+}
+function duelPacTimers(S, i, dt) {
+  const p = S.pacs[i];
+  for (const k of ['shield', 'turbo', 'shrink', 'stun', 'inv']) if (p[k] > 0) p[k] = Math.max(0, p[k] - dt);
+  if (p.roul) { p.roul.t -= dt; if (p.roul.t <= 0) { const it = p.roul.item; p.roul = null; duelApply(S, i, it); } }
+  if (p.dying > 0) { p.dying -= dt; if (p.dying <= 0) { p.dying = 0; duelRespawn(S, i); } }
+}
+function duelRespawn(S, i) {
+  const p = S.pacs[i];
+  if (p.lives <= 0) { duelEnd(S, 1 - i); return; }
+  const [x, y, dir] = DUEL_STARTS[i];
+  Object.assign(p, { x, y, dir, want: null, moving: true, inv: 2.5, shield: 0, turbo: 0, shrink: 0, stun: 0 });
+  p.charges = Math.min(3, p.charges + 1);   // coup de pouce après une vie perdue
+}
+function duelEnd(S, winner) {
+  if (S.ph === 'over') return;
+  S.ph = 'over'; S.winner = winner;
+  dEv(S, { k: 'snd', pl: -1, tx: 'clear' });
+}
+function duelPac(S, i, dt) {
+  const p = S.pacs[i], j = 1 - i;
+  p.ice = false; p.sticky = false;
+  if (p.dying > 0 || p.lives <= 0 || p.stun > 0) return;
+  if (p.want != null && p.moving && p.want === OPP[p.dir]) p.dir = p.want;
+  if (!p.moving && p.want != null) {
+    const c = Math.floor(p.x), r = Math.floor(p.y);
+    if (open(c + DIRS[p.want][0], r + DIRS[p.want][1])) { p.dir = p.want; p.moving = true; }
+  }
+  if (p.shield <= 0) {
+    p.ice = S.ghosts.some(g => g.o === j && g.def.power === 'glacon' && g.st === 'active' && !g.fright && S.fz[j] <= 0 && dist2(g, p) < 12.25);
+    const pc = mod(Math.floor(p.x), COLS), pr = Math.floor(p.y);
+    p.sticky = S.puddles.some(q => q.o === j && q.c === pc && q.r === pr);
+  }
+  if (!p.moving) return;
+  let s = 7.6 * (S.fr[j] > 0 ? 1.1 : 1);
+  if (p.turbo > 0) s *= 1.5;
+  if (p.shrink > 0) s *= 0.7;
+  if (p.ice) s *= 0.62;
+  if (p.sticky) s *= 0.55;
+  travel(p, s * dt, pacDecide);
+  duelEat(S, i, Math.floor(p.x), Math.floor(p.y), false);
+}
+function duelEat(S, i, c, r, quiet) {
+  c = mod(c, COLS);
+  if (r < 0 || r >= ROWS || S.ph !== 'play') return;
+  const k = r * COLS + c, v = S.dots[k];
+  if (!v) return;
+  S.dots[k] = 0; S.dotsLeft--; S.dotsEaten++;
+  const p = S.pacs[i];
+  if (v === 1) { p.score += 10; if (!quiet && i === duel.me) Sound.waka(); }
+  else { p.score += 50; duelFrighten(S, 1 - i, frightDuration()); dEv(S, { k: 'snd', pl: -1, tx: 'power' }); }
+  if (S.dotsEaten === 70 || S.dotsEaten === 170) S.fruits.push({ x: DOOR_X, y: 17.5, t: 9.5, f: FRUITS[S.dotsEaten === 70 ? 0 : 1] });
+  if (S.dotsLeft === 0) {
+    const a = S.pacs[0].score, b = S.pacs[1].score;
+    duelEnd(S, a === b ? 2 : a > b ? 0 : 1);
+  }
+}
+function duelFrighten(S, o, dur) {
+  S.combo[1 - o] = 0;
+  for (const g of S.ghosts) {
+    if (g.o !== o || g.st === 'eaten' || g.st === 'entering') continue;
+    if (g.st === 'active') g.reverse = true;
+    g.fright = true;
+  }
+  S.fr[o] = Math.max(S.fr[o], dur);
+}
+function duelTarget(g) {
+  const S = DS;
+  if (g.st === 'eaten') return [13, 11];
+  if (g.fright) return null;
+  const tp = S.pacs[1 - g.o], corner = CORNERS[g.idx % CORNERS.length];
+  if (tp.dying > 0 || tp.lives <= 0) return corner;
+  if (S.mode === 'scatter' && g.def.brain !== 'farceur') return corner;
+  const pc = Math.floor(tp.x), pr = Math.floor(tp.y), pd = DIRS[tp.dir];
+  switch (g.def.brain) {
+    case 'embusqueur': return [pc + pd[0] * 4, pr + pd[1] * 4];
+    case 'malin': {
+      const ref = S.ghosts.find(o => o !== g && o.o === g.o && o.st === 'active');
+      if (!ref) return [pc, pr];
+      const vx = pc + pd[0] * 2, vy = pr + pd[1] * 2;
+      return [2 * vx - Math.floor(ref.x), 2 * vy - Math.floor(ref.y)];
+    }
+    case 'timide': { const dx = pc - Math.floor(g.x), dy = pr - Math.floor(g.y); return dx * dx + dy * dy > 64 ? [pc, pr] : corner; }
+    case 'farceur': return Math.random() < 0.25 ? [pc, pr] : null;
+    default: return [pc, pr];
+  }
+}
+function duelDecide(g) {
+  const c = Math.floor(g.x), r = Math.floor(g.y);
+  if (g.st === 'eaten' && r === 11 && (c === 13 || c === 14)) { g.st = 'entering'; return -1; }
+  const opts = [];
+  for (let d = 0; d < 4; d++) if (d !== OPP[g.dir] && open(c + DIRS[d][0], r + DIRS[d][1])) opts.push(d);
+  if (!opts.length) return OPP[g.dir];
+  const target = duelTarget(g);
+  if (!target) return pick(opts);
+  let best = opts[0], bestD = Infinity;
+  for (const d of opts) {
+    const dd = (c + DIRS[d][0] - target[0]) ** 2 + (r + DIRS[d][1] - target[1]) ** 2;
+    if (dd < bestD) { bestD = dd; best = d; }
+  }
+  return best;
+}
+function duelGhostSpeed(S, g) {
+  if (g.st === 'eaten') return 16;
+  if (g.st === 'entering') return 9;
+  if (g.st === 'house' || g.st === 'leaving') return 3.2;
+  let s = g.fright ? 7.1 * 0.62 : Math.min(7.1 * DIFFS[save.diff].ghostMul * SPEEDS[g.def.speed].mul, 7.6) * g.boost;
+  if (S.sk[g.o] > 0) s *= 0.5;
+  if (inTunnel(g.x, g.y)) s = Math.min(s, 3.55);
+  return s;
+}
+function duelGhostMove(S, g, dt) {
+  if (S.fz[g.o] > 0 && g.st !== 'eaten' && g.st !== 'entering') return;
+  const d = duelGhostSpeed(S, g) * dt;
+  switch (g.st) {
+    case 'house':
+      g.bob += dt * 5; g.y = HOUSE_Y + Math.sin(g.bob) * 0.3; g.dir = Math.cos(g.bob) > 0 ? 2 : 0;
+      if (S.time >= g.rel) g.st = 'leaving';
+      break;
+    case 'leaving':
+      if (g.x !== DOOR_X) {
+        if (g.y !== HOUSE_Y) { g.dir = g.y < HOUSE_Y ? 2 : 0; g.y = toward(g.y, HOUSE_Y, d); }
+        else { g.dir = g.x < DOOR_X ? 3 : 1; g.x = toward(g.x, DOOR_X, d); }
+      } else {
+        g.dir = 0; g.y = toward(g.y, DOOR_Y, d);
+        if (g.y === DOOR_Y) { g.st = 'active'; g.dir = Math.random() < 0.5 ? 1 : 3; }
+      }
+      break;
+    case 'active':
+      if (g.reverse) { g.reverse = false; g.dir = OPP[g.dir]; }
+      travel(g, d, duelDecide);
+      break;
+    case 'eaten':
+      travel(g, d, duelDecide);
+      break;
+    case 'entering':
+      if (g.x !== DOOR_X) { g.dir = g.x < DOOR_X ? 3 : 1; g.y = DOOR_Y; g.x = toward(g.x, DOOR_X, d); }
+      else { g.dir = 2; g.y = toward(g.y, HOUSE_Y, d); if (g.y === HOUSE_Y) { g.st = 'leaving'; g.fright = false; } }
+      break;
+  }
+}
+function duelPower(S, g, dt) {
+  g.boost = 1; g.alpha = 1; g.tpWarn = false;
+  if (g.st !== 'active' || g.fright || S.fz[g.o] > 0) return;
+  g.pt += dt;
+  switch (g.def.power) {
+    case 'invisible': { const t = g.pt % 7; g.alpha = t < 4 ? 1 : t < 4.6 ? 1 - (t - 4) / 0.6 : t < 6.4 ? 0 : (t - 6.4) / 0.6; break; }
+    case 'turbo': if (g.pt % 6.5 > 4.7) g.boost = 1.55; break;
+    case 'teleporte':
+      if (g.pt >= g.nextTp) {
+        const tp = S.pacs[1 - g.o];
+        const cands = OPEN_TILES.filter(([c, r]) => (c + 0.5 - tp.x) ** 2 + (r + 0.5 - tp.y) ** 2 > 81 && !(r === 14 && (c <= 5 || c >= 22)));
+        if (cands.length) {
+          const [c, r] = pick(cands);
+          dEv(S, { k: 'brs', x: g.x, y: g.y, c: g.def.color });
+          placeAt(g, c, r);
+          dEv(S, { k: 'brs', x: g.x, y: g.y, c: '#ffffff' });
+          dEv(S, { k: 'snd', pl: -1, tx: 'zap' });
+        }
+        g.nextTp = g.pt + 7 + Math.random() * 4;
+      } else g.tpWarn = g.nextTp - g.pt < 0.9;
+      break;
+    case 'caramel':
+      if (g.pt >= g.nextDrop) {
+        const c = mod(Math.floor(g.x), COLS), r = Math.floor(g.y);
+        if (open(c, r)) {
+          S.puddles = S.puddles.filter(q => q.c !== c || q.r !== r);
+          S.puddles.push({ c, r, t: 10, o: g.o });
+          if (S.puddles.length > 12) S.puddles.shift();
+        }
+        g.nextDrop = g.pt + 2.4;
+      }
+      break;
+  }
+}
+function duelKnock(S, g, by, pts, txt, quietBam) {
+  g.st = 'eaten'; g.fright = false; g.alpha = 1;
+  S.pacs[by].score += pts;
+  dEv(S, { k: 'pop', x: g.x, y: g.y - 0.4, tx: txt, c: '#ffffff' });
+  if (txt !== String(pts)) dEv(S, { k: 'pop', x: g.x, y: g.y + 0.5, tx: String(pts), c: '#27e8ff' });
+  dEv(S, { k: 'brs', x: g.x, y: g.y, c: g.def.color });
+  dEv(S, { k: 'snd', pl: -1, tx: quietBam ? 'eat' : 'bam' });
+}
+function duelKill(S, i, by) {
+  const p = S.pacs[i];
+  p.dying = 1.7; p.lives--; p.moving = false;
+  if (p.roul) { p.charges = Math.min(3, p.charges + 1); p.roul = null; }
+  S.pacs[by].score += 300;
+  dEv(S, { k: 'pop', x: p.x, y: p.y - 1, tx: '+300', c: S.pl[by].c });
+  dEv(S, { k: 'snd', pl: -1, tx: 'death' });
+}
+function duelStun(S, j, txt) {
+  const p = S.pacs[j];
+  p.stun = 1.5;
+  dEv(S, { k: 'pop', x: p.x, y: p.y - 1, tx: txt, c: '#ffffff' });
+  dEv(S, { k: 'brs', x: p.x, y: p.y, c: S.pl[j].c });
+  dEv(S, { k: 'snd', pl: -1, tx: 'bam' });
+}
+const vulnerable = p => p.dying <= 0 && p.lives > 0 && p.inv <= 0 && p.shield <= 0;
+function duelCollide(S) {
+  for (let i = 0; i < 2; i++) {
+    const p = S.pacs[i];
+    if (p.dying > 0 || p.lives <= 0) continue;
+    for (const g of S.ghosts) {
+      if (g.o === i || g.st !== 'active') continue;
+      if (dist2(g, p) >= (S.sk[g.o] > 0 ? 0.36 : 0.5)) continue;
+      if (g.fright) { const pts = 200 * Math.pow(2, Math.min(S.combo[i], 3)); S.combo[i]++; duelKnock(S, g, i, pts, String(pts), true); }
+      else if (p.shield > 0) duelKnock(S, g, i, 200, 'PAF !');
+      else if (S.fz[g.o] > 0) duelKnock(S, g, i, 100, 'CRAC !');
+      else if (S.sk[g.o] > 0) duelKnock(S, g, i, 100, 'SPLATCH !');
+      else if (p.inv > 0) continue;
+      else { duelKill(S, i, g.o); break; }
+    }
+  }
+  for (let k = S.bananas.length - 1; k >= 0; k--) {
+    const b = S.bananas[k], j = 1 - b.o, p = S.pacs[j];
+    if (vulnerable(p) && p.stun <= 0 && dist2(b, p) < 0.5) { duelStun(S, j, 'GLISSE !'); S.bananas.splice(k, 1); continue; }
+    const g = S.ghosts.find(o => o.o === j && o.st === 'active' && dist2(o, b) < 0.5);
+    if (g) { duelKnock(S, g, b.o, 100, 'GLISSE !'); S.bananas.splice(k, 1); }
+  }
+}
+function duelRocketTarget(S, k) {
+  const j = 1 - k.o;
+  let best = null, bd = Infinity;
+  for (const g of S.ghosts) if (g.o === j && g.st === 'active') { const d = dist2(g, k); if (d < bd) { bd = d; best = g; } }
+  if (best) return { g: best };
+  return vulnerable(S.pacs[j]) ? { i: j } : null;
+}
+function duelRockets(S, dt) {
+  for (let n = S.rockets.length - 1; n >= 0; n--) {
+    const k = S.rockets[n];
+    k.t -= dt;
+    let tg = k.tg;
+    const ok = tg && (tg.g ? tg.g.st === 'active' && S.ghosts.includes(tg.g) : vulnerable(S.pacs[tg.i]));
+    if (!ok) tg = k.tg = duelRocketTarget(S, k);
+    if (tg) {
+      const T = tg.g || S.pacs[tg.i];
+      const dx = T.x - k.x, dy = T.y - k.y, d = Math.hypot(dx, dy) || 1;
+      k.vx += (dx / d * 16 - k.vx) * Math.min(1, dt * 6);
+      k.vy += (dy / d * 16 - k.vy) * Math.min(1, dt * 6);
+      if (d < 0.7) {
+        if (tg.g) duelKnock(S, tg.g, k.o, 150, 'BOUM !'); else duelStun(S, tg.i, 'BOUM !');
+        S.rockets.splice(n, 1); continue;
+      }
+    }
+    k.x += k.vx * dt; k.y += k.vy * dt;
+    if (k.t <= 0 || k.y < -2 || k.y > ROWS + 2) S.rockets.splice(n, 1);
+  }
+}
+function duelItems(S, dt) {
+  S.boxT -= dt;
+  if (S.boxT <= 0) {
+    if (S.boxes.length < 2) {
+      const cands = OPEN_TILES.filter(([c, r]) => S.pacs.every(p => (c + 0.5 - p.x) ** 2 + (r + 0.5 - p.y) ** 2 > 36) && !(r === 14 && (c <= 5 || c >= 22)) && !S.boxes.some(b => Math.floor(b.x) === c && Math.floor(b.y) === r));
+      if (cands.length) { const [c, r] = pick(cands); S.boxes.push({ x: c + 0.5, y: r + 0.5 }); }
+    }
+    S.boxT = 8;
+  }
+  for (let i = 0; i < 2; i++) {
+    const p = S.pacs[i];
+    if (p.dying > 0 || p.lives <= 0) continue;
+    for (let k = S.boxes.length - 1; k >= 0; k--) {
+      if (dist2(S.boxes[k], p) >= 0.6) continue;
+      const b = S.boxes.splice(k, 1)[0];
+      if (p.charges < 3) p.charges++; else p.score += 50;
+      dEv(S, { k: 'pop', x: b.x, y: b.y, tx: '?', c: '#ffd23f' });
+      dEv(S, { k: 'snd', pl: i, tx: 'box' });
+      S.boxT = Math.min(S.boxT, 6);
+    }
+    for (let k = S.fruits.length - 1; k >= 0; k--) {
+      const f = S.fruits[k];
+      if (dist2(f, p) >= 0.64) continue;
+      p.score += f.f.pts;
+      dEv(S, { k: 'pop', x: f.x, y: f.y, tx: String(f.f.pts), c: '#ffb8f0' });
+      dEv(S, { k: 'snd', pl: -1, tx: 'fruit' });
+      S.fruits.splice(k, 1);
+    }
+  }
+  for (const list of [S.fruits, S.bananas, S.puddles]) for (let k = list.length - 1; k >= 0; k--) { list[k].t -= dt; if (list[k].t <= 0) list.splice(k, 1); }
+  let expired = false;
+  for (const g of S.ghosts) {
+    if (g.ttl <= 0) continue;
+    g.ttl -= dt;
+    if (g.ttl <= 0) { g.gone = true; expired = true; dEv(S, { k: 'brs', x: g.x, y: g.y, c: g.def.color }); }
+  }
+  if (expired) S.ghosts = S.ghosts.filter(g => !g.gone);
+}
+
+/* ---------- Aides mystère en duel ---------- */
+function duelUseMystery(S, i) {
+  const p = S.pacs[i];
+  if (S.ph !== 'play' || p.charges <= 0 || p.roul || p.dying > 0 || p.lives <= 0) return;
+  p.charges--;
+  p.roul = { t: 0.6, item: duelChoose(S, i) };
+  dEv(S, { k: 'snd', pl: i, tx: 'roulette' });
+}
+function duelChoose(S, i) {
+  const j = 1 - i, p = S.pacs[i];
+  const act = S.ghosts.filter(g => g.o === j && g.st === 'active');
+  const danger = act.some(g => !g.fright && dist2(g, p) < 25);
+  const mine = S.ghosts.filter(g => g.o === i).length;
+  const pool = ITEMS.filter(it => !((it.id === 'gel' || it.id === 'pastille') && !act.length) && !(it.id === 'renfort' && mine >= 6));
+  let total = 0;
+  for (const it of pool) total += danger ? it.wd : it.w;
+  let x = Math.random() * total;
+  for (const it of pool) { x -= danger ? it.wd : it.w; if (x <= 0) return it.id; }
+  return pool[pool.length - 1].id;
+}
+function duelApply(S, i, id) {
+  const p = S.pacs[i], j = 1 - i, q = S.pacs[j];
+  switch (id) {
+    case 'bouclier': p.shield = 6; break;
+    case 'pastille': duelFrighten(S, j, 6); dEv(S, { k: 'snd', pl: -1, tx: 'power' }); break;
+    case 'renfort': {
+      const mine = S.gdefs.map((g, k) => k).filter(k => S.gdefs[k].o === i);
+      const g = duelGhost(S, pick(mine));
+      placeAt(g, mod(Math.floor(p.x), COLS), Math.floor(p.y));
+      g.ttl = 20;
+      S.ghosts.push(g);
+      dEv(S, { k: 'brs', x: g.x, y: g.y, c: S.pl[i].c });
+      break;
+    }
+    case 'gel': S.fz[j] = 4; break;
+    case 'eclair': S.sk[j] = 6; q.shrink = 6; break;
+    case 'turbo': p.turbo = 5; break;
+    case 'aimant': {
+      const pc = Math.floor(p.x), pr = Math.floor(p.y);
+      for (let r = pr - 5; r <= pr + 5; r++) for (let c = pc - 5; c <= pc + 5; c++) {
+        if (r >= 0 && r < ROWS && (c - pc) ** 2 + (r - pr) ** 2 <= 25) duelEat(S, i, c, r, true);
+      }
+      dEv(S, { k: 'brs', x: p.x, y: p.y, c: '#ffcfb0' });
+      break;
+    }
+    case 'fusee':
+      for (let n = 0; n < 3; n++) { const a = -Math.PI / 2 + (n - 1) * 0.9; S.rockets.push({ x: p.x, y: p.y, vx: Math.cos(a) * 9, vy: Math.sin(a) * 9, o: i, tg: null, t: 4 }); }
+      dEv(S, { k: 'snd', pl: -1, tx: 'rocket' });
+      break;
+    case 'banane': {
+      const c = mod(Math.floor(p.x) - DIRS[p.dir][0], COLS), r = Math.floor(p.y) - DIRS[p.dir][1];
+      const ok = open(c, r);
+      S.bananas.push({ x: (ok ? c : Math.floor(p.x)) + 0.5, y: (ok ? r : Math.floor(p.y)) + 0.5, o: i, t: 30 });
+      if (S.bananas.length > 4) S.bananas.shift();
+      break;
+    }
+    case 'teleport': {
+      const foes = S.ghosts.filter(g => g.o === j && g.st === 'active').concat([q]);
+      let best = null, bestD = -1;
+      for (let k = 0; k < 40; k++) {
+        const [c, r] = pick(OPEN_TILES);
+        if (r === 14 && (c <= 5 || c >= 22)) continue;
+        const d = Math.min(...foes.map(g => dist2(g, { x: c + 0.5, y: r + 0.5 })));
+        if (d > bestD) { bestD = d; best = [c, r]; }
+      }
+      if (best) {
+        dEv(S, { k: 'brs', x: p.x, y: p.y, c: '#8b6bff' });
+        placeAt(p, best[0], best[1]); p.moving = true;
+        dEv(S, { k: 'brs', x: p.x, y: p.y, c: '#ffffff' });
+        dEv(S, { k: 'snd', pl: -1, tx: 'zap' });
+      }
+      break;
+    }
+    case 'fruits':
+      for (let k = 0; k < 3; k++) { const [c, r] = pick(OPEN_TILES); S.fruits.push({ x: c + 0.5, y: r + 0.5, t: 10, f: FRUITS[Math.floor(Math.random() * 4)] }); }
+      break;
+  }
+  dEv(S, { k: 'item', pl: i, it: id, x: p.x, y: p.y, c: S.pl[i].c });
+}
+
+/* ---------- Partage de l'état entre les tablettes ---------- */
+const R100 = v => Math.round(v * 100), D10 = v => Math.round(v * 10);
+function dotsB64(dots) {
+  const bytes = new Uint8Array(Math.ceil(OPEN_TILES.length / 8));
+  OPEN_TILES.forEach(([c, r], i) => { if (dots[r * COLS + c]) bytes[i >> 3] |= 1 << (i & 7); });
+  let s = '';
+  for (const b of bytes) s += String.fromCharCode(b);
+  return btoa(s);
+}
+function b64Dots(str) {
+  const dots = new Uint8Array(COLS * ROWS);
+  let bin = '';
+  try { bin = atob(String(str || '')); } catch (e) { return dots; }
+  OPEN_TILES.forEach(([c, r], i) => { if ((bin.charCodeAt(i >> 3) >> (i & 7)) & 1) dots[r * COLS + c] = MAZE[r][c] === 'o' ? 2 : 1; });
+  return dots;
+}
+function duelEncode(S) {
+  return {
+    t: S.tick, ph: S.ph, tm: D10(S.timer), w: S.winner,
+    p: S.pacs.map(p => [R100(p.x), R100(p.y), p.dir, p.moving ? 1 : 0, p.lives, p.score, p.charges, p.roul ? 1 : 0,
+      D10(p.shield), D10(p.turbo), D10(p.shrink), D10(p.stun), D10(p.inv), D10(p.dying), (p.ice ? 1 : 0) | (p.sticky ? 2 : 0)]),
+    g: S.ghosts.map(g => [g.id, g.di, R100(g.x), R100(g.y), g.dir, GST.indexOf(g.st),
+      (g.fright ? 1 : 0) | (g.tpWarn ? 2 : 0) | (g.boost > 1 ? 4 : 0) | (g.ttl > 0 && g.ttl < 3 ? 8 : 0), Math.round(g.alpha * 10)]),
+    fr: S.fr.map(D10), fz: S.fz.map(D10), sk: S.sk.map(D10),
+    d: dotsB64(S.dots),
+    b: S.boxes.map(b => [Math.floor(b.x), Math.floor(b.y)]),
+    f: S.fruits.map(f => [R100(f.x), R100(f.y), FRUITS.indexOf(f.f), D10(f.t)]),
+    n: S.bananas.map(b => [R100(b.x), R100(b.y)]),
+    k: S.rockets.map(k => [R100(k.x), R100(k.y), Math.round(Math.atan2(k.vy, k.vx) * 100)]),
+    q: S.puddles.map(q => [q.c, q.r, q.o, D10(q.t)]),
+    e: S.ev.map(e => [e.i, e.k, e.pl == null ? -1 : e.pl, R100(e.x || 0), R100(e.y || 0), e.tx || '', e.c || '', e.it || '']),
+  };
+}
+function duelDecode(s) {
+  const n = (v, d = 0) => (typeof v === 'number' && Number.isFinite(v) ? v : d);
+  const arr = v => (Array.isArray(v) ? v : []);
+  const pos = v => Math.min(Math.max(n(v) / 100, -3), 40);
+  const dir = v => (v === 0 || v === 1 || v === 2 || v === 3 ? v : 1);
+  const two = v => [0, 1].map(k => Math.max(0, n(arr(v)[k]) / 10));
+  const V = {
+    remote: true, tick: n(s.t), ph: ['ready', 'play', 'over'].includes(s.ph) ? s.ph : 'play', timer: n(s.tm) / 10, winner: n(s.w, -1),
+    pl: duel.pl, gdefs: duel.gdefs, pacs: [], ghosts: [], fr: two(s.fr), fz: two(s.fz), sk: two(s.sk), dots: b64Dots(s.d),
+    boxes: [], fruits: [], bananas: [], rockets: [], puddles: [],
+  };
+  for (let i = 0; i < 2; i++) {
+    const a = arr(arr(s.p)[i]);
+    V.pacs.push({
+      x: pos(a[0]), y: pos(a[1]), dir: dir(a[2]), moving: !!a[3], lives: n(a[4]), score: n(a[5]), charges: n(a[6]), roul: !!a[7],
+      shield: n(a[8]) / 10, turbo: n(a[9]) / 10, shrink: n(a[10]) / 10, stun: n(a[11]) / 10, inv: n(a[12]) / 10, dying: n(a[13]) / 10,
+      ice: !!(n(a[14]) & 1), sticky: !!(n(a[14]) & 2),
+    });
+  }
+  for (const raw of arr(s.g).slice(0, 24)) {
+    const a = arr(raw), gd = duel.gdefs[n(a[1], -1)];
+    if (!gd) continue;
+    const f = n(a[6]);
+    V.ghosts.push({ id: n(a[0]), idx: n(a[0]), o: gd.o, def: gd.d, x: pos(a[2]), y: pos(a[3]), dir: dir(a[4]), st: GST[n(a[5])] || 'active',
+      fright: !!(f & 1), tpWarn: !!(f & 2), boost: f & 4 ? 1.5 : 1, blink: !!(f & 8), alpha: Math.min(1, Math.max(0, n(a[7], 10) / 10)) });
+  }
+  V.boxes = arr(s.b).slice(0, 4).map(b => ({ x: n(arr(b)[0]) + 0.5, y: n(arr(b)[1]) + 0.5 }));
+  V.fruits = arr(s.f).slice(0, 8).map(f => ({ x: pos(arr(f)[0]), y: pos(arr(f)[1]), f: FRUITS[n(arr(f)[2])] || FRUITS[0], t: n(arr(f)[3]) / 10 }));
+  V.bananas = arr(s.n).slice(0, 6).map(b => ({ x: pos(arr(b)[0]), y: pos(arr(b)[1]) }));
+  V.rockets = arr(s.k).slice(0, 12).map(k => ({ x: pos(arr(k)[0]), y: pos(arr(k)[1]), ang: n(arr(k)[2]) / 100 }));
+  V.puddles = arr(s.q).slice(0, 16).map(q => ({ c: n(arr(q)[0]), r: n(arr(q)[1]), o: n(arr(q)[2]) === 1 ? 1 : 0, t: n(arr(q)[3]) / 10 }));
+  let maxSeen = duel.evSeen;
+  for (const raw of arr(s.e).slice(0, 60)) {
+    const a = arr(raw), id = n(a[0], -1);
+    if (id <= duel.evSeen || !EV_KINDS.has(a[1])) continue;
+    maxSeen = Math.max(maxSeen, id);
+    duelHandleEvent({ k: a[1], pl: n(a[2], -1), x: pos(a[3]), y: pos(a[4]), tx: String(a[5] || '').slice(0, 16), c: HEX6.test(a[6]) ? a[6] : '#ffffff', it: String(a[7] || '') });
+  }
+  duel.evSeen = maxSeen;
+  return V;
+}
+function duelHandleEvent(e) {
+  switch (e.k) {
+    case 'pop': duel.pops.push({ x: e.x, y: e.y, tx: e.tx, c: e.c || '#ffffff', t: 0.9 }); break;
+    case 'brs': duelBurst(e.x, e.y, e.c || '#ffffff', 14); break;
+    case 'snd': if ((e.pl < 0 || e.pl === duel.me) && SOUNDS[e.tx]) Sound[SOUNDS[e.tx]](); break;
+    case 'item':
+      if (!ITEM_BY_ID[e.it]) break;
+      if (e.pl === duel.me) { showBanner(e.it, DUEL_DESC[e.it]); Sound.reveal(); }
+      else { duel.pops.push({ x: e.x, y: e.y - 1.3, tx: ITEM_BY_ID[e.it].name, c: e.c || '#ffffff', t: 1.4 }); Sound.zap(); }
+      break;
+  }
+}
+function duelBurst(x, y, color, count) {
+  for (let i = 0; i < count && duel.parts.length < 300; i++) {
+    const a = Math.random() * TAU, v = 1.5 + Math.random() * 3.5, t = 0.45 + Math.random() * 0.4;
+    duel.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, t, max: t, color, size: 0.12 + Math.random() * 0.12 });
+  }
+}
+
+/* ---------- Boucle et dessin du duel ---------- */
+function readGuestInput(t) {
+  const S = duel.sim;
+  if (!S || !net.game) return;
+  const g = net.game.peers().find(p => p.peer === net.other);
+  if (!g) { if (t - duel.lastStateAt > 6) duelLeave('La connexion avec l’autre tablette est perdue.'); return; }
+  duel.lastStateAt = t;
+  const inp = g.presence && g.presence.in;
+  if (!inp || typeof inp !== 'object') return;
+  if (inp.w === 0 || inp.w === 1 || inp.w === 2 || inp.w === 3) S.pacs[1].want = inp.w;
+  const m = Number.isFinite(inp.m) ? inp.m : 0, a = Number.isFinite(inp.a) ? inp.a : 0;
+  if (duel.lastM == null || m < duel.lastM) duel.lastM = m;
+  if (m > duel.lastM) { duel.lastM = m; duelUseMystery(S, 1); }
+  if (duel.lastA == null || a < duel.lastA) duel.lastA = a;
+  if (a > duel.lastA) { duel.lastA = a; if (S.ph === 'over') duelRestart(); }
+}
+function readHostState(t) {
+  const host = net.game ? net.game.peers().find(p => p.peer === net.other) : null;
+  const s = host && host.presence ? host.presence.s : null;
+  if (s && typeof s === 'object' && s !== duel.lastSObj) {
+    duel.lastSObj = s; duel.lastStateAt = t;
+    const prev = duel.view;
+    duel.view = duelDecode(s);
+    if (prev) {
+      const d = duel.view.pacs[duel.me].score - prev.pacs[duel.me].score;
+      if (d > 0 && d <= 60 && d % 10 === 0) Sound.waka();
+    }
+  } else if (t - duel.lastStateAt > 6) duelLeave('La connexion avec l’autre tablette est perdue.');
+}
+function duelFrame(dt, t) {
+  duel.frameNo++;
+  if (duel.role === 'host' && duel.sim) {
+    readGuestInput(t);
+    if (!duel.active) return;
+    const n = Math.max(1, Math.ceil(dt / (1 / 120))), h = dt / n;
+    for (let i = 0; i < n; i++) duelStep(duel.sim, h);
+    duel.view = duel.sim;
+    if (net.game && t - duel.lastSend >= 0.033) {
+      duel.lastSend = t;
+      net.game.presence({ s: duelEncode(duel.sim) }).catch(() => {});
+    }
+  } else if (duel.role === 'guest') {
+    readHostState(t);
+    if (!duel.active) return;
+  }
+  vis += dt;
+  const V = duel.view;
+  duelLocalFx(V, dt);
+  drawDuel(V, dt);
+  if (!V) return;
+  duelHud(V);
+  duelMysteryUi(V, t);
+  duelOverUi(V);
+  const me = V.pacs[duel.me];
+  Sound.siren(V.ph === 'play' && me.dying <= 0 ? (V.fr[1 - duel.me] > 0 ? 'fright' : 'normal') : null);
+}
+function duelLocalFx(V, dt) {
+  for (let i = duel.parts.length - 1; i >= 0; i--) {
+    const p = duel.parts[i]; p.t -= dt;
+    if (p.t <= 0) { duel.parts.splice(i, 1); continue; }
+    p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.97; p.vy *= 0.97;
+  }
+  for (let i = duel.pops.length - 1; i >= 0; i--) { duel.pops[i].t -= dt; if (duel.pops[i].t <= 0) duel.pops.splice(i, 1); }
+  if (duel.goT > 0) duel.goT -= dt;
+  if (!V) return;
+  if (V.ph === 'ready' && duel.prevPh !== 'ready') { Sound.jingle(); hideBanner(); duel.parts.length = 0; duel.pops.length = 0; }
+  if (V.ph === 'play' && duel.prevPh === 'ready') duel.goT = 0.9;
+  duel.prevPh = V.ph;
+  if (V.ph !== 'play' || duel.parts.length > 260) return;
+  const add = (x, y, vx, vy, t, color, size) => duel.parts.push({ x, y, vx, vy, t, max: t, color, size });
+  V.pacs.forEach(p => {
+    if (p.dying > 0 || p.lives <= 0) return;
+    const d = DIRS[p.dir];
+    if (p.turbo > 0 && Math.random() < dt * 40) add(p.x - d[0] * 0.8, p.y - d[1] * 0.8 + (Math.random() - 0.5) * 0.8, -d[0] * 4, -d[1] * 4, 0.3, '#ff9a1f', 0.14);
+    if (p.shield > 0 && Math.random() < dt * 30) add(p.x + (Math.random() - 0.5) * 1.6, p.y + (Math.random() - 0.5) * 1.6, 0, -1.2, 0.4, `hsl(${Math.random() * 360},100%,70%)`, 0.14);
+    if (p.ice && Math.random() < dt * 14) add(p.x + (Math.random() - 0.5) * 1.6, p.y - 0.9, 0, 1.4, 0.6, '#e6fbff', 0.12);
+  });
+  for (const g of V.ghosts) {
+    if (g.boost > 1 && Math.random() < dt * 40) { const d = DIRS[g.dir]; add(g.x - d[0] * 0.8, g.y - d[1] * 0.8 + (Math.random() - 0.5) * 0.9, -d[0] * 3, -d[1] * 3, 0.3, g.def.color, 0.1); }
+    if (g.tpWarn && Math.random() < dt * 30) add(g.x + (Math.random() - 0.5) * 1.8, g.y + (Math.random() - 0.5) * 1.8, 0, -1, 0.35, '#ffffff', 0.12);
+  }
+  for (const k of V.rockets) if (Math.random() < dt * 50) add(k.x, k.y, 0, 0, 0.3, '#ff9a1f', 0.12);
+}
+function smooth(key, x, y, k) {
+  if (!duel.view || !duel.view.remote) return [x, y];
+  let d = duel.disp.get(key);
+  if (!d || Math.abs(d.x - x) > 2 || Math.abs(d.y - y) > 2) { d = { x, y }; duel.disp.set(key, d); }
+  else { d.x += (x - d.x) * k; d.y += (y - d.y) * k; }
+  d.seen = duel.frameNo;
+  return [d.x, d.y];
+}
+function drawDuel(V, dt) {
+  const c = ctx;
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.fillStyle = COL.bg; c.fillRect(0, 0, canvas.width, canvas.height);
+  c.drawImage(V && V.ph === 'over' && Math.floor(vis * 4) % 2 ? wallFlash : wallCanvas, 0, 0);
+  c.setTransform(scale, 0, 0, scale, 0, 0);
+  c.fillStyle = '#ffb8f0'; c.fillRect(13, 12.4, 2, 0.18);
+  if (!V) return;
+  const k = 1 - Math.exp(-dt * 22);
+  for (const q of V.puddles) {
+    const x = q.c + 0.5, y = q.r + 0.5;
+    c.globalAlpha = Math.min(1, q.t / 1.5);
+    c.fillStyle = '#7a4316';
+    c.beginPath(); c.ellipse(x, y + 0.05, 0.62, 0.42, 0, 0, TAU); c.fill();
+    c.fillStyle = hexA(V.pl[q.o].c, 0.8); c.beginPath(); c.ellipse(x - 0.18, y - 0.1, 0.2, 0.09, -0.3, 0, TAU); c.fill();
+  }
+  c.globalAlpha = 1;
+  const pelletOn = V.ph !== 'play' || Math.floor(vis * 4) % 2 === 0;
+  c.fillStyle = '#ffcfb0';
+  for (let i = 0; i < V.dots.length; i++) {
+    const v = V.dots[i];
+    if (!v) continue;
+    const cc = i % COLS, rr = (i / COLS) | 0;
+    if (v === 1) c.fillRect(cc + 0.4, rr + 0.4, 0.2, 0.2);
+    else if (pelletOn) { c.beginPath(); c.arc(cc + 0.5, rr + 0.5, 0.38, 0, TAU); c.fill(); }
+  }
+  for (const f of V.fruits) if (f.t > 2 || Math.floor(vis * 8) % 2) drawFruit(c, f.f.id, f.x, f.y, 0.85);
+  for (const b of V.boxes) { c.save(); c.translate(b.x, b.y + Math.sin(vis * 4 + b.x) * 0.08); c.scale(0.46, 0.46); drawItemIcon(c, 'box', vis); c.restore(); }
+  for (const b of V.bananas) { c.save(); c.translate(b.x, b.y + 0.15); c.scale(0.5, 0.5); drawBanana(c); c.restore(); }
+  for (const g of V.ghosts) {
+    if (g.def.power !== 'glacon' || g.st !== 'active' || g.fright || V.fz[g.o] > 0) continue;
+    const [x, y] = smooth('g' + g.id, g.x, g.y, 0);
+    const gr = c.createRadialGradient(x, y, 0.4, x, y, 3.5);
+    gr.addColorStop(0, 'rgba(180,240,255,0.2)'); gr.addColorStop(1, 'rgba(180,240,255,0)');
+    c.fillStyle = gr; c.beginPath(); c.arc(x, y, 3.5, 0, TAU); c.fill();
+  }
+
+  // Les deux joueurs
+  V.pacs.forEach((p, i) => {
+    if (p.lives <= 0 && p.dying <= 0) return;
+    const col = V.pl[i].c;
+    const [x, y] = smooth('p' + i, p.x, p.y, k);
+    if (p.dying > 0) {
+      const kk = Math.min(1, 1 - p.dying / 1.7);
+      if (kk < 0.88) drawPac(c, x, y, 0, 0.12 + (kk / 0.88) * (Math.PI - 0.12), 0.8, col);
+      return;
+    }
+    if (p.inv > 0 && Math.floor(vis * 10) % 2) return;
+    const R = p.shrink > 0 ? 0.5 : 0.8;
+    const moving = p.moving && p.stun <= 0 && V.ph === 'play';
+    const mouth = V.ph === 'ready' ? 0.001 : moving ? 0.06 + 0.72 * Math.abs(Math.sin(vis * 16 + i)) : 0.45;
+    const color = p.shield > 0 && (p.shield > 1.5 || Math.floor(vis * 10) % 2) ? `hsl(${(vis * 540) % 360},100%,62%)` : col;
+    const d = p.stun > 0 ? Math.floor(vis * 12) % 4 : p.dir;
+    if (p.shield > 0) { c.fillStyle = 'rgba(255,255,255,.12)'; c.beginPath(); c.arc(x, y, 1.15, 0, TAU); c.fill(); }
+    wrapX(x, xx => drawPac(c, xx, y, d, mouth, R, color));
+    if (i === duel.me) { c.strokeStyle = hexA(col, 0.6); c.lineWidth = 0.07; c.beginPath(); c.arc(x, y, 1.05, 0, TAU); c.stroke(); }
+    if (p.ice) { c.strokeStyle = 'rgba(200,245,255,.9)'; c.lineWidth = 0.08; c.beginPath(); c.arc(x, y, 0.95, 0, TAU); c.stroke(); }
+    if (p.stun > 0) {
+      c.fillStyle = '#ffe14a';
+      for (let s = 0; s < 3; s++) { const a = vis * 6 + s * TAU / 3; c.beginPath(); c.arc(x + Math.cos(a) * 0.75, y - 0.9 + Math.sin(a) * 0.2, 0.12, 0, TAU); c.fill(); }
+    }
+    canvasText(i === duel.me ? 'TOI' : V.pl[i].n.toUpperCase(), x, y - 1.35, col, 0.45);
+  });
+
+  for (const g of V.ghosts) {
+    const [x, y] = smooth('g' + g.id, g.x, g.y, k);
+    let look = 'normal';
+    if (g.st === 'eaten' || g.st === 'entering') look = 'eyes';
+    else if (g.fright) look = V.fr[g.o] < 2 && Math.floor(vis * 6) % 2 === 0 ? 'flash' : 'fright';
+    let alpha = look === 'normal' ? g.alpha : 1;
+    if (g.tpWarn && Math.floor(vis * 16) % 2) alpha *= 0.3;
+    if (g.blink && Math.floor(vis * 8) % 2) alpha *= 0.3;
+    const small = look !== 'eyes' && V.sk[g.o] > 0 ? 0.55 : 1;
+    const frozen = look !== 'eyes' && V.fz[g.o] > 0;
+    wrapX(x, xx => {
+      if (look !== 'eyes') { c.fillStyle = hexA(V.pl[g.o].c, 0.6); c.beginPath(); c.ellipse(xx, y + 0.86 * small, 0.82 * small, 0.22 * small, 0, 0, TAU); c.fill(); }
+      c.save(); c.translate(xx, y); c.scale(small, small);
+      drawGhost(c, 0, 0, g.def, g.dir, vis + g.id * 0.3, look, alpha);
+      c.restore();
+      if (frozen) {
+        c.fillStyle = 'rgba(190,240,255,.38)'; roundRect(c, xx - 0.95 * small, y - 1.05 * small, 1.9 * small, 2 * small, 0.25 * small); c.fill();
+        c.strokeStyle = 'rgba(235,250,255,.85)'; c.lineWidth = 0.06; c.stroke();
+      }
+    });
+  }
+  for (const r of V.rockets) {
+    const ang = r.ang != null ? r.ang : Math.atan2(r.vy, r.vx);
+    c.save(); c.translate(r.x, r.y); c.rotate(ang); c.scale(0.6, 0.6); drawRocket(c); c.restore();
+  }
+  for (const q of duel.parts) {
+    c.globalAlpha = Math.max(0, q.t / q.max);
+    c.fillStyle = q.color;
+    c.fillRect(q.x - q.size / 2, q.y - q.size / 2, q.size, q.size);
+  }
+  c.globalAlpha = 1;
+  for (const pp of duel.pops) canvasText(pp.tx, pp.x, pp.y, pp.c, 0.62);
+  if (V.ph === 'ready') canvasText(String(Math.min(3, Math.max(1, Math.ceil(V.timer)))), DOOR_X, 17.55, COL.pac, 1.1);
+  else if (duel.goT > 0) canvasText('GO !', DOOR_X, 17.55, COL.pac, 1.1);
+  if (duel.frameNo % 120 === 0) for (const [key, d] of duel.disp) if (duel.frameNo - d.seen > 60) duel.disp.delete(key);
+}
+function heartsInto(box, n, color) {
+  if (box.childElementCount !== n || box.dataset.c !== color) {
+    box.replaceChildren(...Array.from({ length: Math.max(0, n) }, () => { const i = document.createElement('i'); i.style.setProperty('--c', color); return i; }));
+    box.dataset.c = color;
+  }
+  box.setAttribute('aria-label', `${n} vie${n > 1 ? 's' : ''}`);
+}
+function duelHud(V) {
+  const me = duel.me, op = 1 - me, a = V.pacs[me], b = V.pacs[op];
+  const key = [a.score, b.score, a.lives, b.lives].join(',');
+  if (key === duel.hud) return;
+  duel.hud = key;
+  $('dh-me-pts').textContent = a.score;
+  $('dh-op-pts').textContent = b.score;
+  heartsInto($('dh-me-lives'), a.lives, V.pl[me].c);
+  heartsInto($('dh-op-lives'), b.lives, V.pl[op].c);
+}
+function duelMysteryUi(V, t) {
+  const p = V.pacs[duel.me], b = $('btn-mystery');
+  const key = p.charges + ':' + (p.roul ? 1 : 0);
+  if (key !== duel.mkey) {
+    duel.mkey = key;
+    $('mys-count').textContent = p.charges;
+    $('mys-count').hidden = p.charges <= 0;
+    b.classList.toggle('ready', p.charges > 0 && !p.roul);
+    b.classList.toggle('empty', p.charges <= 0 && !p.roul);
+  }
+  const spin = p.roul ? spinIds[Math.floor(t * 14) % spinIds.length] : null;
+  paintIcon($('mys-icon'), 42, spin || 'box', t);
+  if (!$('item-banner').hidden) paintIcon($('banner-icon'), 46, spin || bannerItem || 'box', t);
+}
+function duelOverUi(V) {
+  const over = $('duel-over');
+  if (V.ph === 'over' && over.hidden) {
+    const w = V.winner, me = duel.me;
+    $('duel-over-title').textContent = w === 2 ? 'ÉGALITÉ !' : `${(V.pl[w] ? V.pl[w].n : '?').toUpperCase()} GAGNE !`;
+    $('duel-scores').textContent = `${V.pl[0].n} : ${V.pacs[0].score}\n${V.pl[1].n} : ${V.pacs[1].score}`;
+    $('duel-scores').style.whiteSpace = 'pre-line';
+    const note = $('duel-over-note');
+    note.className = 'record-note' + (w === me ? ' new' : '');
+    note.textContent = w === me ? 'Bravo, tu as gagné !' : w === 2 ? 'Personne ne gagne. On rejoue ?' : 'Tu prends ta revanche ?';
+    $('duel-again').textContent = 'Revanche';
+    $('duel-again').disabled = false;
+    hideBanner();
+    showScreen('duel-over');
+  } else if (V.ph !== 'over' && !over.hidden) showScreen(null);
+}
+
+/* ---------- Commandes en duel ---------- */
+function duelSendInput() {
+  if (net.game && duel.role === 'guest') net.game.presence({ in: { w: duel.inW == null ? -1 : duel.inW, m: duel.myst, a: duel.again } }).catch(() => {});
+}
+function duelSetWant(d) {
+  if (duel.role === 'host') { if (duel.sim) duel.sim.pacs[0].want = d; }
+  else { duel.inW = d; duelSendInput(); }
+}
+function duelMysteryPress() {
+  const V = duel.view;
+  if (!V) return;
+  const p = V.pacs[duel.me];
+  if (V.ph !== 'play' || p.charges <= 0 || p.roul || p.dying > 0) return;
+  if (duel.role === 'host') duelUseMystery(duel.sim, 0);
+  else { duel.myst++; duelSendInput(); Sound.roulette(); }
+  showBanner(null);
+}
+function duelQuitPress() {
+  const b = $('btn-pause');
+  if (duel.quitArm && performance.now() - duel.quitArm < 3000) { duelLeave(null); return; }
+  duel.quitArm = performance.now();
+  b.textContent = 'Sûr ? Re-touche';
+  setTimeout(() => { if (duel.active) b.textContent = 'Quitter'; }, 3000);
+}
+function duelRestart() {
+  if (duel.role !== 'host') return;
+  duel.sim = duelNewSim(duel.gdefs, duel.pl);
+  duel.view = duel.sim;
+  duel.hud = ''; duel.mkey = '';
+  showScreen(null);
+}
+function duelStartUI() {
+  duel.active = true;
+  duel.parts = []; duel.pops = []; duel.disp.clear(); duel.hud = ''; duel.mkey = ''; duel.prevPh = ''; duel.goT = 0; duel.quitArm = 0;
+  document.body.dataset.duel = '1';
+  for (const el of document.querySelectorAll('.hud > .hud-block')) el.hidden = true;
+  $('duel-hud').hidden = false;
+  const me = duel.me, op = 1 - me;
+  $('dh-me-name').textContent = duel.pl[me].n; $('dh-me-name').style.color = duel.pl[me].c;
+  $('dh-op-name').textContent = duel.pl[op].n; $('dh-op-name').style.color = duel.pl[op].c;
+  $('btn-pause').disabled = false; $('btn-pause').textContent = 'Quitter';
+  $('btn-mystery').hidden = false;
+  hideBanner(); Sound.siren(null);
+  showScreen(null);
+}
+function duelStopUI() {
+  duel.active = false;
+  document.body.dataset.duel = '';
+  for (const el of document.querySelectorAll('.hud > .hud-block')) el.hidden = false;
+  $('duel-hud').hidden = true;
+  hideBanner(); Sound.siren(null);
+  updateTools(); updateMysteryBtn(); updateHud();
+}
+function duelLeave(msg) {
+  const wasActive = duel.active;
+  duelStopUI();
+  duel.sim = null; duel.view = null; DS = null; duel.role = null;
+  if (net.game) {
+    const g = net.game;
+    net.game = null;
+    net.gameOff.forEach(f => f()); net.gameOff = [];
+    g.leave().catch(() => {});
+  }
+  net.role = null; net.other = null;
+  Object.assign(lobby, { st: 'idle', inv: null, rm: null, acc: null });
+  if (wasActive || msg !== undefined) openDuelLobby(msg || null);
+}
+
+/* ---------- Salon : se trouver et se défier ---------- */
+function setDuelStatus(text, warn) {
+  const el = $('duel-status');
+  el.textContent = text;
+  el.classList.toggle('warn', !!warn);
+}
+function sendLobby() {
+  if (!net.room) return;
+  net.room.presence({ duel: { n: myName(), c: myColor(), st: lobby.st === 'play' ? 'play' : 'wait', inv: lobby.inv, rm: lobby.rm, acc: lobby.acc } }).catch(() => {});
+}
+function renderDuelColors() {
+  const box = $('duel-colors');
+  if (!box.childElementCount) {
+    PAC_COLORS.forEach(([hex, label]) => {
+      const lab = el('label');
+      const inp = radio('duel-color', hex, 'duel-color-' + label.toLowerCase());
+      inp.addEventListener('change', () => { save.player.c = hex; persist(); sendLobby(); });
+      const span = el('span'); const dot = el('i', 'dot-c'); dot.style.setProperty('--c', hex);
+      span.append(dot, document.createTextNode(label));
+      lab.append(inp, span); box.append(lab);
+    });
+  }
+  for (const i of box.querySelectorAll('input')) i.checked = i.value === myColor();
+}
+function renderDuelTeam() {
+  const team = myDuelTeam(), box = $('duel-team');
+  box.replaceChildren(document.createTextNode('Ton équipe : '));
+  team.forEach((d, k) => { const b = el('b', null, d.name); b.style.color = d.color; box.append(b, document.createTextNode(k < team.length - 1 ? ', ' : '.')); });
+  box.append(document.createTextNode(' Change-la dans l’atelier (tes fantômes « Avec moi »).'));
+}
+async function openDuelLobby(msg) {
+  Sound.init();
+  showScreen('duel-screen');
+  $('duel-name').value = save.player.n;
+  renderDuelColors(); renderDuelTeam();
+  setDuelStatus(msg || 'Connexion…', !!msg);
+  $('duel-list').replaceChildren();
+  const room = await getRoom();
+  if ($('duel-screen').hidden) return;
+  if (!room) {
+    setDuelStatus('Le duel marche seulement dans Claude : ouvre ce jeu avec son lien Claude, connecté à un compte, sur les deux tablettes.', true);
+    return;
+  }
+  if (!net.lobbyOff) net.lobbyOff = room.onPeers(() => renderDuelList());
+  Object.assign(lobby, { st: 'idle', inv: null, rm: null, acc: null });
+  sendLobby();
+  if (!msg) setDuelStatus('Connecté. Trouve ton adversaire :');
+  renderDuelList();
+}
+function closeDuelLobby() {
+  if (net.game) duelLeave(undefined);
+  if (net.room) net.room.presence({ duel: null }).catch(() => {});
+  Object.assign(lobby, { st: 'idle', inv: null, rm: null, acc: null });
+  goMenu();
+}
+function lobbyReset(msg) {
+  if (net.game) { const g = net.game; net.game = null; net.gameOff.forEach(f => f()); net.gameOff = []; g.leave().catch(() => {}); }
+  net.role = null; net.other = null;
+  Object.assign(lobby, { st: 'idle', inv: null, rm: null, acc: null });
+  sendLobby();
+  setDuelStatus(msg, true);
+  renderDuelList();
+}
+function renderDuelList() {
+  if (!net.room || $('duel-screen').hidden) return;
+  const peers = net.room.peers();
+  const self = peers.find(p => p.sameTab);
+  if (self) net.myPeer = self.peer;
+  const others = peers.filter(p => !p.sameTab && p.kind === 'viewer' && p.presence && p.presence.duel && typeof p.presence.duel === 'object');
+  if (lobby.st === 'inviting') {
+    const acc = others.find(p => p.peer === lobby.inv && p.presence.duel.acc === net.myPeer && p.presence.duel.rm === lobby.rm);
+    if (acc) { lobby.st = 'play'; sendLobby(); enterGameRoom(lobby.rm, 'host', acc.peer); }
+    else if (!others.some(p => p.peer === lobby.inv)) { Object.assign(lobby, { st: 'idle', inv: null, rm: null }); sendLobby(); }
+  }
+  const box = $('duel-list');
+  if (lobby.st === 'play') { box.replaceChildren(); return; }
+  const rows = others.map(p => {
+    const d = p.presence.duel, name = cleanName(d.n) || 'Joueur', color = validColor(d.c);
+    const row = el('div', 'duel-peer');
+    const pic = el('span', 'pic'); pic.style.setProperty('--c', color);
+    const txt = el('div', 'txt'); const nm = el('b', null, name); nm.style.color = color;
+    const sub = el('small');
+    txt.append(nm, sub);
+    row.append(pic, txt);
+    const invitesMe = d.inv === net.myPeer && typeof d.rm === 'string' && /^duel-[a-z0-9]{4,16}$/.test(d.rm) && d.st === 'wait';
+    if (d.st === 'play') sub.textContent = 'joue déjà';
+    else if (invitesMe) {
+      row.classList.add('invite');
+      sub.textContent = 'te défie !';
+      const b = el('button', 'btn btn-primary', 'Accepter'); b.type = 'button';
+      b.addEventListener('click', () => acceptInvite(p.peer, d.rm));
+      row.append(b);
+    } else if (lobby.st === 'inviting' && lobby.inv === p.peer) {
+      sub.textContent = 'invitation envoyée…';
+      const b = el('button', 'btn', 'Annuler'); b.type = 'button';
+      b.addEventListener('click', () => { Object.assign(lobby, { st: 'idle', inv: null, rm: null }); sendLobby(); renderDuelList(); });
+      row.append(b);
+    } else {
+      sub.textContent = 'est prêt';
+      const b = el('button', 'btn', 'Défier'); b.type = 'button';
+      b.addEventListener('click', () => invite(p.peer));
+      row.append(b);
+    }
+    return row;
+  });
+  if (!rows.length) rows.push(el('p', 'duel-empty', 'Personne d’autre pour l’instant. Sur l’autre tablette : ouvre Noah-Man, choisis « Duel à 2 » puis « Jouer ». Le prénom apparaîtra ici.'));
+  box.replaceChildren(...rows);
+}
+function invite(peer) {
+  Sound.init();
+  Object.assign(lobby, { st: 'inviting', inv: peer, rm: 'duel-' + Math.random().toString(36).slice(2, 10), acc: null });
+  sendLobby();
+  renderDuelList();
+}
+function acceptInvite(peer, rm) {
+  Sound.init();
+  Object.assign(lobby, { st: 'play', inv: null, rm, acc: peer });
+  sendLobby();
+  enterGameRoom(rm, 'guest', peer);
+}
+async function enterGameRoom(rm, role, otherPeer) {
+  net.role = role; net.other = otherPeer; net.joinT = performance.now() / 1000;
+  setDuelStatus(role === 'host' ? 'C’est accepté ! On prépare la partie…' : 'On rejoint la partie…');
+  $('duel-list').replaceChildren();
+  let r;
+  try { r = await net.room.join(rm); }
+  catch (e) { lobbyReset('Impossible de rejoindre la partie. Réessaie.'); return; }
+  if (lobby.st !== 'play') { r.leave().catch(() => {}); return; }
+  net.game = r;
+  r.presence({ hello: { n: myName(), c: myColor(), defs: myDuelTeam().map(compactDef) } }).catch(() => {});
+  net.gameOff.push(r.onPeers(onGameRoom));
+}
+function onGameRoom(ch) {
+  if (!net.game) return;
+  if (duel.active && ch.left.some(p => p.peer === net.other)) {
+    duelLeave(`${duel.pl ? duel.pl[1 - duel.me].n : 'L’autre joueur'} a quitté la partie.`);
+    return;
+  }
+  if (!duel.active && net.role === 'host') {
+    const g = ch.peers.find(p => p.peer === net.other);
+    if (g && g.presence && g.presence.hello && typeof g.presence.hello === 'object') duelHostBegin(g.presence.hello);
+  }
+}
+function duelLobbyTick(t) {
+  if (net.role === 'guest') {
+    const h = net.game.peers().find(p => p.peer === net.other);
+    const pr = h && h.presence;
+    if (pr && pr.s && Array.isArray(pr.defs) && Array.isArray(pr.pl)) { duelGuestBegin(pr, t); return; }
+  }
+  if (performance.now() / 1000 - net.joinT > 12) lobbyReset('La partie n’a pas démarré. Réessaie.');
+}
+function duelHostBegin(hello) {
+  const mine = myDuelTeam();
+  const theirs = (Array.isArray(hello.defs) ? hello.defs : []).slice(0, 3).map(expandDef).filter(Boolean);
+  const gdefs = mine.map(d => ({ o: 0, d })).concat((theirs.length ? theirs : [PRESETS[0]]).map(d => ({ o: 1, d })));
+  const hc = myColor();
+  let gc = validColor(hello.c);
+  if (gc === hc) gc = PAC_COLORS.find(x => x[0] !== hc)[0];
+  duel.pl = [{ n: myName(), c: hc }, { n: cleanName(hello.n) || 'Joueur 2', c: gc }];
+  duel.gdefs = gdefs; duel.role = 'host'; duel.me = 0;
+  duel.sim = duelNewSim(gdefs, duel.pl); duel.view = duel.sim;
+  duel.lastM = null; duel.lastA = null; duel.lastStateAt = performance.now() / 1000;
+  net.game.presence({ defs: gdefs.map(x => [x.o, compactDef(x.d)]), pl: duel.pl, s: duelEncode(duel.sim) }).catch(() => {});
+  duelStartUI();
+}
+function duelGuestBegin(pr, t) {
+  const defs = pr.defs.slice(0, 6).map(a => (Array.isArray(a) ? { o: a[0] === 1 ? 1 : 0, d: expandDef(a[1]) } : null)).filter(x => x && x.d);
+  const pl = pr.pl.slice(0, 2).map(p => ({ n: cleanName(p && p.n) || 'Joueur', c: validColor(p && p.c) }));
+  if (pl.length < 2 || !defs.length) return;
+  duel.gdefs = defs; duel.pl = pl; duel.role = 'guest'; duel.me = 1;
+  duel.sim = null; duel.view = null; duel.lastSObj = null; duel.lastStateAt = t; duel.evSeen = -1;
+  duel.inW = null; duel.myst = 0; duel.again = 0;
+  duelSendInput();
+  duelStartUI();
+}
+function bindDuelUI() {
+  $('duel-back').addEventListener('click', closeDuelLobby);
+  $('duel-name').addEventListener('input', () => { save.player.n = cleanName($('duel-name').value); persist(); sendLobby(); });
+  $('duel-again').addEventListener('click', () => {
+    if (duel.role === 'host') duelRestart();
+    else { duel.again++; duelSendInput(); $('duel-again').textContent = 'Demandé…'; $('duel-again').disabled = true; }
+  });
+  $('duel-quit').addEventListener('click', () => duelLeave(null));
+}
+
+/* =====================================================================
    Boucle principale
    ===================================================================== */
 let last = 0;
@@ -1964,6 +3119,8 @@ function frame(now) {
   const t = now / 1000;
   const dt = last ? Math.min(t - last, 1 / 20) : 0;
   last = t;
+  if (net.game && !duel.active) duelLobbyTick(t);
+  if (duel.active) { duelFrame(dt, t); Sound.tick(t); return; }
   const wsOpen = !$('workshop').hidden;
   if (!game.paused && !wsOpen && dt > 0) {
     const n = Math.max(1, Math.ceil(dt / (1 / 120))), h = dt / n;
@@ -1986,8 +3143,8 @@ function frame(now) {
    Interface
    ===================================================================== */
 function showScreen(id) {
-  for (const s of ['title-screen', 'pause-screen', 'over-screen']) $(s).hidden = s !== id;
-  document.body.dataset.mode = id === 'title-screen' || id === 'over-screen' ? 'menu' : 'game';
+  for (const s of ['title-screen', 'pause-screen', 'over-screen', 'duel-screen', 'duel-over']) $(s).hidden = s !== id;
+  document.body.dataset.mode = ['title-screen', 'over-screen', 'duel-screen', 'duel-over'].includes(id) ? 'menu' : 'game';
   if (id) { const b = $(id).querySelector('[data-autofocus]'); if (b) b.focus({ preventScroll: true }); }
 }
 const livesEl = $('lives');
@@ -2025,18 +3182,21 @@ function nameList(box, defs, emptyText) {
   box.replaceChildren(...defs.map(d => { const s = document.createElement('span'); s.style.color = d.color; s.textContent = d.name; return s; }));
 }
 function renderTitle() {
-  const battle = save.mode === 'bataille';
-  nameList($('team-names'), teamDefs(), '');
+  const battle = save.mode === 'bataille', isDuel = save.mode === 'duel';
+  $('team-label').textContent = isDuel ? 'Ton équipe pour le duel' : 'Contre toi';
+  nameList($('team-names'), isDuel ? myDuelTeam() : teamDefs(), '');
   nameList($('ally-names'), allyDefs(), 'Personne pour l’instant. Choisis tes amis dans l’atelier.');
   $('ally-block').hidden = !battle;
-  $('hint-space').hidden = !battle;
-  $('hint-tap').hidden = !battle;
-  $('mode-desc').textContent = battle
-    ? 'Tes fantômes amis se battent avec toi. Il arrive toujours plus d’ennemis. Ramasse les boîtes ? pour une aide mystère.'
-    : 'Le jeu d’arcade d’origine : toi contre les fantômes.';
+  $('hint-space').hidden = !(battle || isDuel);
+  $('hint-tap').hidden = !(battle || isDuel);
+  $('mode-desc').textContent = isDuel
+    ? 'Deux tablettes, deux joueurs. Tes fantômes contre ceux de l’autre, et des aides mystère pour gêner ton adversaire.'
+    : battle
+      ? 'Tes fantômes amis se battent avec toi. Il arrive toujours plus d’ennemis. Ramasse les boîtes ? pour une aide mystère.'
+      : 'Le jeu d’arcade d’origine : toi contre les fantômes.';
   for (const id of ['diff-' + save.diff, 'mode-' + save.mode]) { const r = $(id); if (r) r.checked = true; }
   const isDefault = save.team.length === DEFAULT_TEAM.length && DEFAULT_TEAM.every(id => save.team.includes(id));
-  $('teaser').hidden = !isDefault || battle;
+  $('teaser').hidden = !isDefault || battle || isDuel;
 }
 let toastTimer = 0;
 function toast(msg) {
@@ -2251,11 +3411,15 @@ function closeWorkshop() {
 
 /* ---------- Commandes ---------- */
 const KEYS = { ArrowUp: 0, ArrowLeft: 1, ArrowDown: 2, ArrowRight: 3, KeyW: 0, KeyA: 1, KeyS: 2, KeyD: 3 };
-function setWant(d) { if (game.pac && !game.paused) game.pac.want = d; }
-function isRunning() { return !game.paused && (game.state === 'ready' || game.state === 'play'); }
+function setWant(d) {
+  if (duel.active) { duelSetWant(d); return; }
+  if (game.pac && !game.paused) game.pac.want = d;
+}
+function isRunning() { return duel.active || (!game.paused && (game.state === 'ready' || game.state === 'play')); }
 
 function bindUI() {
-  $('btn-play').addEventListener('click', newGame);
+  $('btn-play').addEventListener('click', () => { if (save.mode === 'duel') openDuelLobby(); else newGame(); });
+  bindDuelUI();
   $('btn-again').addEventListener('click', newGame);
   $('btn-restart').addEventListener('click', newGame);
   $('btn-resume').addEventListener('click', () => setPaused(false));
@@ -2266,10 +3430,11 @@ function bindUI() {
   $('ws-close').addEventListener('click', closeWorkshop);
   $('tab-team').addEventListener('click', () => { editingId = null; setTab('team'); });
   $('tab-create').addEventListener('click', () => { if (!editingId) $('g-save').textContent = 'Créer mon fantôme'; setTab('create'); });
-  $('btn-pause').addEventListener('click', () => setPaused(!game.paused));
+  $('btn-pause').addEventListener('click', () => { if (duel.active) duelQuitPress(); else setPaused(!game.paused); });
   $('btn-sound').addEventListener('click', toggleMute);
-  $('btn-mystery').addEventListener('pointerdown', e => { e.preventDefault(); Sound.init(); useMystery(); });
-  $('btn-mystery').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); useMystery(); } });
+  const mystery = () => { if (duel.active) duelMysteryPress(); else useMystery(); };
+  $('btn-mystery').addEventListener('pointerdown', e => { e.preventDefault(); Sound.init(); mystery(); });
+  $('btn-mystery').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); mystery(); } });
   for (const r of document.querySelectorAll('input[name="diff"]')) r.addEventListener('change', () => { save.diff = r.value; persist(); });
   for (const r of document.querySelectorAll('input[name="mode"]')) r.addEventListener('change', () => { save.mode = r.value; persist(); renderTitle(); });
 
@@ -2278,8 +3443,13 @@ function bindUI() {
     if (!$('workshop').hidden) { if (e.key === 'Escape') closeWorkshop(); return; }
     if (tag === 'INPUT') return;
     const k = KEYS[e.code];
-    if (k !== undefined && game.pac && !game.paused && game.state !== 'gameover') { e.preventDefault(); setWant(k); return; }
+    if (k !== undefined && (duel.active || (game.pac && !game.paused && game.state !== 'gameover'))) { e.preventDefault(); setWant(k); return; }
     const key = (e.key || '').toLowerCase();
+    if (duel.active) {
+      if (e.code === 'Space' || key === 'e') { e.preventDefault(); duelMysteryPress(); }
+      else if (key === 'm') toggleMute();
+      return;
+    }
     if ((e.code === 'Space' || key === 'e') && game.battle && game.pac && game.state !== 'gameover') { e.preventDefault(); useMystery(); }
     else if (key === 'p' || e.key === 'Escape') { if (game.state !== 'title' && game.state !== 'gameover') { e.preventDefault(); setPaused(!game.paused); } }
     else if (key === 'm') toggleMute();
@@ -2322,7 +3492,7 @@ function start(data) {
   new ResizeObserver(resize).observe(stage);
   resize();
   requestAnimationFrame(frame);
-  window.noahMan = { game, save, update, newGame, setWant, useMystery, applyItem };
+  window.noahMan = { game, save, update, newGame, setWant, useMystery, applyItem, duel, net, duelEncode, duelNewSim, duelStep, duelApply, duelUseMystery };
 }
 try { if (window.claude && window.claude.hot && window.claude.hot.snapshot) window.claude.hot.snapshot(() => ({ save: JSON.parse(JSON.stringify(save)) })); } catch (e) { /* facultatif */ }
 if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
