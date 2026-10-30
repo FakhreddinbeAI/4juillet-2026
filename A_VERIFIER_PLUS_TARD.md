@@ -511,3 +511,73 @@ et c'est le prix à payer : c'est elle qui a fait remonter ce vrai doublon-ci.
 aucune consigne. Il a eu raison de ne rien déposer et de le dire. **Les lots de
 cinq, chacun avec ses règles répétées en entier, sont désormais la forme à
 utiliser** : un prompt long est un prompt qui se fait couper en silence.
+
+---
+
+## 14. `id 36409.pdf` — un nom de dépôt qui échappe aux deux recherches ⟵ *30/10/2026*
+
+**Chrome a signalé** que la relance Made in Labs du 20/10 vise deux factures
+qu'il ne trouvait pas au portail : celle du **31/08 (1 207,00 €)** et celle du
+**30/09 (2 366,38 €)**.
+
+**Une des deux est bien au portail.** La facture du 31/08 y est depuis le
+12/10, sous le nom **`id 36409.pdf`**. Chrome ne pouvait pas la trouver :
+
+- **pas de montant** dans le nom → la recherche par montant est aveugle ;
+- **pas de nom de fournisseur** → chercher « made in labs » ne la ramène pas ;
+- le seul crochet est le **numéro nu, `36409`**.
+
+Ce nom vient de la pièce jointe du mail du fournisseur, littéralement
+`id=36409.pdf`. C'est le même fichier qui, le 12/10, avait fait un faux négatif
+sur mon seuil de six caractères.
+
+**La conséquence pour la méthode.** Nos prompts de dépôt demandent une
+vérification « par numéro **et** par montant ». Il manque un troisième mode :
+**chercher le numéro NU, sans fournisseur ni montant**. C'est le seul qui
+trouve un dépôt nommé par un identifiant brut — et ces noms existent, puisque
+les fournisseurs nomment leurs pièces jointes ainsi.
+
+**L'autre moitié du signalement est juste** : la facture du **30/09 à
+2 366,38 €** n'est ni au portail ni en notre possession. Elle est déjà au
+registre en MANQUANT, numéro inconnu, à réclamer avec la 35937 de juin.
+
+## 15. Mes neuf « doublons » ZFX : cinq fichiers, deux lus ⟵ *30/10/2026*
+
+**Chrome a remarqué** que les cinq exemplaires du courrier du 19/10 ne font pas
+tous la même taille : **177 384 octets** pour deux d'entre eux, **137 029** pour
+les trois autres. Donc ce ne sont pas des copies exactes.
+
+**Il a raison, et ça corrige une de mes affirmations.** J'ai suffixé cinq
+fichiers `_DOUBLON` en ayant ouvert **deux** d'entre eux seulement — un de
+chaque taille. Les deux portaient le même texte : lettre du 19/10/2026, affaire
+12783, 298,73 €. J'ai déduit les trois autres de l'égalité des tailles.
+
+**Ce que je sais vraiment, fichier par fichier :**
+
+| taille | exemplaires | lu ? |
+|---|---|---|
+| 177 384 o | 2 (19/10 et 20/10) | **un seul**, celui du 20/10 |
+| 137 029 o | 3 (22, 26 et 28/10) | **un seul**, celui du 28/10 |
+
+Le fichier que j'ai gardé comme exemplaire de référence — celui du 19/10 — est
+donc **un de ceux que je n'ai pas ouverts**. Je l'ai nommé d'après son jumeau.
+
+**Pourquoi ce n'est pas grave aujourd'hui, et quand ça le deviendrait.**
+Personne ne supprime rien : les neuf fichiers sont tous là, seuls leurs noms
+changent, et le suffixe ne sert qu'à empêcher un dépôt accidentel. Mais si un
+jour on veut faire le ménage, **il faut ouvrir les cinq avant d'en jeter
+quatre** — c'est exactement ce que Chrome conseille.
+
+## 16. Un mot de passe du cabinet est parti chez TGS ⟵ *30/10/2026*
+
+Les courriers d'AS Créances Recouvrement portent, en en-tête de chaque page, un
+**identifiant et un mot de passe** d'accès à leur espace de paiement en ligne
+pour ce dossier. Trois de ces courriers sont maintenant au portail TGS : celui
+du 09/10 depuis le 13/10, ceux du 19 et du 29/10 depuis aujourd'hui.
+
+**Ce n'est donc pas nouveau d'aujourd'hui** — c'était déjà vrai le 13/10, et je
+ne l'avais pas vu. Le risque est faible : l'accès ne donne qu'une page de
+paiement d'une créance de 299 €, chez un tiers, et TGS est tenu au secret
+professionnel. Mais c'est un identifiant du cabinet qui circule, et il suffit
+de demander à AS Créances de le réinitialiser. **La valeur n'est recopiée dans
+aucun fichier du projet** : elle est dans les PDF, et elle y reste.

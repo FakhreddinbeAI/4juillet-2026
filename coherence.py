@@ -163,9 +163,30 @@ def main(reg, lcl, *hist):
             m = ""
         if f and m:
             paires.append((f, m))
+    # LE 30/10/2026, UN BUG A MOI, A MOITIE CORRIGE LE 12/10. Ce jour-la j ai
+    # appris que mes notes citent les noms de depot entre GUILLEMETS et pas
+    # entre apostrophes droites, et j ai patche le test « MARQUEE DEPOSEE SANS
+    # PREUVE »... en oubliant CELUI-CI, qui lit les memes notes pour le test
+    # inverse. Resultat : trois depots du 30/10 ont ete signales « absents du
+    # registre » alors que leur nom etait cite, mot pour mot, dans la note de
+    # la piece correspondante. Les trois pieces n avaient ni reference ni
+    # montant — les deux autres voies de rattachement — donc tout reposait sur
+    # la citation, et la citation n etait pas lue.
+    # LA LECON : quand on corrige la facon de lire une donnee, il faut chercher
+    # TOUS les endroits qui la lisent. Un garde-fou a moitie repare ne se
+    # trompe plus qu une fois sur deux, et c est pire qu un garde-fou cassé,
+    # parce qu on le croit repare.
+    # L EXIGENCE D EXTENSION est reprise telle quelle : sans elle, n importe
+    # quel mot entre guillemets — « facture », « releve » — passerait pour un
+    # nom de depot et attesterait n importe quoi par simple sous-chaine.
     cites_c = set()
     for p in P:
-        for c in re.findall(r"'([^']{6,90})'", p.get("note") or ""):
+        note = p.get("note") or ""
+        trouves = re.findall(r"'([^']{6,90})'", note)
+        trouves += re.findall(
+            r"«\s*([^»]{6,118}\.(?:pdf|jpg|jpeg|png))\s*»", note,
+            re.IGNORECASE)
+        for c in trouves:
             if len(norm(c)) >= 8:
                 cites_c.add(norm(c))
     d2026 = re.compile(r"^\s*2026[\s_-]?(0[1-9]|1[0-2])")
