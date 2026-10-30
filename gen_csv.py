@@ -82,7 +82,22 @@ w.writerow(["Depose TGS", "Action", "Cycle", "Etat", "Date", "Fournisseur",
             "Type", "Montant", "Reference", "Periode"])
 for p in P:
     w.writerow([
-        "TRUE" if p['cycle'] == 'ENVOYE_TGS' else "FALSE",
+        # LE 30/10/2026 : cette case suivait le CYCLE, donc elle restait
+        # decochee sur une piece qu on venait de televerser au portail. Dix
+        # pieces deposees le matin s affichaient non deposees l apres-midi.
+        # Desormais elle suit le FAIT : la piece est au portail si son etat
+        # est DEPOSEE, ou si son cycle dit que TGS l a integree.
+        # CE QUE CE CHANGEMENT NE FAIT PAS, et c est voulu : il ne touche pas
+        # a la colonne « Action », donc ni les six categories ni leurs totaux
+        # ne bougent. Basculer les pieces DEPOSEE dans « 7 FAIT » aurait vide
+        # « 4 LUCIE PAIE », qui sert a suivre ce que Lucie regle — on aurait
+        # perdu une information pour en afficher une autre.
+        # La case dit donc « c est parti chez TGS », la categorie dit
+        # « TGS l a integre ». Les deux ne sont pas la meme chose : les
+        # statuts du portail restent « En cours de traitement » plusieurs
+        # jours avant de passer en « Depot OK ».
+        "TRUE" if (net(p['etat']).upper() == 'DEPOSEE'
+                   or p['cycle'] == 'ENVOYE_TGS') else "FALSE",
         RANG.get(action(p), "9") + " " + action(p), net(p['cycle']), net(p['etat']), net(p['date_piece']),
         net(p['fournisseur']), net(p['type']),
         net(p['montant']).replace('.', ','), net(p['reference']),
