@@ -476,3 +476,38 @@ du 12/10 interdit. Je signale, elle tranche.
 deux comptes `15133626` et `15123197`, et sous lequel la SELARL est
 contractuellement cliente. La question était déjà notée le 09/10 comme « à
 faire expliquer » — elle n'a toujours pas été posée.
+
+---
+
+## 13. Un dépôt en double au portail, dans deux catégories ⟵ *30/10/2026*
+
+**Trouvé par Chrome**, en lisant les 1 450 lignes de l'historique pour vérifier
+les anti-doublons — pas en le cherchant :
+
+> *« la relance ZFX `d 2606 08953` figure deux fois au portail, une fois en
+> "Je ne sais pas où déposer" et une fois en "Mes factures d'achat" »*
+
+**Pourquoi ça compte.** Cette relance porte **253,99 €**, exactement le montant
+de la facture `R-2602.52453` qui est elle aussi au portail. Il y a donc
+aujourd'hui, chez TGS, **trois documents à 253,99 €** pour une seule dette —
+dont deux exemplaires du même courrier, l'un classé en factures d'achat. Le
+risque n'est pas théorique : une relance rangée en facture d'achat est un
+candidat direct à une double comptabilisation.
+
+**Ce n'est pas nous qui pouvons le corriger** — on ne peut que déposer, pas
+supprimer. **C'est à dire à TGS**, et ça rejoint le signalement du 424 de
+l'entrée 11 : deux choses à leur signaler dans le même message.
+
+**Ce que ça apprend sur notre méthode.** La règle 2 des prompts de dépôt
+(« vérifier par le numéro ET par le montant ») a fonctionné exactement comme
+prévu : elle a arrêté Chrome sur deux pièces, et les deux arrêts étaient des
+**faux positifs légitimes** — des quasi-doublons que j'ai tranchés ensuite
+(Straumann `9060190974` contre `9060107688`, même montant ; ZFX `DL-2604.10217`
+contre deux pièces à 253,99 €). La règle coûte un aller-retour par quasi-doublon,
+et c'est le prix à payer : c'est elle qui a fait remonter ce vrai doublon-ci.
+
+**Un détail de méthode à garder.** Chrome a signalé que mon prompt du 30/10
+était **tronqué après le deuxième fichier** — il n'a reçu que 2 noms sur 10 ni
+aucune consigne. Il a eu raison de ne rien déposer et de le dire. **Les lots de
+cinq, chacun avec ses règles répétées en entier, sont désormais la forme à
+utiliser** : un prompt long est un prompt qui se fait couper en silence.
