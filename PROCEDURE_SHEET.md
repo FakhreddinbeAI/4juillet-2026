@@ -184,3 +184,31 @@ correspondait. 6 lignes sur 7, jamais 7 : l'écart confirmait la cause.
 
 **La comparaison des références n'a pas été affaiblie** pour faire taire
 l'alerte : `046` et `46` restent deux clés distinctes, testé explicitement.
+
+---
+
+## Cycle valide de bout en bout le 30/10/2026
+
+Trois remplacements de `vue_tgs.csv` dans la journée, trois Actualiser, les six
+sommes recalculees localement AVANT chaque Actualiser et retrouvees au centime
+les trois fois. Dernier etat : **323 lignes, 270 053,51 €**.
+
+**Pourquoi recalculer avant et pas apres.** L envoi passe par un retapage
+integral du fichier : l outil Drive n envoie pas un fichier du disque, il envoie
+du texte. L egalite des tailles prouve qu aucun caractere n a ete ajoute ni
+perdu — elle ne prouve PAS qu aucun n a ete substitue, `917,17` retape en
+`917,71` pesant le meme poids. Les six sommes, elles, le prouvent. C est le
+vrai controle, et il doit etre calcule AVANT pour avoir valeur de prediction.
+
+**La case « Depose TGS » suit desormais l ETAT, plus le cycle.** Elle est cochee
+si la piece est DEPOSEE (televersee au portail) ou ENVOYE_TGS (integree par
+TGS). 155 cases avant, **235 apres**. Les categories n ont pas bouge : la case
+dit « c est parti », la categorie dit « c est integre », et les statuts du
+portail restent « En cours de traitement » plusieurs jours avant « Depot OK ».
+
+**Un piege de verification, rencontre le 30/10.** Filtrer la colonne A sur
+« TRUE » pour compter les cochees ne marche pas : ce sont de VRAIES cases a
+cocher, pas le texte « TRUE ». Le menu du filtre propose *cochee* / *decochee*,
+et un filtre mal pose renvoie 324 lignes — soit 323 plus l en-tete, donc tout le
+tableau. **Le test fiable est ponctuel** : regarder trois lignes dont on sait
+qu elles viennent d etre deposees, et verifier qu elles sont cochees.
