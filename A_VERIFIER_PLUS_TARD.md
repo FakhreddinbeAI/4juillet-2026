@@ -437,3 +437,42 @@ La liste des neuf noms est dans le tableau de l'entrée 11 ci-dessus.
 L'hypothèse de l'artefact d'affichage est laissée ouverte **parce qu'elle est
 crédible**, pas par politesse : Chrome en avait signalé un le même jour sur le
 filtre « gacd ».
+
+---
+
+## 12. Le compte client Straumann `15133626` — mon exclusion du 12/10 est douteuse ⟵ *30/10/2026*
+
+**Ce que j'ai écrit le 12/10.** J'ai exclu du dossier la relance Straumann de
+**112,68 €** du 24/07/2026, au motif qu'elle était « adressée à *SELARL TIGHZA
+LOISEAU JOHANNE*, compte client **15133626** », et que « le compte du Dr Tighza
+est **15123197** ». J'en ai conclu : *« C'est le compte du Dr Loiseau. Elle
+n'est pas à nous. »* Et j'ai retenu dans la foulée l'avoir `9060136144`.
+
+**Ce que la facture scannée le 30/10 montre.** La facture `9060190974` du
+29/09/2026 porte :
+
+- le compte client **`15133626`** ;
+- l'en-tête **« SELARL TIGHZA / LOISEAU JOHANNE »** ;
+- une livraison au **laboratoire Argoat**, notre prothésiste ;
+- une commande à notre nom.
+
+**C'est donc bien une facture à nous, sur le compte `15133626`.** Et ce n'est
+pas un cas isolé : **la grande majorité des factures Straumann du registre
+portent `15133626`**. Le compte `15123197` n'apparaît que sur trois pièces —
+`9060024519`, `9060036137` et `9060079433`, celles passées par les mains de
+Lucie.
+
+**Donc mon raisonnement était inversé.** `15133626` n'est pas « le compte de
+Dr Loiseau » : c'est le compte principal de la SELARL, dont la dénomination
+chez Straumann inclut les deux praticiennes. Ce qui reste à expliquer, c'est
+l'inverse : **pourquoi trois factures sortent sur `15123197`**.
+
+**Ce que je ne fais pas.** Je ne réintègre pas la relance de 112,68 € ni
+l'avoir `9060136144` de ma propre initiative : les deux ont été écartées sur
+décision de Lisa, et ré-arbitrer seul serait exactement la faute que la règle
+du 12/10 interdit. Je signale, elle tranche.
+
+**Ce qu'il faut pour trancher** : demander à Straumann à quoi correspondent les
+deux comptes `15133626` et `15123197`, et sous lequel la SELARL est
+contractuellement cliente. La question était déjà notée le 09/10 comme « à
+faire expliquer » — elle n'a toujours pas été posée.
