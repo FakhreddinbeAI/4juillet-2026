@@ -240,6 +240,21 @@ legend{padding:0;margin-bottom:10px}
   .preview-wrap canvas{width:170px;height:170px}
 }
 
+/* ---------- 1 contre 1 ---------- */
+.solo-block{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px;border-radius:18px;background:var(--bg-raise);border:1px solid var(--line)}
+.solo-pick{display:flex;align-items:center;gap:14px}
+.solo-pick canvas{width:110px;height:110px}
+.solo-arrow{width:52px;height:52px}
+.solo-arrow.left svg{transform:rotate(-90deg)}.solo-arrow.right svg{transform:rotate(90deg)}
+.solo-arrow:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.solo-ghost-name{margin:-4px 0 4px;font-weight:700;font-size:20px;line-height:1.2}
+.solo-ghost-name small{display:block;font-weight:500;font-size:14px;color:var(--muted)}
+.solo-block .field{align-items:center}
+.solo-block .text-input{text-align:center;max-width:240px}
+.win-stars{margin:0;font-size:clamp(40px,12vw,64px);line-height:1;letter-spacing:.12em;color:var(--pac);text-shadow:0 0 22px rgba(255,210,63,.55)}
+.win-stars span{color:var(--line);text-shadow:none}
+.win-title{margin:0;font-family:var(--font-ui);font-weight:700;font-size:clamp(30px,9vw,48px);line-height:1.1;color:var(--pac);text-wrap:balance}
+
 /* ---------- Duel à deux tablettes ---------- */
 .duel-hud{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
 .duel-pl{display:flex;flex-direction:column;gap:5px;min-width:0}
@@ -302,15 +317,36 @@ legend{padding:0;margin-bottom:10px}
         <canvas class="attract" id="attract" aria-hidden="true"></canvas>
         <div class="seg big" role="radiogroup" aria-label="Mode de jeu">
           <label><input type="radio" name="mode" value="classique" id="mode-classique"><span>Classique</span></label>
+          <label><input type="radio" name="mode" value="solo" id="mode-solo"><span>1 contre 1</span></label>
           <label><input type="radio" name="mode" value="bataille" id="mode-bataille"><span>Bataille</span></label>
-          <label><input type="radio" name="mode" value="duel" id="mode-duel"><span>Duel à 2</span></label>
+          <label><input type="radio" name="mode" value="duel" id="mode-duel"><span>Duel</span></label>
         </div>
         <p class="mode-desc" id="mode-desc"></p>
         <div class="actions">
           <button class="btn btn-primary" id="btn-play" type="button" data-autofocus>Jouer</button>
           <button class="btn" id="btn-workshop" type="button">Atelier des fantômes</button>
         </div>
-        <div class="seg" role="radiogroup" aria-label="Difficulté">
+        <div class="solo-block" id="solo-block" hidden>
+          <p class="mini-label">Ton adversaire</p>
+          <div class="solo-pick">
+            <button class="dp solo-arrow left" id="solo-prev" type="button" aria-label="Fantôme précédent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l8 12H4z"/></svg></button>
+            <canvas id="solo-ghost" aria-hidden="true"></canvas>
+            <button class="dp solo-arrow right" id="solo-next" type="button" aria-label="Fantôme suivant"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l8 12H4z"/></svg></button>
+          </div>
+          <p class="solo-ghost-name" id="solo-ghost-name" aria-live="polite"></p>
+          <p class="mini-label">Force du fantôme</p>
+          <div class="seg" role="radiogroup" aria-label="Force du fantôme">
+            <label><input type="radio" name="force" value="doux" id="force-doux"><span>Tout doux</span></label>
+            <label><input type="radio" name="force" value="gentil" id="force-gentil"><span>Gentil</span></label>
+            <label><input type="radio" name="force" value="coriace" id="force-coriace"><span>Coriace</span></label>
+          </div>
+          <div class="field">
+            <label for="solo-name">Ton prénom</label>
+            <input class="text-input" id="solo-name" type="text" maxlength="12" placeholder="Ex. : Inès" spellcheck="false" autocomplete="off">
+          </div>
+          <div class="chips" id="solo-colors" role="radiogroup" aria-label="Ta couleur"></div>
+        </div>
+        <div class="seg" id="diff-seg" role="radiogroup" aria-label="Difficulté">
           <label><input type="radio" name="diff" value="facile" id="diff-facile"><span>Facile</span></label>
           <label><input type="radio" name="diff" value="normal" id="diff-normal"><span>Normal</span></label>
           <label><input type="radio" name="diff" value="expert" id="diff-expert"><span>Expert</span></label>
@@ -365,6 +401,18 @@ legend{padding:0;margin-bottom:10px}
         <div class="actions">
           <button class="btn btn-primary" id="duel-again" type="button" data-autofocus>Revanche</button>
           <button class="btn" id="duel-quit" type="button">Quitter</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="win-screen" aria-labelledby="win-title" hidden>
+      <div class="screen-inner">
+        <p class="win-stars" id="win-stars"></p>
+        <h2 class="win-title" id="win-title">TU AS GAGNÉ !</h2>
+        <p class="record-note" id="win-note"></p>
+        <div class="actions">
+          <button class="btn btn-primary" id="win-next" type="button" data-autofocus>Niveau suivant</button>
+          <button class="btn" id="win-menu" type="button">Menu</button>
         </div>
       </div>
     </section>
@@ -553,6 +601,13 @@ const DIFFS = {
   expert: { lives: 3, ghostMul: 1.06, frightMul: 1,   frightMin: 1, gapPlus: 0, wave: 13, cap: 14 },
 };
 const FRIGHT_TABLE = [6, 5, 4, 3, 2, 5, 2, 2, 1, 5, 2, 1, 1, 3, 1, 1, 0, 1];
+/* 1 contre 1 : le fantôme est toujours plus lent que le joueur (speed = part de sa vitesse)
+   et ne le poursuit qu'une partie du temps (chase), le reste il se promène au hasard. */
+const SOLO_FORCES = {
+  doux:    { label: 'Tout doux', speed: 0.62, chase: 0.3,  fright: 9, lives: 5, delay: 4, desc: 'Il est lent et se perd tout le temps.' },
+  gentil:  { label: 'Gentil',    speed: 0.76, chase: 0.55, fright: 7, lives: 4, delay: 3, desc: 'Il te cherche un peu, mais il est plus lent que toi.' },
+  coriace: { label: 'Coriace',   speed: 0.9,  chase: 0.85, fright: 5, lives: 3, delay: 2, desc: 'Il te suit de près. Toujours un peu plus lent que toi.' },
+};
 
 /* Aides mystère. w = chance normale, wd = chance quand un fantôme est tout près (« dans la mouise »). */
 const ITEMS = [
@@ -574,7 +629,7 @@ const ITEM_BY_ID = Object.fromEntries(ITEMS.map(i => [i.id, i]));
    Sauvegarde (sur cet appareil seulement)
    ===================================================================== */
 const STORE_KEY = 'noah-man.v1';
-const save = { custom: [], team: DEFAULT_TEAM.slice(), allies: DEFAULT_ALLIES.slice(), hi: 0, diff: 'normal', mode: 'classique', muted: false, player: { n: '', c: '#ffd23f' } };
+const save = { custom: [], team: DEFAULT_TEAM.slice(), allies: DEFAULT_ALLIES.slice(), hi: 0, diff: 'normal', mode: 'classique', muted: false, player: { n: '', c: '#ffd23f' }, soloGhost: 'rouge', soloForce: 'gentil' };
 const PAC_COLORS = [['#ffd23f', 'Jaune'], ['#ff5fae', 'Rose'], ['#4dff9a', 'Vert'], ['#27e8ff', 'Bleu'], ['#ffa53d', 'Orange']];
 const PAC_HEX = new Set(PAC_COLORS.map(c => c[0]));
 const validColor = c => (PAC_HEX.has(c) ? c : PAC_COLORS[0][0]);
@@ -609,7 +664,9 @@ function applySave(s) {
   if (Array.isArray(s.allies)) save.allies = s.allies.filter(id => typeof id === 'string');
   if (Number.isFinite(s.hi)) save.hi = Math.max(0, Math.floor(s.hi));
   if (DIFFS[s.diff]) save.diff = s.diff;
-  if (s.mode === 'classique' || s.mode === 'bataille' || s.mode === 'duel') save.mode = s.mode;
+  if (['classique', 'solo', 'bataille', 'duel'].includes(s.mode)) save.mode = s.mode;
+  if (typeof s.soloGhost === 'string') save.soloGhost = s.soloGhost.slice(0, 40);
+  if (SOLO_FORCES[s.soloForce]) save.soloForce = s.soloForce;
   if (s.player && typeof s.player === 'object') save.player = { n: cleanName(s.player.n), c: validColor(s.player.c) };
   save.muted = !!s.muted;
   fixTeam();
@@ -738,6 +795,7 @@ function modeSchedule() {
   return [5, 20, 5, 20, 5, 40, 1];
 }
 function frightDuration() {
+  if (game.solo) return game.solo.fright;
   const d = DIFFS[save.diff];
   const base = FRIGHT_TABLE[Math.min(game.level - 1, FRIGHT_TABLE.length - 1)];
   return Math.max(d.frightMin, base * d.frightMul);
@@ -783,8 +841,16 @@ function makeGhosts() {
     g.x = ALLY_SPOTS[i][0]; g.y = ALLY_SPOTS[i][1]; g.dir = g.x < DOOR_X ? 1 : 3;
     list.push(g);
   });
+  if (game.solo && list[0]) {   // en 1 contre 1, le fantôme attend un peu dans sa maison
+    Object.assign(list[0], { x: DOOR_X, y: HOUSE_Y, state: 'house', dir: 0, releaseAt: game.solo.delay });
+  }
   return list;
 }
+function soloDef() {
+  const defs = allDefs();
+  return defs.find(d => d.id === save.soloGhost) || defs[0];
+}
+function soloSpeedShare() { return Math.min(0.95, game.solo.speed + 0.03 * (game.level - 1)); }
 
 function startLife(first, afterDeath) {
   if (game.roulette) { game.charges = Math.min(3, game.charges + 1); game.roulette = null; }
@@ -805,9 +871,11 @@ function startLife(first, afterDeath) {
 function newGame() {
   Sound.init();
   game.battle = save.mode === 'bataille';
-  game.defs = teamDefs();
+  game.solo = save.mode === 'solo' ? SOLO_FORCES[save.soloForce] : null;
+  game.defs = game.solo ? [soloDef()] : teamDefs();
   game.allyDefs = game.battle ? allyDefs() : [];
-  game.score = 0; game.level = 1; game.lives = DIFFS[save.diff].lives; game.extraGiven = false;
+  game.score = 0; game.level = 1; game.lives = game.solo ? game.solo.lives : DIFFS[save.diff].lives; game.extraGiven = false;
+  game.levelDeaths = 0;
   game.charges = game.battle ? 1 : 0; game.roulette = null; game.extraDefs = [];
   game.particles = []; game.popups = [];
   resetDots(); startLife(true);
@@ -881,6 +949,7 @@ function ghostTarget(g) {
   if (g.state === 'eaten') return [13, 11];
   if (g.team === 'ally') return allyTarget(g);
   if (g.fright) return null;
+  if (game.solo && Math.random() > game.solo.chase) return null;   // il se perd et part au hasard
   const p = game.pac, pc = Math.floor(p.x), pr = Math.floor(p.y), pd = DIRS[p.dir];
   const corner = CORNERS[g.idx % CORNERS.length];
   if (game.mode === 'scatter' && g.def.brain !== 'farceur') return corner;
@@ -935,6 +1004,7 @@ function ghostSpeed(g) {
     if (game.fx.shrink > 0) s *= 0.5;
     if (game.ghosts.some(a => a.team === 'ally' && a.def.power === 'glacon' && a.state === 'active' && dist2(a, g) < 12.25)) s *= 0.6;
     if (onPuddle(g, 'ally')) s *= 0.55;
+    if (game.solo && !g.fright) s = Math.min(s, L.pac * soloSpeedShare() * (g.boost > 1 ? 1.2 : 1), L.pac * 0.97);
   }
   if (inTunnel(g.x, g.y)) s = Math.min(s, L.ghost * 0.5);
   return s;
@@ -1026,8 +1096,8 @@ function updatePac(dt) {
   if (!p.moving) return;
   let s = levelSpeeds().pac * (game.frightT > 0 ? 1.1 : 1);
   if (game.fx.turbo > 0) s *= 1.5;
-  if (game.iceNear) s *= 0.62;
-  if (game.sticky) s *= 0.55;
+  if (game.iceNear) s *= game.solo ? 0.85 : 0.62;
+  if (game.sticky) s *= game.solo ? 0.8 : 0.55;
   travel(p, s * dt, pacDecide);
   p.mouth += dt * 16;
   eatAt(Math.floor(p.x), Math.floor(p.y), false);
@@ -1384,14 +1454,17 @@ function update(dt) {
       game.timer += dt;
       if (game.timer >= 0.8 && !game.deathSound) { game.deathSound = true; Sound.death(); }
       if (game.timer >= 2.7) {
-        game.lives--;
+        game.lives--; game.levelDeaths++;
         updateHud();
         if (game.lives <= 0) gameOver(); else startLife(false, true);
       }
       break;
     case 'clear':
       game.timer += dt;
-      if (game.timer >= 2.6) { game.level++; game.extraDefs = []; resetDots(); startLife(false); updateHud(); }
+      if (game.timer >= 2.6) {
+        if (game.solo) { game.state = 'won'; showWin(); }
+        else nextLevel();
+      }
       break;
   }
   let mode = null;
@@ -1402,6 +1475,24 @@ function update(dt) {
   Sound.siren(mode);
 }
 
+function nextLevel() {
+  game.level++; game.extraDefs = []; game.levelDeaths = 0;
+  resetDots(); startLife(false); updateHud();
+}
+/* Victoire en 1 contre 1 : 3 étoiles sans vie perdue, 2 avec une, 1 sinon */
+function showWin() {
+  Sound.siren(null); Sound.extra();
+  persist();
+  const stars = game.levelDeaths === 0 ? 3 : game.levelDeaths === 1 ? 2 : 1;
+  const box = $('win-stars');
+  box.replaceChildren(document.createTextNode('★'.repeat(stars)));
+  if (stars < 3) { const s = document.createElement('span'); s.textContent = '★'.repeat(3 - stars); box.append(s); }
+  box.setAttribute('aria-label', `${stars} étoile${stars > 1 ? 's' : ''} sur 3`);
+  const name = cleanName(save.player.n);
+  $('win-title').textContent = name ? `${name.toUpperCase()} GAGNE !` : 'TU AS GAGNÉ !';
+  $('win-note').textContent = `${game.defs[0].name} n’a pas réussi à t’attraper. Niveau ${game.level} terminé, ${game.score} points.`;
+  showScreen('win-screen'); updateTools();
+}
 function gameOver() {
   game.state = 'gameover';
   Sound.siren(null); hideBanner();
@@ -1842,21 +1933,22 @@ function drawGame() {
 
   // Noah-Man
   const p = game.pac;
+  const pacCol = game.solo ? myColor() : COL.pac;
   if (game.state === 'dying') {
-    if (game.timer < 0.8) wrapX(p.x, xx => drawPac(c, xx, p.y, p.dir, 0.4));
+    if (game.timer < 0.8) wrapX(p.x, xx => drawPac(c, xx, p.y, p.dir, 0.4, 0.8, pacCol));
     else {
       const k = Math.min(1, (game.timer - 0.8) / 1.5);
-      if (k < 0.88) wrapX(p.x, xx => drawPac(c, xx, p.y, 0, 0.12 + (k / 0.88) * (Math.PI - 0.12)));
+      if (k < 0.88) wrapX(p.x, xx => drawPac(c, xx, p.y, 0, 0.12 + (k / 0.88) * (Math.PI - 0.12), 0.8, pacCol));
       else if (k < 1) {
-        c.strokeStyle = COL.pac; c.lineWidth = 0.1; c.beginPath();
+        c.strokeStyle = pacCol; c.lineWidth = 0.1; c.beginPath();
         for (let i = 0; i < 8; i++) { const a = i * TAU / 8; c.moveTo(p.x + Math.cos(a) * 0.35, p.y + Math.sin(a) * 0.35); c.lineTo(p.x + Math.cos(a) * 0.8, p.y + Math.sin(a) * 0.8); }
         c.stroke();
       }
     }
   } else if (!(game.state === 'play' && game.freezeT > 0)) {
-    const mouth = game.state === 'ready' || game.state === 'clear' ? 0.001 : p.moving ? 0.06 + 0.72 * Math.abs(Math.sin(p.mouth)) : 0.45;
+    const mouth = game.state === 'ready' || game.state === 'clear' || game.state === 'won' ? 0.001 : p.moving ? 0.06 + 0.72 * Math.abs(Math.sin(p.mouth)) : 0.45;
     const shield = game.fx.shield > 0 && game.state === 'play';
-    const color = shield && (game.fx.shield > 1.5 || Math.floor(vis * 10) % 2) ? `hsl(${(vis * 540) % 360},100%,62%)` : COL.pac;
+    const color = shield && (game.fx.shield > 1.5 || Math.floor(vis * 10) % 2) ? `hsl(${(vis * 540) % 360},100%,62%)` : pacCol;
     if (shield) { c.fillStyle = 'rgba(255,255,255,.12)'; c.beginPath(); c.arc(p.x, p.y, 1.15, 0, TAU); c.fill(); }
     wrapX(p.x, xx => drawPac(c, xx, p.y, p.dir, mouth, 0.8, color));
     if (game.iceNear && game.state === 'play') {
@@ -1950,6 +2042,7 @@ function drawAttract(t) {
 /* ---------- Fantômes miniatures (atelier) ---------- */
 let cardMinis = [];
 const preview = $('preview'), pctx = preview.getContext('2d');
+const soloCv = $('solo-ghost');
 function sizeCanvas(cv, cssSize) {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   cv.width = cv.height = Math.round(cssSize * dpr);
@@ -2943,12 +3036,13 @@ function sendLobby() {
   if (!net.room) return;
   net.room.presence({ duel: { n: myName(), c: myColor(), st: lobby.st === 'play' ? 'play' : 'wait', inv: lobby.inv, rm: lobby.rm, acc: lobby.acc } }).catch(() => {});
 }
-function renderDuelColors() {
-  const box = $('duel-colors');
+function renderDuelColors() { renderColorChips('duel-colors', 'duel-color'); }
+function renderColorChips(boxId, prefix) {
+  const box = $(boxId);
   if (!box.childElementCount) {
     PAC_COLORS.forEach(([hex, label]) => {
       const lab = el('label');
-      const inp = radio('duel-color', hex, 'duel-color-' + label.toLowerCase());
+      const inp = radio(prefix, hex, prefix + '-' + label.toLowerCase());
       inp.addEventListener('change', () => { save.player.c = hex; persist(); sendLobby(); });
       const span = el('span'); const dot = el('i', 'dot-c'); dot.style.setProperty('--c', hex);
       span.append(dot, document.createTextNode(label));
@@ -3108,7 +3202,17 @@ function duelGuestBegin(pr, t) {
   duelSendInput();
   duelStartUI();
 }
+function bindSoloUI() {
+  $('solo-prev').addEventListener('click', () => stepSoloGhost(-1));
+  $('solo-next').addEventListener('click', () => stepSoloGhost(1));
+  for (const r of document.querySelectorAll('input[name="force"]')) r.addEventListener('change', () => { save.soloForce = r.value; persist(); renderSolo(); });
+  $('solo-name').addEventListener('input', () => { save.player.n = cleanName($('solo-name').value); persist(); });
+  $('solo-colors').addEventListener('change', () => renderSolo());
+  $('win-next').addEventListener('click', () => { showScreen(null); nextLevel(); updateTools(); });
+  $('win-menu').addEventListener('click', goMenu);
+}
 function bindDuelUI() {
+  bindSoloUI();
   $('duel-back').addEventListener('click', closeDuelLobby);
   $('duel-name').addEventListener('input', () => { save.player.n = cleanName($('duel-name').value); persist(); sendLobby(); });
   $('duel-again').addEventListener('click', () => {
@@ -3140,6 +3244,7 @@ function frame(now) {
   } else {
     drawGame();
     if (!$('title-screen').hidden) drawAttract(t);
+    if (!$('title-screen').hidden && !$('solo-block').hidden) drawMini(soloCv, soloCv.getContext('2d'), soloDef(), t, false, false);
     const spinning = game.roulette ? spinIds[Math.floor(t * 14) % spinIds.length] : null;
     if (!$('btn-mystery').hidden) paintIcon($('mys-icon'), 42, spinning || 'box', t);
     if (!$('item-banner').hidden) paintIcon($('banner-icon'), 46, spinning || bannerItem || 'box', t);
@@ -3151,8 +3256,8 @@ function frame(now) {
    Interface
    ===================================================================== */
 function showScreen(id) {
-  for (const s of ['title-screen', 'pause-screen', 'over-screen', 'duel-screen', 'duel-over']) $(s).hidden = s !== id;
-  document.body.dataset.mode = ['title-screen', 'over-screen', 'duel-screen', 'duel-over'].includes(id) ? 'menu' : 'game';
+  for (const s of ['title-screen', 'pause-screen', 'over-screen', 'duel-screen', 'duel-over', 'win-screen']) $(s).hidden = s !== id;
+  document.body.dataset.mode = ['title-screen', 'over-screen', 'duel-screen', 'duel-over', 'win-screen'].includes(id) ? 'menu' : 'game';
   if (id) { const b = $(id).querySelector('[data-autofocus]'); if (b) b.focus({ preventScroll: true }); }
 }
 const livesEl = $('lives');
@@ -3161,6 +3266,7 @@ function updateHud() {
   $('hi').textContent = Math.max(save.hi, game.score);
   $('lvl').textContent = 'NIVEAU ' + game.level;
   const n = game.state === 'title' ? 0 : Math.max(0, game.lives);
+  if (game.solo) livesEl.style.setProperty('--pac', myColor()); else livesEl.style.removeProperty('--pac');
   if (livesEl.childElementCount !== n) {
     livesEl.replaceChildren(...Array.from({ length: n }, () => { const s = document.createElement('span'); s.className = 'life'; return s; }));
   }
@@ -3189,8 +3295,28 @@ function nameList(box, defs, emptyText) {
   if (!defs.length) { box.replaceChildren(Object.assign(document.createElement('span'), { className: 'empty', textContent: emptyText })); return; }
   box.replaceChildren(...defs.map(d => { const s = document.createElement('span'); s.style.color = d.color; s.textContent = d.name; return s; }));
 }
+function renderSolo() {
+  const def = soloDef(), f = SOLO_FORCES[save.soloForce];
+  const box = $('solo-ghost-name');
+  const power = def.power === 'aucun' ? '' : ` Pouvoir : ${POWERS[def.power].label.toLowerCase()}.`;
+  box.replaceChildren(document.createTextNode(def.name), el('small', null, `${f.label} : ${f.desc}${power}`));
+  box.style.color = def.color;
+  for (const r of document.querySelectorAll('input[name="force"]')) r.checked = r.value === save.soloForce;
+  if (document.activeElement !== $('solo-name')) $('solo-name').value = save.player.n;
+  renderColorChips('solo-colors', 'solo-color');
+}
+function stepSoloGhost(delta) {
+  const defs = allDefs();
+  const i = Math.max(0, defs.findIndex(d => d.id === soloDef().id));
+  save.soloGhost = defs[(i + delta + defs.length) % defs.length].id;
+  persist(); renderSolo();
+}
 function renderTitle() {
-  const battle = save.mode === 'bataille', isDuel = save.mode === 'duel';
+  const battle = save.mode === 'bataille', isDuel = save.mode === 'duel', solo = save.mode === 'solo';
+  $('solo-block').hidden = !solo;
+  $('diff-seg').hidden = solo;
+  $('team-label').parentElement.hidden = solo;
+  if (solo) renderSolo();
   $('team-label').textContent = isDuel ? 'Ton équipe pour le duel' : 'Contre toi';
   nameList($('team-names'), isDuel ? myDuelTeam() : teamDefs(), '');
   nameList($('ally-names'), allyDefs(), 'Personne pour l’instant. Choisis tes amis dans l’atelier.');
@@ -3201,10 +3327,12 @@ function renderTitle() {
     ? 'Deux tablettes, deux joueurs. Tes fantômes contre ceux de l’autre, et des aides mystère pour gêner ton adversaire.'
     : battle
       ? 'Tes fantômes amis se battent avec toi. Il arrive toujours plus d’ennemis. Ramasse les boîtes ? pour une aide mystère.'
-      : 'Le jeu d’arcade d’origine : toi contre les fantômes.';
+      : solo
+        ? 'Toi contre un seul fantôme, toujours plus lent que toi. Mange toutes les pastilles pour gagner !'
+        : 'Le jeu d’arcade d’origine : toi contre les fantômes.';
   for (const id of ['diff-' + save.diff, 'mode-' + save.mode]) { const r = $(id); if (r) r.checked = true; }
   const isDefault = save.team.length === DEFAULT_TEAM.length && DEFAULT_TEAM.every(id => save.team.includes(id));
-  $('teaser').hidden = !isDefault || battle || isDuel;
+  $('teaser').hidden = !isDefault || battle || isDuel || solo;
 }
 let toastTimer = 0;
 function toast(msg) {
@@ -3494,13 +3622,14 @@ function start(data) {
   if (data && data.save) applySave(data.save);
   Sound.muted = save.muted;
   sizeCanvas(preview, 220);
+  sizeCanvas(soloCv, 110);
   buildForm(); resetDraft(); bindUI();
   resetDots(); renderTitle(); updateHud(); updateTools(); updateMysteryBtn();
   document.body.dataset.mode = 'menu';
   new ResizeObserver(resize).observe(stage);
   resize();
   requestAnimationFrame(frame);
-  window.noahMan = { game, save, update, newGame, setWant, useMystery, applyItem, duel, net, duelEncode, duelNewSim, duelStep, duelApply, duelUseMystery };
+  window.noahMan = { game, save, update, newGame, setWant, useMystery, applyItem, duel, net, duelEncode, duelNewSim, duelStep, duelApply, duelUseMystery, nextLevel };
 }
 try { if (window.claude && window.claude.hot && window.claude.hot.snapshot) window.claude.hot.snapshot(() => ({ save: JSON.parse(JSON.stringify(save)) })); } catch (e) { /* facultatif */ }
 if (window.claude && window.claude.hot && window.claude.hot.ready) window.claude.hot.ready(start);
