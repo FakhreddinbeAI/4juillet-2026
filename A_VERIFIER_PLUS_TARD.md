@@ -581,3 +581,65 @@ paiement d'une créance de 299 €, chez un tiers, et TGS est tenu au secret
 professionnel. Mais c'est un identifiant du cabinet qui circule, et il suffit
 de demander à AS Créances de le réinitialiser. **La valeur n'est recopiée dans
 aucun fichier du projet** : elle est dans les PDF, et elle y reste.
+
+---
+
+## 17. La déclaration de revenus 2025 EST déposée — et la CARCDSF taxe sur une assiette fausse ⟵ *02/11/2026*
+
+**Le courrier URSSAF du 30/10/2026 commence par :** *« Vous venez de déclarer
+vos revenus professionnels 2025. »*
+
+C'est l'information qu'on cherchait le 13 octobre au soir, celle pour laquelle
+j'avais écrit `PROMPT_IMPOTS_2025.md`. **Elle est déposée.** L'URSSAF a reçu les
+revenus 2025 et en a tiré ses calculs.
+
+**L'assiette réelle, et c'est là que ça devient important :**
+
+| | |
+|---|---|
+| revenu brut social 2025 | 158 962 € |
+| abattement | 41 330 € |
+| **assiette sociale** | **117 632 €** |
+
+**Or la CARCDSF taxe d'office sur une assiette de 240 300 €** (entrée 8, deux
+sources concordantes : le courrier du 12/08 citant l'art. R. 613-1-2 CSS, et
+l'appel de cotisation). **C'est plus du double de l'assiette réelle.**
+
+**Conséquence, et c'est une hypothèse à faire valider, pas un fait :** si la
+CARCDSF recalcule sur 117 632 €, l'appel 2026 de 31 594,99 € devrait tomber très
+sensiblement. L'échéance de **15 797,49 € du 16 novembre** serait alors payée sur
+une base erronée. Je n'affirme pas que la caisse réviserait automatiquement :
+elle a taxé d'office parce qu'elle n'avait rien, et il faut sans doute lui
+transmettre la déclaration pour déclencher le recalcul.
+
+**Ce qu'il y a à faire, et je ne l'ai pas fait :** appeler la CARCDSF
+(01 40 55 63 00, adhérent **73227**) pour leur dire que les revenus 2025 sont
+déclarés, et demander le recalcul avant le prélèvement du 16/11. C'est le seul
+acte de tout le dossier qui peut faire bouger une somme à cinq chiffres.
+
+## 18. Deux factures à 64 € — et c'est moi qui suis tombé dans le piège ⟵ *02/11/2026*
+
+Lisa a dit *« la facture ARGOAT de 64 euros, je viens de faire le virement »*.
+J'ai cherché 64,00 € dans le registre, trouvé **une** ligne — `ARG11138` du
+02/02/2026 — constaté que le relevé LCL portait déjà `VIR INST ARGOAT |
+LIBELLE:Fac ARG11138 | 64,00` au 06/03, et annoncé un probable **double
+paiement**.
+
+**C'était faux.** Il s'agit d'`ARG15006`, la facture d'**octobre 2026**, émise le
+jour même, qui fait aussi 64,00 €. Lisa a corrigé : *« c'est la facture d'octobre
+2026 que je viens de payer. même montant, pas même facture. »*
+
+**C'est exactement le piège que j'écris dans chaque prompt de dépôt** — « deux
+factures du même montant ne sont pas un doublon » — et j'y suis tombé dans
+l'autre sens : j'ai pris deux factures distinctes pour la même. La règle posée
+par Lisa le 06/10 vaut aussi quand c'est moi qui rapproche.
+
+**Ce qui l'aurait évitée :** ouvrir le document avant de parler. Il était déjà
+sur le Drive depuis 09h52 et dit `ARG15006` en première ligne. J'ai raisonné sur
+mon registre au lieu de lire la pièce — la faute du 12/10 sur `emplacement`,
+sous une autre forme.
+
+**Le nom du fichier n'aidait pas**, et ça vaut d'être noté : Argoat l'exporte
+sous le nom **`Statement TIGHZA-100492.pdf`**. Ce n'est pas un relevé de compte,
+c'est une facture. Un nom de fichier qui annonce autre chose que son contenu est
+une raison de plus d'ouvrir avant de conclure.
