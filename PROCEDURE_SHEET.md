@@ -212,3 +212,67 @@ cocher, pas le texte « TRUE ». Le menu du filtre propose *cochee* / *decochee*
 et un filtre mal pose renvoie 324 lignes — soit 323 plus l en-tete, donc tout le
 tableau. **Le test fiable est ponctuel** : regarder trois lignes dont on sait
 qu elles viennent d etre deposees, et verifier qu elles sont cochees.
+
+---
+
+## L'historique du portail : une règle née d'une erreur (02/11/2026)
+
+**Un export du portail porte désormais la date de son instantané dans son nom** :
+`historique_portail_AAAA-MM-JJ.txt`. Un seul fichier à la fois fait référence, et
+c'est le plus récent.
+
+**Pourquoi.** Le projet a vécu des semaines avec un `historique_portail.txt` de
+1 304 lignes dont **1 233 sans aucune date**. Impossible de savoir ce qu'il
+couvrait. Le 02/11/2026 j'en ai conclu que 27 pièces n'étaient pas au portail,
+alors qu'elles y étaient depuis le 06/10 : le fichier était simplement plus
+vieux que les dépôts. Un fichier sans date d'instantané ne se laisse pas
+interroger sur ce qu'il ignore.
+
+**Avant de retirer un ancien export, vérifier que le nouveau est un surensemble :**
+
+```
+python3 -I -c "
+import io, re
+def norm(s): return re.sub(r'[^a-z0-9]','',s.lower())
+def noms(f): return {norm(l.split('|')[0]) for l in io.open(f,encoding='utf-8') if l.strip()}
+A, B = noms('ancien.txt'), noms('nouveau.txt')
+print('perdus :', len(A-B), '| gagnes :', len(B-A))
+"
+```
+
+Si `perdus` n'est pas 0, l'ancien contient des noms que le nouveau ignore : on
+garde les deux et on cherche pourquoi.
+
+## Tester si TGS détient une pièce : deux canaux, pas un
+
+Une pièce peut être prouvée au portail de deux façons, et **il faut essayer les
+deux** :
+
+1. **Par le numéro** — la référence de la pièce apparaît dans un nom de dépôt.
+   Fiable à partir de 6 caractères. En dessous (`046`, `A167`, `26001`), exiger
+   que le **nom du fournisseur** figure aussi dans la même ligne : une
+   coïncidence sur trois chiffres est banale, sur trois chiffres *et* le nom du
+   fournisseur, non.
+2. **Par le nom de dépôt cité dans la note.** Indispensable pour les pièces qui
+   n'ont pas de numéro propre, ou dont la référence est interne et fabriquée par
+   nous. Deux lignes SCM-LEGESMILE à 130 102,15 € ont été déclarées « absentes »
+   faute de ce second canal : ce sont deux chiffres lus dans un même tableur, et
+   leur référence (`45530000`, `QP-2025`) n'avait aucune raison d'apparaître dans
+   un nom de fichier.
+
+**Le sens de la comparaison compte.** Chercher « le nom cité est-il contenu dans
+la ligne du portail » est sûr. L'inverse — « la ligne du portail est-elle
+contenue dans le nom cité » — fabrique des faux positifs dès qu'un nom de dépôt
+est court. Au 02/11/2026, 205 correspondances sur 205 étaient dans le sens sûr.
+
+## Trois pièges de recherche, tous rencontrés
+
+- **Un nom de dépôt ne porte pas forcément le fournisseur.** Canva nomme ses
+  factures `invoice 04753 52817600.pdf`. Chercher « canva » renvoie 0 et ne
+  prouve rien.
+- **Ni forcément un numéro.** `Straumann 98 34.pdf` porte un montant,
+  `id 36409.pdf` ne porte rien.
+- **Le portail remplace tirets et underscores par des espaces**, et l'écran
+  fusionne les espaces multiples : `FRIN25-01591543_A00399835` s'affiche
+  `FRIN25 01591543 A00399835`. Toute comparaison doit donc se faire sur une
+  forme normalisée (minuscules, caractères alphanumériques seulement).

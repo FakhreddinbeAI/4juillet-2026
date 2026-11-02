@@ -352,8 +352,18 @@ def main(reg, lcl, *hist):
     if sansdate:
         print("Depots SANS DATE : %d. Leur anciennete est INCONNUE : ce n est "
               "pas une periode couverte." % sansdate)
-    print("DONC : l absence d une piece ici n est PAS une preuve de non-depot. "
-          "Pour l affirmer il faut un export frais et date du portail.")
+        print("DONC : l absence d une piece ici n est PAS une preuve de "
+              "non-depot. Pour l affirmer il faut un export frais et date.")
+    elif dates:
+        # LE 02/11/2026 : l export complet et date est arrive — 1 460 depots,
+        # du 12/10/2023 au 30/10/2026, zero ligne sans date. L avertissement
+        # « l absence n est pas une preuve » devenait faux, et un avertissement
+        # faux use la confiance qu on accorde aux vrais. On dit donc maintenant
+        # ce que l export couvre, et la seule reserve qui reste : ce qui a ete
+        # depose APRES l instantane.
+        print("Export COMPLET et DATE : l absence d un nom ici vaut donc "
+              "preuve de non-depot JUSQU AU %s/%s/%s. Au-dela, rien." %
+              (j, mo, a))
     print()
     if not pbs:
         print("*** AUCUNE DIVERGENCE. ***")

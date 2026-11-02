@@ -1020,3 +1020,130 @@ réserves, et aucune n'est un prétexte :
 - la colonne **`emplacement`** de 27 lignes du registre pointe sur ce dossier.
   Il faut la mettre à jour **avant** de vider, sinon 27 pièces perdent leur
   adresse.
+
+---
+
+## 23. L'export complet du portail — la réponse, et trois erreurs en série
+
+*Écrit le 02/11/2026, après réception de l'export Chrome : 1 460 dépôts datés,
+30 pages, du 12/10/2023 au 30/10/2026.*
+
+### La réponse à la question de fond
+
+Sur les **235** pièces que le registre déclare parties chez TGS :
+
+| | pièces | montant |
+|---|---:|---:|
+| prouvées par le **numéro de facture** dans un nom de dépôt | **182** | 65 196,85 € |
+| prouvées par le **nom de dépôt cité** dans la note | **47** | 160 171,49 € |
+| **non démontrées** | **6** | **777,61 €** |
+
+Et les 6, les voici en entier :
+
+| fournisseur | date | montant | référence |
+|---|---|---:|---|
+| NTJ | 01/06/2026 | 151,00 € | `20240293` |
+| PETRO-OUEST | 16/05/2026 | 109,15 € | aucune |
+| PETRO-OUEST | 18/06/2026 | 123,01 € | aucune |
+| PETRO-OUEST | 20/07/2026 | 122,59 € | aucune |
+| SUPER-U-LEGE | 07/06/2026 | 126,27 € | aucune |
+| SUPER-U-LEGE | 14/09/2026 | 145,59 € | aucune |
+
+**Cinq sur six sont des tickets sans aucune référence** : essence et courses.
+Aucun test ne peut les retrouver, parce qu'ils n'ont pas de numéro à chercher.
+Une seule vraie facture manque au portail : **NTJ `20240293`, 151,00 €**.
+
+**Donc la colonne « 7 FAIT » dit à peu près la vérité.** C'est l'inverse de ce
+que j'ai annoncé ce matin.
+
+### Trois erreurs dans la même journée, de plus en plus fines
+
+**La première** : j'ai refusé de vider le dossier des abonnements en disant que
+les 29 pièces n'étaient pas au portail, sur deux tests renvoyant tous deux 0/29.
+
+> Deux tests qui partagent une source ne se vérifient pas l'un l'autre : ils se
+> trompent ensemble.
+
+**La deuxième** : j'ai diagnostiqué un angle mort du contrôle, alors que la
+preuve était dans le second fichier d'historique du projet — passé à
+`coherence.py` en quatrième argument depuis des semaines, jamais ouvert par moi.
+
+> Quand un test revient vide, demander d'abord s'il regardait au bon endroit.
+
+**La troisième**, la plus instructive : j'ai testé les 235 pièces **par leur
+référence seulement**, et déclaré « absentes du portail » les deux lignes
+SCM-LEGESMILE à **130 102,15 €** — 82 % de l'inconnu annoncé. Or elles sont au
+portail depuis le 21/09/2026. Ces deux lignes ne sont pas des factures : ce sont
+**deux chiffres lus dans un même tableur**, la répartition de charges de la SCM,
+et elles portent une référence interne que j'ai fabriquée (`45530000`,
+`QP-2025`). Cette référence n'a aucune raison de figurer dans un nom de
+fichier : la chercher au portail, c'était chercher ce qui n'y a jamais été. Leurs
+notes, elles, citaient le nom du dépôt.
+
+> **Tester une affirmation comme le dossier l'énonce, pas comme l'index est
+> commode à interroger.** Une pièce dont la note cite un nom de dépôt se teste
+> sur ce nom.
+
+### Une correction que je dois à Lisa
+
+Je lui ai annoncé : « CANVA : 0 dépôt, ce n'est plus un doute, c'est un trou
+confirmé. » **C'est faux.** Les 6 factures Canva sont au portail depuis le
+07/06/2026, sous les noms `invoice 04753 52817600.pdf`, `invoice 04784
+61986565.pdf`, et ainsi de suite. Canva n'écrit jamais son nom dans ses fichiers.
+Chrome avait cherché « canva » dans les noms et l'avait dit honnêtement — c'est
+moi qui ai transformé une limite de recherche en constat de manque. C'est
+exactement l'angle mort documenté depuis le début : un nom qui ne porte ni
+fournisseur ni montant.
+
+### Ce que l'export apprend d'autre
+
+**Les 3 « Dépôt KO » ont tous un remplaçant en « Dépôt OK ».** Rien à
+poursuivre : `Inventaire par plan comptable au 31122025.pdf` (KO 03/07) est
+redéposée en `inventaire … 31122025 1 .pdf` (OK 17/07) ; `h 25492616.pdf` et
+`H 23190485.pdf` étaient déjà OK au 07/06 et redéposées OK le 27/07.
+
+**Une pièce était au portail et absente du registre** : `fiche stocks décembre
+2025.pdf`, déposée le 12/10/2026. Ajoutée, en hors périmètre — c'est un document
+d'inventaire pour le bilan 2025. L'ancien historique ne pouvait pas la voir.
+
+**Un dépôt affiché « Dépôt OK » cache une erreur** : `FACTURE N 214015 DE
+annexe TIGHZA.pdf` contient « The license has expired » dans ses données. Un
+dépôt qui se croit bon. À redéposer.
+
+**58 noms ont été déposés plusieurs fois, pour 117 dépôts.** Du recouvrement, pas
+de la perte. Dont les 10 pièces du 06/10 parties d'abord dans « Mes fournisseurs
+(Achats) » puis une heure plus tard dans « Je ne sais pas où déposer », et les
+relevés BNP de janvier à août déposés le 26/09 puis le 06/10.
+
+**Aucun dépôt entre le 13/10/2023 et le 13/09/2024** — 336 jours. Hors de notre
+exercice, mais c'est un trou dans 2024.
+
+**Deux catégories presque identiques** au portail : « Mes fournisseurs/Mes
+factures d'achat » (202 dépôts, tous d'octobre 2023) et « Mes fournisseurs
+(Achats)/… » (10 dépôts, tous du 06/10/2026).
+
+### Ce qui change dans les fichiers du projet
+
+`historique_portail_2026-11-02.txt` remplace `historique_portail.txt` (1 304
+lignes dont 1 233 **sans date**) et `historique_portail_statuts.txt` (590).
+Vérifié avant de les retirer : le nouvel export est un **surensemble strict** —
+0 nom perdu, 1 nom gagné. Les deux anciens restent dans l'historique git.
+
+**Le nom du fichier porte désormais la date de l'instantané**, et c'est
+volontaire : c'est l'absence de cette date qui m'a fait croire à une couverture
+que je n'avais pas. Chaque nouvel export prendra un nom daté et deviendra la
+référence unique.
+
+Et le garde-fou de `coherence.py` ne dit plus « l'absence n'est pas une preuve »
+quand l'export est complet : il annonce **« l'absence vaut preuve de non-dépôt
+jusqu'au 30/10/2026, au-delà rien »**. Un avertissement faux use la confiance
+qu'on accorde aux vrais.
+
+### Ce qu'il reste à faire
+
+1. **Réclamer la facture NTJ `20240293`** (151,00 €) — la seule vraie absente.
+2. **Les 5 tickets** essence et courses : déposer les justificatifs, ou décider
+   avec Daheron qu'ils restent sans pièce.
+3. **Redéposer `FACTURE N 214015`**, dont le dépôt est corrompu sans le dire.
+4. **Réclamer à Doctolib la vraie facture de septembre** (le duplicata est
+   déposé mais ne vaut rien) — reste de l'entrée 22.
