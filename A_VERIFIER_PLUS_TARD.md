@@ -643,3 +643,39 @@ sous une autre forme.
 sous le nom **`Statement TIGHZA-100492.pdf`**. Ce n'est pas un relevé de compte,
 c'est une facture. Un nom de fichier qui annonce autre chose que son contenu est
 une raison de plus d'ouvrir avant de conclure.
+
+### Suite de l'entrée 17, le même jour à 15h — la caisse avait déjà recalculé
+
+L'échéancier téléchargé par Lisa à 15h02 depuis l'espace adhérent répond à la
+question avant qu'on la pose :
+
+| | 19/10/2026 | **02/11/2026** |
+|---|---|---|
+| 16 novembre | 15 797,49 € | **6 142,99 €** |
+| 15 décembre | 15 797,50 € | **6 143,00 €** |
+| total | 31 594,99 € | **12 285,99 €** |
+
+**−19 309,00 €**, et l'arithmétique de l'année boucle au centime : 11 891,21 €
+déjà réglés + 12 285,99 € restants = **24 177,20 €**, contre un appel de
+**43 486,20 €** le 25 septembre. La différence est exactement 19 309,00 €.
+
+**L'échéancier ne dit pas pourquoi.** Il écrit seulement « établis sur le
+fondement des informations arrêtées au 2 novembre 2026 ». Le rattachement à la
+déclaration des revenus 2025 est une **déduction** : l'appel du 25/09 portait
+« Revenus 2025 : **Non déclarés** » et appliquait des assiettes forfaitaires de
+**240 300 €** (soit 5 × le PASS de 48 060) et **209 061 €** pour le régime
+complémentaire. Avec une assiette réelle de 117 632 €, la baisse s'explique.
+Mais pour le prouver il faut **le nouvel appel ou le relevé de compte
+actualisé**, qui porteraient les nouvelles assiettes.
+
+**Le mail préparé ce matin est caduc** : il demandait un recalcul déjà fait.
+
+**Ce qui devient la seule urgence, et elle est différente :** que le prélèvement
+du **16 novembre passe**. Celui d'octobre avait été rejeté « sur ordre du
+client / refus du débiteur », et le courrier du 19/10 avertit que **deux
+échéances impayées sur l'année mettent fin à la mensualisation** — il y en a
+déjà une. Il faut donc vérifier qu'aucune opposition ne subsiste sur le compte
+LCL et que les 6 142,99 € y sont.
+
+**La charge de novembre, recalculée :** CARCDSF 6 142,99 € le 16 + URSSAF
+12 616 € le 20 = **18 758,99 €**, au lieu des 28 413,49 € annoncés ce matin.
