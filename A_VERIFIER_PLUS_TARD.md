@@ -786,3 +786,46 @@ boîte, et c'est ce qui avait fait découvrir la taxation d'office du 12/08.
 pas couverts** ; et il ne peut pas vérifier le dossier `Téléchargements`, donc
 les noms de fichiers qu'il rapporte sont ceux affichés par Gmail, pas ceux
 écrits sur le disque.
+
+## 20. Un dossier « A DEPOSER - abonnements » contenait déjà 29 de ces factures ⟵ *02/11/2026*
+
+En vérifiant où avaient atterri les téléchargements de Chrome, j'ai trouvé le
+dossier **`A DEPOSER - abonnements 06-10-2026`**
+(`1VJMafSxBJLMdhTfAnPWM6P8GVr1S1lGM`), créé le 06/10/2026. Il contient
+**29 factures d'abonnement** :
+
+| fournisseur | nombre | de … à |
+|---|---|---|
+| Doctolib `FRIN25-…` | 10 | décembre 2025 → septembre 2026 |
+| IONOS `Facture_…_V96260409` | 9 | janvier → septembre 2026 |
+| Recept-AI `Invoice-B93C3B79-…` | 10 | décembre 2025 → septembre 2026 |
+
+Les fichiers appartiennent à **ftighza@gmail.com**, portent les noms d'origine
+des fournisseurs, et leur date de création **coïncide avec la date d'émission de
+la facture** : ils y arrivent donc automatiquement, pas à la main.
+
+**Conséquence : l'essentiel de ce que Chrome a passé l'après-midi à
+retélécharger depuis Gmail était déjà rangé sur le Drive.** La leçon est pour
+moi, pas pour lui — j'ai écrit un prompt d'exploration de boîte mail sans
+regarder d'abord si les pièces n'étaient pas déjà là.
+
+### Deux gains concrets, quand même
+
+**IONOS `312100769338` du 08/10/2026, 31,20 €** — le fichier était dans
+`Téléchargements` **depuis le 08 octobre** et personne ne l'avait vu. Le
+registre s'arrêtait à `312100558302` du 08/09. Lue, renommée, rangée.
+
+**La facture Recept-AI de décembre 2025 a enfin une référence :**
+`B93C3B79-0154`, et sa date est le **16** décembre, pas le 17 que j'avais noté.
+Au passage, l'émetteur réel est **BUDGIE S.A.S.**, 58 avenue de Wagram
+75017 Paris — « Recept AI » n'est que le nom du produit, facturé comme
+« Licence Exploitation IA Réceptionniste ».
+
+### Où sont les 31 autres fichiers de Chrome
+
+**Pas dans `Téléchargements`.** Ce dossier est bien le dossier local de
+l'ordinateur portable — son parent est « Mon ordinateur portable » et il porte
+`syncFolder: true`. La preuve : la facture In Extenso téléchargée à 14h12 et les
+sept PNG de 14h24 y sont apparus en quelques secondes. Les 31 autres n'y sont
+pas, donc **le Chrome qui a téléchargé ne tournait pas sur cette machine** —
+autre poste, autre profil, ou dossier de téléchargement différent.
