@@ -679,3 +679,49 @@ LCL et que les 6 142,99 € y sont.
 
 **La charge de novembre, recalculée :** CARCDSF 6 142,99 € le 16 + URSSAF
 12 616 € le 20 = **18 758,99 €**, au lieu des 28 413,49 € annoncés ce matin.
+
+### Fin de l'entrée 17 — la baisse est démontrée, mais la pièce officielle manque
+
+Chrome a lu l'espace adhérent le 02/11 à 15h30. **La ligne « Revenus 2025 »
+porte désormais `117 632 € — Revenus déclarés`**, et la mention « Non
+déclarés » a disparu. Le chiffre est **identique** à l'assiette sociale retenue
+par l'URSSAF le 30 octobre.
+
+**Mais la caisse n'a publié aucun appel actualisé** : les assiettes et les taux
+ne sont visibles nulle part en ligne, et le dernier PDF daté reste celui du
+25/09. L'espace ne donne que les montants par régime. Je les ai donc
+reconstruits avec les taux lus sur l'appel du 25/09 :
+
+| ligne de l'espace | annoncé | reconstruit |
+|---|---|---|
+| Appel R.B.L. | 6 396,00 | 48 060 × 8,730 % + 117 632 × 1,870 % = **6 396** |
+| Régularisation R.B.L. | 1 013,00 | (47 100 × 8,730 % + 117 632 × 1,870 %) − 5 299 = **1 013** |
+| Appel P.C.V. | 2 516,60 | 1 663,60 + 117 632 × 0,725 % = **2 516,60** |
+| Appel I.J. / I.D. | 394,00 / 841,00 | forfaits inchangés |
+| **total** | **24 177,20** | **24 177,20** |
+
+**Quatre lignes sur cinq tombent au centime sur 117 632 €.** Le recalcul vient
+donc bien de la déclaration, et c'est désormais un calcul vérifiable, pas une
+déduction.
+
+**La ligne qui avait surpris Chrome est expliquée** : « Régularisation
+R.B.L. 1 013,00 » est la cotisation définitive 2025 recalculée sur le revenu
+déclaré (6 312 €) moins ce qui avait été appelé en 2025 (5 299 €).
+
+**La seule ligne que je ne sais pas justifier est le régime complémentaire.**
+13 016,60 − 3 210,60 de forfait = 9 806,00 de proportionnel, soit à 11,350 % une
+assiette de **86 396 €** — 31 236 € de moins que 117 632. Le même écart existe
+sur l'appel du 25/09 (240 300 − 209 061 = 31 239), aux arrondis près : le R.C.
+applique donc un abattement fixe d'environ 31 238 €, dont je n'ai pas la source.
+
+**Ce qu'il reste à obtenir, et c'est pour TGS :** l'appel officiel portant les
+assiettes. Il faut le demander par « Nous contacter » sur l'espace adhérent. En
+attendant, le dossier tient avec trois pièces concordantes — l'échéancier du
+02/11, le courrier URSSAF du 30/10 qui donne l'assiette, et la reconstruction
+ci-dessus.
+
+**Deux anomalies à garder en tête :** la rubrique « Ma déclaration de revenus »
+affiche **« Le xml est vide »** — la déclaration n'est pas consultable alors que
+le revenu apparaît ailleurs ; et le rejet d'octobre est confirmé à l'écran
+(prélèvement 10 531,66 € le 15/10, « Rejet −10 531,66 € » le 16/10), **sans
+qu'aucun état ne soit affiché pour l'échéance du 16 novembre**.
