@@ -1,6 +1,6 @@
 # Avenant HDS Google Workspace — suivi de la demande
 
-*Tenu par Claude, qui gère la demande. Dernière vérification : 27 octobre 2026.
+*Tenu par Claude, qui gère la demande. Dernière vérification : 2 novembre 2026.
 Sources : journal de la session « Google Workspace en HDS » (18–20/10), boîte
 contact@, Drive.*
 
@@ -32,6 +32,7 @@ contact@, Drive.*
 | Date | Boîte, spam, corbeille | Résultat |
 |---|---|---|
 | 27/10 (J+8) | expéditeurs Google, « HDS », « Google Cloud », « SELARL TIGHZA » | Rien de Google. Seulement des mails automatiques (sécurité, conditions, factures) |
+| 02/11 (J+14) | idem, plus « assistance », « support », « case ID », « numéro de demande », et les envois du cabinet | Rien de Google. Aucun mail de confirmation d'un ticket d'assistance : le ticket préparé le 27/10 n'a sans doute pas été envoyé, aucun numéro de dossier connu |
 
 **Téléphone (27/10)** : aucun appel décroché, aucun message laissé. Le
 Dr Tighza ne répond pas aux numéros inconnus. Or le formulaire commercial
