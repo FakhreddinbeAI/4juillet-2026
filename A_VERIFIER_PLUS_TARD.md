@@ -725,3 +725,64 @@ affiche **« Le xml est vide »** — la déclaration n'est pas consultable alor
 le revenu apparaît ailleurs ; et le rejet d'octobre est confirmé à l'écran
 (prélèvement 10 531,66 € le 15/10, « Rejet −10 531,66 € » le 16/10), **sans
 qu'aucun état ne soit affiché pour l'échéance du 16 novembre**.
+
+---
+
+## 19. Rapport ftighza du 02/11/2026 — six choses graves ⟵ *02/11/2026*
+
+32 factures téléchargées. Mais le rapport contient six faits qui comptent plus
+que les fichiers.
+
+**1. Une question de Florence Daheron à 7 256 € est restée sans réponse.**
+Mail du 13/10/2026 : solde d'IS prélevé 7 295 €, acompte de 1 814 € au 15/12,
+*« mais vous en avez 3 de retard, dois-je faire payer 7 256 € ? »* — **aucune
+réponse dans le fil**. C'est une question fermée qui attend un oui ou un non,
+avec une échéance au 15 décembre. **C'est l'action la plus urgente de tout le
+dossier**, devant la CARCDSF.
+
+**2. TGS est passé en facturation électronique le 01/09/2026.** Cinq
+notifications « Nouvelle(s) facture(s) disponible(s) » les 4, 5 et 12 septembre,
+13 et 14 octobre. **Leurs factures ne sont plus en pièce jointe** : elles sont
+sur un portail. Conséquence méthodologique : **aucune recherche Gmail ne les
+trouvera jamais**, et le prompt `PROMPT_GMAIL_FTIGHZA.md` est aveugle sur ce
+fournisseur depuis septembre.
+
+**3. Deux relances d'huissier sont à la corbeille.** AS Créances a relancé les
+9, 12, 13, 14, 19, 22, 26, 28 et 29 octobre — neuf fois — et **deux de ces
+messages ont été mis à la corbeille**. Vu que l'affaire est passée en « ultime
+rappel avant contentieux » (entrée registre ZFX du 29/10), savoir qui a
+supprimé quoi n'est pas anodin.
+
+**4. Un écart ARIES de 29,70 € par mois, signalé par TGS.** Aurélie Guilloteau :
+*« La somme des factures de Entrepreneurs.com de Septembre à Décembre est 990 €,
+le prélèvement est de 1 019,70 € »*. L'écart est systématique, donc ce n'est pas
+une erreur de saisie : il manque une ligne de facturation.
+
+**5. Le SNIR 2025 est peut-être déjà dans la boîte** (« Votre SNIR 2025 : 36.08 »,
+CPAM de Loire-Atlantique) alors que TGS le réclame **deux fois**, en mars et en
+juillet. À vérifier avant de le redemander à la CPAM.
+
+**6. Des factures sont ÉMISES depuis cette boîte, pour une autre activité.**
+« Facture PractiBoost — F-2026-002 », 1 900,80 € TTC, et une autre du 18/05,
+partant de **PractiBoost Solutions**. Ce sont des **recettes**, pas des charges,
+et pas celles de la SELARL. Elles n'ont rien à faire dans le même circuit. À
+qualifier avant toute chose : quelle structure, quel exercice, quel comptable.
+
+### Et une correction de méthode qui me concerne
+
+Chrome a téléchargé **trois relevés LCL par erreur** (`COMPTEPROLCL_07480070666_`
+des 05/10, 04/09 et 05/08), en enchaînant des recherches Gmail trop vite. Il l'a
+dit de lui-même, a corrigé sa méthode pour vérifier le numéro dans le mail ouvert
+avant tout téléchargement, et les 29 suivants sont fiables. **La règle de Lisa
+s'applique à ces trois-là** : les relevés LCL ne vont pas sur le Drive, ils vont
+dans le dossier dédié.
+
+**Il a aussi marqué des mails comme lus** en les ouvrant, et il le signale comme
+une perte d'information. C'est exact : le « non lu » sert de signal dans cette
+boîte, et c'est ce qui avait fait découvrir la taxation d'office du 12/08.
+
+**Deux limites à retenir pour la prochaine fois :** il n'a pas vu au-delà des
+**50 premiers résultats** par requête, donc **janvier 2026 et tout 2025 ne sont
+pas couverts** ; et il ne peut pas vérifier le dossier `Téléchargements`, donc
+les noms de fichiers qu'il rapporte sont ceux affichés par Gmail, pas ceux
+écrits sur le disque.
