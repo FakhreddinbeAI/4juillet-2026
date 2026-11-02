@@ -829,3 +829,54 @@ l'ordinateur portable — son parent est « Mon ordinateur portable » et il por
 sept PNG de 14h24 y sont apparus en quelques secondes. Les 31 autres n'y sont
 pas, donc **le Chrome qui a téléchargé ne tournait pas sur cette machine** —
 autre poste, autre profil, ou dossier de téléchargement différent.
+
+## 21. « A DEPOSER - abonnements » n'est PAS un dossier de doublons ⟵ *02/11/2026*
+
+Lisa a demandé de le vider après vérification. **La vérification dit de ne pas
+le vider**, et pour trois raisons qui s'additionnent.
+
+**1. Le registre pointe dessus.** Les 27 lignes 2026 concernées portent, dans
+leur colonne `emplacement`, exactement : `Drive > A DEPOSER - abonnements
+06-10-2026`. Ce dossier n'est pas une copie, **c'est l'adresse enregistrée de
+ces pièces**. Le vider casserait 27 lignes du registre.
+
+**2. Ces pièces ne sont pas au portail.** L'historique des dépôts contient
+**zéro IONOS**, **zéro Recept-AI de 2026**, et **un seul Doctolib de 2026** —
+celui déposé le 13/10. Pourtant les 27 lignes sont marquées `DEPOSEE`, cycle
+`ENVOYE_TGS`.
+
+**3. Ce statut `ENVOYE_TGS` ne repose, pour l'essentiel, sur aucune preuve de
+dépôt.** Sur les **155** lignes en cycle `ENVOYE_TGS`, **9 seulement** citent un
+nom de dépôt vérifiable dans l'historique. Pour les 146 autres — dont ces 27 —
+le « TGS les a » vient du rapprochement initial avec ce que TGS déclarait
+posséder, pas d'un dépôt qu'on aurait fait et qu'on pourrait montrer.
+
+**Conclusion : ces 29 fichiers sont les seules copies qu'on détient de ces
+pièces.** Les supprimer parce qu'elles sont marquées « déposées » reviendrait à
+faire confiance à un statut que rien ne documente, et à perdre les originaux si
+le statut est faux.
+
+### Mes deux tests se sont trompés, et c'était instructif
+
+**Premier test — par le numéro de facture dans l'historique : 0 sur 29.** C'est
+exactement l'angle mort documenté le 13/10 : une partie des dépôts ne portent
+pas le numéro dans leur nom.
+
+**Deuxième test — par le nom de dépôt cité dans la note, la preuve que
+`coherence.py` utilise : 0 sur 29 encore.** C'est ce second zéro qui a tout
+expliqué : il n'y a pas de nom de dépôt cité **parce qu'il n'y a pas eu de
+dépôt**. Les deux tests fonctionnaient ; c'est l'hypothèse « déposées donc
+doublons » qui était fausse.
+
+### Ce qu'il y a vraiment à faire avec ce dossier
+
+**Ouvrir les 29 PDF.** Les notes de ces lignes disent toutes la même chose :
+*« Montant et date LUS AU RELEVE, pas sur le PDF : celle de la facture reste à
+confirmer en ouvrant la pièce »*. Certaines dates ont même été déduites du **nom
+du fichier**, pas du contenu. Les ouvrir fermerait 27 réserves d'un coup — c'est
+du travail utile, au lieu d'une suppression qui détruirait de l'information.
+
+**Et trancher la question de fond, qui vaut pour 146 pièces, pas 27 :** TGS
+a-t-il réellement ces justificatifs ? Si la réponse est non, « 7 FAIT »
+surestime l'avancement du dossier de façon massive. C'est une question à poser à
+Florence Daheron, et elle passe devant le ménage.
