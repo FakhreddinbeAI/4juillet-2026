@@ -65,7 +65,25 @@ def main(reg, lcl, *hist):
         au_portail = bool(ref) and bool(cherche(ref, tous, par_chiffres))
         etat = (p.get("etat") or "").strip().upper()
         cycle = (p.get("cycle") or "").strip().upper()
-        if au_portail and etat not in ("DEPOSEE", "HORS PERIMETRE", "A_VENIR"):
+        # LE 02/11/2026, UN CAS QUE CE TEST NE CONNAISSAIT PAS : une piece
+        # DEPOSEE AU PORTAIL mais dont le document n a AUCUNE VALEUR COMPTABLE.
+        # DOCTOLIB est passe a la facturation electronique : ce qu on a telecharge
+        # pour septembre 2026 est un DUPLICATA qui porte, en clair, « n a pas de
+        # valeur fiscale ou comptable — votre facture conforme a l article 289 bis
+        # du CGI vous est transmise via votre Plateforme Agreee ». Le depot est
+        # donc fait, et le justificatif manque quand meme. L etat est MANQUANT,
+        # le portail la trouve, et le test criait.
+        # CE QU IL NE FAUT PAS FAIRE : repasser la piece en DEPOSEE pour faire
+        # taire le controle. On echangerait une alerte juste contre un registre
+        # faux, et c est exactement le genre de troc qui coute un bilan.
+        # CE QU ON FAIT : le test accepte le MANQUANT si la note explique que le
+        # document depose est sans valeur comptable. L exception doit etre ECRITE
+        # dans la piece, pas codee en dur ici : une regle generale couvrirait
+        # demain des cas qu on n a pas examines.
+        sans_valeur = ("SANS VALEUR" in (p.get("note") or "").upper()
+                       or "DUPLICATA" in (p.get("type") or "").upper())
+        if (au_portail and not sans_valeur
+                and etat not in ("DEPOSEE", "HORS PERIMETRE", "A_VENIR")):
             pb("AU PORTAIL MAIS PAS MARQUEE DEPOSEE", p,
                "etat=%s, trouvee comme '%s'"
                % (etat, cherche(ref, tous, par_chiffres)[0][:46]))
