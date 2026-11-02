@@ -307,15 +307,35 @@ def main(reg, lcl, *hist):
     # Donc l outil annonce desormais sa propre date d arret. Tout ce qui est
     # poste apres cette date lui est invisible, et aucune affirmation du type
     # « pas encore deposee » ne vaut au-dela.
-    dates = []
+    # LE 02/11/2026, CE MESSAGE M A TROMPE, et il faut comprendre comment.
+    # Il annoncait « Historique arrete au 09/10/2026 » — une date unique, nette,
+    # rassurante. J en ai conclu que l historique couvrait tout jusqu au 09/10,
+    # donc que les depots du 06/10 y seraient. Ils n y etaient pas, et j ai
+    # conclu qu ils n avaient pas eu lieu. Ils avaient eu lieu.
+    # LA VERITE est que l index est fabrique a partir de DEUX fichiers de
+    # couverture tres differente : un vieil export dont 1 233 lignes sur 1 304
+    # n ont AUCUNE DATE — on ne sait donc pas de quand il date — et un second
+    # fichier, date celui-la, qui porte les 134 depots du 06/10. Prendre le max
+    # des dates lisibles revient a dater tout l index sur sa partie datee, et a
+    # presenter comme couvert un intervalle dont on ignore tout.
+    # LA LECON : un garde-fou qui affiche UN chiffre la ou il y a DEUX sources
+    # ne protege pas, il rassure. Il doit dire ce qu il ne sait pas.
+    dates, sansdate = [], 0
     for d in tous.values():
         m = re.match(r"\s*(\d{2})/(\d{2})/(\d{4})", d.get("date") or "")
         if m:
             dates.append((m.group(3), m.group(2), m.group(1)))
+        else:
+            sansdate += 1
     if dates:
         a, mo, j = max(dates)
-        print("Historique arrete au %s/%s/%s : un depot posterieur est "
-              "INVISIBLE ici." % (j, mo, a))
+        print("Depots DATES : %d, le plus recent le %s/%s/%s."
+              % (len(dates), j, mo, a))
+    if sansdate:
+        print("Depots SANS DATE : %d. Leur anciennete est INCONNUE : ce n est "
+              "pas une periode couverte." % sansdate)
+    print("DONC : l absence d une piece ici n est PAS une preuve de non-depot. "
+          "Pour l affirmer il faut un export frais et date du portail.")
     print()
     if not pbs:
         print("*** AUCUNE DIVERGENCE. ***")

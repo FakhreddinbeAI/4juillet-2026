@@ -880,3 +880,143 @@ du travail utile, au lieu d'une suppression qui détruirait de l'information.
 a-t-il réellement ces justificatifs ? Si la réponse est non, « 7 FAIT »
 surestime l'avancement du dossier de façon massive. C'est une question à poser à
 Florence Daheron, et elle passe devant le ménage.
+
+---
+
+## 22. Les 29 pièces d'abonnement : lues, et retrouvées au portail
+
+*Écrit le 02/11/2026. Cette entrée a été réécrite deux fois dans l'heure, parce
+que je me suis trompé deux fois. L'état final est en tête, mes deux erreurs en
+queue, parce qu'elles sont la partie utile.*
+
+### La réponse à la question posée
+
+Lisa demandait : « ouvre les 29 et vérifie-moi les réels dépôts de TGS ».
+
+**27 des 29 sont au portail**, déposées le **06/10/2026**, statut « En cours de
+traitement ». Vérifié non pas sur une déclaration mais sur le **nom de dépôt
+exact**, ligne par ligne, dans `historique_portail_statuts.txt` :
+
+| | pièces | au portail |
+|---|---:|---|
+| DOCTOLIB 2026 | 9 | `FRIN25 01591543 A00399835 01072026.pdf` → `…02696811…` |
+| IONOS 2026 | 9 | `Facture 2026 01 09 202543535136 V96260409.pdf` → `…09 08 312100558302…` |
+| RECEPT AI 2026 | 9 | `Invoice B93C3B79 0271.pdf` → `Invoice B93C3B79 2195.pdf` |
+
+**Les deux absentes sont les deux pièces de décembre 2025** — `FRIN25-01451287`
+et `B93C3B79-0154` — classées `HORS_PERIMETRE` et qui n'avaient donc pas à être
+déposées. Leur absence est correcte.
+
+**Donc oui, Lisa avait raison** : ce dossier est une copie de ce qui est déjà
+parti. Le contenu de 2026 fait doublon avec le portail.
+
+### Ce que la lecture des PDF apprend quand même
+
+Les 29 dates, montants et numéros du registre sont **exacts**. La réserve que
+portaient les notes — « montant et date lus au relevé, à confirmer en ouvrant la
+pièce » — est levée. Total lu : **3 000,40 €**, dont **2 826,40 € sur 2026**
+(Doctolib 1 341,00 · IONOS 266,40 · Recept-AI 1 219,00).
+
+Mais quatre choses ne se voyaient que sur les pièces :
+
+**1. `FRIN25-02696811` est un DUPLICATA, pas une facture.** Le PDF le dit en
+titre et en clair : « n'a pas de valeur fiscale ou comptable […] votre facture
+conforme à l'article 289 bis du CGI vous est transmise via votre Plateforme
+Agréée ». Doctolib est passé à la facturation électronique ; la vraie facture de
+septembre est chez **Tessi**. Elle est donc **au portail mais inexploitable** :
+le dépôt est fait, le justificatif manque. **À réclamer.** Même mécanisme que
+TGS, passé à l'électronique le 01/09/2026 — il va falloir apprendre à chercher
+les factures sur des plateformes et plus dans des mails.
+
+**2. Les Doctolib de janvier à août sont adressées à la personne physique.**
+« FAKHREDDINE TIGHZA, 1 Rue de Chambord », pas SELARL TIGHZA. Seul le duplicata
+de septembre porte le nom de la SELARL, avec un numéro Chorus. C'est le piège
+que Lisa avait signalé ailleurs (« il y en a un pour dr tighza et un pour selarl
+tighza »). **Question pour Daheron.** Je signale, je ne tranche pas.
+
+**3. `B93C3B79-0271` (90,80 €) ne porte aucune TVA** — ni taux, ni montant, ni
+colonne taxe. La TVA n'apparaît qu'à partir de février, en « 20 % incl. ».
+**Aucune TVA déductible sur cette pièce**, et surtout pas de reconstitution par
+règle de trois.
+
+**4. Les noms de fichiers Doctolib sont en format américain.**
+`…_01072026.pdf` n'est pas le 1er juillet mais le **7 janvier** : MM-DD-YYYY. Lu
+en français on se trompe de six mois. Les IONOS sont en ISO et fiables. Les 18
+périodes manquantes ont été remplies depuis les pièces.
+
+### Première erreur : deux tests, une seule source
+
+J'ai refusé de vider le dossier en annonçant que les 29 pièces n'étaient pas au
+portail, sur la foi de **deux tests qui renvoyaient tous les deux 0 sur 29**.
+J'ai pris ces deux zéros pour une confirmation croisée.
+
+> **Deux tests qui partagent une source ne se vérifient pas l'un l'autre : ils
+> se trompent ensemble.** Avant de croire un faisceau de preuves, vérifier qu'il
+> ne part pas d'un seul point.
+
+### Deuxième erreur, la vraie : j'ai interrogé un fichier et ignoré l'autre
+
+Le projet contient **deux** historiques de portail :
+
+| fichier | lignes | datées | contenu |
+|---|---:|---:|---|
+| `historique_portail.txt` | 1 304 | 71 | vieil export, **1 233 lignes sans date**, antérieur au 06/10 |
+| `historique_portail_statuts.txt` | 590 | 589 | **134 dépôts du 06/10/2026**, avec statuts |
+
+Mes deux tests interrogeaient le premier. **La preuve était dans le second, que
+je n'ai jamais ouvert** — alors qu'il est passé en quatrième argument à
+`coherence.py` à chaque exécution, sous mes yeux, depuis des semaines.
+
+> **Quand un test revient vide, demander d'abord s'il regardait au bon endroit.**
+> Un fichier qu'on passe à un script sans jamais le lire soi-même n'est pas une
+> source, c'est un angle mort.
+
+J'avais même une alerte explicite : `coherence.py` imprime à chaque exécution
+« Historique arrêté au 09/10/2026 : un dépôt postérieur est INVISIBLE ici ». Je
+l'ai lu sans le voir.
+
+### Ce qui reste réellement non vérifié — et c'est ailleurs
+
+En interrogeant **les deux** historiques, sur les **235** pièces déclarées
+parties chez TGS :
+
+| | pièces | montant |
+|---|---:|---:|
+| vérifiables — numéro retrouvé au portail ou trace de dépôt datée | **188** | 67 030,46 € |
+| **non vérifiables** | **47** | **159 115,49 €** |
+
+Les 47, par montant : **SCM-LEGESMILE 2 pièces / 130 102,15 €** (à elles seules
+82 % du total — à regarder en premier), MADE-IN-LABS 7 / 20 602,96 €, COFICA
+2 / 2 707,52 €, GACD 4, NTJ 3, ONCD 2, BONGERT 4, STRAUMANN 4, EXECOM, MACSF,
+OSSEO-SHOP, MUTUALEASE, DGFIP-AMENDES, CANVA 6, ARGOAT, ORMCO, PHARMACIE, et
+5 pièces à montant nul (SEPTODONT, CMV-MEDIFORCE, ZFX 3).
+
+Sept d'entre elles **n'ont aucune référence**, donc aucun test ne peut les
+retrouver : MADE-IN-LABS 2, ZFX 2, SEPTODONT, EXECOM, ONCD.
+
+### Ce qu'il faut faire, dans l'ordre
+
+1. **Les 2 pièces SCM-LEGESMILE, 130 102,15 €.** C'est 82 % de l'inconnu sur une
+   seule ligne de fournisseur. À traiter avant tout le reste.
+2. **Réclamer à Doctolib la vraie facture de septembre.** Le duplicata est
+   déposé mais ne vaut rien en comptabilité.
+3. **Un export complet et daté du portail** — `PROMPT_AUDIT_DEPOTS_TGS.md` —
+   pour les 47. Le portail affiche ~1 460 dépôts, nos deux fichiers en couvrent
+   1 894 lignes dont beaucoup de doublons entre eux : on ne sait pas ce qui
+   manque.
+4. **Poser à Daheron** les deux questions : les Doctolib au nom du praticien, et
+   la liste de ce qu'elle détient réellement par fournisseur.
+
+### Le dossier `A DEPOSER - abonnements 06-10-2026` peut être vidé, avec réserves
+
+La vérification demandée est faite et elle confirme l'hypothèse de Lisa. Trois
+réserves, et aucune n'est un prétexte :
+
+- **les 2 pièces de décembre 2025** ne sont pas des doublons — elles ne sont pas
+  au portail, et à raison. À ranger ailleurs, pas à jeter ;
+- le **duplicata Doctolib de septembre** : le jeter est sans risque, mais il
+  faut inscrire la réclamation de la vraie facture avant, sinon le trou se
+  referme sans qu'on l'ait noté ;
+- la colonne **`emplacement`** de 27 lignes du registre pointe sur ce dossier.
+  Il faut la mettre à jour **avant** de vider, sinon 27 pièces perdent leur
+  adresse.
