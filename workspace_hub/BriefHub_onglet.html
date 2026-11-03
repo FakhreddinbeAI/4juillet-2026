@@ -1,0 +1,54 @@
+<!-- ===== ☀️ BRIEF — onglet ajouté au Workspace Hub ==========================
+     À coller juste AVANT </body> dans index.html. Ne modifie rien d'autre :
+     ajoute l'onglet « ☀️ Brief » après « Aujourd'hui », puis intercepte aller('brief').
+     Les autres onglets restent strictement identiques.
+
+     Réglages :
+       BRIEF_HEURE_SOIR → à partir de cette heure, l'onglet ouvre par défaut le brief
+                          du prochain jour ouvré (debrief du soir). Avant : aujourd'hui.
+       dir:true          → onglet visible par la Direction seulement.
+     ========================================================================= -->
+<script>
+var BRIEF_HEURE_SOIR = 15;
+
+ONGLETS.splice(1, 0, { id: 'brief', nom: '☀️ Brief', dir: true });
+
+var allerAvantBrief = aller;
+aller = function (id) {
+  if (id !== 'brief') return allerAvantBrief(id);
+  S.onglet = 'brief';
+  lsSet('hub_onglet', 'brief');
+  document.querySelectorAll('nav button').forEach(function (b) {
+    b.classList.toggle('on', b.dataset.o === 'brief');
+  });
+  vueBrief();
+};
+
+function vueBrief(forcer) {
+  if (!S.briefCible) S.briefCible = new Date().getHours() >= BRIEF_HEURE_SOIR ? 'suivant' : 'jour';
+  var cible = S.briefCible, cle = 'brief:' + cible;
+  var choix = [['jour', "Aujourd'hui"], ['suivant', 'Prochain jour ouvré']];
+
+  M('<div class="card"><h2>Brief du cabinet' +
+      '<button class="btn" style="margin-left:auto" onclick="vueBrief(true)">Recalculer</button></h2>' +
+    '<div class="chips">' + choix.map(function (c) {
+      return '<button class="' + (cible === c[0] ? 'on' : '') +
+             '" onclick="S.briefCible=\'' + c[0] + '\';vueBrief()">' + c[1] + '</button>';
+    }).join('') + '</div>' +
+    '<div id="brief-corps" class="load">Calcul en cours (agenda + classeur + Gmail)…</div></div>');
+
+  if (forcer) delete S.cache[cle];
+  charger(cle, 'getBrief', cible).then(function (d) {
+    if (S.onglet !== 'brief' || S.briefCible !== cible) return; // onglet changé entre-temps
+    remplir('brief-corps',
+      '<div id="brief-ok">' +
+        '<p class="small mute" style="margin:0 0 8px">' + esc(d.titre) + ' · calculé à ' + esc(d.calculeA) + '</p>' +
+        (d.ferme ? '<div class="note">Cabinet fermé ce jour — voir « Prochain jour ouvré ».</div>' : '') +
+        // fond clair forcé : le HTML du brief est stylé pour un mail (texte foncé), lisible même en thème sombre
+        '<div style="background:#fff;color:#1f2a44;border-radius:10px;padding:14px;overflow-x:auto">' + d.html + '</div>' +
+      '</div>');
+    // liens (lignes du classeur) : nouvel onglet, sans quitter le Hub
+    document.querySelectorAll('#brief-ok a').forEach(function (a) { a.target = '_blank'; a.rel = 'noopener'; });
+  }).catch(function (e) { remplir('brief-corps', erreur(e)); });
+}
+</script>
