@@ -1,0 +1,27 @@
+Textes des annonces. A RELIRE ET ADAPTER avant enregistrement, en particulier
+la phrase sur les urgences : c'est une consigne de soin, elle t'appartient.
+
+Un fichier son par ligne, a deposer dans /usr/share/asterisk/sounds/repondeur/
+(voir convertir_annonces.sh pour le format).
+
+accueil.wav
+  Bonjour, vous etes bien au cabinet dentaire [NOM DU CABINET]. Le secretariat
+  n'est pas disponible pour le moment. Je vais vous poser quatre courtes
+  questions pour que nous puissions vous rappeler. Parlez apres chaque bip.
+  [CONSIGNE URGENCE A REDIGER PAR LE PRATICIEN]
+
+q_nom.wav
+  Quels sont votre nom et votre prenom ?
+
+q_motif.wav
+  Quel est le motif de votre appel ?
+
+q_praticien.wav
+  Quel praticien vous suit au cabinet ?
+
+q_rappel.wav
+  A quel numero et a quel moment de la journee pouvons-nous vous rappeler ?
+
+merci.wav
+  Merci. Votre message est transmis a l'equipe, nous vous rappelons des que
+  possible. Au revoir.
