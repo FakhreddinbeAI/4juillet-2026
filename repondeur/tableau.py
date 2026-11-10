@@ -33,6 +33,7 @@ main{padding:16px;max-width:900px;margin:auto}
 .retard .etiquette.age{background:#c62828;color:#fff}
 form{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
 input[type=text]{flex:1;min-width:160px;padding:6px}select,button{padding:6px 10px}
+details{margin-top:6px;font-size:14px}pre{white-space:pre-wrap;font-family:inherit;margin:6px 0}
 audio{height:28px;vertical-align:middle;max-width:220px}
 """
 
@@ -66,6 +67,12 @@ def fiche(ligne, ouverte):
         if ligne[etape] or lecteur:
             champs += (f'<div class="champ"><b>{e(etape.capitalize())}</b> '
                        f'{e(ligne[etape])}{lecteur}</div>')
+    if os.path.exists(os.path.join(ligne["dossier"], "appel.wav")):
+        champs += (f'<div class="champ"><b>Appel</b> <audio controls preload="none" '
+                   f'src="/son/{ligne["id"]}/appel.wav"></audio></div>')
+    if ligne["transcription"]:
+        champs += (f'<details><summary>Conversation</summary>'
+                   f'<pre>{e(ligne["transcription"])}</pre></details>')
     suivi = ""
     if ligne["pris_par"]:
         suivi += f'<div class="champ"><b>Pris par</b> {e(ligne["pris_par"])}</div>'
@@ -143,6 +150,7 @@ class Tableau(BaseHTTPRequestHandler):
     def son(self, base, morceaux):
         # Seuls les fichiers prevus par les etapes sont servis : pas de chemin libre.
         permis = {f"{r}_{etape}.wav" for r, etape in enumerate(config.ETAPES, 1)}
+        permis.add("appel.wav")
         if len(morceaux) != 2 or not morceaux[0].isdigit() or morceaux[1] not in permis:
             return self.repondre(404, "Introuvable")
         ligne = base.execute("SELECT dossier FROM messages WHERE id=?",

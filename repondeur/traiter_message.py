@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS messages (
     statut TEXT NOT NULL DEFAULT 'a traiter',
     pris_par TEXT,
     note TEXT,
-    maj_le TEXT
+    maj_le TEXT,
+    transcription TEXT
 )"""
 
 
@@ -37,6 +38,9 @@ def ouvrir_base():
     base = sqlite3.connect(config.BASE)
     base.row_factory = sqlite3.Row
     base.execute(SCHEMA)
+    colonnes = [c["name"] for c in base.execute("PRAGMA table_info(messages)")]
+    if "transcription" not in colonnes:  # base creee avant l'agent vocal
+        base.execute("ALTER TABLE messages ADD COLUMN transcription TEXT")
     return base
 
 
@@ -118,16 +122,21 @@ def traiter(dossier, numero=""):
         return None  # l'appelant a raccroche avant la premiere question
 
     resume, categorie = resumer(reponses)
+    return enregistrer(dossier, numero, reponses, resume, categorie)
+
+
+def enregistrer(dossier, numero, reponses, resume, categorie, transcription=None):
+    """Cree la fiche. Sert au repondeur guide comme a l'agent vocal."""
     recu_le = datetime.now().isoformat(timespec="seconds")
     base = ouvrir_base()
     with base:
         curseur = base.execute(
             "INSERT OR IGNORE INTO messages (recu_le, numero, nom, motif, "
-            "praticien, rappel, resume, categorie, dossier, maj_le) "
-            "VALUES (?,?,?,?,?,?,?,?,?,?)",
+            "praticien, rappel, resume, categorie, dossier, maj_le, "
+            "transcription) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
             (recu_le, numero, reponses.get("nom"), reponses.get("motif"),
              reponses.get("praticien"), reponses.get("rappel"), resume,
-             categorie, dossier, recu_le))
+             categorie, os.path.abspath(dossier), recu_le, transcription))
     if not curseur.rowcount:
         return None  # appel deja traite
     prevenir(curseur.lastrowid, categorie, recu_le)

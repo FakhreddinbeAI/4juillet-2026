@@ -1,0 +1,7 @@
+A REMPLIR. L'agent ne peut donner que ce qui est ecrit ici ; pour tout le
+reste il repond qu'il le note pour l'equipe. N'ecris rien de medical.
+
+- Adresse : [A REMPLIR]
+- Horaires du secretariat : [A REMPLIR]
+- Prise de rendez-vous en ligne : sur Doctolib, en cherchant le nom du cabinet.
+- Acces et stationnement : [A REMPLIR]
